@@ -1,0 +1,84 @@
+﻿@using Pogi.Models.TeeAssignViewModels
+@model TeeAssignViewModel ;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <h2>Tee Assign</h2>
+    <h3>Directory</h3>
+    <hr />
+
+    <div class="container-fluid">
+        <div class="col-md-7">
+            <a asp-action="Create">Create New</a>
+            <hr />
+            @{
+                        int prevTeeTimeID = 0;
+                        int currTeeTimeID = 0;
+                        int playerNum = 0;
+
+                        foreach (var item in Model.TeeAssignInfos)
+                        {
+                            TeeTime teeTime = item.TeeTime;
+                            Member member = item.Member;
+                            Course course = item.Course;
+                            TeeAssign teeAssign = item.TeeAsign;
+
+                            currTeeTimeID = teeAssign.TeeTimeId;
+                            if (currTeeTimeID != prevTeeTimeID)
+                            {
+                <div class="row">
+                    <div class="alert-info col-md-3">
+                        @Html.DisplayNameFor(model => course.CourseName)
+                    </div>
+                    <div class="alert-warning col-md-5">
+                        @Html.DisplayFor(modelItem => course.CourseName)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="alert-info col-md-3">
+                        @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
+                    </div>
+                    <div class="alert-warning col-md-5">
+                        @Html.DisplayFor(modelItem => teeTime.TeeTimeTS)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="alert-info col-md-3">
+                        Reserved By
+                    </div>
+                    <div class="alert-warning col-md-5">
+                        @Html.DisplayFor(modelItem => member.FirstName)
+                        @Html.DisplayFor(modelItem => member.LastName)
+                    </div>
+                </div>
+                        playerNum = 0;
+                    }
+                    playerNum++;
+        <div class="row">
+            <div class="alert-info col-md-3">
+                Player @playerNum
+            </div>
+
+            <div class="alert-warning col-md-5">
+                @member.FirstName 
+                @member.LastName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <a asp-action="Edit" asp-route-id="@teeAssign.TeeAssignId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@teeAssign.TeeAssignId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@teeAssign.TeeAssignId">Delete</a>
+            </div>
+        </div>
+
+}
+            }
+        </div>
+    </div>
+</div>
+
+

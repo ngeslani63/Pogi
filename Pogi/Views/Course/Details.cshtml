@@ -1,0 +1,186 @@
+﻿@model Pogi.Entities.Course
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <h2>Manage Courses</h2>
+    <h4>Details</h4>
+    <hr />
+    <div class="container-fluid">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CourseName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Street)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.State)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.State)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Zip)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Zip)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par01)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par01)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par02)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par02)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par03)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par03)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par04)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par04)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par05)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par05)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par06)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par06)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par07)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par07)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par08)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par08)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par09)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par09)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par10)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par10)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par11)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par11)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par12)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par12)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par13)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par13)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par14)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par14)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par15)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par15)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par16)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par16)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par17)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par17)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Par18)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Par18)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ParIn)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParIn)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ParOut)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParOut)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ParTotal)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParTotal)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.CourseId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Pogi.Entities.Player>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MemberId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuestName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.preferTeeTimeId1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.preferTeeTimeId2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.preferTeeTimeId3)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuestName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.preferTeeTimeId1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.preferTeeTimeId2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.preferTeeTimeId3)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlayId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PlayId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PlayId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

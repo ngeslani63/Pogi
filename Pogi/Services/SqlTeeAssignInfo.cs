@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Pogi.Data;
+using Pogi.Entities;
+
+namespace Pogi.Services
+{
+
+    public class SqlTeeAssignInfo : ITeeAssignInfo
+    {
+        private PogiDbContext _context;
+
+        public SqlTeeAssignInfo(PogiDbContext context)
+        {
+            _context = context;
+        }
+        public IEnumerable<TeeAssignInfo> getAll()
+        {
+            var TeeAssigns = _context.TeeAssign.Where(r => r.RecordStatus == RecordState.Active).OrderBy(r => r.TeeTimeId);
+            List<TeeAssignInfo> TeeAssignInfos = new List<TeeAssignInfo>();
+            foreach (TeeAssign teeAssign in TeeAssigns)
+            {
+                Member member = _context.Member.FirstOrDefault(r => r.MemberId == teeAssign.MemberId);
+                TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeId == teeAssign.TeeTimeId);
+                Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
+
+                TeeAssignInfo teeAssignInfo = new TeeAssignInfo(teeAssign, teeTime, member, course);
+                TeeAssignInfos.Add(teeAssignInfo);
+            }
+            return TeeAssignInfos;
+        }
+        public List<TeeAssignInfo> getForTeeTime(int teeTimeId)
+        {
+            var TeeAssigns = _context.TeeAssign.Where(r => r.TeeTimeId == teeTimeId).OrderBy(r => r.Order);
+            List<TeeAssignInfo> TeeAssignInfos = new List<TeeAssignInfo>();
+            foreach (TeeAssign teeAssign in TeeAssigns)
+            {
+                Member member = _context.Member.FirstOrDefault(r => r.MemberId == teeAssign.MemberId);
+                TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeId == teeAssign.TeeTimeId);
+                Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
+
+                TeeAssignInfo teeAssignInfo = new TeeAssignInfo(teeAssign, teeTime, member, course);
+                TeeAssignInfos.Add(teeAssignInfo);
+            }
+            return TeeAssignInfos;
+        }
+    }
+}

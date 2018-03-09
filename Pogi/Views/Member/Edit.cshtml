@@ -1,0 +1,22 @@
+﻿@model Pogi.Entities.Member
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="container">
+    <h2>Manage Member</h2>
+    <h4>Edit</h4>
+    <hr />
+    <div class="container-fluid">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MemberId" />
+            @Html.Partial("_EditMemberPartial", Model);
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

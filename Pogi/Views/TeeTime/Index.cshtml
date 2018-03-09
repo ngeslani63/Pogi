@@ -1,0 +1,136 @@
+﻿@using Pogi.Models.TeeTimeViewModels
+@model TeeTimeViewModel ;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid">
+    <h2>Tee Time</h2>
+    <h3>Directory</h3>
+    <hr />
+
+    <div class="container-fluid">
+        <div class="col-md-7">
+            <a asp-action="Create">Add New Tee Time</a>
+            
+            
+            
+            <hr />
+            @foreach (var item in Model.TeeTimeInfos)
+            {
+                TeeTime teeTime = item.TeeTime;
+                Member member = item.Member;
+                Course course = item.Course;
+                var teeAssignInfos = item.TeeAssignInfos;
+
+        <div class="row">
+            <div class="alert-info col-md-3">
+                @Html.DisplayNameFor(model => course.CourseName)
+            </div>
+            <div class="alert-warning col-md-5">
+                @Html.DisplayFor(modelItem => course.CourseName)
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-3">
+                @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
+            </div>
+            <div class="alert-warning col-md-5">
+                @Html.DisplayFor(modelItem => teeTime.TeeTimeTS)
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-3">
+                Reserved By
+            </div>
+            <div class="alert-warning col-md-5">
+                @Html.DisplayFor(modelItem => member.FirstName)
+                @Html.DisplayFor(modelItem => member.LastName)
+            </div>
+        </div>
+        @for (int i = 0; i < teeTime.NumPlayers; i++)
+
+        {
+        <div class="row">
+            <div class="col-md-3">
+                Player @(i + 1)
+            </div>
+
+            <div class="col-md-5">
+                @if (i < teeAssignInfos.Count)
+        {
+            var teeAssignInfo = teeAssignInfos[i];
+            <span>@teeAssignInfo.Member.FirstName</span>
+            <span>@teeAssignInfo.Member.LastName</span>
+}
+else
+{
+        <span>Unassigned</span>
+}
+            </div>
+        </div>
+
+
+        }
+        <div class="row">
+            <div class="col-md-7">
+                <a asp-action="Edit" asp-route-id="@teeTime.TeeTimeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@teeTime.TeeTimeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@teeTime.TeeTimeId">Delete</a>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-7">
+                <hr />
+            </div>
+        </div>
+
+}
+        </div>
+
+        <div class="col-md-5">
+            <div class="">
+                <a asp-controller="Player" asp-action="Create">Register to Play</a>
+                <hr />
+            </div>
+            <div class="row col-md-12">
+                <div class="h4">
+                    Playing Members
+                </div>
+            </div>
+            @{
+        String prevDate = new DateTime(0).ToString("yyyyMMdd");
+                int playerCount = 1;
+                int playerTotal = 0;
+            }
+            @foreach (var item in Model.PlayerInfos)
+            {
+                DateTime nextDateTime = item.Player.PlayDate;
+                String nextDate = nextDateTime.ToString("yyyyMMdd");
+                String nextDateDisp = nextDateTime.ToString("D");
+                if (!nextDate.Equals(prevDate))
+                {
+                 @if (playerTotal > 0) {
+                    <br />
+                  }
+            <div class="row">
+                <div class="alert-info col-md-7">
+
+                    @nextDateDisp
+                </div>
+            </div>
+                    playerCount = 0;
+
+                }
+                playerCount++;
+                prevDate = nextDate;
+            <div class="row">
+                <div class="col-md-12">
+                    @playerCount. @item.Member.FirstName @item.Member.LastName
+                </div>
+            </div>
+                playerTotal++;
+            }
+        </div>
+        </div>
+    </div>

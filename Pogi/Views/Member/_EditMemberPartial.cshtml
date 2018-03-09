@@ -1,0 +1,127 @@
+﻿@model Pogi.Entities.Member
+<section>
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label asp-for="Phone1st" class="control-label"></label>
+            <input asp-for="Phone1st" class="form-control" />
+            <span asp-validation-for="Phone1st" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Phone1stType" class="control-label"></label>
+            <select asp-for="Phone1stType" asp-items="@Html.GetEnumSelectList<PhoneType>()"> class="form-control"></select>
+            <span asp-validation-for="Phone1stType" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Phone2nd" class="control-label"></label>
+            <input asp-for="Phone2nd" class="form-control" />
+            <span asp-validation-for="Phone2nd" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Phone2ndType" class="control-label"></label>
+            <select asp-for="Phone2ndType" asp-items="@Html.GetEnumSelectList<PhoneType>()"> class="form-control"></select>
+            <span asp-validation-for="Phone2ndType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="EmailAddr1st" class="control-label"></label>
+            <input asp-for="EmailAddr1st" class="form-control" />
+            <span asp-validation-for="EmailAddr1st" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="EmailAddr2nd" class="control-label"></label>
+            <input asp-for="EmailAddr2nd" class="form-control" />
+            <span asp-validation-for="EmailAddr2nd" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="RecordStatus" class="control-label"></label>
+            <select asp-for="RecordStatus" asp-items="@Html.GetEnumSelectList<RecordState>()" class="form-control"></select>
+            <span asp-validation-for="RecordStatus" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="MemberStatus" class="control-label"></label>
+            <select asp-for="MemberStatus" asp-items="@Html.GetEnumSelectList<MemberState>()" class="form-control"></select>
+            <span asp-validation-for="MemberStatus" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="Profession" class="control-label"></label>
+            <input asp-for="Profession" class="form-control" />
+            <span asp-validation-for="Profession" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="MaritalStatus" class="control-label"></label>
+        <select asp-for="MaritalStatus" asp-items="@Html.GetEnumSelectList<MaritalState>()" class="form-control"></select>
+        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-xs-12">
+            <hr />
+            <label class="control-label">ADDRESS</label>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-12">
+            <label asp-for="Street" class="control-label"></label>
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-7">
+            <label asp-for="City" class="control-label"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="State" class="control-label"></label>
+            <select asp-for="State" asp-items="@Html.GetEnumSelectList<StateCode>()" class="form-control"></select>
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Zip" class="control-label"></label>
+            <input asp-for="Zip" class="form-control" />
+            <span asp-validation-for="Zip" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group  col-md-12">
+            <label asp-for="Country" class="control-label"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group  col-md-6">
+            <label asp-for="GhinNumber" class="control-label"></label>
+            <input asp-for="GhinNumber" class="form-control" />
+            <span asp-validation-for="GhinNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="CurrHandicap" class="control-label"></label>
+            <input asp-for="CurrHandicap" class="form-control" />
+            <span asp-validation-for="CurrHandicap" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group  col-md-12">
+            <input type="submit" value="@ViewData["Title"]" class="btn btn-primary" />
+        </div>
+    </div>
+</section>

@@ -1,0 +1,29 @@
+﻿@model Pogi.Entities.Course
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="container">
+    <h2>Manage Courses</h2>
+    <h4>Edit</h4>
+    <hr />
+    <div class="container-fluid">
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CourseId" />
+            @Html.Partial("_EditCoursePartial", Model);
+
+        </form>
+
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

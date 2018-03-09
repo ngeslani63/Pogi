@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Pogi.Data;
+using Pogi.Entities;
+using Pogi.Models.TeeTimeViewModels;
+
+namespace Pogi.Services
+{
+    public class SqlTeeTimeInfo : ITeeTimeInfo
+    {
+        private PogiDbContext _context;
+		private ITeeAssignInfo _teeAssignInfo;
+        public SqlTeeTimeInfo(PogiDbContext context, ITeeAssignInfo teeAssignInfo)
+        {
+            _context = context;
+			_teeAssignInfo = teeAssignInfo;
+        }
+        public IEnumerable<TeeTimeInfo> getAll()
+        {
+            var TeeTimes =  _context.TeeTime.OrderBy(r => r.TeeTimeTS);
+			
+            List<TeeTimeInfo> TeeTimeInfos = new List<TeeTimeInfo>();
+            foreach(TeeTime teeTime in TeeTimes)
+            {
+                Member member = _context.Member.FirstOrDefault(r => r.MemberId == teeTime.ReservedById);
+                Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
+				List<TeeAssignInfo> teeAssignInfos =_teeAssignInfo.getForTeeTime(teeTime.TeeTimeId);
+	                TeeTimeInfo teeTimeInfo= new TeeTimeInfo(teeTime, member,course,teeAssignInfos);
+
+                TeeTimeInfos.Add(teeTimeInfo);
+            }
+            return TeeTimeInfos;
+        }
+    }
+}
