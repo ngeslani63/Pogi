@@ -20,6 +20,10 @@ namespace Pogi.Services
         {
             return _context.Member.FirstOrDefault(r => r.MemberId == memberId);
         }
+        public Member getByEmailAddr(string emailAddr)
+        {
+            return _context.Member.FirstOrDefault(r => r.EmailAddr1st == emailAddr);
+        }
 
         public IEnumerable<Member> getAll()
         {

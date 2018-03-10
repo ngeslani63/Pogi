@@ -72,9 +72,11 @@
             <span asp-validation-for="MaritalStatus" class="text-danger"></span>
         </div>
     </div>
+    <hr />
     <div class="form-row ">
+
         <div class="form-group col-xs-12">
-            <hr />
+
             <label class="control-label">ADDRESS</label>
         </div>
     </div>
@@ -105,25 +107,31 @@
     <div class="form-row">
         <div class="form-group  col-md-12">
             <label asp-for="Country" class="control-label"></label>
-            <input disabled asp-for="Country" value ="USA" class="form-control" />
+            <input disabled asp-for="Country" value="USA" class="form-control" />
             <span asp-validation-for="Country" class="text-danger placeholder="0"></span>
         </div>
     </div>
     <div class="form-row ">
         <div class="form-group  col-md-6">
             <label asp-for="GhinNumber" class="control-label"></label>
-            <input id="GhinNumber" asp-for="GhinNumber" value="0" class="form-control" >
+            <input id="GhinNumber" asp-for="GhinNumber" value="0" class="form-control">
             <span asp-validation-for="GhinNumber" class="text-danger"></span>
         </div>
         <div class="form-group col-md-6">
             <label asp-for="CurrHandicap" class="control-label"></label>
-            <input id="CurrHandicapr" asp-for="CurrHandicap" value="0" class="form-control"  />
+            <input id="CurrHandicapr" asp-for="CurrHandicap" value="0" class="form-control" />
             <span asp-validation-for="CurrHandicap" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group  col-md-12">
             <input type="submit" value="@ViewData["Save"]" class="btn btn-primary" />
+            <span>
+                <a class="btn btn-primary" href="/Member" role="button">Cancel</a>
+            </span>
+
         </div>
+
+
     </div>
 </section>

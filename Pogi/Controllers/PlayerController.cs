@@ -2,21 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pogi.Data;
 using Pogi.Entities;
+using Pogi.Models;
+using Pogi.Models.PlayerViewModels;
+using Pogi.Services;
 
 namespace Pogi.Controllers
 {
+    [Authorize]
     public class PlayerController : Controller
     {
         private readonly PogiDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMemberData _memberData;
 
-        public PlayerController(PogiDbContext context)
+        public PlayerController(PogiDbContext context, SignInManager<ApplicationUser> signInManager,
+                UserManager<ApplicationUser> userManager, IMemberData memberData)
         {
             _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _memberData = memberData;
         }
 
         // GET: Player
@@ -46,7 +59,14 @@ namespace Pogi.Controllers
         // GET: Player/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new PlayerViewModel();
+            model.Members = _memberData.getAll();
+            if (_signInManager.IsSignedIn(User))
+            {
+               model.Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                model.Player.MemberId = model.Member.MemberId;
+            }
+            return View(model);
         }
 
         // POST: Player/Create
@@ -54,15 +74,24 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PlayId,MemberId,GuestName,PlayDate,Order,preferTeeTimeId1,preferTeeTimeId2,preferTeeTimeId3")] Player players)
+        //public async Task<IActionResult> Create([Bind("PlayId,MemberId,GuestName,PlayDate")] Player players)
+        public async Task<IActionResult> Create(PlayerViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(players);
+                Player player = model.Player;
+                if (model.PlayerPlaying == true)
+                {
+                    _context.Add(player);
+                }
+                if (model.Player.GuestName != null && model.Player.GuestName.Length > 0)
+                {
+
+                }
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","TeeTime" );
             }
-            return View(players);
+            return View(model);
         }
 
         // GET: Player/Edit/5

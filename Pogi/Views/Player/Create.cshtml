@@ -1,33 +1,60 @@
-﻿@model Pogi.Entities.Player
+﻿@model Pogi.Models.PlayerViewModels.PlayerViewModel
 
 @{
     ViewData["Title"] = "Create";
+    Member member = @Model.Member;
+    Player player = @Model.Player;
 }
 
-<h2>Create</h2>
+<br />
 
-<h4>Players</h4>
+<h2>Player</h2>
+
+<h4>Registration</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
+<div class="container">
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="alert-info col ">
+                @Html.DisplayFor(modelItem => member.FirstName)
+                @Html.DisplayFor(modelItem => member.LastName)
             </div>
-            <div class="form-group">
-                <label asp-for="GuestName" class="control-label"></label>
-                <input asp-for="GuestName" class="form-control" />
-                <span asp-validation-for="GuestName" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+
+    <form asp-action="Create">
+        <div class="form-row">
+            <input type="hidden" asp-for="Player.MemberId" />
+            <div class="col col-md-6">
+                <div class="form-group form-check-inline">
+                    <label asp-for="PlayerPlaying" class="control-label "></label>
+                    <input asp-for="PlayerPlaying" class="form-control" />
+                    <span asp-validation-for="PlayerPlaying" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PlayDate" class="control-label"></label>
-                <input asp-for="PlayDate" class="form-control" />
-                <span asp-validation-for="PlayDate" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <label asp-for="Player.GuestName" class="control-label"></label>
+                    <input asp-for="Player.GuestName" class="form-control" />
+                    <span asp-validation-for="Player.GuestName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
+        </div>
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <label asp-for="Player.PlayDate" class="control-label"></label>
+                    <input asp-for="Player.PlayDate" class="form-control" />
+                    <span asp-validation-for="Player.PlayDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+
+        @*<div class="form-group">
                 <label asp-for="Order" class="control-label"></label>
                 <input asp-for="Order" class="form-control" />
                 <span asp-validation-for="Order" class="text-danger"></span>
@@ -46,18 +73,27 @@
                 <label asp-for="preferTeeTimeId3" class="control-label"></label>
                 <input asp-for="preferTeeTimeId3" class="form-control" />
                 <span asp-validation-for="preferTeeTimeId3" class="text-danger"></span>
+            </div>*@
+        <br />
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
+    </form>
+
+    <div class="row">
+        <div>
+            <a asp-controller="TeeTime" asp-action="Index">Back to Tee Times</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

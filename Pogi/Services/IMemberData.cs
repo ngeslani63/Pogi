@@ -12,5 +12,7 @@ namespace Pogi.Services
         IEnumerable<Member> getAll();
         Member get(int memberId);
 
+        Member getByEmailAddr(string emailAddr);
+
     }
 }
