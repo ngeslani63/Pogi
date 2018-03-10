@@ -106,34 +106,39 @@
                 int playerTotal = 0;
                 }
                 @foreach (var item in Model.PlayerInfos)
-            {
-                DateTime nextDateTime = item.Player.PlayDate;
-                String nextDate = nextDateTime.ToString("yyyyMMdd");
-                String nextDateDisp = nextDateTime.ToString("D");
-                if (!nextDate.Equals(prevDate))
                 {
-                    @if (playerTotal > 0)
-                {
-                    <br />
-            }
-                    <div class="row">
-                        <div class="alert-info col-md-7">
-
-                            @nextDateDisp
+                    DateTime nextDateTime = item.Player.PlayDate;
+                    String nextDate = nextDateTime.ToString("yyyyMMdd");
+                    String nextDateDisp = nextDateTime.ToString("D");
+                    if (!nextDate.Equals(prevDate))
+                        {
+                            @if (playerTotal > 0)
+                            {
+                                <br />
+                            }
+                            <div class="row">
+                            <div class="alert-info col-md-7">
+                                @nextDateDisp
+                            </div>
+                            </div>
+                            playerCount = 0;
+                        }
+                        playerCount++;
+                        prevDate = nextDate;
+                        <div class="row">
+                            <div class="col-md-12">
+                                @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
+                                {
+                                <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
+                                }
+                                else
+                                {
+                                    <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
+                                }
+                            </div>
                         </div>
-                    </div>
-                playerCount = 0;
-
-            }
-            playerCount++;
-            prevDate = nextDate;
-            <div class="row">
-                <div class="col-md-12">
-                    @playerCount. @item.Member.FirstName @item.Member.LastName
-                </div>
-            </div>
-        playerTotal++;
-    }
+                        playerTotal++;
+                 }
             </div>
         </div>
     </div>

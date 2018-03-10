@@ -80,14 +80,29 @@ namespace Pogi.Controllers
             if (ModelState.IsValid)
             {
                 Player player = model.Player;
-                if (model.PlayerPlaying == true)
+                if (!model.MemberPlaying &&
+                    (model.Player.GuestName == null || model.Player.GuestName.Length == 0))
                 {
-                    _context.Add(player);
+                    ModelState.AddModelError("MemberPlaying", "Check Member or specify Guest");
+                    return View(model);
                 }
                 if (model.Player.GuestName != null && model.Player.GuestName.Length > 0)
                 {
-
+                    Player guest = new Player();
+                    guest.MemberId = player.MemberId;
+                    guest.GuestName = player.GuestName;
+                    guest.PlayDate = player.PlayDate;
+                    guest.preferTeeTimeId1 = player.preferTeeTimeId1;
+                    guest.preferTeeTimeId2 = player.preferTeeTimeId2;
+                    guest.preferTeeTimeId3 = player.preferTeeTimeId3;
+                    _context.Add(guest);
                 }
+                if (model.MemberPlaying == true)
+                {
+                    player.GuestName = "";
+                    _context.Add(player);
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","TeeTime" );
             }

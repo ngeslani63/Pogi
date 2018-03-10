@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\TeeTimeControllerX.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\images\banner1.svg" />
     <Content Remove="wwwroot\images\banner1o.svg" />
     <Content Remove="wwwroot\images\banner1x.cdr" />
@@ -24,6 +28,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" PrivateAssets="All" />
+    <PackageReference Include="smalot.bootstrap-datetimepicker" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>

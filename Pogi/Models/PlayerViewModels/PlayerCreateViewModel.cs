@@ -18,7 +18,7 @@ namespace Pogi.Models.PlayerViewModels
 
             Player = new Player();
             Player.PlayDate = nextSaturday;
-            PlayerPlaying = true;
+            MemberPlaying = true;
             GuestPlaying = false;
 
         }
@@ -27,7 +27,7 @@ namespace Pogi.Models.PlayerViewModels
         public Member Member { get; set; }
 
         [Display(Name = "Member Playing")]
-        public bool PlayerPlaying { get; set; }
+        public bool MemberPlaying { get; set; }
         [Display(Name = "Guest Playing")]
         public bool GuestPlaying { get; set; }
 
