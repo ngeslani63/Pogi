@@ -60,12 +60,12 @@
                 @if (i < teeAssignInfos.Count)
         {
             var teeAssignInfo = teeAssignInfos[i];
-            <span>@teeAssignInfo.Member.FirstName</span>
+            <span class="border border-primary">@teeAssignInfo.Member.FirstName</span>
             <span>@teeAssignInfo.Member.LastName</span>
 }
 else
 {
-        <span>Unassigned</span>
+        <span class="border">Unassigned</span>
 }
             </div>
         </div>

@@ -32,10 +32,13 @@ namespace Pogi
             services.AddScoped<ITeeAssignInfo, SqlTeeAssignInfo>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PogiIdentityDb")));
+                options.UseSqlServer(Configuration.GetConnectionString("PogiDb")));
 
             services.AddDbContext<PogiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PogiDb")));
+
+            services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<PogiDbContext>().Database.Migrate();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
