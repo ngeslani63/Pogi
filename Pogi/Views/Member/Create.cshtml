@@ -1,7 +1,9 @@
-﻿@model Pogi.Entities.Member
+﻿@using Pogi.Entities
+@model Member
 
 @{
     ViewData["Title"] = "Create";
+    ViewData["Save"] = "Create";
 }
 <br />
 <div class="container">
@@ -25,3 +27,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

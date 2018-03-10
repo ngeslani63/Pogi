@@ -65,10 +65,12 @@
             <span asp-validation-for="Profession" class="text-danger"></span>
         </div>
     </div>
-    <div class="form-group col-md-6">
-        <label asp-for="MaritalStatus" class="control-label"></label>
-        <select asp-for="MaritalStatus" asp-items="@Html.GetEnumSelectList<MaritalState>()" class="form-control"></select>
-        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="MaritalStatus" class="control-label"></label>
+            <select asp-for="MaritalStatus" asp-items="@Html.GetEnumSelectList<MaritalState>()" class="form-control"></select>
+            <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+        </div>
     </div>
     <div class="form-row ">
         <div class="form-group col-xs-12">
@@ -89,7 +91,7 @@
             <input asp-for="City" class="form-control" />
             <span asp-validation-for="City" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-2">
+        <div id="State" class="form-group col-md-2">
             <label asp-for="State" class="control-label"></label>
             <select asp-for="State" asp-items="@Html.GetEnumSelectList<StateCode>()" class="form-control"></select>
             <span asp-validation-for="State" class="text-danger"></span>
@@ -103,25 +105,25 @@
     <div class="form-row">
         <div class="form-group  col-md-12">
             <label asp-for="Country" class="control-label"></label>
-            <input asp-for="Country" class="form-control" />
-            <span asp-validation-for="Country" class="text-danger"></span>
+            <input disabled asp-for="Country" value ="USA" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger placeholder="0"></span>
         </div>
     </div>
     <div class="form-row ">
         <div class="form-group  col-md-6">
             <label asp-for="GhinNumber" class="control-label"></label>
-            <input asp-for="GhinNumber" class="form-control" />
+            <input id="GhinNumber" asp-for="GhinNumber" value="0" class="form-control" >
             <span asp-validation-for="GhinNumber" class="text-danger"></span>
         </div>
         <div class="form-group col-md-6">
             <label asp-for="CurrHandicap" class="control-label"></label>
-            <input asp-for="CurrHandicap" class="form-control" />
+            <input id="CurrHandicapr" asp-for="CurrHandicap" value="0" class="form-control"  />
             <span asp-validation-for="CurrHandicap" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group  col-md-12">
-            <input type="submit" value="@ViewData["Title"]" class="btn btn-primary" />
+            <input type="submit" value="@ViewData["Save"]" class="btn btn-primary" />
         </div>
     </div>
 </section>

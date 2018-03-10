@@ -7,22 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pogi.Data;
 using Pogi.Entities;
+using Pogi.Services;
 
 namespace Pogi.Controllers
 {
     public class MemberController : Controller
     {
         private readonly PogiDbContext _context;
+        private readonly IMemberData _memberData;
 
-        public MemberController(PogiDbContext context)
+        public MemberController(PogiDbContext context, IMemberData sqlMemberData)
         {
             _context = context;
+            _memberData = sqlMemberData;
         }
 
         // GET: Member
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Member.ToListAsync());
+            var model = _memberData.getAll();
+            return View(model);
+            //return View(await _context.Member.ToListAsync());
         }
 
         // GET: Member/Details/5
