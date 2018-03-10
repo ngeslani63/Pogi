@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Pogi.Models.PlayerViewModels
 {
-    public class PlayerViewModel
+    public class PlayerCreateViewModel
     {
-        public PlayerViewModel()
+        public PlayerCreateViewModel()
         {
             DateTime today = DateTime.Today;
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]

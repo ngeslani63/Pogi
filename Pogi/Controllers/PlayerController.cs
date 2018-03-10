@@ -59,7 +59,7 @@ namespace Pogi.Controllers
         // GET: Player/Create
         public IActionResult Create()
         {
-            var model = new PlayerViewModel();
+            var model = new PlayerCreateViewModel();
             model.Members = _memberData.getAll();
             if (_signInManager.IsSignedIn(User))
             {
@@ -75,7 +75,7 @@ namespace Pogi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("PlayId,MemberId,GuestName,PlayDate")] Player players)
-        public async Task<IActionResult> Create(PlayerViewModel model)
+        public async Task<IActionResult> Create(PlayerCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
