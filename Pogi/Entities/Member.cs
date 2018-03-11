@@ -7,6 +7,12 @@ namespace Pogi.Entities
 {
     public class Member
     {
+        public Member()
+        {
+            Phone1stType = PhoneType.Mobile;
+            State = StateCode.NJ;
+            CurrHandicap = (float)0.00;
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberId { get; set; }
         [Display(Name = "First Name")]
@@ -48,11 +54,9 @@ namespace Pogi.Entities
         public string Zip { get; set; }
         public string Country { get; set; }
         [Display(Name = "GHIN")]
-        [DefaultValue(0)]
         public int GhinNumber { get; set; }
         [Display(Name = "Current Handicap")]
-        [DefaultValue(0)]
-        public int CurrHandicap { get; set; }
+        public float  CurrHandicap { get; set; }
         
     }
 }

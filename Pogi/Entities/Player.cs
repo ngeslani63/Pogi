@@ -9,6 +9,11 @@ namespace Pogi.Entities
     {
         public Player()
         {
+            DateTime today = DateTime.Today;
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysUntilSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek + 7) % 7;
+            DateTime nextSaturday = today.AddDays(daysUntilSaturday);
+            PlayDate = nextSaturday;
             GuestName = "";
             Order = 0;
             preferTeeTimeId1 = 0;
@@ -19,7 +24,7 @@ namespace Pogi.Entities
         public int PlayId { get; set; }
         public int MemberId { get; set; }
         public string GuestName { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime PlayDate { get; set; }
         [DefaultValue(0)]
         public int Order { get; set; }

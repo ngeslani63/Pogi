@@ -52,7 +52,8 @@ namespace Pogi.Controllers
         // GET: Member/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Member();
+            return View(model);
         }
 
         // POST: Member/Create
