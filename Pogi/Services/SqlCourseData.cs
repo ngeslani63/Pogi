@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Data;
 using Pogi.Entities;
 
@@ -37,6 +38,17 @@ namespace Pogi.Services
         public IEnumerable<Course> getAll()
         {
             return _context.Course.OrderBy(r => r.CourseName);
+        }
+        public List<SelectListItem> getSelectList()
+        {
+            List<SelectListItem> courseList = new List<SelectListItem>();
+            IEnumerable < Course > courses = _context.Course.OrderBy(r => r.CourseName);
+            foreach (Course course in courses)
+            {
+                SelectListItem sl = new SelectListItem { Text = course.CourseName, Value = course.CourseId.ToString() };
+                courseList.Add(sl);
+            }
+            return courseList;
         }
 
         public Course update(Course course)

@@ -1,0 +1,42 @@
+﻿@model Pogi.Models.TeeTimeViewModels.TeeTimeCreateViewModel
+<section>
+    <div class="form-row">
+        <input type="hidden" asp-for="ReservedById" />
+        <input type="hidden" asp-for="TeeTimeId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col col-md-4">
+            <div class="form-group">
+                <label asp-for="TeeTimeTS" class="control-label"></label>
+                <input asp-for="TeeTimeTS" type="datetime" asp- class="form-control" />
+                <span asp-validation-for="TeeTimeTS" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col col-md-4">
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label"></label>
+                <select asp-for="CourseId" asp-items="@Model.Courses" class="form-control"></select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col col-md-4">
+            <div class="form-group">
+                <label asp-for="NumPlayers" class="control-label"></label>
+                <input asp-for="NumPlayers" class="form-control" />
+                <span asp-validation-for="NumPlayers" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-4">
+            <div class="form-group">
+                <input type="submit" value="@ViewData["Save"]" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</section>

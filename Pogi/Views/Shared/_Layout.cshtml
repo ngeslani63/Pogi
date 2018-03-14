@@ -10,7 +10,6 @@
     <title>POGI</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/bootstrat-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
@@ -21,6 +20,8 @@
 
     <!-- Light Gallery -->
     <link href="~/lib/lightgallery/dist/css/lightgallery.css" rel="stylesheet" />
+    <link href="~/lib/lightgallery/dist/css/lg-transitions.css" rel="stylesheet" />
+    <link href="~/lib/lightgallery/dist/css/lg-fb-comment-box.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -93,29 +94,34 @@
         });
     </script>
 
-    <!-- A jQuery plugin that adds cross-browser mouse wheel support. (Optional) -->
-    <script src="~/lib/lightgallery/lib/jquery.mousewheel.min.js"></script>
-    <script src="~/lib/lightgallery/dist/js/lightgallery.js"></script>
-    <script src="~/lib/lg-fullscreen/dist/lg-fullscreen.js"></script>
-    <script src="~/lib/lg-thumbnail/dist/lg-thumbnail.js"></script>
-    <script src="~/lib/lg-zoom/dist/lg-zoom.js"></script>
+
+    <script src="~/lib/lightgallery/dist/js/lightgallery-all.js"></script>
+    @*<script src="~/lib/lightgallery/lib/jquery.mousewheel.min.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-autoplay.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-fullscreen.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-hash.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-pager.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-share.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-thumbnail.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-video.js"></script>
+    <script src="~/lib/lightgallery/modules/lg-zoom.js"></script>*@
 
     <script>
-        console.info("Hello From Layout");
+        //console.info("Hello From Layout");
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            console.info("Hello before lightGallery Call");
+
             //require(['~/lib/lightgallery/dist/js/lightgallery.js'], function () {
             //    require(["~/lib/lg-zoom/dist/lg-zoom.js", "~/lib/lg-thumbnail/dist/lg-thumbnail.js"], function () {
             //        $("#lightgallery").lightGallery();
             //    });
             //});
-            console.info("Hello afer lightGallery Call");
+
         });
     </script>
 
 
     @RenderSection("Scripts", required: false)
 </body>
-</html>
+    </html>

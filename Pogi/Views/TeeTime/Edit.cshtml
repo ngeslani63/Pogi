@@ -1,55 +1,31 @@
-﻿@model Pogi.Entities.TeeTime
+﻿@model Pogi.Models.TeeTimeViewModels.TeeTimeCreateViewModel
 
 @{
     ViewData["Title"] = "Edit";
+    ViewData["Save"] = "Save";
+    Member member = @Model.Member;
 }
 <br />
-<h2>Edit</h2>
-
-<h4>TeeTime</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="container">
+    <br />
+    <h2>TeeTime</h2>
+    <h4>Edit</h4>
+    <hr />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="alert-info col-md-4">
+                Reserved by
+                @Html.DisplayFor(modelItem => member.FirstName)
+                @Html.DisplayFor(modelItem => member.LastName)
+            </div>
+        </div>
+        <br />
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TeeTimeId" />
-            <div class="form-group">
-                <label asp-for="ReservedById" class="control-label"></label>
-                <input asp-for="ReservedById" class="form-control" />
-                <span asp-validation-for="ReservedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TeeTimeTS" class="control-label"></label>
-                <input asp-for="TeeTimeTS" class="form-control" />
-                <span asp-validation-for="TeeTimeTS" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <input asp-for="CourseId" class="form-control" />
-                <span asp-validation-for="CourseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumPlayers" class="control-label"></label>
-                <input asp-for="NumPlayers" class="form-control" />
-                <span asp-validation-for="NumPlayers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="AutoAssign" /> @Html.DisplayNameFor(model => model.AutoAssign)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+            @Html.Partial("_EditTeeTimePartial", Model)
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
