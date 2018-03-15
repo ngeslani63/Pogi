@@ -11,6 +11,11 @@ namespace Pogi.Entities
 {
     public class Course
     {
+        public Course()
+        {
+            State = StateCode.NJ;
+            Country = "USA";
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CourseId { get; set; }
         [Display(Name = "Golf Course")]

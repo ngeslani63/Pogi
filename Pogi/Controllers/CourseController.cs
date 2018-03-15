@@ -48,7 +48,8 @@ namespace Pogi.Controllers
         // GET: Course/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Course();
+            return View(model);
         }
 
         // POST: Course/Create

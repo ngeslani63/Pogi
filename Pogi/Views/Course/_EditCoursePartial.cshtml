@@ -180,21 +180,23 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-sm-2 pull-left">
+            <div class="form-group col-sm-2">
                 <label asp-for="ParTotal" class="control-label"></label>
                 <input asp-for="ParTotal" class="form-control" />
                 <span asp-validation-for="ParTotal" class="text-danger"></span>
             </div>
         </div>
+        <div class="form-row">
+               <div class="form-group col-sm-6">
+                   <div class="form-group">
+                       <input type="submit" value="Save" class="btn btn-primary" />
+                       <a asp-action="Index" class="btn btn-primary">Back to Course List</a>
+                   </div>
+            </div>
 
-    </div>
-
-    <div class="form-row">
-        <hr />
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
         </div>
-    </div>
+
+
 
 
 </section>

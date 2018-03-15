@@ -14,14 +14,10 @@
         <form asp-action="Create">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @Html.Partial("_EditCoursePartial", Model);
+            @Html.Partial("_EditCoursePartial", Model)
 
         </form>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 </div>
 
 @section Scripts {
