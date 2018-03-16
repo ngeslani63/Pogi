@@ -3,13 +3,17 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject Pogi.Services.IMemberData MemberData
 
 @if (SignInManager.IsSignedIn(User))
 {
+    var userName = UserManager.GetUserName(User);
+    Member member = MemberData.getByEmailAddr(userName.Trim().ToLower());
+    if (member != null) { userName = member.FirstName; }
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a class="nav-link" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @userName</a>
             </li>
             <li>
                 <button type="submit" class="nav-link btn btn-link navbar-btn navbar-link">Log out</button>

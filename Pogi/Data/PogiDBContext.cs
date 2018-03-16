@@ -29,6 +29,8 @@ namespace Pogi.Data
             .HasKey(c => new { c.CourseId, c.Color });
             modelBuilder.Entity<TeeAssign>().HasIndex(
             c => new { c.TeeTimeId, c.MemberId }).IsUnique(false);
+            modelBuilder.Entity<Member>().HasIndex(
+            c => new { c.EmailAddr1st }).IsUnique(true);
         }
     }
 }
