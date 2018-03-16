@@ -102,12 +102,12 @@
             <div class="col-md-2">
 
             </div>
-            @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
+            @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminUser"))
         {
             <div class="col-md-10">
-                <a asp-action="Edit" asp-route-id="@item.MemberId">&#x270f;</a> |
+                <a asp-action="Edit" asp-route-id="@item.MemberId">&#x270f;</a> | 
                 @*<a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |*@
-                <a asp-asp-action="Index" asp-route-id="@item.MemberId">&#xe083;</a>
+                <a asp-action="Delete" asp-route-id="@item.MemberId">&#xe083;</a>
             </div>
     }
         </div>
