@@ -174,6 +174,16 @@ namespace Pogi.Controllers
             {
                 return NotFound();
             }
+            var model = new PlayerCreateViewModel();
+            //model.Members = _memberData.getAll();
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.Member = _memberData.get(players.MemberId);
+                model.Player.MemberId = model.Member.MemberId;
+            }
+            return View(model);
+
+
 
             return View(players);
 

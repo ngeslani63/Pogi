@@ -1,63 +1,64 @@
-﻿@model Pogi.Entities.Player
+﻿@model Pogi.Models.PlayerViewModels.PlayerCreateViewModel
 
 @{
     ViewData["Title"] = "Delete";
+    Member member = @Model.Member;
+    Player player = @Model.Player;
 }
+<br />
+<h2>Player</h2>
 
-<h2>Delete</h2>
+<h5>Do you really want to withdraw your registration?</h5>
+<hr />
+<div class="container">
+    <div class="row">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Players</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MemberId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GuestName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GuestName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PlayDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Order)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Order)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.preferTeeTimeId1)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.preferTeeTimeId1)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.preferTeeTimeId2)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.preferTeeTimeId2)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.preferTeeTimeId3)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.preferTeeTimeId3)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="PlayId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+        <div class="alert-info col-md-2">
+            Member
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => member.FirstName)
+            @Html.DisplayFor(modelItem => member.LastName)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="alert-info col-md-2">
+            Playing
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => modelItem.MemberPlaying)
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="alert-info col-md-2">
+            @Html.DisplayNameFor(modelItem => player.GuestName)
+        </div>
+        <div class="col-md-4 ">
+            @Html.DisplayFor(modelItem => player.GuestName)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="alert-info col-md-2">
+            @Html.DisplayNameFor(modelItem => player.PlayDate)
+        </div>
+        <div class="col-md-4 ">
+             @Html.DisplayFor(modelItem => player.PlayDate)
+        </div>
+ 
+    </div>
+
+    <br />
+    <div class="row">
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="@player.PlayId" />
+            <input type="submit" value="Delete" class="btn btn-primary" />
+            <span>  </span>
+            <a class="btn btn-primary" asp-controller="TeeTime" asp-action="Index">Cancel</a>
+        </form>
+    </div>
 </div>
