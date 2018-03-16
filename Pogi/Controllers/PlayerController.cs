@@ -176,6 +176,8 @@ namespace Pogi.Controllers
             }
 
             return View(players);
+
+
         }
 
         // POST: Player/Delete/5
@@ -186,7 +188,8 @@ namespace Pogi.Controllers
             var players = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
             _context.Player.Remove(players);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "TeeTime");
         }
 
         private bool PlayersExists(int id)

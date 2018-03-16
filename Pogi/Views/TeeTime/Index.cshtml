@@ -77,8 +77,8 @@
                 <div class="row">
                     <div class="col-md-7">
                          @if (Model.User != null && (Model.User.MemberId == teeTime.ReservedById || Model.User.MemberId == 1)) {
-                            <a asp-action = "Edit" asp-route-id = "@teeTime.TeeTimeId" >Edit </a ><span>|</span>
-                            <a asp-action = "Delete" asp-route-id = "@teeTime.TeeTimeId" >Delete</a >
+                        <a asp-action="Edit" asp-route-id="@teeTime.TeeTimeId">&#x270f;</a><span> | </span>
+                         <a asp-action="Delete" asp-route-id="@teeTime.TeeTimeId">&#xe083;</a>
                          }
                     </div>
                   </div>
@@ -126,20 +126,30 @@
                         }
                         playerCount++;
                         prevDate = nextDate;
-                        <div class="row">
-                            <div class="col-md-12">
-                                @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
-                                {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
+    {
                                 <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
-                                }
-                                else
-                                {
-                                    <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
-                                }
+}
+else
+{
+                                <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
+}
+                                    @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId ))
+                                    {
+                                        <a asp-controller="Player" asp-action="Delete"
+                                            asp-route-id="@item.Player.PlayId">
+                                            <span>&#xe083;</span>
+
+                                        </a>
+                                    }
+                                </div>
+
                             </div>
-                        </div>
-                        playerTotal++;
-                 }
+
+                    playerTotal++;
+                }
             </div>
         </div>
     </div>
