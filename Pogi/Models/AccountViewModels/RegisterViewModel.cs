@@ -8,6 +8,9 @@ namespace Pogi.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
+        public RegisterViewModel()
+        {
+        }        
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -23,5 +26,6 @@ namespace Pogi.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public string StatusMessage { get; set; }
     }
 }

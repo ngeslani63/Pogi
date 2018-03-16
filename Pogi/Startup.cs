@@ -11,14 +11,24 @@ using Microsoft.Extensions.DependencyInjection;
 using Pogi.Data;
 using Pogi.Models;
 using Pogi.Services;
+using Microsoft.Extensions.Options;
 
 namespace Pogi
 {
     public class Startup
     {
+        private string apiKey;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //var builder = new ConfigurationBuilder();
+            //if (env.IsDevelopment())
+            //    builder.AddUserSecrets<AuthMessageSenderOptions>();
+            //builder.AddEnvironmentVariables();
+            //var dom = builder.Build();
+            //Configuration = dom;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -41,7 +51,10 @@ namespace Pogi
             services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
             services.BuildServiceProvider().GetService<PogiDbContext>().Database.Migrate();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -75,21 +88,27 @@ namespace Pogi
                 options.SlidingExpiration = true;
 
             });
-            services.Configure<SignInOptions>(signin =>
-            {
-                // SignIn settings
-                signin.RequireConfirmedEmail = true;
-            });
+            //services.Configure<SignInOptions>(signin =>
+            //{
+            //    // SignIn settings
+            //    signin.RequireConfirmedEmail = true;
+            //});
 
 
-                // Add application services.
-                services.AddTransient<IEmailSender, EmailSender>();
+            // Add application services.
+            //services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSingleton<IEmailSender, EmailSender>();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            apiKey = Configuration.GetSection("SENDGRID_API_KEY").Value;
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
             if (env.IsDevelopment())
             {
@@ -101,6 +120,8 @@ namespace Pogi
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            if (env.IsProduction())
+                optionsAccessor.Value.SendGridKey = apiKey;
 
             app.UseStaticFiles();
 

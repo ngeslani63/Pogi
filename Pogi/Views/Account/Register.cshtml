@@ -2,8 +2,9 @@
 @{
     ViewData["Title"] = "Register";
 }
-
+<br />
 <h2>@ViewData["Title"]</h2>
+@Html.Partial("_StatusMessage", Model.StatusMessage)
 
 <div class="row">
     <div class="col-md-4">

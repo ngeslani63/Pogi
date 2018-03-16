@@ -39,6 +39,8 @@ namespace Pogi.Controllers
 
         [TempData]
         public string ErrorMessage { get; set; }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         [HttpGet]
         [AllowAnonymous]
@@ -206,10 +208,13 @@ namespace Pogi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        //public IActionResult Register(string returnUrl = null)
         public IActionResult Register(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            ViewData["ReturnUrl"] = "/Account/Register";
+            var model = new RegisterViewModel();
+            model.StatusMessage = StatusMessage;
+            return View(model);
         }
 
         [HttpPost]
@@ -218,6 +223,7 @@ namespace Pogi.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            StatusMessage = "";
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -230,8 +236,10 @@ namespace Pogi.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
+                    // Prevent newly registered users from being automatically logged on
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+                    StatusMessage = "Verification email sent. Please check your email.";
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
