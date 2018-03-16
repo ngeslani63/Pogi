@@ -21,6 +21,7 @@ namespace Pogi.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: Course
         public async Task<IActionResult> Index()
         {
@@ -120,6 +121,7 @@ namespace Pogi.Controllers
         }
 
         // GET: Course/Delete/5
+        [Authorize(Roles = "AdminRoot,AdminCourse")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,6 +142,7 @@ namespace Pogi.Controllers
         // POST: Course/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AdminRoot,AdminCourse")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var course = await _context.Course.SingleOrDefaultAsync(m => m.CourseId == id);

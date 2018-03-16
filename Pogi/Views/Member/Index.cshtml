@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Pogi.Entities.Member>
+@inject UserManager<ApplicationUser> userManager
 
 @{
     ViewData["Title"] = "Index";
@@ -9,98 +10,109 @@
     <h4>Directory</h4>
     <hr />
     <div class="container-fluid ">
-        <a asp-action="Create">Create New</a>
-        @foreach (var item in Model)
+        @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
         {
-
-            <hr />
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    Name
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.LastName)),
-                    @(Html.DisplayFor(modelItem => item.FirstName))
-
-                </div>
-                <div class="alert-info col-md-2">
-                    @Html.DisplayNameFor(model => model.MaritalStatus)
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.MaritalStatus))
-                </div>
-            </div>
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    @Html.DisplayNameFor(model => model.Phone1st)
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.Phone1st))
-                    @(Html.DisplayFor(modelItem => item.Phone1stType))
-                </div>
-                <div class="alert-info col-md-2">
-                    @Html.DisplayNameFor(model => model.Phone2nd)
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.Phone2nd))
-                    @(Html.DisplayFor(modelItem => item.Phone2ndType))
-                </div>
-            </div>
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    Email Addresses
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.EmailAddr1st))
-                    @(Html.DisplayFor(modelItem => item.EmailAddr2nd))
-                </div>
-                <div class="alert-info col-md-2">
-                    Member Status
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.RecordStatus)) /
-                    @(Html.DisplayFor(modelItem => item.MemberStatus))
-                </div>
-            </div>
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    Address
-                </div>
-                <div class="col-md-9">
-                    @Html.DisplayFor(modelItem => item.Street)
-                    @Html.DisplayFor(modelItem => item.City),
-                    @Html.DisplayFor(modelItem => item.State)
-                    @Html.DisplayFor(modelItem => item.Zip)
-                    @Html.DisplayFor(modelItem => item.Country)
-                </div>
-            </div>
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    @Html.DisplayNameFor(model => model.Profession)
-                </div>
-                <div class="col-md-4">
-                    @Html.DisplayFor(modelItem => item.Profession)
-                </div>
-                <div class="alert-info col-md-2">
-                    GHIN / Handicap
-                </div>
-                <div class="col-md-4">
-                    @(Html.DisplayFor(modelItem => item.GhinNumber)) /
-                    @(Html.DisplayFor(modelItem => item.CurrHandicap))
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-
-                </div>
-                <div class="col-md-10">
-                    <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |
-                    <a asp-asp-action="Index" asp-route-id="@item.MemberId">Delete</a>
-                </div>
-            </div>
+        <a asp-action="Create">Create New</a>
+        }
+        else
+        {
+            <span class="text-primary">Display Only</span>
 
         }
+        @foreach (var item in Model)
+    {
+
+        <hr />
+        <div class="row">
+            <div class="alert-info col-md-2">
+                Name
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.LastName)),
+                @(Html.DisplayFor(modelItem => item.FirstName))
+
+            </div>
+            <div class="alert-info col-md-2">
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.MaritalStatus))
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-2">
+                @Html.DisplayNameFor(model => model.Phone1st)
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.Phone1st))
+                @(Html.DisplayFor(modelItem => item.Phone1stType))
+            </div>
+            <div class="alert-info col-md-2">
+                @Html.DisplayNameFor(model => model.Phone2nd)
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.Phone2nd))
+                @(Html.DisplayFor(modelItem => item.Phone2ndType))
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-2">
+                Email Addresses
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.EmailAddr1st))
+                @(Html.DisplayFor(modelItem => item.EmailAddr2nd))
+            </div>
+            <div class="alert-info col-md-2">
+                Member Status
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.RecordStatus)) /
+                @(Html.DisplayFor(modelItem => item.MemberStatus))
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-2">
+                Address
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.Street)
+                @Html.DisplayFor(modelItem => item.City),
+                @Html.DisplayFor(modelItem => item.State)
+                @Html.DisplayFor(modelItem => item.Zip)
+                @Html.DisplayFor(modelItem => item.Country)
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-2">
+                @Html.DisplayNameFor(model => model.Profession)
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => item.Profession)
+            </div>
+            <div class="alert-info col-md-2">
+                GHIN / Handicap
+            </div>
+            <div class="col-md-4">
+                @(Html.DisplayFor(modelItem => item.GhinNumber)) /
+                @(Html.DisplayFor(modelItem => item.CurrHandicap))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
+        {
+            <div class="col-md-10">
+                <a asp-action="Edit" asp-route-id="@item.MemberId">&#x270f;</a> |
+                @*<a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |*@
+                <a asp-asp-action="Index" asp-route-id="@item.MemberId">&#xe083;</a>
+            </div>
+    }
+        </div>
+
+}
     </div>
 </div>
 

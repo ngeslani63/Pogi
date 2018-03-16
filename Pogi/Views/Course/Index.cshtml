@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Pogi.Entities.Course>
+@inject UserManager<ApplicationUser> userManager
 
 @{
     ViewData["Title"] = "Index";
@@ -76,9 +77,12 @@
                     @Html.DisplayFor(modelItem => item.ParOut)
                     @Html.DisplayFor(modelItem => item.ParIn)
                     @Html.DisplayFor(modelItem => item.ParTotal)
-                    <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
+
+                    <a asp-action="Edit" asp-route-id="@item.CourseId">&#x270f;</a>
+                    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
+                    {
+                        <span> |</span> <a asp-action="Delete" asp-route-id="@item.CourseId">&#xe083;</a>
+                    }
                 </div>
             </div>
 

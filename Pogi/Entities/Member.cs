@@ -57,6 +57,14 @@ namespace Pogi.Entities
         public int GhinNumber { get; set; }
         [Display(Name = "Current Handicap")]
         public float  CurrHandicap { get; set; }
-        
+        [Display(Name = "Root Admin")]
+        public bool RoleAdminRoot { get; set; }
+        [Display(Name = "User Admin")]
+        public bool RoleAdminUser { get; set; }
+        [Display(Name = "Course Admin")]
+        public bool RoleAdminCourse { get; set; }
+        [Display(Name = "TeeTime Admin")]
+        public bool RoleAdminTeeTime { get; set; }
+
     }
 }
