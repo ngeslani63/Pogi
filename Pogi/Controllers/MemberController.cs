@@ -76,10 +76,53 @@ namespace Pogi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "AdminRoot,AdminUser")]
-        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus,Street,City,State,Zip,Country,GhinNumber,CurrHandicap")] Member member)
+        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus,Street,City,State,Zip,Country,GhinNumber,CurrHandicap," +
+            "RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminTour")] Member member)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByEmailAsync(member.EmailAddr1st);
+                if (user != null)
+                {
+                    if (!await _roleManager.RoleExistsAsync("AdminRoot"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "AdminRoot" });
+                    if (!await _roleManager.RoleExistsAsync("AdminUser"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "AdminUser" });
+                    if (!await _roleManager.RoleExistsAsync("AdminCourse"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "AdminCourse" });
+                    if (!await _roleManager.RoleExistsAsync("AdminTeeTime"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "AdminTeeTime" });
+                    if (!await _roleManager.RoleExistsAsync("AdminTour"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "AdminTour" });
+
+
+                    if (member.RoleAdminRoot != await _userManager.IsInRoleAsync(user, "AdminRoot"))
+                    {
+                        if (member.RoleAdminRoot == true) await _userManager.AddToRoleAsync(user, "AdminRoot");
+                        else await _userManager.RemoveFromRoleAsync(user, "AdminRoot");
+                    }
+                    if (member.RoleAdminUser != await _userManager.IsInRoleAsync(user, "AdminUser"))
+                    {
+                        if (member.RoleAdminUser == true) await _userManager.AddToRoleAsync(user, "AdminUser");
+                        else await _userManager.RemoveFromRoleAsync(user, "AdminUser");
+                    }
+                    if (member.RoleAdminCourse != await _userManager.IsInRoleAsync(user, "AdminCourse"))
+                    {
+                        if (member.RoleAdminCourse == true) await _userManager.AddToRoleAsync(user, "AdminCourse");
+                        else await _userManager.RemoveFromRoleAsync(user, "AdminCourse");
+                    }
+                    if (member.RoleAdminTeeTime != await _userManager.IsInRoleAsync(user, "AdminTeeTime"))
+                    {
+                        if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminTeeTime");
+                        else await _userManager.RemoveFromRoleAsync(user, "AdminTeeTime");
+                    }
+                    if (member.RoleAdminTour != await _userManager.IsInRoleAsync(user, "AdminTour"))
+                        {
+                        if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminTour");
+                        else await _userManager.RemoveFromRoleAsync(user, "AdminTour");
+                    }
+                }
+
                 _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -111,7 +154,7 @@ namespace Pogi.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "AdminRoot,AdminUser")]
         public async Task<IActionResult> Edit(int id, [Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus,Street,City,State,Zip,Country,GhinNumber,CurrHandicap," +
-            "RoleAdminRoot","RoleAdminUser","RoleAdminCourse","RoleAdminTeeTime" )] Member member)
+            "RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminTour" )] Member member)
         {
             if (id != member.MemberId)
             {
@@ -134,6 +177,8 @@ namespace Pogi.Controllers
                             await _roleManager.CreateAsync(new IdentityRole { Name = "AdminCourse" });
                         if (!await _roleManager.RoleExistsAsync("AdminTeeTime"))
                             await _roleManager.CreateAsync(new IdentityRole { Name = "AdminTeeTime" });
+                        if (!await _roleManager.RoleExistsAsync("AdminTour"))
+                            await _roleManager.CreateAsync(new IdentityRole { Name = "AdminTour" });
 
 
                         if (member.RoleAdminRoot != await _userManager.IsInRoleAsync(user, "AdminRoot"))
@@ -155,6 +200,11 @@ namespace Pogi.Controllers
                         {
                             if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminTeeTime");
                             else await _userManager.RemoveFromRoleAsync(user, "AdminTeeTime");
+                        }
+                        if (member.RoleAdminTour != await _userManager.IsInRoleAsync(user, "AdminTour"))
+                        {
+                            if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminTour");
+                            else await _userManager.RemoveFromRoleAsync(user, "AdminTour");
                         }
                     }
 

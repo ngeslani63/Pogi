@@ -1,24 +1,22 @@
-﻿using Pogi.Models;
+﻿using Pogi.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pogi.Entities
+namespace Pogi.Models.CourseViewModels
 {
-    public class Course
+    public class CourseEditViewModel
     {
-        public Course()
+        public CourseEditViewModel()
         {
             State = StateCode.NJ;
             Country = "USA";
             NumTees = 3;
         }
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CourseId { get; set; }
+         public int CourseId { get; set; }
         [Display(Name = "Golf Course")]
         [Required, MaxLength(80)]
         public string CourseName { get; set; }
@@ -72,5 +70,7 @@ namespace Pogi.Entities
         [Display(Name = "Total")]
         public int ParTotal { get; set; }
         public int NumTees { get; set; }
-      }
+
+        public List<CourseDetail> CourseDetails { get; set; }
+    }
 }

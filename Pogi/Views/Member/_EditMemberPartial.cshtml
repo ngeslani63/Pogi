@@ -65,13 +65,14 @@
             <input asp-for="Profession" class="form-control" />
             <span asp-validation-for="Profession" class="text-danger"></span>
         </div>
-        @if (User.IsInRole("AdminRoot")) { 
+        @if (User.IsInRole("AdminRoot"))
+    {
         <div class="form-group col-md-1">
             <label asp-for="RoleAdminRoot" class="control-label"></label>
             <input asp-for="RoleAdminRoot" class="form-control " />
             <span asp-validation-for="RoleAdminRoot" class="text-danger"></span>
         </div>
-        }
+}
         <div class="form-group col-md-1">
             <label asp-for="RoleAdminUser" class="control-label "></label>
             <input asp-for="RoleAdminUser" class="form-control " />
@@ -86,6 +87,11 @@
             <label asp-for="RoleAdminTeeTime" class="control-label "></label>
             <input asp-for="RoleAdminTeeTime" class="form-control " />
             <span asp-validation-for="RoleAdminTeeTime" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-1">
+            <label asp-for="RoleAdminTour" class="control-label "></label>
+            <input asp-for="RoleAdminTour" class="form-control " />
+            <span asp-validation-for="RoleAdminTour" class="text-danger"></span>
         </div>
     </div>
 

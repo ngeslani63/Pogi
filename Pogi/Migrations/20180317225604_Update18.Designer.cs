@@ -13,9 +13,10 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    partial class PogiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180317225604_Update18")]
+    partial class Update18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

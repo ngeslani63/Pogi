@@ -9,6 +9,33 @@ namespace Pogi.Entities
 {
     public class CourseDetail
     {
+        public CourseDetail()
+        {
+            Rating = 0.0F;
+            Color = "";
+            Yards01 = 0;
+            Yards02 = 0;
+            Yards03 = 0;
+            Yards04 = 0;
+            Yards05 = 0;
+            Yards06 = 0;
+            Yards07 = 0;
+            Yards08 = 0;
+            Yards09 = 0;
+            Yards10 = 0;
+            Yards11 = 0;
+            Yards12 = 0;
+            Yards13 = 0;
+            Yards14 = 0;
+            Yards15 = 0;
+            Yards16 = 0;
+            Yards17 = 0;
+            Yards18 = 0;
+            YardsIn = 0;
+            YardsOut = 0;
+            YardsTotal = 0;
+
+        }
         [Key]
         [Column(Order = 1)]
         public int CourseId { get; set; }
@@ -38,7 +65,7 @@ namespace Pogi.Entities
         public int YardsIn { get; set; }
         public int YardsOut { get; set; }
         public int YardsTotal { get; set; }
-        public int Rating { get; set; }
+        public float Rating { get; set; }
 
         public int Slope { get; set; }
     }

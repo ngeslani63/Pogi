@@ -1,8 +1,8 @@
-﻿@model Pogi.Entities.Course
+﻿@model Pogi.Models.CourseViewModels.CourseEditViewModel
 <section>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label asp-for="CourseName" class="control-label"></label>
+            <label asp-for="CourseName" class="text-primary control-label"></label>
             <input asp-for="CourseName" class="form-control" />
             <span asp-validation-for="CourseName" class="text-danger"></span>
         </div>
@@ -10,7 +10,7 @@
     <div class="form-row">
         <div class="form-group col-xs-12">
             <hr />
-            <label class="control-label">ADDRESS</label>
+            <label class="text-primary control-label">ADDRESS</label>
         </div>
     </div>
     <div class="form-row">
@@ -55,8 +55,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-xs-12">
-            <hr />
-            <label class="control-label">PAR</label>
+            <label class="text-primary control-label">PAR</label>
         </div>
     </div>
     <div class="container-fluid">
@@ -186,15 +185,37 @@
                 <span asp-validation-for="ParTotal" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-row">
-               <div class="form-group col-sm-6">
-                   <div class="form-group">
-                       <input type="submit" value="Save" class="btn btn-primary" />
-                       <a asp-action="Index" class="btn btn-primary">Back to Course List</a>
-                   </div>
-            </div>
 
+    </div>
+    <div class="form-row">
+        <div class="form-group col-xs-12">
+            <label class="text-primary control-label">Colors</label>
         </div>
+    </div>
+
+    <div class="container-fluid">
+    @foreach (var item in Model.CourseDetails) {
+        <div class="form-row">
+            <div class="form-group col-sm-2">
+                <label asp-for="@item.Color" class="control-label"></label>
+                <input asp-for="@item.Color" class="form-control" />
+                <span asp-validation-for="@item.Color" class="text-danger"></span>
+            </div>
+        </div>
+    }
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back to Course List</a>
+            </div>
+        </div>
+
+    </div>
+
+
 
 
 

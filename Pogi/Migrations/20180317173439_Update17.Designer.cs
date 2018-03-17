@@ -13,9 +13,10 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    partial class PogiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180317173439_Update17")]
+    partial class Update17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,8 +35,6 @@ namespace Pogi.Migrations
                     b.Property<string>("CourseName")
                         .IsRequired()
                         .HasMaxLength(80);
-
-                    b.Property<int>("NumTees");
 
                     b.Property<int>("Par01");
 
@@ -98,7 +97,7 @@ namespace Pogi.Migrations
 
                     b.Property<string>("Color");
 
-                    b.Property<float>("Rating");
+                    b.Property<int>("Rating");
 
                     b.Property<int>("Slope");
 

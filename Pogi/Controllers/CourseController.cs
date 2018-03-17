@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pogi.Data;
 using Pogi.Entities;
+using Pogi.Models.CourseViewModels;
 
 namespace Pogi.Controllers
 {
@@ -49,7 +50,33 @@ namespace Pogi.Controllers
         // GET: Course/Create
         public IActionResult Create()
         {
-            var model = new Course();
+            var model = new CourseEditViewModel();
+            List<CourseDetail> CourseDetails = new List<CourseDetail>(model.NumTees);
+            for (int i = 0; i < model.NumTees; i++)
+            {
+                CourseDetail cd = new CourseDetail();
+               
+                switch (i)
+                {
+                    case 0:
+                        cd.Color = "red";
+                        break;
+                    case 1:
+                        cd.Color = "white";
+                        break;
+                    case 2:
+                        cd.Color = "blue";
+                        break;
+                    case 3:
+                        cd.Color = "black";
+                        break;
+                    default:
+                        //CourseDetails[i].Color = "gold";
+                        break;
+                }
+                CourseDetails.Add(cd);
+            }
+            model.CourseDetails = CourseDetails;
             return View(model);
         }
 
@@ -58,15 +85,16 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseId,CourseName,Street,City,State,Zip,Country,Phone,Par01,Par02,Par03,Par04,Par05,Par06,Par07,Par08,Par09,Par10,Par11,Par12,Par13,Par14,Par15,Par16,Par17,Par18,ParIn,ParOut,ParTotal")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseId,CourseName,Street,City,State,Zip,Country,Phone,Par01,Par02,Par03,Par04,Par05,Par06,Par07,Par08,Par09,Par10,Par11,Par12,Par13,Par14,Par15,Par16,Par17,Par18,ParIn,ParOut,ParTotal,NumTees")] CourseEditViewModel  courseEditViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(course);
+
+                //_context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(course);
+            return View(courseEditViewModel);
         }
 
         // GET: Course/Edit/5

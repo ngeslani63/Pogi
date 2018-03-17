@@ -78,10 +78,10 @@
                     @Html.DisplayFor(modelItem => item.ParIn)
                     @Html.DisplayFor(modelItem => item.ParTotal)
 
-                    <a asp-action="Edit" asp-route-id="@item.CourseId">&#x270f;</a>
+                    <a  data-toggle="tooltip" title="Edit Course" asp-action="Edit" asp-route-id="@item.CourseId">&#x270f;</a>
                     @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
                     {
-                        <span> |</span> <a asp-action="Delete" asp-route-id="@item.CourseId">&#xe083;</a>
+                        <span> |</span> <a data-toggle="tooltip" title="Edit Course" asp-action="Delete" asp-route-id="@item.CourseId">&#xe083;</a>
                     }
                 </div>
             </div>

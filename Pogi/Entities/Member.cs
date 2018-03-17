@@ -66,5 +66,8 @@ namespace Pogi.Entities
         [Display(Name = "TeeTime Admin")]
         public bool RoleAdminTeeTime { get; set; }
 
+        [Display(Name = "Tour Admin")]
+        public bool RoleAdminTour { get; set; }
+
     }
 }

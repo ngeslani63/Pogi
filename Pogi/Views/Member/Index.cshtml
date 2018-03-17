@@ -105,9 +105,9 @@
             @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminUser"))
         {
             <div class="col-md-10">
-                <a asp-action="Edit" asp-route-id="@item.MemberId">&#x270f;</a> | 
+                <a data-toggle="tooltip" title="Edit Member" asp-action="Edit" asp-route-id="@item.MemberId">&#x270f;</a> |
                 @*<a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.MemberId">&#xe083;</a>
+                <a  data-toggle="tooltip" title="Delete Member" asp-action="Delete" asp-route-id="@item.MemberId">&#xe083;</a>
             </div>
     }
         </div>
