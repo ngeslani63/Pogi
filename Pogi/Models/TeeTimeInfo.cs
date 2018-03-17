@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pogi.Models.TeeTimeViewModels
+namespace Pogi.Models
 {
     public class TeeTimeInfo
     {

@@ -1,9 +1,5 @@
-﻿using Pogi.Entities;
-using Pogi.Models.TeeTimeViewModels;
-using System;
+﻿using Pogi.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Pogi.Services
 {
