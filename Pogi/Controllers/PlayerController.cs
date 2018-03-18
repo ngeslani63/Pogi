@@ -183,11 +183,6 @@ namespace Pogi.Controllers
             }
             return View(model);
 
-
-
-            return View(players);
-
-
         }
 
         // POST: Player/Delete/5

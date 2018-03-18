@@ -12,81 +12,89 @@
     <div class="container-fluid ">
         <a asp-action="Create">Create New</a>
         @foreach (var item in Model)
-        {
+    {
 
-            <hr />
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    @Html.DisplayNameFor(model => model.CourseName)
-                </div>
-                <div class="col-md-10">
-                    @(Html.DisplayFor(modelItem => item.CourseName))
-                </div>
+        <hr />
+        <div class="row">
+            <div class="alert-info col-md-2">
+                @Html.DisplayNameFor(model => model.CourseName)
             </div>
-            <div class="row">
-                <div class="alert-info col-sm-2">
-                    Address
-                </div>
-                <div class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Street)
-                    @Html.DisplayFor(modelItem => item.City),
-                    @Html.DisplayFor(modelItem => item.State)
-                    @Html.DisplayFor(modelItem => item.Zip)
-                    @Html.DisplayFor(modelItem => item.Country)
-                </div>
+            <div class="col-md-10">
+                @(Html.DisplayFor(modelItem => item.CourseName))
             </div>
-            <div class="row">
-                <div class="alert-info col-md-2">
-                    @Html.DisplayNameFor(model => model.Phone)
-                </div>
-                <div class="col-md-10">
-                    @(Html.DisplayFor(modelItem => item.Phone))
-                </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-sm-2">
+                Address
             </div>
-            <div class="row">
-                <div class="alert-info col-sm-2">
-                    Par
-                </div>
-                <div class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Par01)
-                    @Html.DisplayFor(modelItem => item.Par02)
-                    @Html.DisplayFor(modelItem => item.Par03)
-                    @Html.DisplayFor(modelItem => item.Par04)
-                    @Html.DisplayFor(modelItem => item.Par05)
-                    @Html.DisplayFor(modelItem => item.Par06)
-                    @Html.DisplayFor(modelItem => item.Par07)
-                    @Html.DisplayFor(modelItem => item.Par08)
-                    @Html.DisplayFor(modelItem => item.Par09)
-                    @Html.DisplayFor(modelItem => item.Par10)
-                    @Html.DisplayFor(modelItem => item.Par11)
-                    @Html.DisplayFor(modelItem => item.Par12)
-                    @Html.DisplayFor(modelItem => item.Par13)
-                    @Html.DisplayFor(modelItem => item.Par14)
-                    @Html.DisplayFor(modelItem => item.Par15)
-                    @Html.DisplayFor(modelItem => item.Par16)
-                    @Html.DisplayFor(modelItem => item.Par17)
-                    @Html.DisplayFor(modelItem => item.Par18)
+            <div class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Street)
+                @Html.DisplayFor(modelItem => item.City),
+                @Html.DisplayFor(modelItem => item.State)
+                @Html.DisplayFor(modelItem => item.Zip)
+                @Html.DisplayFor(modelItem => item.Country)
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-md-2">
+                @Html.DisplayNameFor(model => model.Phone)
+            </div>
+            <div class="col-md-10">
+                @(Html.DisplayFor(modelItem => item.Phone))
+            </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-sm-2">
+                Par
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Par01)
+                @Html.DisplayFor(modelItem => item.Par02)
+                @Html.DisplayFor(modelItem => item.Par03)
+                @Html.DisplayFor(modelItem => item.Par04)
+                @Html.DisplayFor(modelItem => item.Par05)
+                @Html.DisplayFor(modelItem => item.Par06)
+                @Html.DisplayFor(modelItem => item.Par07)
+                @Html.DisplayFor(modelItem => item.Par08)
+                @Html.DisplayFor(modelItem => item.Par09)
+                @Html.DisplayFor(modelItem => item.Par10)
+                @Html.DisplayFor(modelItem => item.Par11)
+                @Html.DisplayFor(modelItem => item.Par12)
+                @Html.DisplayFor(modelItem => item.Par13)
+                @Html.DisplayFor(modelItem => item.Par14)
+                @Html.DisplayFor(modelItem => item.Par15)
+                @Html.DisplayFor(modelItem => item.Par16)
+                @Html.DisplayFor(modelItem => item.Par17)
+                @Html.DisplayFor(modelItem => item.Par18)
 
-                </div>
             </div>
-            <div class="row">
-                <div class="alert-info col-sm-2">
-                    Par Out / In / Total
-                </div>
-                <div class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.ParOut)
-                    @Html.DisplayFor(modelItem => item.ParIn)
-                    @Html.DisplayFor(modelItem => item.ParTotal)
-
-                    <a  data-toggle="tooltip" title="Edit Course" asp-action="Edit" asp-route-id="@item.CourseId">&#x270f;</a>
-                    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
-                    {
-                        <span> |</span> <a data-toggle="tooltip" title="Edit Course" asp-action="Delete" asp-route-id="@item.CourseId">&#xe083;</a>
-                    }
-                </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-sm-2">
+                Out / In / Total
             </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.ParOut)
+                @Html.DisplayFor(modelItem => item.ParIn)
+                @Html.DisplayFor(modelItem => item.ParTotal)
+             </div>
+        </div>
+        <div class="row">
+            <div class="alert-info col-sm-2">
+                Tees / Last Updt
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.NumTees)
+                @Html.DisplayFor(modelItem => item.LastUpdatedBy)
+                <a data-toggle="tooltip" title="Edit Course" asp-action="Edit" asp-route-id="@item.CourseId">&#x270f;</a>
+                @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
+    {
+            <span> |</span> <a data-toggle="tooltip" title="Edit Course" asp-action="Delete" asp-route-id="@item.CourseId">&#xe083;</a>
+}
+            </div>
+        </div>
 
-        }
+}
     </div>
 </div>
 

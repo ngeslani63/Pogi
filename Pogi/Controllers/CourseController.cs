@@ -196,34 +196,9 @@ namespace Pogi.Controllers
                 for (int i = CourseDetails.Count; i < model.Course.NumTees; i++)
                 {
                     CourseDetail cd = new CourseDetail();
-
-                    switch (i)
-                    {
-                        case 0:
-                            cd.Color = "red";
-                            cd.Rating = 73.3F;
-                            cd.Slope = 114;
-                            break;
-                        case 1:
-                            cd.Color = "white";
-                            cd.Rating = 71.0F;
-                            cd.Slope = 119;
-                            break;
-                        case 2:
-                            cd.Color = "blue";
-                            cd.Rating = 72.8F;
-                            cd.Slope = 123;
-
-                            break;
-                        case 3:
-                            cd.Color = "black";
-                            cd.Rating = 73.8F;
-                            cd.Slope = 130;
-                            break;
-                        default:
-                            //CourseDetails[i].Color = "gold";
-                            break;
-                    }
+                    cd.Color = "";
+                    cd.Rating = 71.0F;
+                    cd.Slope = 119;
                     CourseDetails.Add(cd);
 
                 }
@@ -238,11 +213,20 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Course,CourseDetails")] CourseEditViewModel courseEditViewModel)
+        public async Task<IActionResult> Edit(int id, string submit, string addtee, [Bind("Course,CourseDetails")] CourseEditViewModel courseEditViewModel)
         {
             if (id != courseEditViewModel.Course.CourseId)
             {
                 return NotFound();
+            }
+
+            if (!string.IsNullOrWhiteSpace(addtee)) {
+
+                courseEditViewModel.Course.NumTees++;
+                var model = courseEditViewModel;
+                _context.Update(model.Course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Edit",new { id = id });
             }
 
             if (ModelState.IsValid)

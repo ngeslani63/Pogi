@@ -15,7 +15,6 @@ namespace Pogi.Entities
         {
             State = StateCode.NJ;
             Country = "USA";
-            NumTees = 3;
             Par01 = 03;
             Par02 = 03;
             Par03 = 03;
