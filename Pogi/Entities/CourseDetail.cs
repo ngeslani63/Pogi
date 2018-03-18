@@ -34,13 +34,15 @@ namespace Pogi.Entities
             YardsIn = 0;
             YardsOut = 0;
             YardsTotal = 0;
-
+            Slope = 113;
+            Rating = 72;
         }
         [Key]
         [Column(Order = 1)]
         public int CourseId { get; set; }
         [Key]
         [Column(Order = 2)]
+        [Required]
         public string Color { get; set; }
         public int Yards01 { get; set; }
         public int Yards02 { get; set; }
@@ -65,9 +67,17 @@ namespace Pogi.Entities
         public int YardsIn { get; set; }
         public int YardsOut { get; set; }
         public int YardsTotal { get; set; }
+        [Required]
+        [Range(59.0, 80)]
         public float Rating { get; set; }
-
+        [Required]
+        [Range(55,155)]
         public int Slope { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime CreatedTs { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public DateTime LastUpdatedTs { get; set; }
     }
 
 }

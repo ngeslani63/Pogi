@@ -2,9 +2,15 @@
 <section>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label asp-for="CourseName" class="text-primary control-label"></label>
-            <input asp-for="CourseName" class="form-control" />
-            <span asp-validation-for="CourseName" class="text-danger"></span>
+            <input type="hidden" asp-for="Course.CourseId" />
+            <input type="hidden" asp-for="Course.CreatedBy" />
+            <input type="hidden" asp-for="Course.CreatedTs" />
+            <input type="hidden" asp-for="Course.LastUpdatedBy" />
+            <input type="hidden" asp-for="Course.LastUpdatedTs" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="Course.CourseName" class="text-primary control-label"></label>
+            <input asp-for="Course.CourseName" class="form-control" />
+            <span asp-validation-for="Course.CourseName" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row">
@@ -15,42 +21,42 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label asp-for="Street" class="control-label"></label>
-            <input asp-for="Street" class="form-control" />
-            <span asp-validation-for="Street" class="text-danger"></span>
+            <label asp-for="Course.Street" class="control-label"></label>
+            <input asp-for="Course.Street" class="form-control" />
+            <span asp-validation-for="Course.Street" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-8">
-            <label asp-for="City" class="control-label"></label>
-            <input asp-for="City" class="form-control" />
-            <span asp-validation-for="City" class="text-danger"></span>
+            <label asp-for="Course.City" class="control-label"></label>
+            <input asp-for="Course.City" class="form-control" />
+            <span asp-validation-for="Course.City" class="text-danger"></span>
         </div>
         <div class="form-group col-md-1">
-            <label asp-for="State" class="control-label"></label>
-            <select asp-for="State" asp-items="@Html.GetEnumSelectList<StateCode>()"> class="form-control"></select>
-            <span asp-validation-for="State" class="text-danger"></span>
+            <label asp-for="Course.State" class="control-label"></label>
+            <select asp-for="Course.State" asp-items="@Html.GetEnumSelectList<StateCode>()"> class="form-control"></select>
+            <span asp-validation-for="Course.State" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-3">
-            <label asp-for="Zip" class="control-label"></label>
-            <input asp-for="Zip" class="form-control" />
-            <span asp-validation-for="Zip" class="text-danger"></span>
+            <label asp-for="Course.Zip" class="control-label"></label>
+            <input asp-for="Course.Zip" class="form-control" />
+            <span asp-validation-for="Course.Zip" class="text-danger"></span>
         </div>
 
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label asp-for="Country" class="control-label"></label>
-            <input asp-for="Country" class="form-control" />
-            <span asp-validation-for="Country" class="text-danger"></span>
+            <label asp-for="Course.Country" class="control-label"></label>
+            <input asp-for="Course.Country" class="form-control" />
+            <span asp-validation-for="Course.Country" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6">
-            <label asp-for="Phone" class="control-label"></label>
-            <input asp-for="Phone" class="form-control" />
-            <span asp-validation-for="Phone" class="text-danger"></span>
+            <label asp-for="Course.Phone" class="control-label"></label>
+            <input asp-for="Course.Phone" class="form-control" />
+            <span asp-validation-for="Course.Phone" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row">
@@ -61,128 +67,128 @@
     <div class="container-fluid">
         <div class="form-row">
             <div class="form-group col-sm-2">
-                <label asp-for="Par01" class="control-label"></label>
-                <input asp-for="Par01" class="form-control" />
-                <span asp-validation-for="Par01" class="text-danger"></span>
+                <label asp-for="Course.Par01" class="control-label"></label>
+                <input asp-for="Course.Par01" class="form-control" />
+                <span asp-validation-for="Course.Par01" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par02" class="control-label"></label>
-                <input asp-for="Par02" class="form-control" />
-                <span asp-validation-for="Par02" class="text-danger"></span>
+                <label asp-for="Course.Par02" class="control-label"></label>
+                <input asp-for="Course.Par02" class="form-control" />
+                <span asp-validation-for="Course.Par02" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par03" class="control-label"></label>
-                <input asp-for="Par03" class="form-control" />
-                <span asp-validation-for="Par03" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-sm-2">
-                <label asp-for="Par04" class="control-label"></label>
-                <input asp-for="Par04" class="form-control" />
-                <span asp-validation-for="Par04" class="text-danger"></span>
-            </div>
-            <div class="form-group col-sm-2">
-                <label asp-for="Par05" class="control-label"></label>
-                <input asp-for="Par05" class="form-control" />
-                <span asp-validation-for="Par05" class="text-danger"></span>
-            </div>
-            <div class="form-group col-sm-2">
-                <label asp-for="Par06" class="control-label"></label>
-                <input asp-for="Par06" class="form-control" />
-                <span asp-validation-for="Par06" class="text-danger"></span>
+                <label asp-for="Course.Par03" class="control-label"></label>
+                <input asp-for="Course.Par03" class="form-control" />
+                <span asp-validation-for="Course.Par03" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
-                <label asp-for="Par07" class="control-label"></label>
-                <input asp-for="Par07" class="form-control" />
-                <span asp-validation-for="Par07" class="text-danger"></span>
+                <label asp-for="Course.Par04" class="control-label"></label>
+                <input asp-for="Course.Par04" class="form-control" />
+                <span asp-validation-for="Course.Par04" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par08" class="control-label"></label>
-                <input asp-for="Par08" class="form-control" />
-                <span asp-validation-for="Par08" class="text-danger"></span>
+                <label asp-for="Course.Par05" class="control-label"></label>
+                <input asp-for="Course.Par05" class="form-control" />
+                <span asp-validation-for="Course.Par05" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par09" class="control-label"></label>
-                <input asp-for="Par09" class="form-control" />
-                <span asp-validation-for="Par09" class="text-danger"></span>
+                <label asp-for="Course.Par06" class="control-label"></label>
+                <input asp-for="Course.Par06" class="form-control" />
+                <span asp-validation-for="Course.Par06" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.Par07" class="control-label"></label>
+                <input asp-for="Course.Par07" class="form-control" />
+                <span asp-validation-for="Course.Par07" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.Par08" class="control-label"></label>
+                <input asp-for="Course.Par08" class="form-control" />
+                <span asp-validation-for="Course.Par08" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.Par09" class="control-label"></label>
+                <input asp-for="Course.Par09" class="form-control" />
+                <span asp-validation-for="Course.Par09" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-sm-2">
-                <label asp-for="ParOut" class="control-label"></label>
-                <input asp-for="ParOut" class="form-control" />
-                <span asp-validation-for="ParOut" class="text-danger"></span>
+                <label asp-for="Course.ParOut" class="control-label"></label>
+                <input asp-for="Course.ParOut" class="form-control" />
+                <span asp-validation-for="Course.ParOut" class="text-danger"></span>
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <div class="form-row">
             <div class="form-group col-sm-2">
-                <label asp-for="Par10" class="control-label"></label>
-                <input asp-for="Par10" class="form-control" />
-                <span asp-validation-for="Par10" class="text-danger"></span>
+                <label asp-for="Course.Par10" class="control-label"></label>
+                <input asp-for="Course.Par10" class="form-control" />
+                <span asp-validation-for="Course.Par10" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par11" class="control-label"></label>
-                <input asp-for="Par11" class="form-control" />
-                <span asp-validation-for="Par11" class="text-danger"></span>
+                <label asp-for="Course.Par11" class="control-label"></label>
+                <input asp-for="Course.Par11" class="form-control" />
+                <span asp-validation-for="Course.Par11" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par12" class="control-label"></label>
-                <input asp-for="Par12" class="form-control" />
-                <span asp-validation-for="Par12" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-sm-2">
-                <label asp-for="Par13" class="control-label"></label>
-                <input asp-for="Par13" class="form-control" />
-                <span asp-validation-for="Par13" class="text-danger"></span>
-            </div>
-            <div class="form-group col-sm-2">
-                <label asp-for="Par14" class="control-label"></label>
-                <input asp-for="Par14" class="form-control" />
-                <span asp-validation-for="Par14" class="text-danger"></span>
-            </div>
-            <div class="form-group col-sm-2">
-                <label asp-for="Par15" class="control-label"></label>
-                <input asp-for="Par15" class="form-control" />
-                <span asp-validation-for="Par15" class="text-danger"></span>
+                <label asp-for="Course.Par12" class="control-label"></label>
+                <input asp-for="Course.Par12" class="form-control" />
+                <span asp-validation-for="Course.Par12" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
-                <label asp-for="Par16" class="control-label"></label>
-                <input asp-for="Par16" class="form-control" placeholder="01" />
-                <span asp-validation-for="Par16" class="text-danger"></span>
+                <label asp-for="Course.Par13" class="control-label"></label>
+                <input asp-for="Course.Par13" class="form-control" />
+                <span asp-validation-for="Course.Par13" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par17" class="control-label"></label>
-                <input asp-for="Par17" class="form-control" />
-                <span asp-validation-for="Par17" class="text-danger"></span>
+                <label asp-for="Course.Par14" class="control-label"></label>
+                <input asp-for="Course.Par14" class="form-control" />
+                <span asp-validation-for="Course.Par14" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                <label asp-for="Par18" class="control-label"></label>
-                <input asp-for="Par18" class="form-control" />
-                <span asp-validation-for="Par18" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-sm-2">
-                <label asp-for="ParIn" class="control-label"></label>
-                <input asp-for="ParIn" class="form-control" />
-                <span asp-validation-for="ParIn" class="text-danger"></span>
+                <label asp-for="Course.Par15" class="control-label"></label>
+                <input asp-for="Course.Par15" class="form-control" />
+                <span asp-validation-for="Course.Par15" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
-                <label asp-for="ParTotal" class="control-label"></label>
-                <input asp-for="ParTotal" class="form-control" />
-                <span asp-validation-for="ParTotal" class="text-danger"></span>
+                <label asp-for="Course.Par16" class="control-label"></label>
+                <input asp-for="Course.Par16" class="form-control" placeholder="01" />
+                <span asp-validation-for="Course.Par16" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.Par17" class="control-label"></label>
+                <input asp-for="Course.Par17" class="form-control" />
+                <span asp-validation-for="Course.Par17" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.Par18" class="control-label"></label>
+                <input asp-for="Course.Par18" class="form-control" />
+                <span asp-validation-for="Course.Par18" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.ParIn" class="control-label"></label>
+                <input asp-for="Course.ParIn" class="form-control" />
+                <span asp-validation-for="Course.ParIn" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-2">
+                <label asp-for="Course.ParTotal" class="control-label"></label>
+                <input asp-for="Course.ParTotal" class="form-control" />
+                <span asp-validation-for="Course.ParTotal" class="text-danger"></span>
             </div>
         </div>
 
@@ -194,26 +200,58 @@
     </div>
 
     <div class="container-fluid">
-    @foreach (var item in Model.CourseDetails) {
         <div class="form-row">
+            <div class="form-group col-sm-1">
+                <label asp-for="@Model.Course.NumTees" class="control-label"></label>
+                <input disabled="disabled" asp-for="@Model.Course.NumTees" class="form-control" />
+                <span asp-validation-for="@Model.Course.NumTees" class="text-danger"></span>
+            </div>
+        </div>
+        @for (int i = 0; i < Model.CourseDetails.Count; i++)
+    {
+
+        <div class="form-row">
+            <input type="hidden" asp-for="@Model.CourseDetails[i].CourseId" />
+            <input type="hidden" asp-for="@Model.CourseDetails[i].CreatedBy" />
+            <input type="hidden" asp-for="@Model.CourseDetails[i].CreatedTs" />
+            <input type="hidden" asp-for="@Model.CourseDetails[i].LastUpdatedBy" />
+            <input type="hidden" asp-for="@Model.CourseDetails[i].LastUpdatedTs" />
+            <div class="form-group col-sm-1">
+                <label asp-for="@Model.CourseDetails[i].Color" class="control-label"></label>
+                @if (Model.CourseDetails[i].CourseId == 0)
+        {
+            <input asp-for="@Model.CourseDetails[i].Color" class="form-control" />
+}
+else
+{
+
+        <input readonly="readonly" asp-for="@Model.CourseDetails[i].Color" class="form-control" />
+}
+                <span asp-validation-for="@Model.CourseDetails[i].Color" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-1">
+                <label asp-for="@Model.CourseDetails[i].Rating" class="control-label"></label>
+                <input asp-for="@Model.CourseDetails[i].Rating" class="form-control" />
+                <span asp-validation-for="@Model.CourseDetails[i].Rating" class="text-danger"></span>
+            </div>
             <div class="form-group col-sm-2">
-                <label asp-for="@item.Color" class="control-label"></label>
-                <input asp-for="@item.Color" class="form-control" />
-                <span asp-validation-for="@item.Color" class="text-danger"></span>
+                <label asp-for="@Model.CourseDetails[i].Slope" class="control-label"></label>
+                <input asp-for="@Model.CourseDetails[i].Slope" class="form-control" />
+                <span asp-validation-for="@Model.CourseDetails[i].Slope" class="text-danger"></span>
             </div>
         </div>
-    }
+}
     </div>
 
-    <div class="form-row">
-        <div class="form-group col-sm-6">
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-primary">Back to Course List</a>
+        <div class="form-row">
+            <div class="form-group col-sm-6">
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-primary">Back to Course List</a>
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
 
 
 

@@ -37,6 +37,7 @@ namespace Pogi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICourseData, SqlCourseData>();
+            services.AddScoped<ICourseDetail, SqlCourseDetail>();
             services.AddScoped<ITeeTimeInfo, SqlTeeTimeInfo>();
             services.AddScoped<IPlayerInfo, SqlPlayerInfo>();
             services.AddScoped<ITeeAssignInfo, SqlTeeAssignInfo>();
