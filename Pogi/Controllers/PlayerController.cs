@@ -15,7 +15,7 @@ using Pogi.Services;
 
 namespace Pogi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Member")]
     public class PlayerController : Controller
     {
         private readonly PogiDbContext _context;

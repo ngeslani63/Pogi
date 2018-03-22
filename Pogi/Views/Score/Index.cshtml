@@ -1,0 +1,111 @@
+﻿@using Pogi.Models.ScoreViewModels
+@using Pogi.Entities
+@model ScoreDisplayViewModel ;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <br />
+    <h2>Scores</h2>
+    <h3>Leaderboard</h3>
+    <hr />
+    <a asp-action="Create">Record New Score</a>
+
+    <table id="table"
+           data-toggle="table"
+           data-search="true"
+           data-striped="true"
+           data-pagination="true"
+           data-sort-name="scoreDate"
+           data-sort-order="desc">
+        <thead>
+            <tr>
+                <th class="col-md-2" data-field="scoreDate" data-sortable="true">Date</th>
+                <th class="col-md-2" data-field="courseName" data-sortable="true">Course</th>
+                <th class="col-md-2" data-field="memberName" data-sortable="true">Member</th>
+                <th class="col-md-1">Tee</th>
+                <th class="col-md-1">O/I</th>
+                <th col-md-1">01<br />10</th>
+                <th class="col-md-1">02<br />11</th>
+                <th class="col-md-1">03<br />12</th>
+                <th class="col-md-1">04<br />13</th>
+                <th class="col-md-1">05<br />14</th>
+                <th class="col-md-1">06<br />15</th>
+                <th class="col-md-1">07<br />16</th>
+                <th class="col-md-1">08<br />17</th>
+                <th class="col-md-1">09<br />18</th>
+                <th class="col-md-1">Out<br />In</th>
+                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Total</th>
+                <th class="col-md-1">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ScoreInfos)
+            {
+                Score score = item.Score;
+                Member member = item.Member;
+                Course course = item.Course;
+                <tr>
+                    @{
+                        DateTime scoreDateTime = score.ScoreDate;
+                        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
+                    }
+
+                    <td class="col-md-2">@scoreDateDisp</td>
+                    <td class="col-md-2">@course.CourseName</td>
+                    <td class="col-md-2">@member.FirstName @member.LastName</td>
+
+                    <td>@score.Color</td>
+                    <td class="col-md-1">Out<br />In</td>
+                    <td class="col-md-1">@score.Hole01<br />@score.Hole10</td>
+                    <td class="col-md-1">@score.Hole02<br />@score.Hole11</td>
+                    <td class="col-md-1">@score.Hole03<br />@score.Hole12</td>
+                    <td class="col-md-1">@score.Hole04<br />@score.Hole13</td>
+                    <td class="col-md-1">@score.Hole05<br />@score.Hole14</td>
+                    <td class="col-md-1">@score.Hole06<br />@score.Hole15</td>
+                    <td class="col-md-1">@score.Hole07<br />@score.Hole16</td>
+                    <td class="col-md-1">@score.Hole08<br />@score.Hole17</td>
+                    <td class="col-md-1">@score.Hole09<br />@score.Hole18</td>
+                    <td class="col-md-1">@score.HoleOut<br />@score.HoleIn</td>
+                    <td class="col-md-1">@score.HoleTotal</td>
+                    <td class="col-md-1">
+                        <a data-toggle="tooltip" title="Edit Score" asp-action="Edit" asp-route-id="@score.ScoreId">&#x270f;</a>
+                        <a data-toggle="tooltip" title="Delete Score" asp-action="Delete" asp-route-id="@score.ScoreId">&#xe083;</a>
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    @*<script>
+            var $table = $('#table'),
+                $ok = $('#ok');
+            $(function () {
+                $ok.click(function () {
+                    $table.bootstrapTable('refresh');
+                    console.log("Hello from ok Button");
+                });
+            });
+            function queryParams() {
+                var params = {};
+                $('#toolbar').find('input[name]').each(function () {
+                    params[$(this).attr('name')] = $(this).val();
+                });
+                return params;
+            }
+            function responseHandler(res) {
+                return res.rows;
+            }
+        </script>*@
+    <script>
+        console.info("Hello From Score Index");
+    </script>
+}

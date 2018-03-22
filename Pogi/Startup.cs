@@ -42,6 +42,7 @@ namespace Pogi
             services.AddScoped<IPlayerInfo, SqlPlayerInfo>();
             services.AddScoped<ITeeAssignInfo, SqlTeeAssignInfo>();
             services.AddScoped<IMemberData, SqlMemberData>();
+            services.AddScoped<IScoreInfo, SqlScoreInfo>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PogiDb")));

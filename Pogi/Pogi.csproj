@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\CourseDetails\**" />
+    <Content Remove="Views\CourseDetails\**" />
+    <EmbeddedResource Remove="Views\CourseDetails\**" />
+    <None Remove="Views\CourseDetails\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CourseDetailsController.cs" />
     <Compile Remove="Controllers\TeeTimeControllerX.cs" />
     <Compile Remove="Services\Class.cs" />
   </ItemGroup>

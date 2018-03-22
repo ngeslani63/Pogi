@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Pogi.Entities;
 using Pogi.Models;
 using Pogi.Models.AccountViewModels;
 using Pogi.Services;
@@ -24,17 +25,23 @@ namespace Pogi.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IMemberData _memberData;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            RoleManager<IdentityRole> roleManager,
+            IMemberData memberData)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager = roleManager;
+            _memberData = memberData;
         }
 
         [TempData]
@@ -66,6 +73,21 @@ namespace Pogi.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync("Member"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "Member" });
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    Member member = _memberData.getByEmailAddr(model.Email);
+                    if (member != null) {
+                        if (!await _userManager.IsInRoleAsync(user, "Member"))
+                            await _userManager.AddToRoleAsync(user, "Member");
+                    }
+                    else
+                    {
+                        if (await _userManager.IsInRoleAsync(user, "Member"))
+                            await _userManager.RemoveFromRoleAsync(user, "Member");
+                    }
+
+
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }

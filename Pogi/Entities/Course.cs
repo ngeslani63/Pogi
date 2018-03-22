@@ -15,6 +15,7 @@ namespace Pogi.Entities
         {
             State = StateCode.NJ;
             Country = "USA";
+            NumTees = 3;
             Par01 = 03;
             Par02 = 03;
             Par03 = 03;
@@ -108,7 +109,7 @@ namespace Pogi.Entities
         public int ParTotal { get; set; }
 
         [Display(Name = "Number of Tees")]
-        [Range(1,5)]
+        [Range(1,9)]
         public int NumTees { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedTs { get; set; }

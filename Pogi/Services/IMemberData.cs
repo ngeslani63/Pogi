@@ -14,5 +14,7 @@ namespace Pogi.Services
 
         Member getByEmailAddr(string emailAddr);
 
+        Member getByEmailAddr2nd(string emailAddr);
+
     }
 }

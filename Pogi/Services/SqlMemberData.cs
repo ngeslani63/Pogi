@@ -22,7 +22,13 @@ namespace Pogi.Services
         }
         public Member getByEmailAddr(string emailAddr)
         {
-            return _context.Member.FirstOrDefault(r => r.EmailAddr1st == emailAddr);
+            Member member = _context.Member.FirstOrDefault(r => r.EmailAddr1st == emailAddr);
+            if (member == null ) member = _context.Member.FirstOrDefault(r => r.EmailAddr2nd == emailAddr);
+            return member;
+        }
+        public Member getByEmailAddr2nd(string emailAddr)
+        {
+            return _context.Member.FirstOrDefault(r => r.EmailAddr2nd == emailAddr);
         }
 
         public IEnumerable<Member> getAll()

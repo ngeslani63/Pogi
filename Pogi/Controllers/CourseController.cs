@@ -15,7 +15,7 @@ using Pogi.Services;
 
 namespace Pogi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Member")]
     public class CourseController : Controller
     {
         private readonly PogiDbContext _context;
@@ -35,11 +35,11 @@ namespace Pogi.Controllers
             _userManager = userManager;
         }
 
-        [Authorize]
         // GET: Course
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Course.ToListAsync());
+            return View(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
         }
 
         // GET: Course/Details/5
@@ -74,23 +74,23 @@ namespace Pogi.Controllers
                 {
                     case 0:
                         cd.Color = "red";
-                        cd.Rating = 73.3F;
+                        cd.Rating = 0F;
                         cd.Slope = 114;
                         break;
                     case 1:
                         cd.Color = "white";
-                        cd.Rating = 71.0F;
+                        cd.Rating = 0F;
                         cd.Slope = 119;
                         break;
                     case 2:
                         cd.Color = "blue";
-                        cd.Rating = 72.8F;
+                        cd.Rating = 0F;
                         cd.Slope = 123;
 
                         break;
                     case 3:
                         cd.Color = "black";
-                        cd.Rating = 73.8F;
+                        cd.Rating = 0F;
                         cd.Slope = 130;
                         break;
                     default:
@@ -165,23 +165,23 @@ namespace Pogi.Controllers
                     {
                         case 0:
                             cd.Color = "red";
-                            cd.Rating = 73.3F;
+                            cd.Rating = 0F;
                             cd.Slope = 114;
                             break;
                         case 1:
                             cd.Color = "white";
-                            cd.Rating = 71.0F;
+                            cd.Rating = 0F;
                             cd.Slope = 119;
                             break;
                         case 2:
                             cd.Color = "blue";
-                            cd.Rating = 72.8F;
+                            cd.Rating = 0F; ;
                             cd.Slope = 123;
 
                             break;
                         case 3:
                             cd.Color = "black";
-                            cd.Rating = 73.8F;
+                            cd.Rating = 0F;
                             cd.Slope = 130;
                             break;
                         default:
@@ -197,7 +197,7 @@ namespace Pogi.Controllers
                 {
                     CourseDetail cd = new CourseDetail();
                     cd.Color = "";
-                    cd.Rating = 71.0F;
+                    cd.Rating = 0F;
                     cd.Slope = 119;
                     CourseDetails.Add(cd);
 
@@ -271,6 +271,29 @@ namespace Pogi.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(courseEditViewModel);
+        }
+
+        // GET: Course/Delete/5
+           public async Task<IActionResult> DeleteColor(int? id, string Color)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Course
+                .SingleOrDefaultAsync(m => m.CourseId == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+           
+            CourseDetail CourseDetail = _courseDetail.get((int)id, Color);
+            _courseDetail.delete(CourseDetail);
+            course.NumTees--;
+            _context.Update(course);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Edit", new { id = id });
         }
 
         // GET: Course/Delete/5

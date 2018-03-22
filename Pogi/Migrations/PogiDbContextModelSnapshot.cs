@@ -213,6 +213,8 @@ namespace Pogi.Migrations
 
                     b.Property<bool>("RoleAdminRoot");
 
+                    b.Property<bool>("RoleAdminScore");
+
                     b.Property<bool>("RoleAdminTeeTime");
 
                     b.Property<bool>("RoleAdminTour");
@@ -262,11 +264,13 @@ namespace Pogi.Migrations
                     b.Property<int>("ScoreId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AttestedTS");
-
                     b.Property<string>("Color");
 
                     b.Property<int>("CourseId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedTs");
 
                     b.Property<int>("EnteredById");
 
@@ -312,11 +316,14 @@ namespace Pogi.Migrations
 
                     b.Property<int>("HoleTotal");
 
+                    b.Property<string>("LastUpdatedBy")
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<DateTime>("LastUpdatedTs");
+
                     b.Property<int>("MemberId");
 
-                    b.Property<DateTime>("ScoreTS");
-
-                    b.Property<int>("TeeTimeId");
+                    b.Property<DateTime>("ScoreDate");
 
                     b.HasKey("ScoreId");
 

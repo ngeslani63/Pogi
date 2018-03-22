@@ -1,0 +1,184 @@
+﻿@model Pogi.Entities.CourseDetail
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CourseDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards01)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards01)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards02)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards02)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards03)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards03)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards04)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards04)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards05)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards05)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards06)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards06)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards07)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards07)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards08)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards08)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards09)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards09)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards10)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards10)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards11)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards11)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards12)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards12)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards13)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards13)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards14)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards14)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards15)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards15)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards16)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards16)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards17)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards17)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Yards18)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yards18)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.YardsIn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.YardsIn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.YardsOut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.YardsOut)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.YardsTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.YardsTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Slope)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Slope)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedTs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedTs)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdatedTs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdatedTs)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CourseId" />
+        <input type="hidden" asp-for="Color" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

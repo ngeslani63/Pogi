@@ -1,0 +1,191 @@
+﻿@model IEnumerable<Pogi.Entities.CourseDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards01)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards02)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards03)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards04)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards05)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards06)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards07)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards08)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards09)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards10)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards11)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards12)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards13)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards14)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards15)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards16)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards17)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yards18)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.YardsIn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.YardsOut)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.YardsTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Slope)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedTs)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastUpdatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastUpdatedTs)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards09)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards11)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards12)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards13)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards14)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards15)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards16)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards17)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yards18)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YardsIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YardsOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YardsTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slope)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedTs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdatedTs)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

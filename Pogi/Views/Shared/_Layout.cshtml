@@ -22,6 +22,12 @@
     <link href="~/lib/lightgallery/dist/css/lightgallery.css" rel="stylesheet" />
     <link href="~/lib/lightgallery/dist/css/lg-transitions.css" rel="stylesheet" />
     <link href="~/lib/lightgallery/dist/css/lg-fb-comment-box.css" rel="stylesheet" />
+
+    <!-- Bootstrap-table -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+    @*<link href="~/lib/bootstrap-table-master/dist/bootstrap-table.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <link href="~/lib/bootstrap-table-examples-master/assets/examples.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -40,22 +46,26 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link disabled dropdown-toggle" id="scoreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
+                        <a class="nav-link dropdown-toggle" id="scoreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Score" asp-action="Index">
                             Scores
                         </a>
-                        <div class="dropdown-menu alert-warning" aria-labelledby="scoreDropdown">
-                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Enter">Enter Scores</a>
+                        <div class="dropdown-menu alert-secondary" aria-labelledby="scoreDropdown">
+                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Index">LeaderBoard</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Display">Display Scores</a>
+                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Create">Entry</a>
                         </div>
                     </li>
+                    <li class="nav-item"><a class="nav-link disabled" asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link disabled" asp-area="" asp-controller="Home" asp-action="Forums">Forums</a></li>
+                    <li class="nav-item"><a class="nav-link disabled" asp-area="" asp-controller="Home" asp-action="Flea Marke">Flea Market</a></li>
+                    <li class="nav-item"><a class="nav-link disabled" asp-area="" asp-controller="Home" asp-action="Archives">Archives</a></li>
                     <li class="nav-item"><a class="nav-link disabled" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li class="nav-item"><a class="nav-link disabled" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
                             Admin
                         </a>
-                        <div class="dropdown-menu alert-warning" aria-labelledby="adminDropdown">
+                        <div class="dropdown-menu alert-secondary" aria-labelledby="adminDropdown">
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Course" asp-action="Index">Manage Courses</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Member" asp-action="Index">Manage Members</a>
@@ -97,15 +107,20 @@
 
     <script src="~/lib/lightgallery/dist/js/lightgallery-all.js"></script>
     @*<script src="~/lib/lightgallery/lib/jquery.mousewheel.min.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-autoplay.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-fullscreen.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-hash.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-pager.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-share.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-thumbnail.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-video.js"></script>
-    <script src="~/lib/lightgallery/modules/lg-zoom.js"></script>*@
+        <script src="~/lib/lightgallery/modules/lg-autoplay.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-fullscreen.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-hash.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-pager.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-share.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-thumbnail.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-video.js"></script>
+        <script src="~/lib/lightgallery/modules/lg-zoom.js"></script>*@
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+    @*<script src="~/lib/bootstrap-table-master/dist/bootstrap-table.js"></script>*@
+    <script src="~/lib/bootstrap-table-master/src/locale/bootstrap-table-en-US.js"></script>
+    <script src="~/lib/bootstrap-table-examples-master/ga.js"></script>
     <script>
         //console.info("Hello From Layout");
     </script>
