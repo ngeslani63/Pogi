@@ -51,14 +51,16 @@ namespace Pogi.Services
             return courseList;
         }
 
-        public List<SelectListItem> getSelectList()
+        public List<SelectListItem> getSelectList(int CourseId)
         {
             //throw new NotImplementedException();
             List<SelectListItem> courseDetailList = new List<SelectListItem>();
-            IEnumerable<CourseDetail> courseDetails = _context.CourseDetail.OrderBy(r => r.Slope);
+            IEnumerable<CourseDetail> courseDetails = _context.CourseDetail.Where(r => r.CourseId == CourseId).OrderBy(r => r.Slope);
             foreach (CourseDetail courseDetail in courseDetails)
             {
-                SelectListItem sl = new SelectListItem { Text = courseDetail.Color, Value = courseDetail.Color };
+                var selected = false;
+                if (courseDetail.Color.Equals("white")) selected = true;
+                SelectListItem sl = new SelectListItem { Text = courseDetail.Color, Value = courseDetail.Color, Selected = selected };
                 courseDetailList.Add(sl);
             }
             return courseDetailList;

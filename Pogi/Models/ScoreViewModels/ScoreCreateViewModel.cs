@@ -1,32 +1,37 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pogi.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pogi.Entities
+namespace Pogi.Models.ScoreViewModels
 {
-
-    public class Score
+    public class ScoreCreateViewModel
     {
-        public Score()
+        public ScoreCreateViewModel()
         {
             DateTime today = DateTime.Today;
-            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
-            int daysSinceSaturday = ((int)DayOfWeek.Saturday -(int)today.DayOfWeek - 7) % 7;
+            int daysSinceSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek - 7) % 7;
             DateTime lastSaturday = today.AddDays(daysSinceSaturday);
-            CreatedTs = DateTime.Now;
             ScoreDate = lastSaturday;
         }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public List<SelectListItem> Courses { get; set; }
+        public List<SelectListItem> Members { get; set; }
+        public List<SelectListItem> Colors { get; set; }
+        
         public int ScoreId { get; set; }
+        [Display(Name = "Score for Member")]
         public int MemberId { get; set; }
         public int CourseId { get; set; }
         public string Color { get; set; }
-        public int EnteredById { get; set; }
+
+        public Member EnteredBy { get; set; }
         [Display(Name = "Score Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Required]
         public DateTime ScoreDate { get; set; }
         [Display(Name = "01")]
@@ -47,7 +52,7 @@ namespace Pogi.Entities
         [Display(Name = "06")]
         [Range(1, 15)]
         public int Hole06 { get; set; }
-         [Display(Name = "07")]
+        [Display(Name = "07")]
         [Range(1, 15)]
         public int Hole07 { get; set; }
         [Display(Name = "08")]

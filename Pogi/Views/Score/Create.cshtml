@@ -1,170 +1,26 @@
-﻿@model Pogi.Entities.Score
+﻿@model Pogi.Models.ScoreViewModels.ScoreCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
+    ViewData["Save"] = "Save";
+
 }
-
-<h2>Create</h2>
-
-<h4>Score</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
+<div class="container">
+    <br />
+    <h2>Score</h2>
+    <h4>Create</h4>
+    <hr />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                Entered by
+                @Html.DisplayFor(modelItem => Model.EnteredBy.FirstName)
+                @Html.DisplayFor(modelItem => Model.EnteredBy.LastName)
             </div>
-            <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <input asp-for="CourseId" class="form-control" />
-                <span asp-validation-for="CourseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EnteredById" class="control-label"></label>
-                <input asp-for="EnteredById" class="form-control" />
-                <span asp-validation-for="EnteredById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ScoreDate" class="control-label"></label>
-                <input asp-for="ScoreDate" class="form-control" />
-                <span asp-validation-for="ScoreDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole01" class="control-label"></label>
-                <input asp-for="Hole01" class="form-control" />
-                <span asp-validation-for="Hole01" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole02" class="control-label"></label>
-                <input asp-for="Hole02" class="form-control" />
-                <span asp-validation-for="Hole02" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole03" class="control-label"></label>
-                <input asp-for="Hole03" class="form-control" />
-                <span asp-validation-for="Hole03" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole04" class="control-label"></label>
-                <input asp-for="Hole04" class="form-control" />
-                <span asp-validation-for="Hole04" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole05" class="control-label"></label>
-                <input asp-for="Hole05" class="form-control" />
-                <span asp-validation-for="Hole05" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole06" class="control-label"></label>
-                <input asp-for="Hole06" class="form-control" />
-                <span asp-validation-for="Hole06" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole07" class="control-label"></label>
-                <input asp-for="Hole07" class="form-control" />
-                <span asp-validation-for="Hole07" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole08" class="control-label"></label>
-                <input asp-for="Hole08" class="form-control" />
-                <span asp-validation-for="Hole08" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole09" class="control-label"></label>
-                <input asp-for="Hole09" class="form-control" />
-                <span asp-validation-for="Hole09" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole10" class="control-label"></label>
-                <input asp-for="Hole10" class="form-control" />
-                <span asp-validation-for="Hole10" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole11" class="control-label"></label>
-                <input asp-for="Hole11" class="form-control" />
-                <span asp-validation-for="Hole11" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole12" class="control-label"></label>
-                <input asp-for="Hole12" class="form-control" />
-                <span asp-validation-for="Hole12" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole13" class="control-label"></label>
-                <input asp-for="Hole13" class="form-control" />
-                <span asp-validation-for="Hole13" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole14" class="control-label"></label>
-                <input asp-for="Hole14" class="form-control" />
-                <span asp-validation-for="Hole14" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole15" class="control-label"></label>
-                <input asp-for="Hole15" class="form-control" />
-                <span asp-validation-for="Hole15" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole16" class="control-label"></label>
-                <input asp-for="Hole16" class="form-control" />
-                <span asp-validation-for="Hole16" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole17" class="control-label"></label>
-                <input asp-for="Hole17" class="form-control" />
-                <span asp-validation-for="Hole17" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hole18" class="control-label"></label>
-                <input asp-for="Hole18" class="form-control" />
-                <span asp-validation-for="Hole18" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoleIn" class="control-label"></label>
-                <input asp-for="HoleIn" class="form-control" />
-                <span asp-validation-for="HoleIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoleOut" class="control-label"></label>
-                <input asp-for="HoleOut" class="form-control" />
-                <span asp-validation-for="HoleOut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoleTotal" class="control-label"></label>
-                <input asp-for="HoleTotal" class="form-control" />
-                <span asp-validation-for="HoleTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedTs" class="control-label"></label>
-                <input asp-for="CreatedTs" class="form-control" />
-                <span asp-validation-for="CreatedTs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastUpdatedBy" class="control-label"></label>
-                <input asp-for="LastUpdatedBy" class="form-control" />
-                <span asp-validation-for="LastUpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastUpdatedTs" class="control-label"></label>
-                <input asp-for="LastUpdatedTs" class="form-control" />
-                <span asp-validation-for="LastUpdatedTs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        </div>
+        <br />
+        <form asp-action="Edit">
+            @Html.Partial("_EditScorePartial", Model)
         </form>
     </div>
 </div>
@@ -177,5 +33,33 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         console.info("Hello From Score Create");
+        $("#MemberId").val(@Model.EnteredBy.MemberId);
+        $("#CourseId").change(function () {
+            console.info("Course Change id=" + $("#CourseId").val());
+
+            $("#Color").children().remove().end();
+            console.info("Colors Cleared");
+
+            var jsonService = "/api/CourseDetail/" + $("#CourseId").val();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                url: jsonService
+            }).done(function (response) {
+                $.each(response, function (index, value) {
+                    //console.info(response[index]);
+                    //console.info(response[index].value);
+                    //console.info(response[index].selected);
+                    $("#Color").append($("<option></option>")
+                        .attr("value", response[index].value)
+                        .text(response[index].text))
+                    if (response[index].selected == true) $("#Color").val(response[index].value);
+                });
+           });
+
+            //console.info("Return from Ajax");
+        });
+
     </script>
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Data;
 using Pogi.Entities;
 
@@ -34,6 +35,18 @@ namespace Pogi.Services
         public IEnumerable<Member> getAll()
         {
             return _context.Member.OrderBy(r => r.LastName);
+        }
+
+        public List<SelectListItem> getSelectList()
+        {
+            List<SelectListItem> memberList = new List<SelectListItem>();
+            IEnumerable<Member> members = _context.Member.OrderBy(r => r.LastName);
+            foreach (Member member in members)
+            {
+                SelectListItem sl = new SelectListItem { Text = member.LastName+", "+member.FirstName, Value = member.MemberId.ToString() };
+                memberList.Add(sl);
+            }
+            return memberList;
         }
     }
 }

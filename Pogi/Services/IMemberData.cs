@@ -1,4 +1,5 @@
-﻿using Pogi.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pogi.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Pogi.Services
 {
     public interface IMemberData
     {
+        List<SelectListItem> getSelectList();
 
         IEnumerable<Member> getAll();
         Member get(int memberId);
