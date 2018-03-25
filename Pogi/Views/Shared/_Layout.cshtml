@@ -28,6 +28,8 @@
     @*<link href="~/lib/bootstrap-table-master/dist/bootstrap-table.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
     <link href="~/lib/bootstrap-table-examples-master/assets/examples.css" rel="stylesheet" />
+
+
 </head>
 <body>
     <header>
@@ -60,17 +62,16 @@
                     <li class="nav-item"><a class="nav-link disabled" href="#">Forums</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">MarketPlace</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Archives</a></li>
-                    <li class="nav-item"><a class="nav-link disabled" href="#">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
                             Admin
                         </a>
                         <div class="dropdown-menu alert-secondary" aria-labelledby="adminDropdown">
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Course" asp-action="Index">Manage Courses</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Member" asp-action="Index">Manage Members</a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Home" asp-action="About">Development Log</a>
                             @*   <a class="dropdown-item disabled col-sm-offset-1" asp-area="" asp-controller="TeeAssign" asp-action="Index">Assign Tee Times</a>*@
                         </div>
                     </li>
@@ -122,6 +123,7 @@
     @*<script src="~/lib/bootstrap-table-master/dist/bootstrap-table.js"></script>*@
     <script src="~/lib/bootstrap-table-master/src/locale/bootstrap-table-en-US.js"></script>
     <script src="~/lib/bootstrap-table-examples-master/ga.js"></script>
+
     <script>
         //console.info("Hello From Layout");
     </script>
@@ -137,6 +139,6 @@
         });
     </script>
 
-     @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
     </html>

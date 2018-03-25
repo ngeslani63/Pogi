@@ -1,17 +1,151 @@
-﻿@{
-    ViewData["Title"] = "Contact";
+﻿<head>
+    <!-- GrayScale Template-->
+    <link href="~/lib/startbootstrap-grayscale-gh-pages/css/grayscale.css" rel="stylesheet" />
+
+    <link href="~/lib/startbootstrap-grayscale-gh-pages/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+</head>
+
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="masthead">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h1 class="brand-heading">POGI.CLUB</h1>
+                        <p class="intro-text">
+                            be<span">Long</span> to be happy
+                        </p>
+                        <a href="#about" class="btn btn-circle js-scroll-trigger">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>About POGI</h2>
+                    <p>
+                        POGI League  aims to promote the game of golf among its members 
+                        by sharing tee times and playing together as often as possible through organized weekly games, golf outings and competitions. Based mostly in central New Jersey, members of POGI are committed to furthering the organization's goals through various efforts including:
+                        <ul>
+                            <li>
+                                Jointly calling for tee times thereby giving its membership various opportunities to play weekly or as often as possible.
+                            </li>
+                            <li>
+                                Learning and applying the rules of golf as laid down by the USGA.
+                            </li>
+                            <li>
+                                Establishing an official GHIN Handicap index.
+                            </li>
+                            <li>
+                                Organizing various golf competitions to determine the league's top golfers.
+                                </li>
+                            <li>
+                                Organizing annual non-golfing activities to strengthen the bond among its members and their immediate families.
+                            </li>
+                        </ul>
+                        Membership is open to all golfing individuals regardless of race, religion, level of play (golf) or place of residence. An annual membership fee is required to gain acceptance to the organization and to enjoy all the benefits of membership.
+</div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Contact POGI</h2>
+                    <p>
+                        We are always looking for friendly and passionate golfers in the New Jersey area.
+                        <br />
+                        For membership information, please email Jess at jesusb3@yahoo.com
+                    </p>
+                    <p>
+                        We are on social media!
+                    </p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/groups/POGIboys/" class="btn btn-default btn-lg">
+                                <i class="fa fa-facebook fa-fw"></i>
+                                <span class="network-name">Facebook</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div id="map"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Your Website 2018</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/grayscale.min.js"></script>
+
+</body>
+
+
+@section Scripts {
+
+    console.log("Hello from About")
+    <!-- GrayScale Template-->
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+    <!-- Custom scripts for this template -->
+    <script src="js/grayscale.min.js"></script>
+
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>

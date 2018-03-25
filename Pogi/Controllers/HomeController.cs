@@ -36,8 +36,6 @@ namespace Pogi.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
