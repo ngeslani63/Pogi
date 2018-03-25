@@ -52,15 +52,16 @@
                         <div class="dropdown-menu alert-secondary" aria-labelledby="scoreDropdown">
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Index">LeaderBoard</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Create">Entry</a>
+                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Create">Single Entry</a>
+                            <a disabled class="dropdown-item col-sm-offset-1 text-muted" href="#">Multiple Entry</a>
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Forums</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">MarketPlace</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Archives</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
                             Admin
