@@ -14,17 +14,46 @@ namespace Pogi.Controllers
     public class CourseDetailController : Controller
     {
         private ICourseDetail _courseDetail;
+        private ICourseData _courseData;
 
-        public CourseDetailController(ICourseDetail courseDetail)
+        public CourseDetailController(ICourseDetail courseDetail, ICourseData courseData)
         {
             _courseDetail = courseDetail;
+            _courseData = courseData;
         }
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public List<SelectListItem> Get(int id)
+        [HttpGet]
+        [Route("{id:int}/colors")]
+        public List<SelectListItem> GetColors(int id)
         {
-            var colors = _courseDetail.getSelectList(id);
+            var colors = _courseDetail.getColors(id);
             return colors;
+        }
+        [HttpGet]
+        [Route("{id:int}/pars")]
+        public List<string> GetPars(int id)
+        {
+            var CourseData = _courseData.get(id);
+            List<string> Pars = new List<string>();
+            Pars.Add((CourseData.Par01).ToString("00"));
+            Pars.Add((CourseData.Par02).ToString("00"));
+            Pars.Add((CourseData.Par03).ToString("00"));
+            Pars.Add((CourseData.Par04).ToString("00"));
+            Pars.Add((CourseData.Par05).ToString("00"));
+            Pars.Add((CourseData.Par06).ToString("00"));
+            Pars.Add((CourseData.Par07).ToString("00"));
+            Pars.Add((CourseData.Par08).ToString("00"));
+            Pars.Add((CourseData.Par09).ToString("00"));
+            Pars.Add((CourseData.Par10).ToString("00"));
+            Pars.Add((CourseData.Par11).ToString("00"));
+            Pars.Add((CourseData.Par12).ToString("00"));
+            Pars.Add((CourseData.Par13).ToString("00"));
+            Pars.Add((CourseData.Par14).ToString("00"));
+            Pars.Add((CourseData.Par15).ToString("00"));
+            Pars.Add((CourseData.Par16).ToString("00"));
+            Pars.Add((CourseData.Par17).ToString("00"));
+            Pars.Add((CourseData.Par18).ToString("00"));
+
+            return Pars;
         }
 
     }

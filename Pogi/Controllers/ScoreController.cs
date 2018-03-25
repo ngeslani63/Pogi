@@ -47,6 +47,10 @@ namespace Pogi.Controllers
         {
             var model = new ScoreDisplayViewModel();
             model.ScoreInfos = _scoreInfo.getAll();
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+            }
 
             return View(model);
             //return View(await _context.Score.ToListAsync());
@@ -82,7 +86,7 @@ namespace Pogi.Controllers
             var model = new ScoreCreateViewModel();
             model.Courses = _courseData.getSelectList();
             model.Members = _memberData.getSelectList();
-            model.Colors = _courseDetail.getSelectList(1);
+            model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
             
             if (_signInManager.IsSignedIn(User))
             {
@@ -90,6 +94,7 @@ namespace Pogi.Controllers
              }
             return View(model);
         }
+
 
         // POST: Score/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -108,6 +113,7 @@ namespace Pogi.Controllers
                     ModelState.AddModelError("ScoreDate", "Invalid Date");
                     model.Courses = _courseData.getSelectList();
                     model.Members = _memberData.getSelectList();
+                    model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
                     model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                     return View(model);
                 }
@@ -116,6 +122,7 @@ namespace Pogi.Controllers
                     ModelState.AddModelError("ScoreDate", "Please do not specify a future Date and Time");
                     model.Courses = _courseData.getSelectList();
                     model.Members = _memberData.getSelectList();
+                    model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
                     model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                     return View(model);
                 }
@@ -126,6 +133,7 @@ namespace Pogi.Controllers
                 Score.MemberId = model.MemberId;
                 Score.CourseId = model.CourseId;
                 Score.Color = model.Color;
+                Score.ScoreDate = model.ScoreDate;
                 Score.EnteredById = model.EnteredBy.MemberId;
                 Score.Hole01 = model.Hole01;
                 Score.Hole02 = model.Hole02;
@@ -157,6 +165,10 @@ namespace Pogi.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            model.Courses = _courseData.getSelectList();
+            model.Members = _memberData.getSelectList();
+            model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+            model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
             return View(model);
         }
 
@@ -176,8 +188,10 @@ namespace Pogi.Controllers
             var model = new ScoreCreateViewModel();
             model.Courses = _courseData.getSelectList();
             model.Members = _memberData.getSelectList();
+            model.ScoreId = score.ScoreId;
             model.MemberId = score.MemberId;
             model.CourseId = score.CourseId;
+            model.Colors = _courseDetail.getColors(score.CourseId);
             model.Color = score.Color;
             model.EnteredBy = _memberData.get(score.EnteredById);
             model.Hole01 = score.Hole01;
@@ -227,11 +241,10 @@ namespace Pogi.Controllers
             {
                 try
                 {
-                    Score Score = new Score();
-                    Score.ScoreId = model.ScoreId;
-                    Score.MemberId = model.MemberId;
+                    Score Score = await _context.Score.SingleOrDefaultAsync(m => m.ScoreId == id);
                     Score.CourseId = model.CourseId;
                     Score.Color = model.Color;
+                    Score.ScoreDate = model.ScoreDate;
                     Score.EnteredById = model.EnteredBy.MemberId;
                     Score.Hole01 = model.Hole01;
                     Score.Hole02 = model.Hole02;
@@ -254,8 +267,6 @@ namespace Pogi.Controllers
                     Score.HoleIn = model.HoleIn;
                     Score.HoleOut = model.HoleOut;
                     Score.HoleTotal = model.HoleTotal;
-                    Score.CreatedBy = User.Identity.Name;
-                    Score.CreatedTs = DateTime.Now;
                     Score.LastUpdatedBy = User.Identity.Name;
                     Score.LastUpdatedTs = DateTime.Now;
                     _context.Update(Score);

@@ -19,7 +19,7 @@
             </div>
         </div>
         <br />
-        <form asp-action="Edit">
+        <form asp-action="Create" >
             @Html.Partial("_EditScorePartial", Model)
         </form>
     </div>
@@ -30,17 +30,75 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
+<script type="text/javascript">
         console.info("Hello From Score Create");
-        $("#MemberId").val(@Model.EnteredBy.MemberId);
+
+    $("#MemberId").val(@Model.EnteredBy.MemberId);
+
+  
+    $(function () {
+
+
+          // Set Holes to Placeholder if Score Total = 0
+        if ($("#HoleTotal").val() == 0) {
+
+            var jsonService = "/api/CourseDetail/" + $("#CourseId").val() + "/Pars";
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                url: jsonService
+            }).done(function (response) {
+                $.each(response,
+                    function (index, value) {
+                        var hole = index + 1;
+                        var holex = ("0" + hole).slice(-2);
+                        //console.info(holex);
+                        $("#Hole" + holex).attr("placeholder", "par " + response[index])
+                        $("#Hole" + holex).val("");
+                    }
+                );
+           });
+        }
+
+        // Set Hole Defaults to Par when button clicked
+        $("#SetPar").click(function (e) {
+            
+            console.info("Set Par Button clicked");
+
+            var jsonService = "/api/CourseDetail/" + $("#CourseId").val() + "/Pars";
+            var totOut = 0;
+            var totIn = 0;
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                url: jsonService
+            }).done(function (response) {
+                $.each(response,
+                    function (index, value) {
+                        var hole = index + 1;
+                        var holex = ("0" + hole).slice(-2);
+                        $("#Hole" + holex).attr("placeholder", "par " + response[index])
+                        $("#Hole" + holex).val(response[index]);
+                        if (index < 9) totOut = totOut + parseInt(response[index]);
+                        else totIn = totIn + parseInt(response[index]);
+                    }
+                );
+                $("#HoleOut").val(totOut);
+                $("#HoleIn").val(totIn);
+                $("#HoleTotal").val(parseInt($("#HoleIn").val()) + parseInt($("#HoleOut").val()));
+
+            });
+            e.preventDefault();
+        });
+
+        // On Course Changes, refresh Colors and Par Values
         $("#CourseId").change(function () {
-            console.info("Course Change id=" + $("#CourseId").val());
 
+            // Clear Color DropDown
             $("#Color").children().remove().end();
-            console.info("Colors Cleared");
-
-            var jsonService = "/api/CourseDetail/" + $("#CourseId").val();
+            var jsonService = "/api/CourseDetail/" + $("#CourseId").val() + "/Colors";
             $.ajax({
                 type: "GET",
                 contentType: "application/json",
@@ -56,10 +114,48 @@
                         .text(response[index].text))
                     if (response[index].selected == true) $("#Color").val(response[index].value);
                 });
-           });
-
-            //console.info("Return from Ajax");
+                });
+            // Refresh PlaceHolders
+            var jsonService = "/api/CourseDetail/" + $("#CourseId").val() + "/Pars";
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                url: jsonService
+            }).done(function (response) {
+                $.each(response,
+                    function (index, value) {
+                        var hole = index + 1;
+                        var holex = ("0" + hole).slice(-2);
+                        $("#Hole" + holex).attr("placeholder", "par " + response[index])
+                        $("#Hole" + holex).val("");
+                    }
+                );
+            });
         });
 
-    </script>
+        $(".HoleOut").change(function () {
+            var totOut = 0;
+            $(".HoleOut").each(function () {
+                totOut = totOut + parseInt($(this).val());
+            });
+            $("#HoleOut").val(totOut);
+            $("#HoleTotal").val(parseInt($("#HoleIn").val()) + parseInt($("#HoleOut").val()));
+
+        });
+        $(".HoleIn").change(function () {
+            var totIn = 0;
+            $(".HoleIn").each(function () {
+                totIn = totIn + parseInt($(this).val());
+            });
+            $("#HoleIn").val(totIn);
+            $("#HoleTotal").val(parseInt($("#HoleIn").val()) + parseInt($("#HoleOut").val()));
+        });
+
+
+    });
+
+
+</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

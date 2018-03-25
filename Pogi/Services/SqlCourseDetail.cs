@@ -51,7 +51,7 @@ namespace Pogi.Services
             return courseList;
         }
 
-        public List<SelectListItem> getSelectList(int CourseId)
+        public List<SelectListItem> getColors(int CourseId)
         {
             //throw new NotImplementedException();
             List<SelectListItem> courseDetailList = new List<SelectListItem>();

@@ -2,6 +2,10 @@
 <section>
     <div class="form-row">
         <input type="hidden" asp-for="ScoreId" />
+        <input type="hidden" asp-for="@Model.EnteredBy.MemberId" />
+        <input type="hidden" asp-for="@Model.EnteredBy.FirstName" />
+        <input type="hidden" asp-for="@Model.EnteredBy.LastName" />
+        <input type="hidden" asp-for="@Model.EnteredBy.EmailAddr1st" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col col-md-4">
             <div class="form-group">
@@ -15,7 +19,12 @@
         <div class="col col-md-4">
             <div class="form-group">
                 <label asp-for="MemberId" class="control-label"></label>
+                @if ((string)ViewData["Title"] == "Create") {
                 <select asp-for="MemberId" asp-items="@Model.Members" class="form-control"></select>
+                }
+                else {
+                <select readonly="readonly" disabled asp-for="MemberId" asp-items="@Model.Members" class="form-control"></select>
+                }
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>
         </div>
@@ -38,55 +47,66 @@
             </div>
         </div>
     </div>
+    <div class="form-row">
+        <div class="col col-md-4">
+            <div class="form-group">
+                Holes
+                @if ((string)ViewData["Title"] == "Create")
+                {
+                    <a id="SetPar" class="float-right text-primary" href="#">Default Scores to Par</a>
+                }
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole01" class="control-label"></label>
-                <input asp-for="@Model.Hole01" class="parOut form-control" />
+                <input asp-for="@Model.Hole01" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole01" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole02" class="control-label"></label>
-                <input asp-for="@Model.Hole02" class="parOut form-control" />
+                <input asp-for="@Model.Hole02" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole02" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole03" class="control-label"></label>
-                <input asp-for="@Model.Hole03" class="parOut form-control" />
+                <input asp-for="@Model.Hole03" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole03" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole04" class="control-label"></label>
-                <input asp-for="@Model.Hole04" class="parOut form-control" />
+                <input asp-for="@Model.Hole04" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole04" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole05" class="control-label"></label>
-                <input asp-for="@Model.Hole05" class="parOut form-control" />
+                <input asp-for="@Model.Hole05" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole05" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole06" class="control-label"></label>
-                <input asp-for="@Model.Hole06" class="parOut form-control" />
+                <input asp-for="@Model.Hole06" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole06" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole07" class="control-label"></label>
-                <input asp-for="@Model.Hole07" class="parOut form-control" />
+                <input asp-for="@Model.Hole07" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole07" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole08" class="control-label"></label>
-                <input asp-for="@Model.Hole08" class="parOut form-control" />
+                <input asp-for="@Model.Hole08" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole08" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole09" class="control-label"></label>
-                <input asp-for="@Model.Hole09" class="parOut form-control" />
+                <input asp-for="@Model.Hole09" class="HoleOut form-control" />
                 <span asp-validation-for="@Model.Hole09" class="text-danger"></span>
             </div>
         </div>
@@ -103,51 +123,51 @@
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole10" class="control-label"></label>
-                <input asp-for="@Model.Hole10" class="parIn form-control" />
+                <input asp-for="@Model.Hole10" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole10" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole11" class="control-label"></label>
-                <input asp-for="@Model.Hole11" class="parIn form-control" />
+                <input asp-for="@Model.Hole11" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole11" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole12" class="control-label"></label>
-                <input asp-for="@Model.Hole12" class="parIn form-control" />
+                <input asp-for="@Model.Hole12" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole12" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole13" class="control-label"></label>
-                <input asp-for="@Model.Hole13" class="parIn form-control" />
+                <input asp-for="@Model.Hole13" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole13" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole14" class="control-label"></label>
-                <input asp-for="@Model.Hole14" class="parIn form-control" />
+                <input asp-for="@Model.Hole14" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole14" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole15" class="control-label"></label>
-                <input asp-for="@Model.Hole15" class="parIn form-control" />
+                <input asp-for="@Model.Hole15" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole15" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole16" class="control-label"></label>
-                <input asp-for="@Model.Hole16" class="parIn form-control" placeholder="01" />
+                <input asp-for="@Model.Hole16" class="HoleIn form-control" placeholder="01" />
                 <span asp-validation-for="@Model.Hole16" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole17" class="control-label"></label>
-                <input asp-for="@Model.Hole17" class="parIn form-control" />
+                <input asp-for="@Model.Hole17" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole17" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole18" class="control-label"></label>
-                <input asp-for="@Model.Hole18" class="parIn form-control" />
+                <input asp-for="@Model.Hole18" class="HoleIn form-control" />
                 <span asp-validation-for="@Model.Hole18" class="text-danger"></span>
             </div>
         </div>
@@ -173,9 +193,15 @@
     <div class="row">
         <div class="col col-md-4">
             <div class="form-group">
-                <input type="submit" value="@ViewData["Save"]" class="btn btn-primary" />
+                <input id="submit" type="submit" value="@ViewData["Save"]" class="btn btn-default btn-primary" />
                 <a asp-action="Index" class="btn btn-primary">Cancel</a>
             </div>
         </div>
     </div>
 </section>
+
+
+<script type="text/javascript">
+    console.info("Hello From Score Partial");
+</script>
+
