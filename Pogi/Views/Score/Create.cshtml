@@ -60,10 +60,9 @@
                 );
            });
         }
-
         // Set Hole Defaults to Par when button clicked
         $("#SetPar").click(function (e) {
-            
+
             console.info("Set Par Button clicked");
 
             var jsonService = "/api/CourseDetail/" + $("#CourseId").val() + "/Pars";
@@ -81,6 +80,39 @@
                         var holex = ("0" + hole).slice(-2);
                         $("#Hole" + holex).attr("placeholder", "par " + response[index])
                         $("#Hole" + holex).val(response[index]);
+                        if (index < 9) totOut = totOut + parseInt(response[index]);
+                        else totIn = totIn + parseInt(response[index]);
+                    }
+                );
+                $("#HoleOut").val(totOut);
+                $("#HoleIn").val(totIn);
+                $("#HoleTotal").val(parseInt($("#HoleIn").val()) + parseInt($("#HoleOut").val()));
+
+            });
+            e.preventDefault();
+        });
+
+
+        // Clear Scores
+        $("#ClearScore").click(function (e) {
+            
+            console.info("Clear Score Button clicked");
+
+            var jsonService = "/api/CourseDetail/" + $("#CourseId").val() + "/Pars";
+            var totOut = 0;
+            var totIn = 0;
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                url: jsonService
+            }).done(function (response) {
+                $.each(response,
+                    function (index, value) {
+                        var hole = index + 1;
+                        var holex = ("0" + hole).slice(-2);
+                        $("#Hole" + holex).attr("placeholder", "par " + response[index])
+                        $("#Hole" + holex).val("");
                         if (index < 9) totOut = totOut + parseInt(response[index]);
                         else totIn = totIn + parseInt(response[index]);
                     }
