@@ -17,6 +17,7 @@
     <link href="~/css/carousel.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="~/css/blog.css" rel="stylesheet">
+    <link href="~/css/album.css" rel="stylesheet" />
 
     <!-- Light Gallery -->
     <link href="~/lib/lightgallery/dist/css/lightgallery.css" rel="stylesheet" />
@@ -58,7 +59,17 @@
                             <a disabled class="dropdown-item col-sm-offset-1 text-muted" href="#">Multiple Entry</a>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link disabled" href="#">Gallery</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="galleryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Gallery" asp-action="Index">
+                            Gallery
+                        </a>
+                        <div class="dropdown-menu alert-secondary" aria-labelledby="galleryeDropdown">
+                            <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Gallery" asp-action="Swings">Swings</a>
+                            <a disabled class="dropdown-item col-sm-offset-1 text-muted" href="#">Members</a>
+                            <div class="dropdown-divider"></div>
+                            <a disabled class="dropdown-item col-sm-offset-1 text-muted" href="#">Tournaments</a>
+                        </div>
+                    </li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Forums</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">MarketPlace</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#">Archives</a></li>

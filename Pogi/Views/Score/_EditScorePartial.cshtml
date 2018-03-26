@@ -52,9 +52,11 @@
             <div class="form-group">
                 Holes
                 @if ((string)ViewData["Title"] == "Create")
-                {
-                    <a id="SetPar" class="float-right text-primary" href="#">Default Scores to Par</a>
-                }
+    {
+            <a id="SetPar" class="float-right text-primary" href="#"> Default Scores to Par</a>
+            <span class="float-right">&nbsp;|&nbsp;</span>
+            <a id="ClearScore" class="float-right text-primary" href="#">Clear Scores to 0 </a>
+  }
             </div>
         </div>
     </div>
