@@ -16,25 +16,6 @@ namespace Pogi.Entities
             State = StateCode.NJ;
             Country = "USA";
             NumTees = 3;
-            Par01 = 03;
-            Par02 = 03;
-            Par03 = 03;
-            Par04 = 03;
-            Par05 = 03;
-            Par06 = 03;
-            Par07 = 03;
-            Par08 = 03;
-            Par09 = 03;
-            Par10 = 03;
-            Par11 = 03;
-            Par12 = 03;
-            Par13 = 03;
-            Par14 = 03;
-            Par15 = 03;
-            Par16 = 03;
-            Par17 = 03;
-            Par18 = 03;
-
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CourseId { get; set; }

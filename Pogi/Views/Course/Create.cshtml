@@ -22,4 +22,36 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        console.info("Hello From Course Create");
+
+        $(function () {
+            $(".teecolor").each(function () {
+                var tee = $(this);
+                if (tee.val().toString().toLowerCase().startsWith('gold')) tee.css("background", "gold");
+                if (tee.val().toString().toLowerCase().startsWith('red')) tee.css("background", "red");
+                if (tee.val().toString().toLowerCase().startsWith('white')) tee.css("background", "white");
+                if (tee.val().toString().toLowerCase().startsWith('blue')) tee.css("background", "blue");
+            })
+            $(".parOut").change(function () {
+                var totOut = 0;
+                $(".parOut").each(function () {
+                    totOut = totOut + parseInt($(this).val());
+                });
+                $("#Course_ParOut").val(totOut);
+                $("#Course_ParTotal").val(parseInt($("#Course_ParIn").val()) + parseInt($("#Course_ParOut").val()));
+
+            });
+            $(".parIn").change(function () {
+                var totIn = 0;
+                $(".parIn").each(function () {
+                    totIn = totIn + parseInt($(this).val());
+                });
+                $("#Course_ParIn").val(totIn);
+                $("#Course_ParTotal").val(parseInt($("#Course_ParIn").val()) + parseInt($("#Course_ParOut").val()));
+            });
+
+        })
+    </script>
 }

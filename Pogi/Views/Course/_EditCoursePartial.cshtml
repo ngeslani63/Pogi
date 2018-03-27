@@ -251,9 +251,18 @@ else
         </div>
 }
         <div class="form-row">
+            @if ((string)ViewData["Title"] == "Edit") {
             <div class="form-group col-sm-2">
                 <input name="addtee" type="submit" value="Add Color" class="btn" />
             </div>
+            }
+            else
+            {
+            <div class="form-group col-sm-6">
+                If you need more colors, Save these first and go back and edit
+            </div>
+
+            }
         </div>
         </div>
 

@@ -33,10 +33,10 @@
     $(function () {
         $(".teecolor").each(function () {
             var tee = $(this);
-            if (tee.val().toString().startsWith('gold')) tee.css("background", "gold");
-            if (tee.val().toString().startsWith('red')) tee.css("background", "red");
-            if (tee.val().toString().startsWith('white')) tee.css("background", "white");
-            if (tee.val().toString().startsWith('blue')) tee.css("background", "blue");
+            if (tee.val().toString().toLowerCase().startsWith('gold')) tee.css("background", "gold");
+            if (tee.val().toString().toLowerCase().startsWith('red')) tee.css("background", "red");
+            if (tee.val().toString().toLowerCase().startsWith('white')) tee.css("background", "white");
+            if (tee.val().toString().toLowerCase().startsWith('blue')) tee.css("background", "blue");
         })
         $(".parOut").change(function () {
             var totOut = 0;
