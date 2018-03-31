@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\images\Profile\" />
     <Folder Include="wwwroot\lib\bootstrat-4.0.0\" />
   </ItemGroup>
 

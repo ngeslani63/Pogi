@@ -68,7 +68,7 @@ namespace Pogi.Entities
         public int YardsOut { get; set; }
         public int YardsTotal { get; set; }
         [Required]
-        [Range(59.0, 80)]
+        [Range(50.0, 80)]
         public float Rating { get; set; }
         [Required]
         [Range(55,155)]
