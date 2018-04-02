@@ -28,7 +28,7 @@
                     <div class="alert-info col-md-3">
                         @Html.DisplayNameFor(model => course.CourseName)
                     </div>
-                    <div class="alert-warning col-md-6">
+                    <div class="col-md-8">
                         @Html.DisplayFor(modelItem => course.CourseName)
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="alert-info col-md-3">
                         @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
                     </div>
-                    <div class="alert-warning col-md-6">
+                    <div class="col-md-8">
                         @teeTimeDisp
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="alert-info col-md-3">
                         Reserved By
                     </div>
-                    <div class="alert-warning col-md-6">
+                    <div class="col-md-8">
                         @Html.DisplayFor(modelItem => member.FirstName)
                         @Html.DisplayFor(modelItem => member.LastName)
                     </div>
@@ -57,7 +57,7 @@
                         Player @(i + 1)
                     </div>
 
-                    <div class="col-md-6 text-dark">
+                    <div class="col-md-8 text-dark">
                         @if (i < teeAssignInfos.Count)
                     {
                         var teeAssignInfo = teeAssignInfos[i];

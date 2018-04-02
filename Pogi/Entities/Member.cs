@@ -70,6 +70,10 @@ namespace Pogi.Entities
 
         [Display(Name = "Tour Admin")]
         public bool RoleAdminTour { get; set; }
+        [Display(Name = "About Me")]
+        public string AboutMe { get; set; }
+        [Display(Name = "Upload Photo")]
+        public string ProfileFileName { get; set; }
 
     }
 }

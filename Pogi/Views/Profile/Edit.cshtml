@@ -1,0 +1,260 @@
+﻿<head>
+    <style>
+        body {
+            padding: 0;
+        }
+
+        .navbar-fixed-top,
+        .navbar-fixed-bottom {
+            position: fixed;
+            right: 0;
+            left: 0;
+            z-index: 1030;
+            margin-bottom: 0;
+        }
+
+            .navbar-fixed-top .navbar-inner,
+            .navbar-fixed-bottom .navbar-inner {
+                padding-right: 0;
+                padding-left: 0;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                border-radius: 0;
+            }
+
+            .navbar-fixed-top .container,
+            .navbar-fixed-bottom .container {
+                width: 940px;
+            }
+
+        .navbar-fixed-top {
+            top: 0;
+        }
+
+        .navbar-fixed-bottom {
+            bottom: 0;
+        }
+
+        .navbar .nav {
+            position: relative;
+            left: 0;
+            display: block;
+            float: left;
+            margin: 0 10px 0 0;
+        }
+    </style>
+</head>
+@model Pogi.Entities.Member
+@inject UserManager<ApplicationUser> userManager
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["Save"] = "Save";
+}
+<br />
+<section>
+    <div class="container">
+        <h2>Member Profile</h2>
+        <h4>Edit</h4>
+        <hr />
+        <div class="row">
+
+            <div class="col-md-10 ">
+                <form asp-action="Edit" class="form-horizontal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="MemberId" />
+                    <fieldset>
+                        <!-- Form Name -->
+                        @*<legend>User profile form requirement</legend>*@
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user">
+                                        </i>
+                                    </div>
+                                    <input asp-for="FirstName" class="form-control input-md" placeholder="First Name" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName " class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user">
+                                        </i>
+                                    </div>
+                                    <input asp-for="LastName" class="form-control input-md" placeholder="Last Name" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- File Button -->
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="Upload photo">Upload photo</label>
+                            <div class="col-md-5">
+                                <input id="ProfileFileName" class="input-file" type="file">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="Phone number ">Phone number </label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input asp-for="Phone1st" class="form-control input-md" placeholder="1st Phone" />
+                                    <span asp-validation-for="Phone1st" class="text-danger"></span>
+                                    <div class="input-group-addon">
+                                        <select asp-for="Phone1stType" asp-items="@Html.GetEnumSelectList<PhoneType>()"> class="form-control"></select>
+                                    </div>
+
+                                </div>
+                                <div class="input-group othertop">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-mobile fa-1x" style="font-size: 20px;"></i>
+                                    </div>
+                                    <input asp-for="Phone2nd" class="form-control input-md" placeholder="2nd Phone" />
+                                    <span asp-validation-for="Phone2nd" class="text-danger"></span>
+                                    <div class="input-group-addon">
+                                        <select asp-for="Phone2ndType" asp-items="@Html.GetEnumSelectList<PhoneType>()"> class="form-control"></select>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EmailAddr1st" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope">
+                                        </i>
+                                    </div>
+                                    <input asp-for="EmailAddr1st" class="form-control input-md" placeholder="Primary Email Address" />
+                                    <span asp-validation-for="EmailAddr1st" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EmailAddr2nd" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope">
+                                        </i>
+                                    </div>
+                                    <input asp-for="EmailAddr2nd" class="form-control input-md" placeholder="Secondary Email Address" />
+                                    <span asp-validation-for="EmailAddr2nd" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label asp-for="MaritalStatus" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-gavel">
+                                        </i>
+                                    </div>
+                                    <select asp-for="MaritalStatus" asp-items="@Html.GetEnumSelectList<MaritalState>()" class="form-control input-sm"></select>
+                                    <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Profession" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-briefcase">
+                                        </i>
+                                    </div>
+                                    <input asp-for="Profession" class="form-control input-md" placeholder="Profession" />
+                                    <span asp-validation-for="Profession" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-5 control-label col-xs-12">Street Address</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-road">
+                                        </i>
+                                    </div>
+                                    <input asp-for="Street" class="form-control input-md" placeholder="Street Address" />
+                                    <span asp-validation-for="Street" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-road">
+                                        </i>
+                                    </div>
+                                    <input asp-for="City" class="form-control input-md" placeholder="City" />
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="State" class="col-md-5 control-label"></label>
+                            <div class="col-md-4  col-xs-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-road">
+                                        </i>
+                                    </div>
+                                    <select asp-for="State" asp-items="@Html.GetEnumSelectList<StateCode>()" class="form-control input-sm"></select>
+                                    <span asp-validation-for="State" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-xs-4">USA</div>
+                        </div>
+
+                        <!-- Textarea -->
+                        <div class="form-group">
+                            <label asp-for="AboutMe" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <textarea asp-for="AboutMe" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="AboutMe" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <input type="submit" value="@ViewData["Save"]" class="btn btn-primary">
+                                <span>
+                                    <a class="btn btn-danger" href="/Home/index" role="button">Cancel</a>
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col-md-2 hidden-xs">
+                <img src="http://websamplenow.com/30/userprofile/images/avatar.jpg" class="img-responsive img-thumbnail ">
+            </div>
+
+        </div>
+    </div>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+
+</section>
