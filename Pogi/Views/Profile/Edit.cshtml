@@ -1,38 +1,7 @@
 ﻿<head>
     <style>
         body {
-            padding: 0;
-        }
-
-        .navbar-fixed-top,
-        .navbar-fixed-bottom {
-            position: fixed;
-            right: 0;
-            left: 0;
-            z-index: 1030;
-            margin-bottom: 0;
-        }
-
-            .navbar-fixed-top .navbar-inner,
-            .navbar-fixed-bottom .navbar-inner {
-                padding-right: 0;
-                padding-left: 0;
-                -webkit-border-radius: 0;
-                -moz-border-radius: 0;
-                border-radius: 0;
-            }
-
-            .navbar-fixed-top .container,
-            .navbar-fixed-bottom .container {
-                width: 940px;
-            }
-
-        .navbar-fixed-top {
-            top: 0;
-        }
-
-        .navbar-fixed-bottom {
-            bottom: 0;
+            padding-top: 0;
         }
 
         .navbar .nav {
@@ -51,7 +20,6 @@
     ViewData["Title"] = "Edit";
     ViewData["Save"] = "Save";
 }
-<br />
 <section>
     <div class="container">
         <h2>Member Profile</h2>
@@ -59,8 +27,8 @@
         <hr />
         <div class="row">
 
-            <div class="col-md-10 ">
-                <form asp-action="Edit" class="form-horizontal">
+            <div class="col-md-9 ">
+                <form method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="MemberId" />
                     <fieldset>
@@ -97,7 +65,8 @@
                         <div class="form-group">
                             <label class="col-md-5 control-label" for="Upload photo">Upload photo</label>
                             <div class="col-md-5">
-                                <input id="ProfileFileName" class="input-file" type="file">
+                                <input id="fileUpload" class="input-file" type="file">
+                                <input id="btnUploadFile" type="button" value="Upload">
                             </div>
                         </div>
                         <div class="form-group">
@@ -239,7 +208,7 @@
                         <div class="form-group">
                             <label class="col-md-5 control-label"></label>
                             <div class="col-md-5">
-                                <input type="submit" value="@ViewData["Save"]" class="btn btn-primary">
+                                <input asp-action="Edit" type="submit" value="@ViewData["Save"]" class="btn btn-primary">
                                 <span>
                                     <a class="btn btn-danger" href="/Home/index" role="button">Cancel</a>
                                 </span>
@@ -248,8 +217,11 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="col-md-2 hidden-xs">
-                <img src="http://websamplenow.com/30/userprofile/images/avatar.jpg" class="img-responsive img-thumbnail ">
+            <div class="col-md-3 hidden-xs">
+                @{var imgFile = "/images/Profile/" + Model.FirstName + Model.LastName + ".jpg"; }
+                <img id="ProfileFile" src="@imgFile" width="800" height="800"
+                     alt="Image not found" onerror="this.src='/images/Profile/avatar.jpg';"
+                     class="img-responsive ">
             </div>
 
         </div>
@@ -258,3 +230,51 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 
 </section>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function ()  {
+
+            console.info("Hello From Profile Edit");
+            $("#fileUpload").change(function () {
+                console.info("Upload Button to Primary");
+                $("#btnUploadFile").addClass("btn btn-primary")
+            });
+            $('#btnUploadFile').on('click', function () {
+                console.info("Upload Button clicked");
+                var data = new FormData();
+                var files = $("#fileUpload").get(0).files;
+                // Add the uploaded image content to the form data collection
+                if (files.length > 0) {
+                    data.append("UploadedImage", files[0]);
+                }
+
+                // Make Ajax request with the contentType = false, and procesDate = false
+                var ajaxRequest = $.ajax({
+                    type: "POST",
+                    url: "/api/values/uploadfile/@Model.MemberId",
+                    contentType: false,
+                    processData: false,
+                data: data
+                });
+
+                ajaxRequest.done(function (xhr, textStatus) {
+                    // Do other operation
+                    console.info("Replacing Image Source");
+                    var timestamp = new Date().getTime();
+                    source = $('#ProfileFile').attr('src');
+                    source = source.split("?", 1);
+                    $('#ProfileFile').attr('src', source + '?' + timestamp);
+                    $("#btnUploadFile").removeClass("btn btn-primary")
+                });
+
+
+            });
+         });
+
+
+
+    </script>
+}
