@@ -78,7 +78,7 @@
                          @if (Model.User != null && (Model.User.MemberId == teeTime.ReservedById 
                              || Model.User.MemberId == 1)) {
                         <a data-toggle="tooltip" title="Edit TeeTime" asp-action="Edit" asp-route-id="@teeTime.TeeTimeId">&#x270f;</a><span> | </span>
-                         <a data-toggle="tooltip" title="Delete TeeTime"asp-action="Delete" asp-route-id="@teeTime.TeeTimeId">&#xe083;</a>
+                         <a data-toggle="tooltip" title="Delete TeeTime"asp-action="Delete" asp-route-id="@teeTime.TeeTimeId" class="fa fa-trash"></a>
                          }
                     </div>
                   </div>
@@ -140,8 +140,8 @@ else
                                         || Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
                                     {
                                         <a data-toggle="tooltip" title="Withdraw" asp-controller="Player" asp-action="Delete"
-                                            asp-route-id="@item.Player.PlayId">
-                                            <span>&#xe083;</span>
+                                            asp-route-id="@item.Player.PlayId" class="fa fa-trash">
+                                            <span></span>
 
                                         </a>
                                     }
