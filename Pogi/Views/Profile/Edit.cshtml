@@ -3,6 +3,9 @@
         body {
             padding-top: 0;
         }
+        img {
+            image-orientation: from-image;
+        }
 
         .navbar .nav {
             position: relative;
@@ -31,6 +34,16 @@
                 <form method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="MemberId" />
+                    <input type="hidden" asp-for="RecordStatus" />
+                    <input type="hidden" asp-for="MemberStatus" />
+                    <input type="hidden" asp-for="RoleAdminRoot" />
+                    <input type="hidden" asp-for="RoleAdminUser" />
+                    <input type="hidden" asp-for="RoleAdminCourse" />
+                    <input type="hidden" asp-for="RoleAdminTeeTime" />
+                    <input type="hidden" asp-for="RoleAdminTour" />
+                    <input type="hidden" asp-for="RoleAdminScore" />
+                    <input type="hidden" asp-for="GhinNumber" />
+                    <input type="hidden" asp-for="CurrHandicap" />
                     <fieldset>
                         <!-- Form Name -->
                         @*<legend>User profile form requirement</legend>*@
@@ -74,7 +87,7 @@
                             <div class="col-md-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-phone"></i>
+                                        <i id="Phone1stIcon" class="fa fa-phone"></i>
                                     </div>
                                     <input asp-for="Phone1st" class="form-control input-md" placeholder="1st Phone" />
                                     <span asp-validation-for="Phone1st" class="text-danger"></span>
@@ -85,7 +98,7 @@
                                 </div>
                                 <div class="input-group othertop">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-mobile fa-1x" style="font-size: 20px;"></i>
+                                        <i id="Phone2ndIcon" class="fa fa-phone"></i>
                                     </div>
                                     <input asp-for="Phone2nd" class="form-control input-md" placeholder="2nd Phone" />
                                     <span asp-validation-for="Phone2nd" class="text-danger"></span>
@@ -182,6 +195,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Zip" class="col-md-5 control-label"></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-road">
+                                        </i>
+                                    </div>
+                                    <input asp-for="Zip" class="form-control input-md" placeholder="Zip" />
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="State" class="col-md-5 control-label"></label>
                             <div class="col-md-4  col-xs-4">
                                 <div class="input-group">
@@ -242,6 +268,7 @@
                 console.info("Upload Button to Primary");
                 $("#btnUploadFile").addClass("btn btn-primary")
             });
+
             $('#btnUploadFile').on('click', function () {
                 console.info("Upload Button clicked");
                 var data = new FormData();
