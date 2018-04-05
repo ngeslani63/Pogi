@@ -150,7 +150,7 @@ namespace Pogi.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction("Members", "Gallery");
             }
             return View(member);
         }

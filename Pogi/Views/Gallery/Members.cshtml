@@ -1,0 +1,46 @@
+﻿@using Pogi.Entities
+@model IEnumerable<Member>
+
+@{
+    ViewData["Title"] = "Members Gallery";
+}
+<head>
+    <style>
+      img {
+            image-orientation: from-image;
+        }
+        </style>
+    </head>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Presenting the POGI Family</h1>
+        <p class="lead text-muted"> “As you walk down the fairway of life you must smell the roses, for you only get to play one round.” -Ben Hogan</p>
+
+    </div>
+</section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            @foreach (Member member in Model)
+            {
+                var imgFile = "/images/Profile/" + member.FirstName + member.LastName + ".jpg";
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="@imgFile" width="400"
+                             alt="Image not found" onerror="this.src='/images/Profile/avatar.jpg';">
+                        <div class="card-body">
+                            <p class="card-text">@member.FirstName @member.LastName</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>@member.AboutMe</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
