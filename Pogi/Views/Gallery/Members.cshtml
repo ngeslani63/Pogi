@@ -4,13 +4,6 @@
 @{
     ViewData["Title"] = "Members Gallery";
 }
-<head>
-    <style>
-      img {
-            image-orientation: from-image;
-        }
-        </style>
-    </head>
 <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">Presenting the POGI Family</h1>
@@ -29,8 +22,8 @@
 
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="@imgFile" width="400"
-                             alt="Image not found" onerror="this.src='/images/Profile/avatar.jpg';">
+                        <img class="fileinput card-img-top" src="@imgFile"
+                             alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
                         <div class="card-body">
                             <p class="card-text">@member.FirstName @member.LastName</p>
                             <div class="d-flex justify-content-between align-items-center">
@@ -43,4 +36,33 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        console.info("Hello From Gallery/Members");
+
+        $(".fileinput").each(function () {
+            console.info("Hello before loadImage "
+                + $(this).attr("src"));
+            var element = $(this);
+          loadImage(
+                $(this).attr("src"),
+                function (img) {
+                    if (img.type === "error") {
+                    }
+                    else {
+                        element.attr("src", img.toDataURL("image/jpeg"));
+                        }
+                },
+                {
+                    orientation: true,
+                    maxWidth: 200
+                } 
+            );
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

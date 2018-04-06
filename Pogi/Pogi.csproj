@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\IndexOrig.cshtml" />
+    <Content Remove="web.config" />
     <Content Remove="wwwroot\images\banner1.svg" />
     <Content Remove="wwwroot\images\banner1o.svg" />
     <Content Remove="wwwroot\images\banner1x.cdr" />
@@ -50,6 +51,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="App_Data\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Folder>
     <Folder Include="wwwroot\images\Profile\" />
     <Folder Include="wwwroot\lib\bootstrat-4.0.0\" />
   </ItemGroup>
