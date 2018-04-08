@@ -1,21 +1,22 @@
-﻿<head>
-    <style>
-        body {
-            padding-top: 0;
-        }
-        img {
-            image-orientation: from-image;
-        }
+﻿
+<style>
+    body {
+        padding-top: 0;
+    }
 
-        .navbar .nav {
-            position: relative;
-            left: 0;
-            display: block;
-            float: left;
-            margin: 0 10px 0 0;
-        }
-    </style>
-</head>
+    img {
+        image-orientation: from-image;
+    }
+
+    .navbar .nav {
+        position: relative;
+        left: 0;
+        display: block;
+        float: left;
+        margin: 0 10px 0 0;
+    }
+</style>
+
 @model Pogi.Entities.Member
 @inject UserManager<ApplicationUser> userManager
 
@@ -291,13 +292,34 @@
                     // Do other operation
                     console.info("Replacing Image Source");
                     var timestamp = new Date().getTime();
-                    source = "/images/Profile/" + "@Model.FirstName" + "@Model.LastName" + ".jpg"; 
+                    source = "/images/Profile/" + "@Model.FirstName" + "@Model.LastName" + ".jpg";
                     $('#ProfileFile').attr('src', source + '?' + timestamp);
                     $("#btnUploadFile").removeClass("btn btn-primary")
                 });
 
 
             });
+
+            $("#ProfileFile").each(function () {
+                console.info("Hello before loadImage "
+                    + $(this).attr("src"));
+                var element = $(this);
+                loadImage(
+                    $(this).attr("src"),
+                    function (img) {
+                        if (img.type === "error") {
+                        }
+                        else {
+                            element.attr("src", img.toDataURL("image/jpeg"));
+                        }
+                    },
+                    {
+                        orientation: true,
+                        maxWidth: 200
+                    }
+                );
+            });
+
          });
 
 

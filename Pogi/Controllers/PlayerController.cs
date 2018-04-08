@@ -74,7 +74,7 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("PlayId,MemberId,GuestName,PlayDate")] Player players)
+        //public async Task<IActionResult> Create([Bind("PlayId,MemberId,GuestName,PlayDate,Order,PreferTeeTimeId1,PreferTeeTimeId2,PreferTeeTimeId3,RegistrationMethod,AssignedTee,Confirmed,Withdrawn,WithdrawReason")] Player players)
         public async Task<IActionResult> Create(PlayerCreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -130,7 +130,7 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlayId,MemberId,GuestName,PlayDate,Order,preferTeeTimeId1,preferTeeTimeId2,preferTeeTimeId3")] Player players)
+        public async Task<IActionResult> Edit(int id, [Bind("PlayId,MemberId,GuestName,PlayDate,Order,preferTeeTimeId1,preferTeeTimeId2,preferTeeTimeId3,RegistrationMethod,AssignedTee,Confirmed,Withdrawn,WithdrawReason")] Player players)
         {
             if (id != players.PlayId)
             {

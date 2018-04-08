@@ -75,11 +75,14 @@ namespace Pogi.Controllers
                 {
                     if (!await _roleManager.RoleExistsAsync("Member"))
                         await _roleManager.CreateAsync(new IdentityRole { Name = "Member" });
+                    if (!await _roleManager.RoleExistsAsync("AdminRoot"))
+                        await _roleManager.CreateAsync(new IdentityRole { Name = "AdminRoot" });
                     var user = await _userManager.FindByEmailAsync(model.Email);
                     Member member = _memberData.getByEmailAddr(model.Email);
                     if (member != null) {
                         if (!await _userManager.IsInRoleAsync(user, "Member"))
                             await _userManager.AddToRoleAsync(user, "Member");
+                        if (member.MemberId == 1) await _userManager.AddToRoleAsync(user, "AdminRoot");
                     }
                     else
                     {

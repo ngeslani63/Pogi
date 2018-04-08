@@ -12,7 +12,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <a asp-action="Create">Add New Tee Time</a>
 
 
@@ -25,7 +25,7 @@
                     var teeAssignInfos = item.TeeAssignInfos;
 
                 <div class="row">
-                    <div class="alert-info col-md-3">
+                    <div class="alert-info col-md-4">
                         @Html.DisplayNameFor(model => course.CourseName)
                     </div>
                     <div class="col-md-8">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="alert-info col-md-3">
+                    <div class="alert-info col-md-4">
                         @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
                     </div>
                     <div class="col-md-8">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="alert-info col-md-3">
+                    <div class="alert-info col-md-4">
                         Reserved By
                     </div>
                     <div class="col-md-8">
@@ -53,21 +53,22 @@
 
             {
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         Player @(i + 1)
                     </div>
 
                     <div class="col-md-8 text-dark">
                         @if (i < teeAssignInfos.Count)
-                    {
-                        var teeAssignInfo = teeAssignInfos[i];
-                        <span>@teeAssignInfo.Member.FirstName</span>
-                        <span>@teeAssignInfo.Member.LastName</span>
-                }
-                else
-                {
+    {
+        var teeAssignInfo = teeAssignInfos[i];
+                    <span>@teeAssignInfo.Member.FirstName</span>
+                    <span>@teeAssignInfo.Member.LastName</span>
+                    <span>(@teeAssignInfo.Member.CurrHandicap)</span>
+}
+else
+{
                     <span class="text-muted">Unassigned</span>
-            }
+}
                     </div>
                 </div>
 
@@ -91,7 +92,7 @@
         }
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <div class="">
                     <a asp-controller="Player" asp-action="Create">Register to Play</a>
                     <hr />
@@ -127,31 +128,36 @@
                         playerCount++;
                         prevDate = nextDate;
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
-    {
-                                <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
+        {
+                            <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
 }
 else
 {
-                                <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
+                            <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
 }
-                                    @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId 
-                                        || Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
-                                    {
-                                        <a data-toggle="tooltip" title="Withdraw" asp-controller="Player" asp-action="Delete"
-                                            asp-route-id="@item.Player.PlayId" class="fa fa-trash">
-                                            <span></span>
+                                    @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId
+           || Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
+        {
+                            <a data-toggle="tooltip" title="Withdraw" asp-controller="Player" asp-action="Delete"
+                               asp-route-id="@item.Player.PlayId" class="fa fa-trash">
+                                <span></span>
 
-                                        </a>
-                                    }
+                            </a>
+}
+                                </div>
+                                <div class="col-md-6">
+                                    @item.Player
                                 </div>
 
-                            </div>
 
-                    playerTotal++;
-                }
-            </div>
+                                </div>
+
+
+                                playerTotal++;
+                                }
+                            </div>
         </div>
     </div>
     </div>

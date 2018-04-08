@@ -244,6 +244,12 @@ namespace Pogi.Migrations
                     b.Property<int>("PlayId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("AssignedTee");
+
+                    b.Property<bool>("Confirmed");
+
+                    b.Property<int>("EnteredById");
+
                     b.Property<string>("GuestName");
 
                     b.Property<int>("MemberId");
@@ -251,6 +257,10 @@ namespace Pogi.Migrations
                     b.Property<int>("Order");
 
                     b.Property<DateTime>("PlayDate");
+
+                    b.Property<string>("WithdrawReason");
+
+                    b.Property<bool>("Withdrawn");
 
                     b.Property<int>("preferTeeTimeId1");
 

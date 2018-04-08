@@ -19,6 +19,10 @@ namespace Pogi.Entities
             preferTeeTimeId1 = 0;
             preferTeeTimeId2 = 0;
             preferTeeTimeId3 = 0;
+            Confirmed = false;
+            EnteredById = 0;
+            WithdrawReason = "";
+
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PlayId { get; set; }
@@ -34,5 +38,13 @@ namespace Pogi.Entities
         public int preferTeeTimeId2 { get; set; }
         [DefaultValue(0)]
         public int preferTeeTimeId3 { get; set; }
+        RegistrationType RegistrationMethod{ get; set; }
+        public bool AssignedTee { get; set; }
+        public bool Confirmed { get; set; }
+        public bool Withdrawn { get; set; }
+        public string WithdrawReason { get; set; }
+        
+        public int EnteredById { get; set; }
+
     }
 }
