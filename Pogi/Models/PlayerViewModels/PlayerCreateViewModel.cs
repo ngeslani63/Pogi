@@ -1,4 +1,5 @@
-﻿using Pogi.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pogi.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +24,7 @@ namespace Pogi.Models.PlayerViewModels
 
         }
 
-        public IEnumerable<Member> Members { get; set; }
+        public List<SelectListItem> Members { get; set; }
         public Member Member { get; set; }
 
         [Display(Name = "Member Playing")]

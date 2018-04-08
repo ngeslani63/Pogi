@@ -1,0 +1,75 @@
+﻿@model Pogi.Models.PlayerViewModels.PlayerDisplayViewModel
+
+@{
+    ViewData["Title"] = "Confirm";
+    Member enteredBy = @Model.EnteredBy;
+    Member member = @Model.Member;
+    Player player = @Model.Player;
+}
+
+<br />
+
+<h2>Player</h2>
+
+<h4>Registration Confirmation</h4>
+<hr />
+<div class="container">
+
+    <form asp-action="Confirm">
+
+        <input type="hidden" asp-for="Player.PlayId" />
+
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="alert-info col ">
+                    @Html.DisplayFor(modelItem => member.FirstName)
+                    @Html.DisplayFor(modelItem => member.LastName)
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col col-md-6">
+                I acknowledge my Play Registration for date below
+                and will endeavor to be on time for my Tee Time assignment.
+                <br />
+                </div>
+            </div>
+            <br />
+
+                <div class="row">
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Player.PlayDate" class="control-label"></label>
+                            <input disabled="disabled" asp-for="Player.PlayDate" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            <input type="submit" value="Confirm" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+    </form>
+
+    <div class="row">
+        <div>
+            <a asp-controller="TeeTime" asp-action="Index">Back to Tee Times</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        console.info("Hello From Player Confirm");
+    </script>
+}

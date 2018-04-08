@@ -22,6 +22,7 @@ namespace Pogi.Entities
             Confirmed = false;
             EnteredById = 0;
             WithdrawReason = "";
+            RegistrationMethod = RegistrationType.Self;
 
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -38,7 +39,7 @@ namespace Pogi.Entities
         public int preferTeeTimeId2 { get; set; }
         [DefaultValue(0)]
         public int preferTeeTimeId3 { get; set; }
-        RegistrationType RegistrationMethod{ get; set; }
+        public RegistrationType RegistrationMethod{ get; set; }
         public bool AssignedTee { get; set; }
         public bool Confirmed { get; set; }
         public bool Withdrawn { get; set; }

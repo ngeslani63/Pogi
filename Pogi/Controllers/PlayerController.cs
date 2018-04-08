@@ -60,10 +60,10 @@ namespace Pogi.Controllers
         public IActionResult Create()
         {
             var model = new PlayerCreateViewModel();
-            model.Members = _memberData.getAll();
+            model.Members = _memberData.getSelectList();
             if (_signInManager.IsSignedIn(User))
             {
-               model.Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                model.Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                 model.Player.MemberId = model.Member.MemberId;
             }
             return View(model);
@@ -80,11 +80,23 @@ namespace Pogi.Controllers
             if (ModelState.IsValid)
             {
                 Player player = model.Player;
+                Member member = model.Member;
                 if (!model.MemberPlaying &&
                     (model.Player.GuestName == null || model.Player.GuestName.Length == 0))
                 {
                     ModelState.AddModelError("MemberPlaying", "Check Member or specify Guest");
                     return View(model);
+                }
+                player.EnteredById = member.MemberId;
+                if (player.MemberId == member.MemberId)
+                {
+                    player.RegistrationMethod = RegistrationType.Self;
+                    player.Confirmed = true;
+                }
+                else
+                {
+                    player.RegistrationMethod = RegistrationType.Admin;
+                    player.Confirmed = false;
                 }
                 if (model.Player.GuestName != null && model.Player.GuestName.Length > 0)
                 {
@@ -95,6 +107,7 @@ namespace Pogi.Controllers
                     guest.preferTeeTimeId1 = player.preferTeeTimeId1;
                     guest.preferTeeTimeId2 = player.preferTeeTimeId2;
                     guest.preferTeeTimeId3 = player.preferTeeTimeId3;
+                    player.RegistrationMethod = RegistrationType.Admin;
                     _context.Add(guest);
                 }
                 if (model.MemberPlaying == true)
@@ -104,25 +117,29 @@ namespace Pogi.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","TeeTime" );
+                return RedirectToAction("Index", "TeeTime");
             }
             return View(model);
         }
 
         // GET: Player/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Confirm(int? id)
         {
-            if (id == null)
+            var player = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
+            if (player == null)
             {
                 return NotFound();
             }
+            var member = _memberData.get(player.MemberId);
+            var enteredBy = _memberData.get(player.EnteredById);
+            var model = new PlayerDisplayViewModel();
+            model.MemberPlaying = true;
+            model.Player = player;
+            model.EnteredBy = enteredBy;
+            model.Member = member;
+            
 
-            var players = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
-            if (players == null)
-            {
-                return NotFound();
-            }
-            return View(players);
+            return View(model);
         }
 
         // POST: Player/Edit/5
@@ -130,34 +147,32 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlayId,MemberId,GuestName,PlayDate,Order,preferTeeTimeId1,preferTeeTimeId2,preferTeeTimeId3,RegistrationMethod,AssignedTee,Confirmed,Withdrawn,WithdrawReason")] Player players)
+        public async Task<IActionResult> Confirm(int id)
         {
-            if (id != players.PlayId)
+            var player = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
+            if (player == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(players);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PlayersExists(players.PlayId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                player.Confirmed = true;
+                _context.Update(player);
+                await _context.SaveChangesAsync();
             }
-            return View(players);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PlayersExists(player.PlayId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index", "TeeTime");
         }
 
         // GET: Player/Delete/5
