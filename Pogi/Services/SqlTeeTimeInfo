@@ -34,5 +34,20 @@ namespace Pogi.Services
             }
             return TeeTimeInfos;
         }
+
+		public bool majorTourDay(DateTime dateTime)
+        {
+            bool rc = false;
+            DateTime date = dateTime.Date;
+            DateTime datePlus1 = date.AddDays(1);
+            TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeTS >= date 
+				&& r.TeeTimeTS < datePlus1
+				&& r.MajorTour == true);
+            if (teeTime != null ) rc = true;
+
+            return rc;
+        }
+
+
     }
 }

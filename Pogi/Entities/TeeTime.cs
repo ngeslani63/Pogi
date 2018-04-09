@@ -21,5 +21,8 @@ namespace Pogi.Entities
         public int NumPlayers { get; set; }
         [DefaultValue(false)]
         public bool AutoAssign { get; set; }
+        [Display(Name = "Is this a Major Tour")]
+        [DefaultValue(false)]
+        public bool MajorTour { get; set; }
     }
 }

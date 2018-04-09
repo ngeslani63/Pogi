@@ -38,6 +38,9 @@ namespace Pogi.Models.TeeTimeViewModels
         [DefaultValue(4)]
         [Range(1,40)]
         public int NumPlayers { get; set; }
+        [DefaultValue(false)]
+        [Display(Name = "Is this a Major Tour")]
+        public bool MajorTour { get; set; }
     }
 
 

@@ -27,10 +27,12 @@ namespace Pogi.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMemberData _memberData;
         private readonly ICourseData _courseData;
+        private readonly IEmailSender _emailSender;
 
         public TeeTimeController(ITeeTimeInfo teeTimeInfo, IPlayerInfo playerInfo, ITeeAssignInfo teeAssignInfo, PogiDbContext context
             , SignInManager<ApplicationUser> signInManager,
-                UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData)
+              UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
+              IEmailSender emailSender)
         {
             _context = context;
             _teeTimeInfo = teeTimeInfo;
@@ -40,6 +42,7 @@ namespace Pogi.Controllers
             _userManager = userManager;
             _memberData = memberData;
             _courseData = courseData;
+            _emailSender = emailSender;
         }
 
         // GET: TeeTime
@@ -124,6 +127,7 @@ namespace Pogi.Controllers
                 teeTime.TeeTimeTS = ts;
                 teeTime.CourseId = model.CourseId;
                 teeTime.NumPlayers = model.NumPlayers;
+                teeTime.MajorTour = model.MajorTour;
                 teeTime.AutoAssign = false;
                 _context.Add(teeTime);
                 await _context.SaveChangesAsync();
@@ -155,6 +159,8 @@ namespace Pogi.Controllers
             model.TeeTimeTS = teeTime.TeeTimeTS;
             model.CourseId = teeTime.CourseId;
             model.NumPlayers = teeTime.NumPlayers;
+            model.MajorTour = teeTime.MajorTour;
+
             model.Member = _memberData.get(teeTime.ReservedById);
 
 
@@ -199,6 +205,7 @@ namespace Pogi.Controllers
                     teeTime.TeeTimeTS = ts;
                     teeTime.CourseId = model.CourseId;
                     teeTime.NumPlayers = model.NumPlayers;
+                    teeTime.MajorTour = model.MajorTour;
                     teeTime.AutoAssign = false;
                        
                     _context.Update(teeTime);

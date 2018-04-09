@@ -82,7 +82,8 @@
                                 <a data-toggle="tooltip" title="Edit TeeTime" asp-action="Edit" asp-route-id="@teeTime.TeeTimeId">&#x270f;</a><span> | </span>
                                 <a data-toggle="tooltip" title="Delete TeeTime" asp-action="Delete" asp-route-id="@teeTime.TeeTimeId" class="fa fa-trash"></a>
                             }
-                            @if (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot)
+
+                            @if (Model.User!=null && (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
                             {
                                 <span> | </span><a disabled="true" data-toggle="tooltip" title="Assign TeeTime" href="#" class="fa fa-plus"></a>
                             }
@@ -114,30 +115,31 @@
                     int playerTotal = 0;
                 }
                 @foreach (var item in Model.PlayerInfos)
-                {
-                    DateTime nextDateTime = item.Player.PlayDate;
-                    String nextDate = nextDateTime.ToString("yyyyMMdd");
-                    String nextDateDisp = nextDateTime.ToString("D");
-                    if (!nextDate.Equals(prevDate))
-                    {
-                        @if (playerTotal > 0)
                         {
+                            DateTime nextDateTime = item.Player.PlayDate;
+                            String nextDate = nextDateTime.ToString("yyyyMMdd");
+                            String nextDateDisp = nextDateTime.ToString("D");
+                            int daysToGo = (nextDateTime.Date - DateTime.Today.Date).Days;
+                            if (!nextDate.Equals(prevDate))
+                            {
+                                @if (playerTotal > 0)
+                                {
                             <br />
                         }
                         <div class="row">
                             <div class="alert-info col-md-6">
-                                @nextDateDisp
+                                @nextDateDisp, @daysToGo days
                             </div>
                             <div class="alert-info col-md-2">
                                 RegType
                             </div>
-                            <div class="alert-info col-md-2">
-                                Confirm
+                            <div class="alert-info col-md-3">
+                                Status
                             </div>
                         </div>
                         playerCount = 0;
                     }
-                    playerCount++;
+                playerCount++;
                     prevDate = nextDate;
                     <div class="row">
                         <div class="col-md-6">
@@ -149,35 +151,43 @@
                             {
                                 <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
                             }
-                            @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId
-|| Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
+                            @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId && !item.Player.Withdrawn
+                             || Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
                             {
                                 <a data-toggle="tooltip" title="Withdraw" asp-controller="Player" asp-action="Delete"
                                    asp-route-id="@item.Player.PlayId" class="fa fa-trash"></a>
 
                             }
-                            @if (Model.User != null && Model.User.MemberId == item.Player.MemberId 
-                                && item.Player.RegistrationMethod != RegistrationType.Self
-                                && item.Player.Confirmed != true)
+                            @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
+                             && item.Player.RegistrationMethod != RegistrationType.Self
+                             && item.Player.Confirmed != true && item.Player.Withdrawn != true)
                             {
                                 <span> | </span>
-                                <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Confirm"  asp-controller="Player" asp-action="Confirm"
+                                <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
                                    asp-route-id="@item.Player.PlayId"></a>
                             }
                         </div>
                         <div class="col-md-2">
                             @item.Player.RegistrationMethod
                         </div>
-                        <div class="col-md-2">
-                            @if (@item.Player.RegistrationMethod == RegistrationType.Self)
+                        <div class="col-md-3">
+                            @if (@item.Player.Withdrawn)
                             {
-                                <span>Auto</span>
+                                <span>Withdrawn</span>
+
                             }
                             else
                             {
-                                @if (@item.Player.Confirmed)
+                                @if (@item.Player.RegistrationMethod == RegistrationType.Self)
                                 {
-                                    <span>Yes</span>
+                                    <span>Confirmed</span>
+                                }
+                                else
+                                {
+                                    @if (@item.Player.Confirmed)
+                                    {
+                                        <span>Confirmed</span>
+                                    }
                                 }
                             }
 
@@ -210,4 +220,4 @@
         </script>
 
     }
-    }
+}

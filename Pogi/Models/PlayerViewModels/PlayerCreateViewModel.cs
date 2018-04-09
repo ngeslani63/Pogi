@@ -33,6 +33,7 @@ namespace Pogi.Models.PlayerViewModels
         public bool GuestPlaying { get; set; }
 
         public Player Player { get; set; }
+        public bool MajorTourDay { get; set; }
 
     }
 }

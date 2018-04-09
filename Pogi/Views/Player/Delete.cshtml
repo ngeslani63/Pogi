@@ -4,11 +4,15 @@
     ViewData["Title"] = "Delete";
     Member member = @Model.Member;
     Player player = @Model.Player;
+    ViewData["Delete"] = "Delete";
+    if (@Model.MajorTourDay) ViewData["Delete"] = "Withdraw";
+    var pageAction = (@ViewData["Delete"]).ToString().ToLower();
+    int daysToGo = (player.PlayDate.Date - DateTime.Today.Date).Days;
 }
 <br />
 <h2>Player</h2>
 
-<h5>Do you really want to withdraw your registration?</h5>
+<h5>Do you really want to @pageAction your registration?</h5>
 <hr />
 <div class="container">
     <div class="row">
@@ -47,16 +51,34 @@
             @Html.DisplayNameFor(modelItem => player.PlayDate)
         </div>
         <div class="col-md-4 ">
-             @Html.DisplayFor(modelItem => player.PlayDate)
+            @Html.DisplayFor(modelItem => player.PlayDate)
         </div>
- 
-    </div>
 
+    </div>
+    <div class="row">
+        <div class="offset-md-2 col-md-4">
+            @if (Model.MajorTourDay)
+            {
+                <span>This is a Major Tour Day and there are @daysToGo days to go.</span>
+                if (daysToGo > 7)
+                {
+                    <span> You can still withdraw.</span>
+                }
+                else
+                {<span> You can no longer withdraw.</span>}
+            }
+        </div>
+
+    </div>
     <br />
     <div class="row">
         <form asp-action="Delete">
             <input type="hidden" asp-for="@player.PlayId" />
-            <input type="submit" value="Delete" class="btn btn-primary" />
+            <input type="hidden" asp-for="MajorTourDay" />
+            @if (!Model.MajorTourDay || Model.MajorTourDay && daysToGo > 7)
+            {
+                <input type="submit" value="@ViewData["Delete"]" class="btn btn-primary" />
+            }
             <span>  </span>
             <a class="btn btn-primary" asp-controller="TeeTime" asp-action="Index">Cancel</a>
         </form>

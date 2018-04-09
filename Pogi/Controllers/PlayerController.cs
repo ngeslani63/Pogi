@@ -22,14 +22,17 @@ namespace Pogi.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMemberData _memberData;
+        private readonly ITeeTimeInfo _teeTimeInfo;
 
         public PlayerController(PogiDbContext context, SignInManager<ApplicationUser> signInManager,
-                UserManager<ApplicationUser> userManager, IMemberData memberData)
+                UserManager<ApplicationUser> userManager, IMemberData memberData,
+                ITeeTimeInfo teeTimeInfo)
         {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
             _memberData = memberData;
+            _teeTimeInfo = teeTimeInfo;
         }
 
         // GET: Player
@@ -183,9 +186,9 @@ namespace Pogi.Controllers
                 return NotFound();
             }
 
-            var players = await _context.Player
+            var player = await _context.Player
                 .SingleOrDefaultAsync(m => m.PlayId == id);
-            if (players == null)
+            if (player == null)
             {
                 return NotFound();
             }
@@ -193,8 +196,11 @@ namespace Pogi.Controllers
             //model.Members = _memberData.getAll();
             if (_signInManager.IsSignedIn(User))
             {
-                model.Member = _memberData.get(players.MemberId);
+                model.Member = _memberData.get(player.MemberId);
                 model.Player.MemberId = model.Member.MemberId;
+                model.Player.PlayDate = player.PlayDate;
+                model.MajorTourDay = _teeTimeInfo.majorTourDay(player.PlayDate);
+                if (player.Withdrawn) model.MajorTourDay = false;
             }
             return View(model);
 
@@ -203,14 +209,34 @@ namespace Pogi.Controllers
         // POST: Player/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, [Bind("MajorTourDay")] bool majorTourDay)
         {
-            var players = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
-            _context.Player.Remove(players);
+            var player = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
+            if (majorTourDay)
+            {
+                player.Withdrawn = true;
+                _context.Update(player);
+            }
+            else
+            {
+                _context.Player.Remove(player);
+            }
             await _context.SaveChangesAsync();
             //return RedirectToAction(nameof(Index));
             return RedirectToAction("Index", "TeeTime");
         }
+        [HttpPost, ActionName("Withdraw")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> WithdrawConfirmed(int id)
+        {
+            var player = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
+            player.Withdrawn = true;
+            _context.Update(player);
+            await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "TeeTime");
+        }
+
 
         private bool PlayersExists(int id)
         {
