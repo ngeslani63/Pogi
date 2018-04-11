@@ -61,9 +61,17 @@
                                 @if (i < teeAssignInfos.Count)
                                 {
                                     var teeAssignInfo = teeAssignInfos[i];
-                                    <span>@teeAssignInfo.Member.FirstName</span>
-                                    <span>@teeAssignInfo.Member.LastName</span>
-                                    <span>(@teeAssignInfo.Member.CurrHandicap)</span>
+                                    @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
+                                    {
+                                        <span>@teeAssignInfo.TeeAsign.GuestName</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span>@teeAssignInfo.Member.FirstName</span>
+                                        <span>@teeAssignInfo.Member.LastName</span>
+                                        <span>(@teeAssignInfo.Member.CurrHandicap)</span>
+                                    }
                                 }
                                 else
                                 {
@@ -80,11 +88,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <span>This is a major tour event. All active members will be registered to play by default.</span>
-                                @if (daysToGo >= 7) {
-                                <span>@daysToGo days to go. You can still withdraw.</span>
+                                @if (daysToGo >= 4)
+                                {
+                                    <span>@daysToGo days to go. You can still withdraw.</span>
                                 }
-                                else{
-                                <span>@daysToGo days to go. You can no longer withdraw.</span>
+                                else
+                                {
+                                    <span>@daysToGo days to go. You can no longer withdraw.</span>
                                 }
                             </div>
                         </div>
@@ -102,7 +112,7 @@
 
                             @if (Model.User != null && (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
                             {
-                                <span> | </span><a disabled="true" data-toggle="tooltip" title="Assign TeeTime" href="#" class="fa fa-plus"></a>
+                                <span> | </span><a data-toggle="tooltip" title="Assign TeeTime" asp-controller="TeeAssign" asp-action="Edit2" asp-route-id="@teeTime.TeeTimeId" class="fa fa-user-plus"></a>
                             }
 
                         </div>
@@ -143,13 +153,13 @@
                             <br />
                         }
                         <div class="row">
-                            <div class="alert-info col-md-6">
-                                @nextDateDisp, @daysToGo days
+                            <div class="alert-info col-xs-8">
+                                @nextDateDisp, @daysToGo days &nbsp; / &nbsp;
                             </div>
-                            <div class="alert-info col-md-2">
-                                RegisterBy
+                            <div class="alert-info col-xs">
+                                RegisteredBy &nbsp; / &nbsp;
                             </div>
-                            <div class="alert-info col-md-3">
+                            <div class="alert-info col-xs">
                                 Status
                             </div>
                         </div>
@@ -158,7 +168,7 @@
                     playerCount++;
                     prevDate = nextDate;
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-xs">
                             @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
                             {
                                 <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
@@ -182,11 +192,12 @@
                                 <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
                                    asp-route-id="@item.Player.PlayId"></a>
                             }
+                            &nbsp;/&nbsp;
                         </div>
-                        <div class="col-md-2">
-                            @item.Player.RegistrationMethod
+                        <div class="col-xs">
+                            @item.Player.RegistrationMethod&nbsp;/&nbsp;
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-xs">
                             @if (@item.Player.Withdrawn)
                             {
                                 <span>Withdrawn</span>
@@ -203,6 +214,19 @@
                                     @if (@item.Player.Confirmed)
                                     {
                                         <span>Confirmed</span>
+                                    }
+                                    else
+                                    {
+                                        @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
+              && item.Player.RegistrationMethod != RegistrationType.Self
+              && item.Player.Confirmed != true && item.Player.Withdrawn != true)
+                                        {
+                                            <a class="alert-warning" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
+                                               asp-route-id="@item.Player.PlayId">Pls Confirm</a>
+                                        }
+                                        else
+                                        {<span class="alert-warning">Pls Confirm</span>}
+
                                     }
                                 }
                             }

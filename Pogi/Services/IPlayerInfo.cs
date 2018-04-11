@@ -1,4 +1,5 @@
-﻿using Pogi.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pogi.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace Pogi.Services
     public interface IPlayerInfo
     {
         IEnumerable<PlayerInfo> getRoster();
+        List<SelectListItem> getPlayers(DateTime dateTime);
     }
 }

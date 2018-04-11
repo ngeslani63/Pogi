@@ -300,25 +300,25 @@
 
             });
 
-            $("#ProfileFile").each(function () {
-                console.info("Hello before loadImage "
-                    + $(this).attr("src"));
-                var element = $(this);
-                loadImage(
-                    $(this).attr("src"),
-                    function (img) {
-                        if (img.type === "error") {
-                        }
-                        else {
-                            element.attr("src", img.toDataURL("image/jpeg"));
-                        }
-                    },
-                    {
-                        orientation: true,
-                        maxWidth: 200
-                    }
-                );
-            });
+            //$("#ProfileFile").each(function () {
+            //    console.info("Hello before loadImage "
+            //        + $(this).attr("src"));
+            //    var element = $(this);
+            //    loadImage(
+            //        $(this).attr("src"),
+            //        function (img) {
+            //            if (img.type === "error") {
+            //            }
+            //            else {
+            //                element.attr("src", img.toDataURL("image/jpeg"));
+            //            }
+            //        },
+            //        {
+            //            orientation: true,
+            //            maxWidth: 200
+            //        }
+            //    );
+            //});
 
          });
 

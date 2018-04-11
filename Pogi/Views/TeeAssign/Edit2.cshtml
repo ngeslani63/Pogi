@@ -1,0 +1,92 @@
+﻿@using Pogi.Models.TeeAssignViewModels
+@model TeeAssignEditViewModel ;
+
+@{
+    ViewData["Title"] = "Edit2";
+}
+<div class="container-fluid">
+    <br />
+    <h2>Tee Time</h2>
+    <h3>Assign</h3>
+    <hr />
+
+
+    <form asp-action="Edit2">
+        <input type="hidden" asp-for="@Model.TeeTime.TeeTimeId" />
+        <input type="hidden" asp-for="@Model.ReservedBy.MemberId" />
+        <input type="hidden" asp-for="@Model.Course.CourseId" />
+        <div class="row">
+            <div class="col-md-5">
+                @{
+                TeeTime teeTime = @Model.TeeTime;
+                var teeTimeDisp = @Model.TeeTime.TeeTimeTS.ToString("f");
+                }
+
+                <div class="row input-group">
+                    <div class="input-group-prepend alert-info  col-md-4">
+                        @Html.DisplayNameFor(model => model.Course.CourseName)
+                    </div>
+                    <div class="alert-secondary col-md-8">
+                        @Html.DisplayFor(model => model.Course.CourseName)
+                    </div>
+                </div>
+                <div class="row input-group">
+                    <div class="input-group-prepend alert-info col-md-4">
+                        @Html.DisplayNameFor(model => model.TeeTime.TeeTimeTS)
+                    </div>
+                    <div class="alert-secondary col-md-8">
+                        @teeTimeDisp
+                    </div>
+                </div>
+                <div class="row input-group">
+                    <div class="input-group-prepend alert-info col-md-4">
+                        Reserved By
+                    </div>
+                    <div class="alert-secondary col-md-8">
+                        @Html.DisplayFor(model => model.ReservedBy.FirstName)
+                        @Html.DisplayFor(model => model.ReservedBy.LastName)
+                    </div>
+                </div>
+                @for (int i = 0; i < Model.TeeTime.NumPlayers; i++)
+            {
+                <div class="row input-group">
+                    <div class="input-group-prepend alert-info col-md-4">
+                        Player @(i + 1)
+                    </div>
+
+                    <div class="col-md-8 text-dark">
+                        <select asp-for="@Model.PlayIds[i]" asp-items="@Model.Players" class="form-control"></select>
+                        <span asp-validation-for="@Model.PlayIds[i]" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+
+        }
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="submit" value="Assign" class="btn btn-primary" />
+                    <a asp-controller="TeeTime" asp-action="Index" class="btn btn-warning">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            console.info("Hello From TeeAssign Edit2");
+
+            $(function () {
+
+            })
+        </script>
+
+    }
+}

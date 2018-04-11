@@ -14,6 +14,7 @@ namespace Pogi.Entities
         public int TeeAssignId { get; set; }
         public int TeeTimeId { get; set; }
         public int MemberId { get; set; }
+        public int PlayId { get; set; }
         public string GuestName { get; set; }
         public int Order { get; set; }
         [DefaultValue(false)]

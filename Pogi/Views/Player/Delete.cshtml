@@ -60,7 +60,7 @@
             @if (Model.MajorTourDay)
             {
                 <span>This is a Major Tour Day and there are @daysToGo days to go.</span>
-                if (daysToGo > 7)
+                if (daysToGo >= 4)
                 {
                     <span> You can still withdraw.</span>
                 }
@@ -75,7 +75,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="@player.PlayId" />
             <input type="hidden" asp-for="MajorTourDay" />
-            @if (!Model.MajorTourDay || Model.MajorTourDay && daysToGo > 7)
+            @if (!Model.MajorTourDay || Model.MajorTourDay && daysToGo >= 4)
             {
                 <input type="submit" value="@ViewData["Delete"]" class="btn btn-primary" />
             }

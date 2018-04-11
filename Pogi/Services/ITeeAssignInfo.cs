@@ -8,5 +8,7 @@ namespace Pogi.Services
         IEnumerable<TeeAssignInfo> getAll();
 
         List<TeeAssignInfo> getForTeeTime(int teeTimeId);
+        List<TeeAssignInfo> getAllForTeeTime(int teeTimeId);
+
     }
 }

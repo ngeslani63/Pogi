@@ -110,7 +110,6 @@ namespace Pogi.Controllers
                     guest.preferTeeTimeId1 = player.preferTeeTimeId1;
                     guest.preferTeeTimeId2 = player.preferTeeTimeId2;
                     guest.preferTeeTimeId3 = player.preferTeeTimeId3;
-                    player.RegistrationMethod = RegistrationType.Admin;
                     _context.Add(guest);
                 }
                 if (model.MemberPlaying == true)
