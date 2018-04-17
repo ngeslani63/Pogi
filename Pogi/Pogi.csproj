@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\TeeTimeControllerX.cs" />
+    <Compile Remove="Migrations\20180417012713_update31.cs" />
+    <Compile Remove="Migrations\20180417012713_update31.Designer.cs" />
     <Compile Remove="Services\Class.cs" />
   </ItemGroup>
 

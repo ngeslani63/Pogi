@@ -20,7 +20,7 @@ namespace Pogi.Services
         }
         public IEnumerable<TeeTimeInfo> getAll()
         {
-            var TeeTimes =  _context.TeeTime.OrderBy(r => r.TeeTimeTS);
+            var TeeTimes =  _context.TeeTime.Where(r => r.TeeTimeTS >= System.DateTime.Today).OrderBy(r => r.TeeTimeTS);
 			
             List<TeeTimeInfo> TeeTimeInfos = new List<TeeTimeInfo>();
             foreach(TeeTime teeTime in TeeTimes)

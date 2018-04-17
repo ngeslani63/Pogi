@@ -21,6 +21,7 @@ namespace Pogi.Data
         public DbSet<Pogi.Entities.TeeAssign> TeeAssign { get; set; }
         public DbSet<Pogi.Entities.Score> Score { get; set; }
         public DbSet<Pogi.Entities.Player> Player { get; set; }
+        public DbSet<Pogi.Entities.Handicap> Handicap { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
