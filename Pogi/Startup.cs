@@ -169,8 +169,8 @@ namespace Pogi
             }
             else
             {
-                //app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Home/Error");
             }
             if (env.IsProduction())
                 optionsAccessor.Value.SendGridKey = apiKey;
