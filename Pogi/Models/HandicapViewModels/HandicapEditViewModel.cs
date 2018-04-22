@@ -1,4 +1,5 @@
-﻿using Pogi.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pogi.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace Pogi.Models.HandicapViewModels
     {
 
         public Member Member { get; set; }
+
+        public List<SelectListItem> ActiveDates;
     }
 }

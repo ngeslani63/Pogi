@@ -9,5 +9,6 @@ namespace Pogi.Services
     public interface IScoreInfo
     {
         List<ScoreInfo> getAll();
+        List<ScoreInfo> getMerits();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Data;
 using Pogi.Entities;
 
@@ -44,6 +45,35 @@ namespace Pogi.Services
             HandicapSchedule HandicapSchedule = _context.HandicapSchedule.Where(r => r.Date <= currEffDate).OrderByDescending(r => r.Date).FirstOrDefault();
             if (HandicapSchedule != null && HandicapSchedule.Date != null) return HandicapSchedule.Date;
             return currEffDate;
+        }
+
+        public List<SelectListItem> getActiveDates(String Date)
+        {
+
+            IEnumerable<HandicapSchedule> HandicapSchedules = _context.HandicapSchedule.Where(r => r.RecordStatus == RecordState.Active).OrderBy(r => r.Date);
+            List<SelectListItem> activeDates = new List<SelectListItem>();
+            foreach (var handicapSchedule in HandicapSchedules)
+            {
+                string text = handicapSchedule.Date.Date.ToShortDateString();
+                string value = handicapSchedule.Date.Date.ToShortDateString();
+                SelectListItem sl = new SelectListItem { Text = text, Value = value };
+                sl.Selected = false;
+                if (Date.Equals(value)) { sl.Selected = true; }
+                 activeDates.Add(sl);
+            }
+            return activeDates;
+        }
+
+        public Handicap getHandicapForDate(int MemberId, DateTime ScoreDate)
+        {
+            Member Member = (Member)_context.Member.Where(r => r.MemberId == MemberId).FirstOrDefault();
+            if (Member.GhinNumber > 0)
+            {
+                var Handicap = _context.Handicap.Where(r => r.GhinNumber == Member.GhinNumber && r.Date <= ScoreDate).OrderByDescending(r => r.Date).FirstOrDefault();
+                return Handicap;
+            }
+            return null;
+            
         }
     }
 }

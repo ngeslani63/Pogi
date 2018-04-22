@@ -15,5 +15,8 @@ namespace Pogi.Services
 
         DateTime getNextDate(int GhinNumber);
         DateTime getCurrEffDate();
+        List<SelectListItem> getActiveDates(string Date);
+
+        Handicap getHandicapForDate(int GhinNumber, DateTime Date);
     }
 }

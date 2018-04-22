@@ -87,8 +87,10 @@ namespace Pogi.Entities
         public int HoleIn { get; set; }
         [Display(Name = "Out")]
         public int HoleOut { get; set; }
-        [Display(Name = "Total")]
+        [Display(Name = "Gross Score")]
         public int HoleTotal { get; set; }
+        [Display(Name = "Net Score")]
+        public int NetScore { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedTs { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

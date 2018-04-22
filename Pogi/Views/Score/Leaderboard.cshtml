@@ -1,0 +1,85 @@
+﻿@using Pogi.Models.ScoreViewModels;
+@model List<ScoreInfo>
+
+@{
+    ViewData["Title"] = "Leadrboard";
+}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Outstanding Performances</h1>
+        <p class="lead text-muted"> “I have a Tip that can take five strokes off anyones game: It's called an eraser - Arnold Palmer</p>
+
+    </div>
+</section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            @foreach (ScoreInfo ScoreInfo in Model)
+            {
+                var member = ScoreInfo.Member;
+                var course = ScoreInfo.Course;
+                var score = ScoreInfo.Score;
+
+                var imgFile = "/images/Profile/" + member.FirstName + member.LastName + ".jpg";
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="fileinput card-img-top" src="@imgFile"
+                             alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
+                        <div class="card-body">
+                            <h4>@ScoreInfo.Merit</h4>
+                            <div class="col">
+                                <p class="text-capitalize">@member.FirstName @member.LastName</p>
+                            </div>
+                            <div class="col">
+                                <span class="text-info">Date: </span>@score.ScoreDate.Date.ToShortDateString()
+                            </div>
+                            <div class="col">
+                                <span class="text-info">Course: </span>@course.CourseName
+                            </div>
+                            <div class="col">
+                                <span class="text-info">Gross Score: </span>@score.HoleTotal
+</div>
+                            <div class="col">
+                                <span class="text-info">Net Score: </span>@score.NetScore
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        console.info("Hello Leaderboard");
+
+        $(".fileinput").each(function () {
+            //console.info("Hello before loadImage "
+            //    + $(this).attr("src"));
+            var element = $(this);
+          loadImage(
+                $(this).attr("src"),
+                function (img) {
+                    if (img.type === "error") {
+                    }
+                    else {
+                        element.attr("src", img.toDataURL("image/jpeg"));
+                        }
+                },
+                {
+                    orientation: true,
+                    maxWidth: 200
+                }
+            );
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

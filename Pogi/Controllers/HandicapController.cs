@@ -69,11 +69,13 @@ namespace Pogi.Controllers
             }
             var model = new HandicapEditViewModel();
             model.Member = Member;
+            
             model.GhinNumber = Member.GhinNumber;
             model.HcpIndex = Member.CurrHandicap;
             if (model.GhinNumber > 0)
             {
                 model.Date = _handicap.getNextDate(Member.GhinNumber);
+                model.ActiveDates = _handicap.getActiveDates(model.Date.ToShortDateString().ToString());
                 return View(model);
             }
             else
@@ -89,10 +91,14 @@ namespace Pogi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int? Id,[Bind("HandicapId,GhinNumber,Date,HcpIndex")] Handicap handicap)
         {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var Member = _context.Member.SingleOrDefault(m => m.MemberId == Id);
             if (ModelState.IsValid)
             {
-                var Member = _context.Member
-             .SingleOrDefault(m => m.MemberId == Id);
+ 
                 _context.Add(handicap);
                 
                 if (handicap.Date == _handicap.getCurrEffDate())
@@ -103,7 +109,15 @@ namespace Pogi.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index),"Handicap", new { id = Id });
             }
-            return View(handicap);
+            var model = new HandicapEditViewModel();
+            model.Member = Member;
+            model.Date = handicap.Date;
+            model.ActiveDates = _handicap.getActiveDates(model.Date.ToShortDateString().ToString());
+            model.HandicapId = handicap.HandicapId;
+            model.GhinNumber = Member.GhinNumber;
+            model.HcpIndex = handicap.HcpIndex;
+
+            return View(model);
         }
 
         // GET: Handicap/Edit/5
@@ -123,10 +137,11 @@ namespace Pogi.Controllers
              .SingleOrDefault(m => m.GhinNumber == Handicap.GhinNumber);
             var model = new HandicapEditViewModel();
             model.Member = Member;
+            model.Date = Handicap.Date;
+            model.ActiveDates = _handicap.getActiveDates(model.Date.ToShortDateString().ToString());
             model.HandicapId = Handicap.HandicapId;
             model.GhinNumber = Member.GhinNumber;
             model.HcpIndex = Handicap.HcpIndex;
-            model.Date = Handicap.Date;
             return View(model);
         }
 
@@ -169,9 +184,17 @@ namespace Pogi.Controllers
 
                 return RedirectToAction(nameof(Index), "Handicap", new { id = Member.MemberId });
             }
-            return View(handicap);
+            var model = new HandicapEditViewModel();
+            model.Member = Member;
+            model.Date = handicap.Date;
+            model.ActiveDates = _handicap.getActiveDates(model.Date.ToShortDateString().ToString());
+            model.HandicapId = handicap.HandicapId;
+            model.GhinNumber = Member.GhinNumber;
+            model.HcpIndex = handicap.HcpIndex;
+            
+            return View(model);
         }
-
+    
         // GET: Handicap/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -188,10 +211,12 @@ namespace Pogi.Controllers
              .SingleOrDefault(m => m.GhinNumber == Handicap.GhinNumber);
             var model = new HandicapEditViewModel();
             model.Member = Member;
+            model.Date = Handicap.Date;
+            model.ActiveDates = _handicap.getActiveDates(model.Date.ToShortDateString().ToString());
             model.HandicapId = Handicap.HandicapId;
             model.GhinNumber = Member.GhinNumber;
             model.HcpIndex = Handicap.HcpIndex;
-            model.Date = Handicap.Date;
+            
             return View(model);
         }
 

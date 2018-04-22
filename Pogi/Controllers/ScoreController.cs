@@ -25,11 +25,13 @@ namespace Pogi.Controllers
         private readonly IMemberData _memberData;
         private readonly ICourseData _courseData;
         private readonly ICourseDetail _courseDetail;
+        private readonly IHandicap _handicap;
 
         public ScoreController(PogiDbContext context, IScoreInfo scoreInfo, 
              SignInManager<ApplicationUser> signInManager,
                 UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
-                ICourseDetail courseDetail)
+                ICourseDetail courseDetail,
+                IHandicap handicap)
         {
             _context = context;
             _scoreInfo = scoreInfo;
@@ -38,6 +40,7 @@ namespace Pogi.Controllers
             _memberData = memberData;
             _courseData = courseData;
             _courseDetail = courseDetail;
+            _handicap = handicap;
         }
 
         // GET: Score
@@ -51,6 +54,18 @@ namespace Pogi.Controllers
             {
                 model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
             }
+
+            return View(model);
+            //return View(await _context.Score.ToListAsync());
+        }
+
+        [AllowAnonymous]
+        //public async Task<IActionResult> LeaderBoard()
+        public IActionResult LeaderBoard()
+        {
+            var model = new List<ScoreInfo>();
+
+            model = _scoreInfo.getMerits();
 
             return View(model);
             //return View(await _context.Score.ToListAsync());
@@ -156,6 +171,15 @@ namespace Pogi.Controllers
                 Score.HoleIn = model.HoleIn;
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
+                Score.NetScore = 99;
+                Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate );
+                CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
+                if (Handicap != null)
+                {
+                    float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
+                    Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
+                }
+                
                 Score.CreatedBy = User.Identity.Name;
                 Score.CreatedTs = DateTime.Now;
                 Score.LastUpdatedBy = User.Identity.Name;
@@ -193,6 +217,7 @@ namespace Pogi.Controllers
             model.CourseId = score.CourseId;
             model.Colors = _courseDetail.getColors(score.CourseId);
             model.Color = score.Color;
+            model.ScoreDate = score.ScoreDate;
             model.EnteredBy = _memberData.get(score.EnteredById);
             model.Hole01 = score.Hole01;
             model.Hole02 = score.Hole02;
@@ -267,6 +292,14 @@ namespace Pogi.Controllers
                     Score.HoleIn = model.HoleIn;
                     Score.HoleOut = model.HoleOut;
                     Score.HoleTotal = model.HoleTotal;
+                    Score.NetScore = 99;
+                    Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
+                    CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
+                    if (Handicap != null)
+                    {
+                        float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
+                        Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
+                    }
                     Score.LastUpdatedBy = User.Identity.Name;
                     Score.LastUpdatedTs = DateTime.Now;
                     _context.Update(Score);
