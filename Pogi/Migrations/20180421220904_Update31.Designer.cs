@@ -13,9 +13,10 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    partial class PogiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180421220904_Update31")]
+    partial class Update31
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,20 +182,6 @@ namespace Pogi.Migrations
                     b.HasKey("HandicapId");
 
                     b.ToTable("Handicap");
-                });
-
-            modelBuilder.Entity("Pogi.Entities.HandicapSchedule", b =>
-                {
-                    b.Property<int>("HandicapScheduleId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<int>("RevisionNumber");
-
-                    b.HasKey("HandicapScheduleId");
-
-                    b.ToTable("HandicapSchedule");
                 });
 
             modelBuilder.Entity("Pogi.Entities.Member", b =>

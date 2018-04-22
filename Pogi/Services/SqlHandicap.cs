@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Pogi.Data;
+using Pogi.Entities;
+
+namespace Pogi.Services
+{
+    public class SqlHandicap : IHandicap
+    {
+        private PogiDbContext _context;
+
+        public SqlHandicap(PogiDbContext context)
+        {
+            _context = context;
+        }
+
+
+        public IEnumerable<Handicap> getForGhin(int GhinNumber)
+        {
+            return _context.Handicap.Where(r => r.GhinNumber == GhinNumber).OrderByDescending(r => r.Date);
+        }
+
+        public IEnumerable<Handicap> getForMemberId(int MemberId)
+        {
+            Member Member = (Member)_context.Member.Where(r => r.MemberId == MemberId);
+            return _context.Handicap.Where(r => r.GhinNumber == Member.GhinNumber).OrderByDescending(r => r.Date);
+        }
+
+        public DateTime getNextDate(int GhinNumber)
+        {
+            DateTime maxDate = DateTime.Today.Date;
+            var Handicap = _context.Handicap.Where(r => r.GhinNumber == GhinNumber).OrderByDescending(r => r.Date).FirstOrDefault();
+            if (Handicap != null) maxDate = Handicap.Date.Date;
+            HandicapSchedule HandicapSchedule = _context.HandicapSchedule.Where(r => r.Date > maxDate).OrderBy(r => r.Date).FirstOrDefault();
+            if (HandicapSchedule != null && HandicapSchedule.Date != null) return HandicapSchedule.Date;
+            return maxDate;
+        }
+
+        public DateTime getCurrEffDate()
+        {
+            DateTime currEffDate = DateTime.Today.Date;
+            HandicapSchedule HandicapSchedule = _context.HandicapSchedule.Where(r => r.Date <= currEffDate).OrderByDescending(r => r.Date).FirstOrDefault();
+            if (HandicapSchedule != null && HandicapSchedule.Date != null) return HandicapSchedule.Date;
+            return currEffDate;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+﻿@using Pogi.Models.HandicapViewModels
+@model HandicapEditViewModel ;
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Handicap Index Entry</h4>
+    <hr />
+    <div class="row">
+        <div class="alert-info col ">
+            @Html.DisplayFor(modelItem => Model.Member.FirstName)
+            @Html.DisplayFor(modelItem => Model.Member.LastName)
+        </div>
+        <div class="alert-info col ">
+            GHIN @Html.DisplayFor(modelItem => Model.Member.GhinNumber)
+        </div>
+        <div class="alert-info col ">
+            Current Handicap @Html.DisplayFor(modelItem => Model.Member.CurrHandicap)
+        </div>
+    </div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HcpIndex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HcpIndex)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="HandicapId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index" asp-controller="Handicap" asp-route-id="@Model.Member.MemberId">Back to List</a>
+    </form>
+</div>

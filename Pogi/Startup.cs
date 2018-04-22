@@ -48,6 +48,7 @@ namespace Pogi
             services.AddScoped<ITeeAssignInfo, SqlTeeAssignInfo>();
             services.AddScoped<IMemberData, SqlMemberData>();
             services.AddScoped<IScoreInfo, SqlScoreInfo>();
+            services.AddScoped<IHandicap, SqlHandicap>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PogiIdentityDb")));
@@ -168,6 +169,7 @@ namespace Pogi
             }
             else
             {
+                //app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler("/Home/Error");
             }
             if (env.IsProduction())

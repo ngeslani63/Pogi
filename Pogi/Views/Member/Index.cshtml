@@ -106,9 +106,10 @@
         {
             <div class="col-md-10">
                 <a data-toggle="tooltip" title="Edit Member" asp-action="Edit" asp-route-id="@item.MemberId">&#x270f;</a>&nbsp;|&nbsp;
-            <a data-toggle="tooltip" title="Edit Profile" asp-controller="Profile" asp-action="Edit" asp-route-id="@item.MemberId" class="fa fa-user"></a>&nbsp;| &nbsp;
-            @*<a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |*@
-            <a data-toggle="tooltip" title="Delete Member" asp-action="Delete" asp-route-id="@item.MemberId" class="fa fa-trash"></a>
+                <a data-toggle="tooltip" title="Edit Profile" asp-controller="Profile" asp-action="Edit" asp-route-id="@item.MemberId" class="fa fa-user"></a>&nbsp;| &nbsp;
+                @*<a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |*@
+                <a data-toggle="tooltip" title="Maintain Handicap" asp-controller="Handicap" asp-action="Index" asp-route-id="@item.MemberId" class="fa fa-wheelchair"></a>&nbsp;| &nbsp;
+                <a data-toggle="tooltip" title="Delete Member" asp-action="Delete" asp-route-id="@item.MemberId" class="fa fa-trash"></a>
             </div>
     }
         </div>

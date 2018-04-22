@@ -1,0 +1,95 @@
+﻿@using Pogi.Models.HandicapViewModels
+@model HandicapIndexViewModel ;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <br />
+    <h2>Handicap Index</h2>
+    <h3>Maintain</h3>
+    <hr />
+    <div class="row">
+        <div class="alert-info col ">
+            @Html.DisplayFor(modelItem => Model.Member.FirstName)
+            @Html.DisplayFor(modelItem => Model.Member.LastName)
+        </div>
+        <div class="alert-info col ">
+            GHIN @Html.DisplayFor(modelItem => Model.Member.GhinNumber)
+        </div>
+        <div class="alert-info col ">
+            Current Handicap @Html.DisplayFor(modelItem => Model.Member.CurrHandicap)
+        </div>
+    </div>
+    <hr />
+
+    <a asp-action="Create" asp-route-id="@Model.Member.MemberId">Record New Handicap</a>
+
+    <table id="table"
+           data-toggle="table"
+           data-search="true"
+           data-striped="true"
+           data-pagination="true"
+           data-sort-name="Date"
+           data-sort-order="desc">
+        <thead>
+            <tr>
+                <th class="col-md-2" data-field="Date" data-sortable="true">Date</th>
+                <th class="col-md-2" data-field="HcpIndex" data-sortable="true">HandicapIndex</th>
+                <th class="col-md-1">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var handicap in Model.Handicaps)
+            {
+                <tr>
+                    @{
+                        DateTime hcpDateTime = handicap.Date;
+                        String hcpDateDisp = hcpDateTime.ToString("yyyy MM/dd");
+                    }
+
+                    <td class="col-md-2">@hcpDateDisp</td>
+                    <td class="col-md-2">@handicap.HcpIndex</td>
+
+                    <td class="col-md-1">
+
+                        <a data-toggle="tooltip" title="Edit Handicap" asp-action="Edit" asp-route-id="@handicap.HandicapId">&#x270f;</a>
+                        <a data-toggle="tooltip" title="Delete Handicap" asp-action="Delete" asp-route-id="@handicap.HandicapId" class="fa fa-trash"></a>
+
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    @*<script>
+            var $table = $('#table'),
+                $ok = $('#ok');
+            $(function () {
+                $ok.click(function () {
+                    $table.bootstrapTable('refresh');
+                    console.log("Hello from ok Button");
+                });
+            });
+            function queryParams() {
+                var params = {};
+                $('#toolbar').find('input[name]').each(function () {
+                    params[$(this).attr('name')] = $(this).val();
+                });
+                return params;
+            }
+            function responseHandler(res) {
+                return res.rows;
+            }
+        </script>*@
+    <script>
+        console.info("Hello From Handicap Index");
+    </script>
+}

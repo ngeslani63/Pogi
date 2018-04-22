@@ -7,23 +7,14 @@ using System.Threading.Tasks;
 
 namespace Pogi.Entities
 {
-    public class Handicap
+    public class HandicapSchedule
     {
-        public Handicap()
-        {
-            GhinNumber = 0;
-            HcpIndex = 0.0F;
-        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int HandicapId { get; set; }
-        [Required]
-        [Display(Name = "GHIN")]
-        public int GhinNumber { get; set; }
+        public int HandicapScheduleId { get; set; }
+        public int RevisionNumber { get; set; }
         [Display(Name = "Handicap Effective Date")]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
-        [Display(Name = "Handicap Index")]
-        public float HcpIndex { get; set; }
-        
+
     }
 }
