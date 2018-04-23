@@ -91,6 +91,16 @@ namespace Pogi.Entities
         public int HoleTotal { get; set; }
         [Display(Name = "Net Score")]
         public int NetScore { get; set; }
+        public int DoubleBogeys { get; set; }
+        public int Bogeys { get; set; }
+        public int Pars { get; set; }
+        public int Birdies { get; set; }
+        public int Eagles { get; set; }
+        public int Albatross { get; set; }
+        public int HoleInOnes { get; set; }
+        [Display(Name = "About Game")]
+        [Required, MaxLength(200)]
+        public string AboutGame { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedTs { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
