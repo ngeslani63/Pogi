@@ -41,6 +41,8 @@ namespace Pogi.Models.TeeTimeViewModels
         [DefaultValue(false)]
         [Display(Name = "Is this a Major Tour")]
         public bool MajorTour { get; set; }
+        [Display(Name = "Minutes between TeeTimes")]
+        public int TeeTimeInterval { get; set; }
     }
 
 

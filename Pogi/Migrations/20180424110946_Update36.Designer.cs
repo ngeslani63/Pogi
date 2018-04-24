@@ -13,9 +13,10 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    partial class PogiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180424110946_Update36")]
+    partial class Update36
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,8 +447,6 @@ namespace Pogi.Migrations
                     b.Property<int>("NumPlayers");
 
                     b.Property<int>("ReservedById");
-
-                    b.Property<int>("TeeTimeInterval");
 
                     b.Property<DateTime>("TeeTimeTS");
 

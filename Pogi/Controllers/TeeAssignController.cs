@@ -62,10 +62,6 @@ namespace Pogi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit2(int id, List<string> playIds)
         {
-            if(id == null)
-            {
-                return NotFound();
-            }
             var teeTime = await _context.TeeTime.SingleOrDefaultAsync(m => m.TeeTimeId == id);
             if (teeTime == null)
             {

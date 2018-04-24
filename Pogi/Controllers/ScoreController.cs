@@ -65,7 +65,9 @@ namespace Pogi.Controllers
         {
             var model = new List<ScoreInfo>();
 
-            model = _scoreInfo.getMerits();
+            model = _scoreInfo.getMeritsLastWeek();
+            model.AddRange(_scoreInfo.getMeritsAllTime());
+            //model = _scoreInfo.getMeritsAllTime();
 
             return View(model);
             //return View(await _context.Score.ToListAsync());
@@ -171,7 +173,9 @@ namespace Pogi.Controllers
                 Score.HoleIn = model.HoleIn;
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
+                Score.AboutGame = model.AboutGame;
                 Score.NetScore = 99;
+
                 Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate );
                 CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
                 if (Handicap != null)
@@ -179,7 +183,10 @@ namespace Pogi.Controllers
                     float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
                     Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                 }
-                
+
+                Course Course = _courseData.get(Score.CourseId);
+                countScores(Score, Course);
+
                 Score.CreatedBy = User.Identity.Name;
                 Score.CreatedTs = DateTime.Now;
                 Score.LastUpdatedBy = User.Identity.Name;
@@ -292,7 +299,9 @@ namespace Pogi.Controllers
                     Score.HoleIn = model.HoleIn;
                     Score.HoleOut = model.HoleOut;
                     Score.HoleTotal = model.HoleTotal;
+                    Score.AboutGame = model.AboutGame;
                     Score.NetScore = 99;
+
                     Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
                     CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
                     if (Handicap != null)
@@ -300,8 +309,14 @@ namespace Pogi.Controllers
                         float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
                         Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                     }
+
+                    Course Course = _courseData.get(Score.CourseId);
+                    countScores(Score, Course);
+
                     Score.LastUpdatedBy = User.Identity.Name;
                     Score.LastUpdatedTs = DateTime.Now;
+
+
                     _context.Update(Score);
                     await _context.SaveChangesAsync();
                 }
@@ -354,5 +369,64 @@ namespace Pogi.Controllers
         {
             return _context.Score.Any(e => e.ScoreId == id);
         }
+        private void countScores(Score Score, Course Course)
+        {
+            countBadges(Score, Score.Hole01, Course.Par01);
+            countBadges(Score, Score.Hole02, Course.Par02);
+            countBadges(Score, Score.Hole03, Course.Par03);
+            countBadges(Score, Score.Hole04, Course.Par04);
+            countBadges(Score, Score.Hole05, Course.Par05);
+            countBadges(Score, Score.Hole06, Course.Par06);
+            countBadges(Score, Score.Hole07, Course.Par07);
+            countBadges(Score, Score.Hole08, Course.Par08);
+            countBadges(Score, Score.Hole09, Course.Par09);
+            countBadges(Score, Score.Hole10, Course.Par10);
+            countBadges(Score, Score.Hole11, Course.Par11);
+            countBadges(Score, Score.Hole12, Course.Par12);
+            countBadges(Score, Score.Hole13, Course.Par13);
+            countBadges(Score, Score.Hole14, Course.Par14);
+            countBadges(Score, Score.Hole15, Course.Par15);
+            countBadges(Score, Score.Hole16, Course.Par16);
+            countBadges(Score, Score.Hole17, Course.Par17);
+            countBadges(Score, Score.Hole18, Course.Par18);
+        }
+        private void countBadges(Score Score, int HoleScore, int ParScore )
+        {
+            if (HoleScore == 1) Score.HoleInOnes++;
+            if (HoleScore >= (ParScore * 2 + 1)) Score.MaxScore++;
+
+            int score = HoleScore - ParScore;
+            switch (score)
+            {
+                case -3:
+                    Score.Albatross++;
+                    break;
+                case -2:
+                    Score.Eagles++;
+                    break;
+                case -1:
+                    Score.Birdies++;
+                    break;
+                case 0:
+                    Score.Pars++;
+                    break;
+                case 1:
+                    Score.Bogeys++;
+                    break;
+                case 2:
+                    Score.DoubleBogeys++;
+                        break;
+                case 3:
+                    Score.TripleBogeys++;
+                    break;
+                case 4:
+                    Score.QuadBogeys++;
+                    break;
+                default:
+                    Score.Disaster++;
+                    break;
+            }
+        }
+
     }
 }

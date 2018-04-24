@@ -49,9 +49,25 @@
                             @Html.DisplayFor(modelItem => member.LastName)
                         </div>
                     </div>
+                    int group = 0;
+                    DateTime startTime = teeTime.TeeTimeTS;
                     @for (int i = 0; i < teeTime.NumPlayers; i++)
 
                     {
+                        if (teeTime.MajorTour && teeTime.NumPlayers >4 && i % 4 == 0)
+                        {
+                            group++;
+                            <div class="row input-group">
+                                <div class="input-group-prepend alert-info col-md-4">
+                                    Group @group
+                                </div>
+                                <div class="alert-secondary col-md-8">
+                                    Start Time: @startTime.ToShortTimeString();
+                                </div>
+                            </div>
+                            startTime.AddMinutes(teeTime.TeeTimeInterval);
+
+                        }
                         <div class="row input-group">
                             <div class="input-group-prepend alert-info col-md-4">
                                 Player @(i + 1)
@@ -218,8 +234,8 @@
                                     else
                                     {
                                         @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
-              && item.Player.RegistrationMethod != RegistrationType.Self
-              && item.Player.Confirmed != true && item.Player.Withdrawn != true)
+             && item.Player.RegistrationMethod != RegistrationType.Self
+             && item.Player.Confirmed != true && item.Player.Withdrawn != true)
                                         {
                                             <a class="alert-warning" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
                                                asp-route-id="@item.Player.PlayId">Pls Confirm</a>

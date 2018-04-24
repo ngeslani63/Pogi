@@ -91,6 +91,10 @@ namespace Pogi.Entities
         public int HoleTotal { get; set; }
         [Display(Name = "Net Score")]
         public int NetScore { get; set; }
+        public int MaxScore { get; set; }
+        public int Disaster { get; set; }
+        public int QuadBogeys { get; set; }
+        public int TripleBogeys { get; set; }
         public int DoubleBogeys { get; set; }
         public int Bogeys { get; set; }
         public int Pars { get; set; }

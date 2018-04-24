@@ -128,6 +128,7 @@ namespace Pogi.Controllers
                 teeTime.CourseId = model.CourseId;
                 teeTime.NumPlayers = model.NumPlayers;
                 teeTime.MajorTour = model.MajorTour;
+                teeTime.TeeTimeInterval = model.TeeTimeInterval;
                 teeTime.AutoAssign = false;
                 _context.Add(teeTime);
                 await _context.SaveChangesAsync();
@@ -160,6 +161,7 @@ namespace Pogi.Controllers
             model.CourseId = teeTime.CourseId;
             model.NumPlayers = teeTime.NumPlayers;
             model.MajorTour = teeTime.MajorTour;
+            model.TeeTimeInterval = teeTime.TeeTimeInterval;
 
             model.Member = _memberData.get(teeTime.ReservedById);
 
@@ -206,6 +208,7 @@ namespace Pogi.Controllers
                     teeTime.CourseId = model.CourseId;
                     teeTime.NumPlayers = model.NumPlayers;
                     teeTime.MajorTour = model.MajorTour;
+                    teeTime.TeeTimeInterval = model.TeeTimeInterval;
                     teeTime.AutoAssign = false;
                        
                     _context.Update(teeTime);

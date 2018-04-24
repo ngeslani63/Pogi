@@ -9,6 +9,8 @@ namespace Pogi.Services
     public interface IScoreInfo
     {
         List<ScoreInfo> getAll();
-        List<ScoreInfo> getMerits();
+        List<ScoreInfo> getMeritsAllTime();
+        List<ScoreInfo> getMeritsThisYear();
+        List<ScoreInfo> getMeritsLastWeek();
     }
 }
