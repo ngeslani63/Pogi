@@ -2,12 +2,12 @@
 @model List<ScoreInfo>
 
 @{
-    ViewData["Title"] = "Leaderboard";
+    ViewData["Title"] = "Badges";
 }
 <section class="jumbotron text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">Outstanding Performances</h1>
-        <p class="lead text-muted"> “I have a Tip that can take five strokes off anyones game: It's called an eraser - Arnold Palmer</p>
+        <h1 class="jumbotron-heading">Notable Strokes</h1>
+        <p class="lead text-muted"> “Give me enough medals and I'll win any war - Napoloean Bonaparte</p>
 
     </div>
 </section>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col">
                                 <span class="text-info">Gross Score: </span>@score.HoleTotal
-</div>
+                            </div>
                             <div class="col">
                                 <span class="text-info">Net Score: </span>@score.NetScore
                             </div>

@@ -72,6 +72,18 @@ namespace Pogi.Controllers
             return View(model);
             //return View(await _context.Score.ToListAsync());
         }
+        public IActionResult Badges()
+        {
+            var model = new List<ScoreInfo>();
+
+            model = _scoreInfo.getBadgesLastWeek();
+            model.AddRange(_scoreInfo.getBadgesAllTime());
+            //model = _scoreInfo.getMeritsAllTime();
+
+            return View(model);
+            //return View(await _context.Score.ToListAsync());
+        }
+
 
         // GET: Score/Details/5
         public async Task<IActionResult> Details(int? id)
