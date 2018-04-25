@@ -8,6 +8,7 @@
     if (@Model.MajorTourDay) ViewData["Delete"] = "Withdraw";
     var pageAction = (@ViewData["Delete"]).ToString().ToLower();
     int daysToGo = (player.PlayDate.Date - DateTime.Today.Date).Days;
+    DateTime lastWithdrawDate = player.PlayDate.Date.AddDays(-5).AddHours(16);
 }
 <br />
 <h2>Player</h2>
@@ -59,8 +60,8 @@
         <div class="offset-md-2 col-md-4">
             @if (Model.MajorTourDay)
             {
-                <span>This is a Major Tour Day and there are @daysToGo days to go.</span>
-                if (daysToGo >= 4)
+                <span>This is a Major Tour Day. Last Withdrawal is at @lastWithdrawDate.ToString("f").</span>
+                @if (DateTime.Now <= lastWithdrawDate)
                 {
                     <span> You can still withdraw.</span>
                 }
@@ -75,7 +76,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="@player.PlayId" />
             <input type="hidden" asp-for="MajorTourDay" />
-            @if (!Model.MajorTourDay || Model.MajorTourDay && daysToGo >= 4)
+            @if (!Model.MajorTourDay || Model.MajorTourDay && DateTime.Now <= lastWithdrawDate)
             {
                 <input type="submit" value="@ViewData["Delete"]" class="btn btn-primary" />
             }

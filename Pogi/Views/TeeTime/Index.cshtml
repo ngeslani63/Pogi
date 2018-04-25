@@ -54,19 +54,18 @@
                     @for (int i = 0; i < teeTime.NumPlayers; i++)
 
                     {
-                        if (teeTime.MajorTour && teeTime.NumPlayers >4 && i % 4 == 0)
+                        if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
                         {
                             group++;
                             <div class="row input-group">
-                                <div class="input-group-prepend alert-info col-md-4">
+                                <div class="input-group-prepend alert-primary col-md-4">
                                     Group @group
                                 </div>
-                                <div class="alert-secondary col-md-8">
-                                    Start Time: @startTime.ToShortTimeString();
+                                <div class="alert-primary col-md-8">
+                                    Start Time: @startTime.ToShortTimeString()
                                 </div>
                             </div>
-                            startTime.AddMinutes(teeTime.TeeTimeInterval);
-
+                            startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
                         }
                         <div class="row input-group">
                             <div class="input-group-prepend alert-info col-md-4">
@@ -101,16 +100,18 @@
                     @if (item.TeeTime.MajorTour)
                     {
                         int daysToGo = (item.TeeTime.TeeTimeTS.Date - DateTime.Today.Date).Days;
+                        DateTime lastWithdrawDate = item.TeeTime.TeeTimeTS.Date.AddDays(-5).AddHours(16);
                         <div class="row">
                             <div class="col-md-12">
                                 <span>This is a major tour event. All active members will be registered to play by default.</span>
-                                @if (daysToGo >= 4)
+                                <span>Last Withdrawal is on @lastWithdrawDate.ToString("f").</span>
+                                @if (DateTime.Now <= lastWithdrawDate)
                                 {
-                                    <span>@daysToGo days to go. You can still withdraw.</span>
+                                    <span>You can still withdraw.</span>
                                 }
                                 else
                                 {
-                                    <span>@daysToGo days to go. You can no longer withdraw.</span>
+                                          <span>You can no longer withdraw.</span>
                                 }
                             </div>
                         </div>
@@ -216,7 +217,7 @@
                         <div class="col-xs">
                             @if (@item.Player.Withdrawn)
                             {
-                                <span>Withdrawn</span>
+                                <span class="text-danger">Withdrawn</span>
 
                             }
                             else

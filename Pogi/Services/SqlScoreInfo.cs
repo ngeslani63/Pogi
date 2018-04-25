@@ -36,7 +36,7 @@ namespace Pogi.Services
         {
             DateTime startDate = new DateTime(2018, 01, 01).Date;
             DateTime endDate = new DateTime(9999, 12, 31).Date;
-            return getMeritsByDate("Overall ",startDate, endDate);
+            return getMeritsByDate("Overall ", startDate, endDate);
         }
 
         public List<ScoreInfo> getMeritsLastWeek()
@@ -46,7 +46,7 @@ namespace Pogi.Services
             int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
             DateTime startDate = today.AddDays(daysSinceSunday - 7); // Sunday of Last Week
             DateTime endDate = today.AddDays(daysSinceSunday - 1); // Saturday of Last Week
-            return getMeritsByDate("Weekly ",startDate, endDate);
+            return getMeritsByDate("Weekly ", startDate, endDate);
         }
 
         public List<ScoreInfo> getMeritsThisYear()
@@ -68,60 +68,81 @@ namespace Pogi.Services
             var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderBy(r => r.HoleTotal).ThenBy(r => r.NetScore).ToList();
             var score = scores[0];
-            Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-            Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-            String merit = timeFrame + "Low Gross (1st)";
-            ScoreInfo scoreInfo = new ScoreInfo(member, course, score, merit);
-            ScoreInfos.Add(scoreInfo);
-
-            score = scores[1];
-            if (score != null)
+            Member member;
+            Course course;
+            String merit;
+            ScoreInfo scoreInfo;
+            if (scores.Count > 0)
             {
+                //score = scores[0];
                 member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
                 course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-                merit = timeFrame + "Low Gross (2nd)";
+                merit = timeFrame + "Low Gross (1st)";
                 scoreInfo = new ScoreInfo(member, course, score, merit);
                 ScoreInfos.Add(scoreInfo);
-            }
-
-            score = scores[2];
-            if (score != null)
-            {
-                member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-                course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-                merit = timeFrame + "Low Gross (3rd)";
-                scoreInfo = new ScoreInfo(member, course, score, merit);
-                ScoreInfos.Add(scoreInfo);
+                if (scores.Count > 1)
+                {
+                    score = scores[1];
+                    if (score != null)
+                    {
+                        member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                        course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                        merit = timeFrame + "Low Gross (2nd)";
+                        scoreInfo = new ScoreInfo(member, course, score, merit);
+                        ScoreInfos.Add(scoreInfo);
+                    }
+                    if (scores.Count > 2)
+                    {
+                        score = scores[2];
+                        if (score != null)
+                        {
+                            member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                            course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                            merit = timeFrame + "Low Gross (3rd)";
+                            scoreInfo = new ScoreInfo(member, course, score, merit);
+                            ScoreInfos.Add(scoreInfo);
+                        }
+                    }
+                }
             }
 
             scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderBy(r => r.NetScore).ThenBy(r => r.HoleTotal).ToList();
             score = scores[0];
-            if (score != null)
+            if (scores.Count > 0)
             {
-                member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-                course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-                merit = timeFrame + "Low Net (1st)";
-                scoreInfo = new ScoreInfo(member, course, score, merit);
-                ScoreInfos.Add(scoreInfo);
-            }
-            score = scores[1];
-            if (score != null)
-            {
-                member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-                course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-                merit = timeFrame + "Low Net (2nd)";
-                scoreInfo = new ScoreInfo(member, course, score, merit);
-                ScoreInfos.Add(scoreInfo);
-            }
-            score = scores[2];
-            if (score != null)
-            {
-                member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-                course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-                merit = timeFrame + "Low Net (3rd)";
-                scoreInfo = new ScoreInfo(member, course, score, merit);
-                ScoreInfos.Add(scoreInfo);
+                if (score != null)
+                {
+                    member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                    course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                    merit = timeFrame + "Low Net (1st)";
+                    scoreInfo = new ScoreInfo(member, course, score, merit);
+                    ScoreInfos.Add(scoreInfo);
+                }
+                if (scores.Count > 1)
+                {
+                    score = scores[1];
+                    if (score != null)
+                    {
+                        member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                        course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                        merit = timeFrame + "Low Net (2nd)";
+                        scoreInfo = new ScoreInfo(member, course, score, merit);
+                        ScoreInfos.Add(scoreInfo);
+                    }
+                    if (scores.Count > 2)
+                    {
+                        score = scores[2];
+                        if (score != null)
+                        {
+                            member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                            course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                            merit = timeFrame + "Low Net (3rd)";
+                            scoreInfo = new ScoreInfo(member, course, score, merit);
+                            ScoreInfos.Add(scoreInfo);
+                        }
+                    }
+                }
             }
             return ScoreInfos;
         }

@@ -47,7 +47,7 @@ namespace Pogi.Services
             TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeId == teeTimeId);
             Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
 
-            var TeeAssigns = _context.TeeAssign.Where(r => r.TeeTimeId == teeTimeId).OrderBy(r => r.Order);
+            var TeeAssigns = _context.TeeAssign.Where(r => r.TeeTimeId == teeTimeId).OrderBy(r => r.TeeAssignId);
             List<TeeAssignInfo> TeeAssignInfos = new List<TeeAssignInfo>();
             foreach (TeeAssign teeAssign in TeeAssigns)
             {
