@@ -95,7 +95,7 @@ namespace Pogi.Models.ScoreViewModels
         [Display(Name = "Total")]
         public int HoleTotal { get; set; }
         [Display(Name = "About Game")]
-        [Required, MaxLength(200)]
+        [MaxLength(200)]
         public string AboutGame { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedTs { get; set; }

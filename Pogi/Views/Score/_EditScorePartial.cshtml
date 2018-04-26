@@ -187,19 +187,28 @@
                 <span asp-validation-for="@Model.HoleTotal" class="text-danger"></span>
             </div>
         </div>
-
-    </div>
-
-
-
-    <div class="row">
-        <div class="col col-md-4">
+        <!-- Textarea -->
+        <div class="form-row">
             <div class="form-group">
-                <input id="submit" type="submit" value="@ViewData["Save"]" class="btn btn-default btn-primary" />
-                <a asp-action="Index" class="btn btn-primary">Cancel</a>
+                <label asp-for="AboutGame" class="col-md control-label"></label>
+                <div class="col-md">
+                    <textarea asp-for="AboutGame" class="form-control" rows="10"></textarea>
+                    <span asp-validation-for="AboutGame" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <input id="submit" type="submit" value="@ViewData["Save"]" class="btn btn-default btn-primary" />
+                    <a asp-action="Index" class="btn btn-primary">Cancel</a>
+                </div>
             </div>
         </div>
-    </div>
 </section>
 
 

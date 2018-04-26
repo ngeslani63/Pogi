@@ -185,6 +185,7 @@ namespace Pogi.Controllers
                 Score.HoleIn = model.HoleIn;
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
+                if (model.AboutGame == null) model.AboutGame = "";
                 Score.AboutGame = model.AboutGame;
                 Score.NetScore = 99;
 
@@ -259,6 +260,8 @@ namespace Pogi.Controllers
             model.HoleIn = score.HoleIn;
             model.HoleOut = score.HoleOut;
             model.HoleTotal = score.HoleTotal;
+            model.AboutGame = score.AboutGame;
+            if (model.AboutGame == null) model.AboutGame = "";
 
             if (_signInManager.IsSignedIn(User))
             {
@@ -311,6 +314,7 @@ namespace Pogi.Controllers
                     Score.HoleIn = model.HoleIn;
                     Score.HoleOut = model.HoleOut;
                     Score.HoleTotal = model.HoleTotal;
+                    if (model.AboutGame == null) model.AboutGame = "";
                     Score.AboutGame = model.AboutGame;
                     Score.NetScore = 99;
 
