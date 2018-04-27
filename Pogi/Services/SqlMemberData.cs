@@ -45,10 +45,12 @@ namespace Pogi.Services
         public List<SelectListItem> getSelectList()
         {
             List<SelectListItem> memberList = new List<SelectListItem>();
-            IEnumerable<Member> members = _context.Member.OrderBy(r => r.LastName);
+            SelectListItem sl = new SelectListItem { Text = "All Members", Value = "0" };
+            memberList.Add(sl);
+            IEnumerable<Member> members = _context.Member.Where(r => r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior).OrderBy(r => r.LastName);
             foreach (Member member in members)
             {
-                SelectListItem sl = new SelectListItem { Text = member.LastName+", "+member.FirstName, Value = member.MemberId.ToString() };
+               sl = new SelectListItem { Text = member.LastName+", "+member.FirstName, Value = member.MemberId.ToString() };
                 memberList.Add(sl);
             }
             return memberList;

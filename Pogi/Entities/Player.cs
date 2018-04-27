@@ -20,10 +20,11 @@ namespace Pogi.Entities
             preferTeeTimeId2 = 0;
             preferTeeTimeId3 = 0;
             Confirmed = false;
+            Withdrawn = false;
             EnteredById = 0;
             WithdrawReason = "";
             RegistrationMethod = RegistrationType.Self;
-
+            ConfirmDate = DateTime.MaxValue;
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PlayId { get; set; }
@@ -44,8 +45,9 @@ namespace Pogi.Entities
         public bool Confirmed { get; set; }
         public bool Withdrawn { get; set; }
         public string WithdrawReason { get; set; }
-        
+      
         public int EnteredById { get; set; }
+        public DateTime ConfirmDate { get; set; }
 
     }
 }

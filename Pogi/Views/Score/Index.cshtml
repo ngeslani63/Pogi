@@ -13,7 +13,21 @@
     <hr />
     <a asp-action="Create">Record New Score</a>
 
+    <div id="toolbar">
+        <div class="form-inline" role="form">
+            <div class="form-group">
+                <span>Offset: </span>
+                <input name="offset" class="form-control w70" type="number" value="0">
+            </div>
+            <div class="form-group">
+                <span>Limit: </span>
+                <input name="limit" class="form-control w70" type="number" value="5">
+            </div>
+            <button id="ok" type="submit" class="btn btn-default">OK</button>
+        </div>
+    </div>
     <table id="table"
+           data-toolbar="#toolbar"
            data-toggle="table"
            data-search="true"
            data-striped="true"
@@ -49,40 +63,40 @@
                 Score score = item.Score;
                 Member member = item.Member;
                 Course course = item.Course;
-            <tr>
-                @{
-        DateTime scoreDateTime = score.ScoreDate;
-        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
-                }
+                <tr>
+                    @{
+                        DateTime scoreDateTime = score.ScoreDate;
+                        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
+                    }
 
-                <td class="col-md-2">@scoreDateDisp</td>
-                <td class="col-md-2">@course.CourseName</td>
-                <td class="col-md-2">@member.FirstName @member.LastName</td>
+                    <td class="col-md-2">@scoreDateDisp</td>
+                    <td class="col-md-2">@course.CourseName</td>
+                    <td class="col-md-2">@member.FirstName @member.LastName</td>
 
-                <td>@score.Color</td>
-                <td class="col-md-1">Out<br />In</td>
-                <td class="col-md-1">@score.Hole01<br />@score.Hole10</td>
-                <td class="col-md-1">@score.Hole02<br />@score.Hole11</td>
-                <td class="col-md-1">@score.Hole03<br />@score.Hole12</td>
-                <td class="col-md-1">@score.Hole04<br />@score.Hole13</td>
-                <td class="col-md-1">@score.Hole05<br />@score.Hole14</td>
-                <td class="col-md-1">@score.Hole06<br />@score.Hole15</td>
-                <td class="col-md-1">@score.Hole07<br />@score.Hole16</td>
-                <td class="col-md-1">@score.Hole08<br />@score.Hole17</td>
-                <td class="col-md-1">@score.Hole09<br />@score.Hole18</td>
-                <td class="col-md-1">@score.HoleOut<br />@score.HoleIn</td>
-                <td class="col-md-1">@score.HoleTotal</td>
-                <td class="col-md-1">@score.NetScore</td>
-                <td class="col-md-1">
-                    @if (Model.User != null && (Model.User.MemberId == score.EnteredById || Model.User.MemberId == score.MemberId
-           || Model.User.RoleAdminTeeTime == true || Model.User.MemberId == 1))
-        {
-            <a data-toggle="tooltip" title="Edit Score" asp-action="Edit" asp-route-id="@score.ScoreId">&#x270f;</a>
-            <a data-toggle="tooltip" title="Delete Score" asp-action="Delete" asp-route-id="@score.ScoreId" class="fa fa-trash"></a>
-}
-                </td>
+                    <td>@score.Color</td>
+                    <td class="col-md-1">Out<br />In</td>
+                    <td class="col-md-1">@score.Hole01<br />@score.Hole10</td>
+                    <td class="col-md-1">@score.Hole02<br />@score.Hole11</td>
+                    <td class="col-md-1">@score.Hole03<br />@score.Hole12</td>
+                    <td class="col-md-1">@score.Hole04<br />@score.Hole13</td>
+                    <td class="col-md-1">@score.Hole05<br />@score.Hole14</td>
+                    <td class="col-md-1">@score.Hole06<br />@score.Hole15</td>
+                    <td class="col-md-1">@score.Hole07<br />@score.Hole16</td>
+                    <td class="col-md-1">@score.Hole08<br />@score.Hole17</td>
+                    <td class="col-md-1">@score.Hole09<br />@score.Hole18</td>
+                    <td class="col-md-1">@score.HoleOut<br />@score.HoleIn</td>
+                    <td class="col-md-1">@score.HoleTotal</td>
+                    <td class="col-md-1">@score.NetScore</td>
+                    <td class="col-md-1">
+                        @if (Model.User != null && (Model.User.MemberId == score.EnteredById || Model.User.MemberId == score.MemberId
+             || Model.User.RoleAdminTeeTime == true || Model.User.MemberId == 1))
+                        {
+                            <a data-toggle="tooltip" title="Edit Score" asp-action="Edit" asp-route-id="@score.ScoreId">&#x270f;</a>
+                            <a data-toggle="tooltip" title="Delete Score" asp-action="Delete" asp-route-id="@score.ScoreId" class="fa fa-trash"></a>
+                        }
+                    </td>
 
-            </tr>
+                </tr>
 
             }
         </tbody>
@@ -91,27 +105,25 @@
 </div>
 
 @section Scripts {
-    @*<script>
-            var $table = $('#table'),
-                $ok = $('#ok');
-            $(function () {
-                $ok.click(function () {
-                    $table.bootstrapTable('refresh');
-                    console.log("Hello from ok Button");
-                });
-            });
-            function queryParams() {
-                var params = {};
-                $('#toolbar').find('input[name]').each(function () {
-                    params[$(this).attr('name')] = $(this).val();
-                });
-                return params;
-            }
-            function responseHandler(res) {
-                return res.rows;
-            }
-        </script>*@
     <script>
         console.info("Hello From Score Index");
+        var $table = $('#table'),
+            $ok = $('#ok');
+        $(function () {
+            $ok.click(function () {
+                console.info("Refreshing");
+                $table.bootstrapTable('refresh');
+            });
+        });
+        function queryParams() {
+            var params = {};
+            $('#toolbar').find('input[name]').each(function () {
+                params[$(this).attr('name')] = $(this).val();
+            });
+            return params;
+        }
+        function responseHandler(res) {
+            return res.rows;
+        }
     </script>
 }

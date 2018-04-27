@@ -1,5 +1,6 @@
 ﻿@using Pogi.Entities
 @model IEnumerable<Member>
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment _env
 
 @{
     ViewData["Title"] = "Members Gallery";
@@ -19,19 +20,26 @@
             @foreach (Member member in Model)
             {
                 var imgFile = "/images/Profile/" + member.FirstName + member.LastName + ".jpg";
+                var imgFile2= "\\images\\Profile\\" + member.FirstName + member.LastName + ".jpg";
+                var webRoot = _env.WebRootPath;
+                var imgFilePath = webRoot + imgFile2;
+                //var imgFilePath = System.IO.Path.Combine(webRoot, imgFile2);
 
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="fileinput card-img-top" src="@imgFile"
-                             alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
-                        <div class="card-body">
-                            <p class="card-text">@member.FirstName @member.LastName</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>@member.AboutMe</span>
+                if (System.IO.File.Exists(imgFilePath))
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="fileinput card-img-top" src="@imgFile"
+                                 alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
+                            <div class="card-body">
+                                <p class="card-text">@member.FirstName @member.LastName</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>@member.AboutMe</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </div>
@@ -46,19 +54,19 @@
             //console.info("Hello before loadImage "
             //    + $(this).attr("src"));
             var element = $(this);
-          loadImage(
+            loadImage(
                 $(this).attr("src"),
                 function (img) {
                     if (img.type === "error") {
                     }
                     else {
                         element.attr("src", img.toDataURL("image/jpeg"));
-                        }
+                    }
                 },
                 {
                     orientation: true,
                     maxWidth: 200
-                } 
+                }
             );
         });
 

@@ -72,6 +72,7 @@ namespace Pogi.Controllers
             return View(model);
             //return View(await _context.Score.ToListAsync());
         }
+        [AllowAnonymous]
         public IActionResult Badges()
         {
             var model = new List<ScoreInfo>();

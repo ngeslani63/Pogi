@@ -91,31 +91,62 @@ namespace Pogi.Controllers
                     return View(model);
                 }
                 player.EnteredById = member.MemberId;
-                if (player.MemberId == member.MemberId)
+                if (player.MemberId > 0)
                 {
-                    player.RegistrationMethod = RegistrationType.Self;
-                    player.Confirmed = true;
+                    if (player.MemberId == member.MemberId)
+                    {
+                        player.RegistrationMethod = RegistrationType.Self;
+                        player.Confirmed = true;
+                        player.ConfirmDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        player.RegistrationMethod = RegistrationType.Admin;
+                        player.Confirmed = false;
+                        player.ConfirmDate = DateTime.MaxValue;
+                    }
+                    if (model.Player.GuestName != null && model.Player.GuestName.Length > 0)
+                    {
+                        Player guest = new Player();
+                        guest.EnteredById = player.EnteredById;
+                        guest.MemberId = player.MemberId;
+                        guest.GuestName = player.GuestName;
+                        guest.PlayDate = player.PlayDate;
+                        guest.preferTeeTimeId1 = player.preferTeeTimeId1;
+                        guest.preferTeeTimeId2 = player.preferTeeTimeId2;
+                        guest.preferTeeTimeId3 = player.preferTeeTimeId3;
+                        guest.Confirmed = player.Confirmed;
+                        guest.ConfirmDate = player.ConfirmDate;
+                        _context.Add(guest);
+                    }
+                    if (model.MemberPlaying == true)
+                    {
+                        player.GuestName = "";
+                        _context.Add(player);
+                    }
                 }
                 else
                 {
-                    player.RegistrationMethod = RegistrationType.Admin;
-                    player.Confirmed = false;
-                }
-                if (model.Player.GuestName != null && model.Player.GuestName.Length > 0)
-                {
-                    Player guest = new Player();
-                    guest.MemberId = player.MemberId;
-                    guest.GuestName = player.GuestName;
-                    guest.PlayDate = player.PlayDate;
-                    guest.preferTeeTimeId1 = player.preferTeeTimeId1;
-                    guest.preferTeeTimeId2 = player.preferTeeTimeId2;
-                    guest.preferTeeTimeId3 = player.preferTeeTimeId3;
-                    _context.Add(guest);
-                }
-                if (model.MemberPlaying == true)
-                {
                     player.GuestName = "";
-                    _context.Add(player);
+                    model.Members = _memberData.getSelectList();
+                    foreach (SelectListItem p in model.Members)
+                    {
+                        Player all = new Player();
+                        all.MemberId = int.Parse(p.Value);
+                        if (all.MemberId > 0) {
+                            all.EnteredById = player.EnteredById;
+                            all.GuestName = "";
+                            all.PlayDate = player.PlayDate;
+                            all.preferTeeTimeId1 = player.preferTeeTimeId1;
+                            all.preferTeeTimeId2 = player.preferTeeTimeId2;
+                            all.preferTeeTimeId3 = player.preferTeeTimeId3;
+                            all.RegistrationMethod = RegistrationType.Admin;
+                            all.Confirmed = false;
+                            all.ConfirmDate = DateTime.MaxValue;
+                            _context.Add(all);
+                        }
+                    }
+
                 }
 
                 await _context.SaveChangesAsync();
@@ -160,6 +191,7 @@ namespace Pogi.Controllers
             try
             {
                 player.Confirmed = true;
+                player.ConfirmDate = DateTime.Now;
                 _context.Update(player);
                 await _context.SaveChangesAsync();
             }
@@ -214,6 +246,7 @@ namespace Pogi.Controllers
             if (majorTourDay)
             {
                 player.Withdrawn = true;
+                player.ConfirmDate = DateTime.Now;
                 _context.Update(player);
             }
             else
@@ -230,6 +263,7 @@ namespace Pogi.Controllers
         {
             var player = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == id);
             player.Withdrawn = true;
+            player.ConfirmDate = DateTime.Now;
             _context.Update(player);
             await _context.SaveChangesAsync();
             //return RedirectToAction(nameof(Index));
