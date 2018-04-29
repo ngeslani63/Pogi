@@ -41,11 +41,16 @@ namespace Pogi.Services
         }
         public List<SelectListItem> getSelectList()
         {
+            return getSelectList(0);
+        }
+        public List<SelectListItem> getSelectList(int courseId)
+        {
             List<SelectListItem> courseList = new List<SelectListItem>();
-            IEnumerable < Course > courses = _context.Course.OrderBy(r => r.CourseName);
+            IEnumerable<Course> courses = _context.Course.OrderBy(r => r.CourseName);
             foreach (Course course in courses)
             {
                 SelectListItem sl = new SelectListItem { Text = course.CourseName, Value = course.CourseId.ToString() };
+                if (courseId > 0 && courseId == course.CourseId) sl.Selected = true;
                 courseList.Add(sl);
             }
             return courseList;

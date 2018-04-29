@@ -45,7 +45,7 @@ namespace Pogi.Services
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
             DateTime startDate = today.AddDays(daysSinceSunday - 7); // Sunday of Last Week
-            DateTime endDate = today.AddDays(daysSinceSunday - 1); // Saturday of Last Week
+            DateTime endDate = today.AddDays(daysSinceSunday); // Sunday 12:00 AM
             return getMeritsByDate("Weekly ", startDate, endDate);
         }
 
@@ -68,14 +68,14 @@ namespace Pogi.Services
 
             var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderBy(r => r.HoleTotal).ThenBy(r => r.NetScore).ToList();
-            var score = scores[0];
+            Score score;
             Member member;
             Course course;
             String merit;
             ScoreInfo scoreInfo;
             if (scores.Count > 0)
             {
-                //score = scores[0];
+                score = scores[0];
                 member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
                 course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
                 merit = timeFrame + "Low Gross (1st)";
@@ -109,9 +109,10 @@ namespace Pogi.Services
 
             scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderBy(r => r.NetScore).ThenBy(r => r.HoleTotal).ToList();
-            score = scores[0];
+            
             if (scores.Count > 0)
             {
+                score = scores[0];
                 if (score != null)
                 {
                     member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
@@ -160,7 +161,7 @@ namespace Pogi.Services
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
             DateTime startDate = today.AddDays(daysSinceSunday - 7); // Sunday of Last Week
-            DateTime endDate = today.AddDays(daysSinceSunday - 1); // Saturday of Last Week
+            DateTime endDate = today.AddDays(daysSinceSunday ); // Sunday 12:00 AM
             return getBadgesByDate("Weekly ", startDate, endDate);
         }
         public List<ScoreInfo> getBadgesThisYear()
@@ -177,14 +178,14 @@ namespace Pogi.Services
 
             var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderByDescending(r => r.Pars + r.Birdies+ r.Eagles + r.Albatross).ThenBy(r => r.NetScore).ToList();
-            var score = scores[0];
+            Score score;
             Member member;
             Course course;
             String merit;
             ScoreInfo scoreInfo;
             if (scores.Count > 0)
             {
-                //score = scores[0];
+                score = scores[0];
                 member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
                 course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
                 merit = timeFrame + "Most Pars or Better (1st)";
@@ -218,10 +219,10 @@ namespace Pogi.Services
 
             scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderByDescending(r => r.Birdies + r.Eagles + r.Albatross).ThenBy(r => r.NetScore).ToList();
-            score = scores[0];
+            
             if (scores.Count > 0)
             {
-                //score = scores[0];
+                score = scores[0];
                 member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
                 course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
                 merit = timeFrame + "Most Birdies or Better (1st)";

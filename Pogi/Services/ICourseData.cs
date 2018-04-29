@@ -12,6 +12,7 @@ namespace Pogi.Services
     {
         IEnumerable<Course> getAll();
         List<SelectListItem> getSelectList();
+        List<SelectListItem> getSelectList(int courseId);
         Course get(int courseId);
         Course delete(Course course);
         Course add(Course course);

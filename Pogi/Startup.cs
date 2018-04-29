@@ -134,6 +134,10 @@ namespace Pogi
             apiKey = Configuration.GetSection("SENDGRID_API_KEY").Value;
 
             services.AddMvc();
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
         }
 
         private DirectoryInfo GetKeyRingDirInfo()
@@ -182,6 +186,8 @@ namespace Pogi
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

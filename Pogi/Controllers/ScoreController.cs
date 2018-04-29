@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,12 +28,14 @@ namespace Pogi.Controllers
         private readonly ICourseData _courseData;
         private readonly ICourseDetail _courseDetail;
         private readonly IHandicap _handicap;
-
-        public ScoreController(PogiDbContext context, IScoreInfo scoreInfo, 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
+        public ScoreController(PogiDbContext context, IScoreInfo scoreInfo,
              SignInManager<ApplicationUser> signInManager,
                 UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
                 ICourseDetail courseDetail,
-                IHandicap handicap)
+                IHandicap handicap,
+                IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _scoreInfo = scoreInfo;
@@ -41,6 +45,7 @@ namespace Pogi.Controllers
             _courseData = courseData;
             _courseDetail = courseDetail;
             _handicap = handicap;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Score
@@ -113,10 +118,29 @@ namespace Pogi.Controllers
             //model.LastUpdatedBy = User.Identity.Name;
             //model.LastUpdatedTs = DateTime.Now;
             //return View(model);
+
+            var Color = _session.GetString("Color");
+            var CourseId = _session.GetString("CourseId");
+            var ScoreDate = _session.GetString("ScoreDate");
+
             var model = new ScoreCreateViewModel();
-            model.Courses = _courseData.getSelectList();
             model.Members = _memberData.getSelectList();
-            model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+            
+            if (CourseId != null && int.Parse(CourseId) > 0 && Color != null && Color.Length > 0)
+            {
+                model.Courses = _courseData.getSelectList(int.Parse(CourseId));
+                model.Colors = _courseDetail.getColors(int.Parse(CourseId));
+                model.ScoreDate = DateTime.Parse(ScoreDate, CultureInfo.CurrentCulture);
+                model.CourseId = int.Parse(CourseId);
+                model.Color = Color;
+            }
+            else
+            {
+                model.Courses = _courseData.getSelectList();
+                model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+            }
+            
+            
             
             if (_signInManager.IsSignedIn(User))
             {
@@ -208,6 +232,12 @@ namespace Pogi.Controllers
 
                 _context.Add(Score);
                 await _context.SaveChangesAsync();
+                // Save Last Selected ScoreDate, CourseId and Color
+                var temp = model.ScoreDate.ToString();
+                _session.SetString("ScoreDate", model.ScoreDate.ToString());
+                _session.SetString("CourseId", model.CourseId.ToString());
+                _session.SetString("Color", model.Color);
+
                 return RedirectToAction(nameof(Index));
             }
             model.Courses = _courseData.getSelectList();
@@ -388,6 +418,18 @@ namespace Pogi.Controllers
         }
         private void countScores(Score Score, Course Course)
         {
+            Score.HoleInOnes = 0;
+            Score.Albatross = 0;
+            Score.Eagles = 0;
+            Score.Birdies = 0;
+            Score.Pars = 0;
+            Score.Bogeys = 0;
+            Score.DoubleBogeys = 0;
+            Score.TripleBogeys = 0;
+            Score.QuadBogeys = 0;
+            Score.MaxScore = 0;
+            Score.Disaster = 0;
+
             countBadges(Score, Score.Hole01, Course.Par01);
             countBadges(Score, Score.Hole02, Course.Par02);
             countBadges(Score, Score.Hole03, Course.Par03);
