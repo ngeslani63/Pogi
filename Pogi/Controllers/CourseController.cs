@@ -40,6 +40,11 @@ namespace Pogi.Controllers
         {
             return View(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(string search)
+        {
+            return View(await _context.Course.Where(r => r.CourseName.Contains(search)).OrderBy(r => r.CourseName).ToListAsync());
+        }
 
         // GET: Course/Details/5
         public async Task<IActionResult> Details(int? id)
