@@ -12,6 +12,7 @@ namespace Pogi.Services
         List<SelectListItem> getSelectList();
 
         IEnumerable<Member> getAll();
+        IEnumerable<Member> getAll(string search);
         IEnumerable<Member> getActive();
         Member get(int memberId);
 

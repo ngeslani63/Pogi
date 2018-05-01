@@ -44,6 +44,15 @@ namespace Pogi.Controllers
             //return View(await _context.Member.ToListAsync());
         }
 
+        [HttpPost]
+        //public async Task<IActionResult> Index()
+        public IActionResult Index(string search)
+        {
+            var model = _memberData.getAll(search);
+            return View(model);
+            //return View(await _context.Member.ToListAsync());
+        }
+
         // GET: Member/Details/5
         public async Task<IActionResult> Details(int? id)
         {
