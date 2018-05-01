@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,25 +23,40 @@ namespace Pogi.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
 
         public MemberController(PogiDbContext context, IMemberData sqlMemberData,
                         UserManager<ApplicationUser> userManager,
                         SignInManager<ApplicationUser> signInManager,
-                        RoleManager<IdentityRole> roleManager)
+                        RoleManager<IdentityRole> roleManager,
+                        IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _memberData = sqlMemberData;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _httpContextAccessor = httpContextAccessor;
 
         }
         // GET: Member
         //public async Task<IActionResult> Index()
         public IActionResult Index()
         {
-            var model = _memberData.getAll();
-            return View(model);
+            var search = _session.GetString("SearchMemberName");
+            if (search != null && search.Length > 0)
+            {
+                var model = _memberData.getAll(search);
+                return View(model);
+
+            }
+            else
+            {
+                var model = _memberData.getAll();
+                return View(model);
+            }
+
             //return View(await _context.Member.ToListAsync());
         }
 
@@ -48,8 +64,18 @@ namespace Pogi.Controllers
         //public async Task<IActionResult> Index()
         public IActionResult Index(string search)
         {
-            var model = _memberData.getAll(search);
-            return View(model);
+            if (search == null || search.Length == 0)
+            {
+                _session.Remove("SearchMemberName");
+                var model = _memberData.getAll();
+                return View(model);
+            }
+            else
+            {
+                _session.SetString("SearchMemberName", search);
+                var model = _memberData.getAll(search);
+                return View(model);
+            }
             //return View(await _context.Member.ToListAsync());
         }
 
@@ -133,7 +159,7 @@ namespace Pogi.Controllers
                         else await _userManager.RemoveFromRoleAsync(user, "AdminTeeTime");
                     }
                     if (member.RoleAdminTour != await _userManager.IsInRoleAsync(user, "AdminTour"))
-                        {
+                    {
                         if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminTour");
                         else await _userManager.RemoveFromRoleAsync(user, "AdminTour");
                     }

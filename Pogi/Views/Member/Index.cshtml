@@ -1,8 +1,12 @@
-﻿@model IEnumerable<Pogi.Entities.Member>
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<Pogi.Entities.Member>
 @inject UserManager<ApplicationUser> userManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
 
 @{
     ViewData["Title"] = "Index";
+    Microsoft.AspNetCore.Http.ISession _session = httpContextAccessor.HttpContext.Session;
+    var search = _session.GetString("SearchMemberName");
 }
 <br />
 <div class="container">
@@ -14,17 +18,17 @@
             <div class="row">
                 <div class="col-md-2">
                     @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
-    {
-                <a asp-action="Create">Create New</a>
-}
-else
-{
-                <span class="text-primary">Display Only</span>
+                    {
+                        <a asp-action="Create">Create New</a>
+                    }
+                    else
+                    {
+                        <span class="text-primary">Display Only</span>
 
-}
+                    }
                 </div>
                 <div class="col-md-4 form-group pull-right">
-                    <input name="search" class="form-control" type="text" placeholder="Search LastName or FirstName">
+                    <input name="search" class="form-control" type="text" placeholder="Search LastName or FirstName" value="@search">
                 </div>
             </div>
             @foreach (var item in Model)
