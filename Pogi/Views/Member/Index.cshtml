@@ -27,8 +27,12 @@
 
                     }
                 </div>
-                <div class="col-md-4 form-group pull-right">
+                <div class="col-md-4 input-group">
                     <input name="search" class="form-control" type="text" placeholder="Search LastName or FirstName" value="@search">
+
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
                 </div>
             </div>
             @foreach (var item in Model)
@@ -129,7 +133,4 @@
             }
         </form>
     </div>
-
 </div>
-
-
