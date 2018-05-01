@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,26 +25,47 @@ namespace Pogi.Controllers
         public SignInManager<ApplicationUser> _signInManager { get; }
 
         private UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
 
-        public CourseController(ICourseDetail courseDetail,PogiDbContext context,
+        public CourseController(ICourseDetail courseDetail, PogiDbContext context,
                         UserManager<ApplicationUser> userManager,
-                        SignInManager<ApplicationUser> signInManager)
+                        SignInManager<ApplicationUser> signInManager,
+                        IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _courseDetail = courseDetail;
             _signInManager = signInManager;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Course
-          public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            return View(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
+            var search = _session.GetString("SearchCourseName");
+            if (search != null && search.Length > 0)
+            {
+                return View(await _context.Course.Where(r => r.CourseName.Contains(search)).OrderBy(r => r.CourseName).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Course.Where(r => r.CourseName.Contains(search)).OrderBy(r => r.CourseName).ToListAsync());
+            if (search == null || search.Length == 0)
+            {
+                _session.Remove("SearchCourseName");
+                return View(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
+            }
+            else
+            {
+                _session.SetString("SearchCourseName", search);
+                return View(await _context.Course.Where(r => r.CourseName.Contains(search)).OrderBy(r => r.CourseName).ToListAsync());
+            }
         }
 
         // GET: Course/Details/5
@@ -73,7 +95,7 @@ namespace Pogi.Controllers
             for (int i = 0; i < model.Course.NumTees; i++)
             {
                 CourseDetail cd = new CourseDetail();
-               
+
                 switch (i)
                 {
                     case 0:
@@ -135,7 +157,7 @@ namespace Pogi.Controllers
                     CourseDetail.LastUpdatedBy = User.Identity.Name;
                     CourseDetail.LastUpdatedTs = DateTime.Now;
                     _context.Add(CourseDetail);
-                } 
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -224,13 +246,14 @@ namespace Pogi.Controllers
                 return NotFound();
             }
 
-            if (!string.IsNullOrWhiteSpace(addtee)) {
+            if (!string.IsNullOrWhiteSpace(addtee))
+            {
 
                 courseEditViewModel.Course.NumTees++;
                 var model = courseEditViewModel;
                 _context.Update(model.Course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Edit",new { id = id });
+                return RedirectToAction("Edit", new { id = id });
             }
 
             if (ModelState.IsValid)
@@ -278,7 +301,7 @@ namespace Pogi.Controllers
         }
 
         // GET: Course/Delete/5
-           public async Task<IActionResult> DeleteColor(int? id, string Color)
+        public async Task<IActionResult> DeleteColor(int? id, string Color)
         {
             if (id == null)
             {
@@ -291,7 +314,7 @@ namespace Pogi.Controllers
             {
                 return NotFound();
             }
-           
+
             CourseDetail CourseDetail = _courseDetail.get((int)id, Color);
             _courseDetail.delete(CourseDetail);
             course.NumTees--;

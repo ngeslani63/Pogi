@@ -1,8 +1,13 @@
-﻿@model IEnumerable<Pogi.Entities.Course>
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<Pogi.Entities.Course>
 @inject UserManager<ApplicationUser> userManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
 
 @{
     ViewData["Title"] = "Index";
+    Microsoft.AspNetCore.Http.ISession _session = httpContextAccessor.HttpContext.Session;
+    var search = _session.GetString("SearchCourseName");
+
 }
 <br />
 <div class="container">
@@ -16,7 +21,7 @@
                     <a asp-action="Create">Create New</a>
                 </div>
                 <div class="col-md-4 form-group pull-right">
-                    <input name="search" class="form-control" type="text" placeholder="Search Course Name">
+                    <input name="search" class="form-control" type="text" placeholder="Search Course Name" value="@search">
                 </div>
             </div>
             @foreach (var item in Model)
