@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pogi.Data;
 using Pogi.Entities;
+using Pogi.Models;
 using Pogi.Models.HandicapViewModels;
 using Pogi.Services;
 
 namespace Pogi.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class HandicapController : Controller
     {
         private readonly PogiDbContext _context;
@@ -39,6 +43,30 @@ namespace Pogi.Controllers
 
             return View(model);
         }
+        [AllowAnonymous]
+        public IActionResult List(int? Id)
+        {
+            var model = new HandicapListViewModel();
+            DateTime Date = _handicap.getCurrEffDate();
+            string sDate = Date.ToShortDateString();
+            model.ActiveDates = _handicap.getActiveDates(sDate);
+            model.HandicapInfos = _handicap.getAllForDate(Date);
+            model.Date = sDate;
+            return View(model);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult List(string Date)
+        {
+            var model = new HandicapListViewModel();
+            model.Date = Date;
+            DateTime dDate = DateTime.ParseExact(Date, "M/d/yyyy",CultureInfo.CurrentCulture);
+            model.ActiveDates = _handicap.getActiveDates(Date);
+            model.HandicapInfos = _handicap.getAllForDate(dDate);
+            return View(model);
+        }
+
 
         // GET: Handicap/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,6 +87,7 @@ namespace Pogi.Controllers
         }
 
         // GET: Handicap/Create
+        [Authorize(Roles = "AdminRoot,AdminUser")]
         public IActionResult Create(int? Id)
         {
              var Member = _context.Member
@@ -87,6 +116,7 @@ namespace Pogi.Controllers
         // POST: Handicap/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "AdminRoot,AdminUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int? Id,[Bind("HandicapId,GhinNumber,Date,HcpIndex")] Handicap handicap)
@@ -121,6 +151,7 @@ namespace Pogi.Controllers
         }
 
         // GET: Handicap/Edit/5
+        [Authorize(Roles = "AdminRoot,AdminUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -144,7 +175,7 @@ namespace Pogi.Controllers
             model.HcpIndex = Handicap.HcpIndex;
             return View(model);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminUser")]
         // POST: Handicap/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -194,7 +225,7 @@ namespace Pogi.Controllers
             
             return View(model);
         }
-    
+        [Authorize(Roles = "AdminRoot,AdminUser")]
         // GET: Handicap/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -219,7 +250,7 @@ namespace Pogi.Controllers
             
             return View(model);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminUser")]
         // POST: Handicap/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

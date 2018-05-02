@@ -57,7 +57,7 @@
                         <div class="dropdown-menu alert-secondary" aria-labelledby="scoreDropdown">
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Index">Logbook</a>
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Leaderboard">Leaderboard</a>
-                            <a disabled="disabled "class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Badges">Badges</a>
+                            <a disabled="disabled " class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Badges">Badges</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item col-sm-offset-1" asp-area="" asp-controller="Score" asp-action="Create">Single Entry</a>
                             <a disabled class="dropdown-item col-sm-offset-1 text-muted" href="#">Multiple Entry</a>
@@ -65,6 +65,9 @@
                             <a disabled class="dropdown-item col-sm-offset-1 text-muted" href="#">Live Tournament Scoring</a>
 
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Handicap" asp-action="List">Handicaps</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="galleryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="Gallery" asp-action="Index">

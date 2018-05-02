@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Data;
 using Pogi.Entities;
+using Pogi.Models;
 
 namespace Pogi.Services
 {
@@ -59,7 +60,7 @@ namespace Pogi.Services
                 SelectListItem sl = new SelectListItem { Text = text, Value = value };
                 sl.Selected = false;
                 if (Date.Equals(value)) { sl.Selected = true; }
-                 activeDates.Add(sl);
+                activeDates.Add(sl);
             }
             return activeDates;
         }
@@ -73,7 +74,26 @@ namespace Pogi.Services
                 return Handicap;
             }
             return null;
-            
+
+        }
+
+        public IEnumerable<HandicapInfo> getAllForDate(DateTime Date)
+        {
+            IEnumerable<Member> Members = _context.Member.Where(r => r.RecordStatus == RecordState.Active &&
+                (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+            List<HandicapInfo> HandicapInfos = new List<HandicapInfo>();
+            foreach (Member Member in Members)
+            {
+                Handicap Handicap = getHandicapForDate(Member.MemberId, Date);
+                if (Handicap != null)
+                {
+                    HandicapInfo HandicapInfo = new HandicapInfo();
+                    HandicapInfo.Member = Member;
+                    HandicapInfo.Handicap = Handicap;
+                    HandicapInfos.Add(HandicapInfo);
+                }
+            }
+            return HandicapInfos;
         }
     }
 }

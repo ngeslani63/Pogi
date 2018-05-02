@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Entities;
+using Pogi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,8 @@ namespace Pogi.Services
         List<SelectListItem> getActiveDates(string Date);
 
         Handicap getHandicapForDate(int GhinNumber, DateTime Date);
+
+        IEnumerable<HandicapInfo> getAllForDate(DateTime Date);
+
     }
 }

@@ -1,0 +1,89 @@
+﻿@using Pogi.Models.HandicapViewModels
+@model HandicapListViewModel ;
+
+<br />
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<h4>Handicap Indexes</h4>
+<hr />
+<div class="container">
+    <form asp-action="List">
+        <div class="row">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-1">
+                Effective Date
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    @*<label asp-for="@Model.Date" class="col control-label"></label>*@
+                    <select asp-for="Date" asp-items="@Model.ActiveDates" class="col form-control"></select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <input type="submit" value="List" class="btn btn-primary" />
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="table"
+                   data-toggle="table"
+                   data-search="true"
+                   data-striped="true"
+                   data-pagination="true"
+                   data-sort-name="Name"
+                   data-sort-order="desc">
+                <thead>
+                    <tr>
+                        <th class="col-md-2" data-field="Date" data-sortable="true">Date</th>
+                        <th class="col-md-2" data-field="Name" data-sortable="true">Name</th>
+                        <th class="col-md-2" data-field="GHIN" data-sortable="true">GHIN</th>
+                        <th class="col-md-2" data-field="HcpIndex" data-sortable="true">Handicap Index</th>
+                        <th class="col-md-1">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var handicapInfo in Model.HandicapInfos)
+                    {
+                        <tr>
+                            @{
+                                Member member = handicapInfo.Member;
+                                Handicap handicap = handicapInfo.Handicap;
+                                String Name = member.LastName + ", " + member.FirstName;
+                                DateTime hcpDateTime = handicap.Date;
+                                String hcpDateDisp = hcpDateTime.ToString("yyyy MM/dd");
+                            }
+
+                            <td class="col-md-2">@hcpDateDisp</td>
+                            <td class="col-md-2">@Name</td>
+                            <td class="col-md-2">@handicap.GhinNumber</td>
+                            <td class="col-md-2">@handicap.HcpIndex</td>
+                            <td class="col-md-1">
+
+                                @*<a data-toggle="tooltip" title="Member Handicap" asp-action="Index" asp-route-id="@member.MemberId">&#x270f;</a>*@
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
