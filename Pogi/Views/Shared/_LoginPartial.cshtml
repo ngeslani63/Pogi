@@ -11,7 +11,8 @@
     var userName = UserManager.GetUserName(User);
     Member member = MemberData.getByEmailAddr(userName.Trim().ToLower());
     if (member == null) { member = MemberData.getByEmailAddr2nd(userName.Trim().ToLower()); }
-    if (member != null) {
+    if (member != null)
+    {
         userName = member.FirstName;
         greeting = "Member";
     }
@@ -20,19 +21,22 @@
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@greeting @userName</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Edit" asp-route-id="@member.MemberId" title="Profile">Profile</a>
-            </li>
+            @if (member != null)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Edit" asp-route-id="@member.MemberId" title="Profile">Profile</a>
+                </li>
+            }
             <li>
                 <button type="submit" class="nav-link btn btn-link navbar-btn navbar-link">Log out</button>
             </li>
         </ul>
-    </form>
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
-    </ul>
-}
+        </form>
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+        </ul>
+    }
