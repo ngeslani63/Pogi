@@ -68,9 +68,17 @@
                             <td class="col-md-2">@hcpDateDisp</td>
                             <td class="col-md-2">@Name</td>
                             <td class="col-md-2">@handicap.GhinNumber</td>
-                            <td class="col-md-2">@handicap.HcpIndex</td>
+                            @if (handicap == null || handicap.HcpIndex > 0)
+                            {
+                                <td class="col-md-2">@handicap.HcpIndex</td>
+                            }
+                            else
+                            {
+                                <td class="col-md-2">NH</td>
+                            }
                             <td class="col-md-1">
-                                <a href="http://162.245.224.193/Widgets/HandicapLookupResults.aspx?entry=1&ghinno=@handicap.GhinNumber">Lookup</a>
+                                <a href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@handicap.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0">Lookup</a>
+                                @*<a href="http://162.245.224.193/Widgets/HandicapLookupResults.aspx?entry=1&ghinno=@handicap.GhinNumber">Lookup</a>*@
                                 @*<a data-toggle="tooltip" title="Member Handicap" asp-action="Index" asp-route-id="@member.MemberId">&#x270f;</a>*@
                             </td>
 

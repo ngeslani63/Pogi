@@ -111,7 +111,15 @@
                     </div>
                     <div class="col-md-4">
                         @(Html.DisplayFor(modelItem => item.GhinNumber)) /
-                        @(Html.DisplayFor(modelItem => item.CurrHandicap))
+                        @if (item.CurrHandicap > 0)
+                        {
+                            @(Html.DisplayFor(modelItem => item.CurrHandicap)) ;
+                        }
+                        else
+                        {
+                            <span>NH</span>
+
+                        }
                     </div>
                 </div>
                 <div class="row">

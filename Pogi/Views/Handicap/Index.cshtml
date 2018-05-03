@@ -51,7 +51,15 @@
                     }
 
                     <td class="col-md-2">@hcpDateDisp</td>
-                    <td class="col-md-2">@handicap.HcpIndex</td>
+                    @if (handicap.HcpIndex > 0)
+                    {
+                        <td class="col-md-2">@handicap.HcpIndex</td>
+                    }
+                    else
+                    {
+                        <td class="col-md-2">NH</td>
+
+                    }
 
                     <td class="col-md-1">
 
