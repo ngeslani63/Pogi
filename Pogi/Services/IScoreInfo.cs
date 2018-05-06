@@ -12,6 +12,9 @@ namespace Pogi.Services
         List<ScoreInfo> getMeritsAllTime();
         List<ScoreInfo> getMeritsThisYear();
         List<ScoreInfo> getMeritsLastWeek();
+        List<ScoreInfo> getMeritsOfWeek(DateTime time);
+        List<ScoreInfo> getMeritsOfMonth(DateTime time);
+        List<ScoreInfo> getMeritsOfYear(DateTime time);
         List<ScoreInfo> getBadgesAllTime();
         List<ScoreInfo> getBadgesThisYear();
         List<ScoreInfo> getBadgesLastWeek();

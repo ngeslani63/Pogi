@@ -35,7 +35,7 @@
         </div>
     </form>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-7">
             <table id="table"
                    data-toggle="table"
                    data-search="true"
@@ -45,10 +45,10 @@
                    data-sort-order="desc">
                 <thead>
                     <tr>
-                        <th class="col-md-2" data-field="Date" data-sortable="true">Date</th>
-                        <th class="col-md-2" data-field="Name" data-sortable="true">Name</th>
+                        <th class="col-md-3" data-field="Date" data-sortable="true">Date</th>
+                        <th class="col-md-3" data-field="Name" data-sortable="true">Name</th>
                         <th class="col-md-2" data-field="GHIN" data-sortable="true">GHIN</th>
-                        <th class="col-md-2" data-field="HcpIndex" data-sortable="true">Handicap Index</th>
+                        <th class="col-md-2" data-field="HcpIndex" data-sortable="true">H.I.</th>
                         <th class="col-md-1">Action</th>
 
                     </tr>
@@ -65,8 +65,8 @@
                                 String hcpDateDisp = hcpDateTime.ToString("yyyy MM/dd");
                             }
 
-                            <td class="col-md-2">@hcpDateDisp</td>
-                            <td class="col-md-2">@Name</td>
+                            <td class="col-md-3">@hcpDateDisp</td>
+                            <td class="col-md-3">@Name</td>
                             <td class="col-md-2">@handicap.GhinNumber</td>
                             @if (handicap == null || handicap.HcpIndex > 0)
                             {

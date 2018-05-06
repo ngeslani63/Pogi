@@ -68,14 +68,92 @@ namespace Pogi.Controllers
         //public async Task<IActionResult> LeaderBoard()
         public IActionResult LeaderBoard()
         {
-            var model = new List<ScoreInfo>();
+            var LeaderBoardWeekly = _session.GetString("LeaderBoardWeekly");
+            var LeaderBoardMonthly = _session.GetString("LeaderBoardMonthly");
+            var LeaderBoardYearly = _session.GetString("LeaderBoardYearly");
+            var LeaderBoardAllTime = _session.GetString("LeaderBoardAllTime");
+            var LeaderBoardAsOfDate = _session.GetString("LeaderBoardAsOfDate");
+            var model = new ScoreLeaderboardViewModel();
 
-            model = _scoreInfo.getMeritsLastWeek();
-            model.AddRange(_scoreInfo.getMeritsAllTime());
+            if (LeaderBoardAsOfDate != null && LeaderBoardAsOfDate.Length > 0)
+            {
+                model.AsOfDate = DateTime.ParseExact(LeaderBoardAsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                DateTime today = DateTime.Today;
+                int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
+                model.AsOfDate = today.AddDays(daysSinceSunday); // Sunday of Last Week
+            }
+
+            if (LeaderBoardWeekly == "Y") model.Weekly = true;
+            if (LeaderBoardMonthly == "Y") model.Monthly = true;
+            if (LeaderBoardYearly == "Y") model.Yearly = true;
+            if (LeaderBoardAllTime == "Y") model.AllTime = true;
+            if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
+            {
+                model.Weekly = true;
+                model.AllTime = true;
+                _session.SetString("LeaderBoardWeekly", "Y");
+                _session.SetString("LeaderBoardAllTime", "Y");
+            }
+            model.ScoreInfos = new List<ScoreInfo>();
+            if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfWeek(model.AsOfDate));
+            if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfMonth(model.AsOfDate));
+            if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfYear(model.AsOfDate));
+            if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getMeritsAllTime());
             //model = _scoreInfo.getMeritsAllTime();
+            _session.SetString("LeaderBoardAsOfdate", model.AsOfDate.ToShortDateString());
 
             return View(model);
             //return View(await _context.Score.ToListAsync());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //public async Task<IActionResult> LeaderBoard()
+        //public IActionResult LeaderBoard(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool Alltime )
+        public IActionResult LeaderBoard(ScoreLeaderboardViewModel model)
+        {
+            //var model = new ScoreLeaderboardViewModel();
+            if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
+            {
+                //model.Weekly = true;
+                //model.AllTime = true;
+                //_session.SetString("LeaderBoardWeekly", "Y");
+                //_session.SetString("LeaderBoardAllTime", "Y");
+            }
+            model.ScoreInfos = new List<ScoreInfo>();
+            //if (AsOfDate != null && AsOfDate.Length > 0)
+            //{
+            //    model.AsOfDate = DateTime.ParseExact(AsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+            //}
+            //else
+            //{
+            //    model.AsOfDate = DateTime.Today;
+            //}
+            //model.Weekly = Weekly;
+            //model.Monthly = Monthly;
+            //model.Yearly = Yearly;
+            //model.AllTime = Alltime;
+            if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfWeek(model.AsOfDate));
+            if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfMonth(model.AsOfDate));
+            if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfYear(model.AsOfDate));
+            if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getMeritsAllTime());
+            if (model.Weekly) _session.SetString("LeaderBoardWeekly", "Y");
+            else _session.SetString("LeaderBoardWeekly", "N");
+            if (model.Monthly) _session.SetString("LeaderBoardMonthly", "Y");
+            else _session.SetString("LeaderBoardMonthly", "N");
+            if (model.Yearly) _session.SetString("LeaderBoardYearly", "Y");
+            else _session.SetString("LeaderBoardYearly", "N");
+            if (model.AllTime) _session.SetString("LeaderBoardAllTime", "Y");
+            else _session.SetString("LeaderBoardAllTime", "N");
+            _session.SetString("LeaderBoardAsOfDate", model.AsOfDate.ToShortDateString());
+
+
+            return View(model);
+
         }
         [AllowAnonymous]
         public IActionResult Badges()
@@ -125,7 +203,7 @@ namespace Pogi.Controllers
 
             var model = new ScoreCreateViewModel();
             model.Members = _memberData.getSelectList();
-            
+
             if (CourseId != null && int.Parse(CourseId) > 0 && Color != null && Color.Length > 0)
             {
                 model.Courses = _courseData.getSelectList(int.Parse(CourseId));
@@ -139,13 +217,13 @@ namespace Pogi.Controllers
                 model.Courses = _courseData.getSelectList();
                 model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
             }
-            
-            
-            
+
+
+
             if (_signInManager.IsSignedIn(User))
             {
                 model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
-             }
+            }
             return View(model);
         }
 
@@ -214,7 +292,7 @@ namespace Pogi.Controllers
                 Score.AboutGame = model.AboutGame;
                 Score.NetScore = 99;
 
-                Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate );
+                Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
                 CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
                 Course Course = _courseData.get(Score.CourseId);
 
@@ -225,10 +303,10 @@ namespace Pogi.Controllers
                 }
                 else
                 {
-                   float courseHandicap = getCallawayHcp(Score, Course)*CourseDetail.Slope / 113;
+                    float courseHandicap = getCallawayHcp(Score, Course) * CourseDetail.Slope / 113;
                     Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                 }
-                                
+
                 countScores(Score, Course);
 
                 Score.CreatedBy = User.Identity.Name;
@@ -490,7 +568,7 @@ namespace Pogi.Controllers
             if ((Score - Par) == 1) return 1;
             return 2;
         }
-        private void countBadges(Score Score, int HoleScore, int ParScore )
+        private void countBadges(Score Score, int HoleScore, int ParScore)
         {
             if (HoleScore == 1) Score.HoleInOnes++;
             if (HoleScore >= (ParScore * 2 + 1)) Score.MaxScore++;
@@ -515,7 +593,7 @@ namespace Pogi.Controllers
                     break;
                 case 2:
                     Score.DoubleBogeys++;
-                        break;
+                    break;
                 case 3:
                     Score.TripleBogeys++;
                     break;

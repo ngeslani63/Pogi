@@ -48,7 +48,42 @@ namespace Pogi.Services
             DateTime endDate = today.AddDays(daysSinceSunday); // Sunday 12:00 AM
             return getMeritsByDate("Weekly ", startDate, endDate);
         }
+        public List<ScoreInfo> getMeritsOfWeek(DateTime date)
+        {
+            // Initialize date to 0 hour
+            date = date.Date;
+            DateTime startDate;
+            DateTime endDate;
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)date.DayOfWeek - 7) % 7;
+            if (daysSinceSunday == 0)
+            {
+                startDate = date.AddDays(-6); // Monday of week, 0 hour (where week = Monday to Sunday);
+            }
+            else
+            {
+                startDate = date.AddDays(daysSinceSunday + 1);  // Monday, 0 hour
+            }
+            endDate = startDate.AddDays(6).AddHours(23).AddMinutes(59);
 
+            return getMeritsByDate("Weekly ", startDate, endDate);
+        }
+        public List<ScoreInfo> getMeritsOfMonth(DateTime date)
+        {
+            int theYear = date.Year;
+            int theMonth = date.Month;
+            DateTime startDate = new DateTime(theYear, theMonth, 01).Date;
+            DateTime endDate = new DateTime(theYear, theMonth + 1, 01).Date.AddMinutes(-1);
+            return getMeritsByDate("Month " + theYear.ToString() + "/" + theMonth.ToString() + " " , startDate, endDate);
+        }
+
+        public List<ScoreInfo> getMeritsOfYear(DateTime date)
+        {
+            int theYear = date.Year;
+            DateTime startDate = new DateTime(theYear, 01, 01).Date;
+            DateTime endDate = new DateTime(theYear, 12, 31).Date.AddHours(23).AddMinutes(59);
+            return getMeritsByDate(theYear.ToString() + " ", startDate, endDate);
+        }
         public List<ScoreInfo> getMeritsThisYear()
         {
             DateTime today = DateTime.Today;
@@ -59,7 +94,7 @@ namespace Pogi.Services
         }
 
 
-        private List<ScoreInfo> getMeritsByDate(String timeFrame, DateTime startDate, DateTime endDate)
+        public List<ScoreInfo> getMeritsByDate(String timeFrame, DateTime startDate, DateTime endDate)
         {
             //var Scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
             //    .OrderBy(r => r.ScoreDate).ThenBy(i => i.ScoreId);
@@ -172,7 +207,7 @@ namespace Pogi.Services
             DateTime endDate = new DateTime(thisYear, 12, 31).Date;
             return getBadgesByDate(thisYear.ToString() + " ", startDate, endDate);
         }
-        private List<ScoreInfo> getBadgesByDate(String timeFrame, DateTime startDate, DateTime endDate)
+        public List<ScoreInfo> getBadgesByDate(String timeFrame, DateTime startDate, DateTime endDate)
         {
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
 
