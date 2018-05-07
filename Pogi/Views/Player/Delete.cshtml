@@ -78,10 +78,10 @@
             <input type="hidden" asp-for="MajorTourDay" />
             @if (!Model.MajorTourDay || Model.MajorTourDay && DateTime.Now <= lastWithdrawDate)
             {
-                <input type="submit" value="@ViewData["Delete"]" class="btn btn-primary" />
+                <input type="submit" value="@ViewData["Delete"]" class="btn btn-danger" />
             }
             <span>  </span>
-            <a class="btn btn-primary" asp-controller="TeeTime" asp-action="Index">Cancel</a>
+            <a class="btn btn-warning" asp-controller="TeeTime" asp-action="Index">Cancel</a>
         </form>
     </div>
 </div>

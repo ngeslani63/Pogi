@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\CourseDetails\**" />
-    <Content Remove="Views\CourseDetails\**" />
-    <EmbeddedResource Remove="Views\CourseDetails\**" />
-    <None Remove="Views\CourseDetails\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Controllers\TeeTimeControllerX.cs" />
     <Compile Remove="Migrations\20180417012713_update31.cs" />
     <Compile Remove="Migrations\20180417012713_update31.Designer.cs" />
@@ -61,6 +54,14 @@
     <Folder Include="wwwroot\images\NewFolder\" />
     <Folder Include="wwwroot\images\Profile\" />
     <Folder Include="wwwroot\lib\bootstrat-4.0.0\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\CourseDetails\Create.cshtml" />
+    <None Include="Views\CourseDetails\Delete.cshtml" />
+    <None Include="Views\CourseDetails\Details.cshtml" />
+    <None Include="Views\CourseDetails\Edit.cshtml" />
+    <None Include="Views\CourseDetails\Index.cshtml" />
   </ItemGroup>
 
 </Project>
