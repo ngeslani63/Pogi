@@ -31,7 +31,7 @@ namespace Pogi.Models.ScoreViewModels
         public Member EnteredBy { get; set; }
         [Display(Name = "Score Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Required]
         public DateTime ScoreDate { get; set; }
         [Display(Name = "01")]

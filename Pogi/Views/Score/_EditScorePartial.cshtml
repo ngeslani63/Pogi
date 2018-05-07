@@ -10,7 +10,8 @@
         <div class="col col-md-4">
             <div class="form-group">
                 <label asp-for="ScoreDate" class="control-label"></label>
-                <input asp-for="ScoreDate" type="datetime" asp- class="form-control" />
+                @*<input asp-for="ScoreDate" type="datetime" asp- class="form-control" />*@
+                <input asp-for="ScoreDate" asp- class="form-control" />
                 <span asp-validation-for="ScoreDate" class="text-danger"></span>
             </div>
         </div>
