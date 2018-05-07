@@ -32,30 +32,30 @@
 
                         @if (Model.Weekly == true)
                         {
-                            <button id="btnWeekly" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnWeekly" type="button" class="btn btn-primary">
                                 Weekly
                             </button>
                         }
                         else
                         {
-                            <button id="btnWeekly" type="button" class="btn btn-default active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnWeekly" type="button" class="btn btn-light" >
                                 Weekly
                             </button>
 
                         }
                         @*<span class="input-group-text">Weekly&nbsp;&nbsp;</span>*@
 
-                    <input hidden id="Weekly" asp-for="Weekly" class="form-control " />
+                    <input hidden id="Weekly" asp-for="Weekly" class="form-control" />
 
                         @if (Model.Monthly == true)
                         {
-                            <button id="btnMonthly" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnMonthly" type="button" class="btn btn-primary">
                                 Monthly
                             </button>
                         }
                         else
                         {
-                            <button id="btnMonthly" type="button" class="btn btn-default active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnMonthly" type="button" class="btn btn-light">
                                 Monthly
                             </button>
 
@@ -66,13 +66,13 @@
 
                         @if (Model.Yearly == true)
                         {
-                            <button id="btnYearly" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnYearly" type="button" class="btn btn-primary">
                                 Yearly
                             </button>
                         }
                         else
                         {
-                            <button id="btnYearly" type="button" class="btn btn-default active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnYearly" type="button" class="btn btn-light">
                                 Yearly
                             </button>
 
@@ -83,13 +83,13 @@
 
                         @if (Model.AllTime == true)
                         {
-                            <button id="btnAllTime" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnAllTime" type="button" class="btn btn-primary">
                                 AllTime
                             </button>
                         }
                         else
                         {
-                            <button id="btnAllTime" type="button" class="btn btn-default active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                            <button id="btnAllTime" type="button" class="btn btn-light">
                                 AllTime
                             </button>
 
@@ -193,12 +193,12 @@
             var button = $(this);
             if (button.hasClass("btn-primary")) {
                 button.removeClass("btn-primary");
-                button.addClass("btn-default");
+                button.addClass("btn-light");
                 $("#Weekly").removeAttr("checked");
                 $("#Weekly").val = false;
             }
             else {
-                button.removeClass("btn-default");
+                button.removeClass("btn-light");
                 button.addClass("btn-primary");
                 $("#Weekly").attr("checked", "checked");
                 $("#Weekly").val = true;
@@ -210,12 +210,12 @@
             var button = $(this);
             if (button.hasClass("btn-primary")) {
                 button.removeClass("btn-primary");
-                button.addClass("btn-default");
+                button.addClass("btn-light");
                 $("#Monthly").removeAttr("checked");
                 $("#Monthly").val = false;
             }
             else {
-                button.removeClass("btn-default");
+                button.removeClass("btn-light");
                 button.addClass("btn-primary");
                 $("#Monthly").attr("checked", "checked");
                 $("#Monthly").val = true;
@@ -227,12 +227,12 @@
             var button = $(this);
             if (button.hasClass("btn-primary")) {
                 button.removeClass("btn-primary");
-                button.addClass("btn-default");
+                button.addClass("btn-light");
                 $("#Yearly").removeAttr("checked");
                 $("#Yearly").val = false;
             }
             else {
-                button.removeClass("btn-default");
+                button.removeClass("btn-light");
                 button.addClass("btn-primary");
                 $("#Yearly").attr("checked", "checked");
                 $("#Yearly").val = true;
@@ -244,12 +244,12 @@
             var button = $(this);
             if (button.hasClass("btn-primary")) {
                 button.removeClass("btn-primary");
-                button.addClass("btn-default");
+                button.addClass("btn-light");
                 $("#AllTime").removeAttr("checked");
                 $("#AllTime").val = false;
             }
             else {
-                button.removeClass("btn-default");
+                button.removeClass("btn-light");
                 button.addClass("btn-primary");
                 $("#AllTime").attr("checked", "checked");
                 $("#AllTime").val = true;
