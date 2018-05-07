@@ -199,6 +199,41 @@ namespace Pogi.Services
             DateTime endDate = today.AddDays(daysSinceSunday ); // Sunday 12:00 AM
             return getBadgesByDate("Weekly ", startDate, endDate);
         }
+        public List<ScoreInfo> getBadgesOfWeek(DateTime date)
+        {
+            // Initialize date to 0 hour
+            date = date.Date;
+            DateTime startDate;
+            DateTime endDate;
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)date.DayOfWeek - 7) % 7;
+            if (daysSinceSunday == 0)
+            {
+                startDate = date.AddDays(-6); // Monday of week, 0 hour (where week = Monday to Sunday);
+            }
+            else
+            {
+                startDate = date.AddDays(daysSinceSunday + 1);  // Monday, 0 hour
+            }
+            endDate = startDate.AddDays(6).AddHours(23).AddMinutes(59);
+
+            return getBadgesByDate("Weekly ", startDate, endDate);
+        }
+        public List<ScoreInfo> getBadgesOfMonth(DateTime date)
+        {
+            int theYear = date.Year;
+            int theMonth = date.Month;
+            DateTime startDate = new DateTime(theYear, theMonth, 01).Date;
+            DateTime endDate = new DateTime(theYear, theMonth + 1, 01).Date.AddMinutes(-1);
+            return getBadgesByDate("Month " + theYear.ToString() + "/" + theMonth.ToString() + " ", startDate, endDate);
+        }
+        public List<ScoreInfo> getBadgesOfYear(DateTime date)
+        {
+            int theYear = date.Year;
+            DateTime startDate = new DateTime(theYear, 01, 01).Date;
+            DateTime endDate = new DateTime(theYear, 12, 31).Date.AddHours(23).AddMinutes(59);
+            return getBadgesByDate(theYear.ToString() + " ", startDate, endDate);
+        }
         public List<ScoreInfo> getBadgesThisYear()
         {
             DateTime today = DateTime.Today;

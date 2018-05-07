@@ -1,5 +1,5 @@
 ﻿@using Pogi.Models.ScoreViewModels;
-@model List<ScoreInfo>
+@model ScoreLeaderboardViewModel
 
 @{
     ViewData["Title"] = "Badges";
@@ -11,12 +11,105 @@
 
     </div>
 </section>
+<div class="container">
+    <form asp-action="Badges">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">As Of Date</span>
+                    </div>
+                    <input asp-for="AsOfDate" type="datetime" asp- class="form-control" />
+                    <span asp-validation-for="AsOfDate" class="text-danger"></span>
+                    <div class="input-group-addon">
+                        <input id="List" type="submit" name="List" value="List" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
 
+            <div class="col">
+                <div class="input-group">
+
+                    @if (Model.Weekly == true)
+                        {
+                    <button id="btnWeekly" type="button" class="btn btn-primary">
+                        Weekly
+                    </button>
+                        }
+                        else
+                        {
+                    <button id="btnWeekly" type="button" class="btn btn-light">
+                        Weekly
+                    </button>
+
+                        }
+                    @*<span class="input-group-text">Weekly&nbsp;&nbsp;</span>*@
+
+                    <input hidden id="Weekly" asp-for="Weekly" class="form-control" />
+
+                    @if (Model.Monthly == true)
+                        {
+                    <button id="btnMonthly" type="button" class="btn btn-primary">
+                        Monthly
+                    </button>
+                        }
+                        else
+                        {
+                    <button id="btnMonthly" type="button" class="btn btn-light">
+                        Monthly
+                    </button>
+
+                        }
+
+                    <input hidden id="Monthly" asp-for="Monthly" class="form-control " />
+
+
+                    @if (Model.Yearly == true)
+                        {
+                    <button id="btnYearly" type="button" class="btn btn-primary">
+                        Yearly
+                    </button>
+                        }
+                        else
+                        {
+                    <button id="btnYearly" type="button" class="btn btn-light">
+                        Yearly
+                    </button>
+
+                        }
+
+                    <input hidden id="Yearly" asp-for="Yearly" class="form-control " />
+
+
+                    @if (Model.AllTime == true)
+                        {
+                    <button id="btnAllTime" type="button" class="btn btn-primary">
+                        AllTime
+                    </button>
+                        }
+                        else
+                        {
+                    <button id="btnAllTime" type="button" class="btn btn-light">
+                        AllTime
+                    </button>
+
+                        }
+
+                    <input hidden id="AllTime" asp-for="AllTime" class="form-control " />
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+<hr />
 <div class="album py-5 bg-light">
     <div class="container">
 
+
         <div class="row">
-            @foreach (ScoreInfo ScoreInfo in Model)
+            @foreach (ScoreInfo ScoreInfo in Model.ScoreInfos)
             {
                 var member = ScoreInfo.Member;
                 var course = ScoreInfo.Course;
@@ -24,59 +117,59 @@
 
                 var imgFile = "/images/Profile/" + member.FirstName + member.LastName + ".jpg";
 
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="fileinput card-img-top" src="@imgFile"
-                             alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
-                        <div class="card-body">
-                            <div class="row text-center">
-                                <div class="col">
-                                    <h4>@ScoreInfo.Merit</h4>
-                                </div>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="fileinput card-img-top" src="@imgFile"
+                         alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col text-center">
+                                <h4>@ScoreInfo.Merit</h4>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <span class="text-capitalize">@member.FirstName @member.LastName</span>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="text-capitalize">@member.FirstName @member.LastName</span>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <span class="text-info">Date: </span>@score.ScoreDate.Date.ToShortDateString()
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="text-info">Date: </span>@score.ScoreDate.Date.ToShortDateString()
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <span class="text-info">Course: </span>@course.CourseName
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="text-info">Course: </span>@course.CourseName
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <span class="text-info">Gross Score: </span>@score.HoleTotal
-                                </div>
-                                <div class="col">
-                                    <span class="text-info">Net Score: </span>@score.NetScore
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="text-info">Gross Score: </span>@score.HoleTotal
                             </div>
-                            <div class="d-flex justify-content-between align-items-center"></div>
-                            <div class="row">
-                                <div class="col">
-                                    <span class="text-info">Pars </span>@score.Pars
-                                </div>
-                                <div class="col">
-                                    <span class="text-info">Birdies </span>@score.Birdies
-                                </div>
-                                <div class="col">
-                                    <span class="text-info">Eagles </span>@score.Eagles
-                                </div>
+                            <div class="col">
+                                <span class="text-info">Net Score: </span>@score.NetScore
                             </div>
-                            <div class="row">
-                                <div class="col d-flex justify-content-between align-items-center">
-                                    <span>@score.AboutGame</span>
-                                </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center"></div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="text-info">Pars </span>@score.Pars
+                            </div>
+                            <div class="col">
+                                <span class="text-info">Birdies </span>@score.Birdies
+                            </div>
+                            <div class="col">
+                                <span class="text-info">Eagles </span>@score.Eagles
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-between align-items-center">
+                                <span>@score.AboutGame</span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
         </div>
     </div>
@@ -85,7 +178,7 @@
 
 @section Scripts {
     <script type="text/javascript">
-        console.info("Hello Leaderboard");
+        console.info("Hello Badges");
 
         $(".fileinput").each(function () {
             //console.info("Hello before loadImage "
@@ -105,6 +198,75 @@
                     maxWidth: 200
                 }
             );
+        });
+
+        $("#btnWeekly").click(function () {
+
+            var button = $(this);
+            if (button.hasClass("btn-primary")) {
+                button.removeClass("btn-primary");
+                button.addClass("btn-light");
+                $("#Weekly").removeAttr("checked");
+                $("#Weekly").val = false;
+            }
+            else {
+                button.removeClass("btn-light");
+                button.addClass("btn-primary");
+                $("#Weekly").attr("checked", "checked");
+                $("#Weekly").val = true;
+            }
+            $("#List").trigger("click");
+        });
+        $("#btnMonthly").click(function () {
+
+            var button = $(this);
+            if (button.hasClass("btn-primary")) {
+                button.removeClass("btn-primary");
+                button.addClass("btn-light");
+                $("#Monthly").removeAttr("checked");
+                $("#Monthly").val = false;
+            }
+            else {
+                button.removeClass("btn-light");
+                button.addClass("btn-primary");
+                $("#Monthly").attr("checked", "checked");
+                $("#Monthly").val = true;
+            }
+            $("#List").trigger("click");
+        });
+        $("#btnYearly").click(function () {
+
+            var button = $(this);
+            if (button.hasClass("btn-primary")) {
+                button.removeClass("btn-primary");
+                button.addClass("btn-light");
+                $("#Yearly").removeAttr("checked");
+                $("#Yearly").val = false;
+            }
+            else {
+                button.removeClass("btn-light");
+                button.addClass("btn-primary");
+                $("#Yearly").attr("checked", "checked");
+                $("#Yearly").val = true;
+            }
+            $("#List").trigger("click");
+        });
+        $("#btnAllTime").click(function () {
+            console.info("btnAllTime Clicked");
+            var button = $(this);
+            if (button.hasClass("btn-primary")) {
+                button.removeClass("btn-primary");
+                button.addClass("btn-light");
+                $("#AllTime").removeAttr("checked");
+                $("#AllTime").val = false;
+            }
+            else {
+                button.removeClass("btn-light");
+                button.addClass("btn-primary");
+                $("#AllTime").attr("checked", "checked");
+                $("#AllTime").val = true;
+            }
+            $("#List").trigger("click");
         });
 
     </script>

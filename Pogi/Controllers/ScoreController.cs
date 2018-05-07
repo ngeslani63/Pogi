@@ -155,17 +155,108 @@ namespace Pogi.Controllers
             return View(model);
 
         }
+        //[AllowAnonymous]
+        //public IActionResult Badges()
+        //{
+        //    var model = new List<ScoreInfo>();
+
+        //    model = _scoreInfo.getBadgesLastWeek();
+        //    model.AddRange(_scoreInfo.getBadgesAllTime());
+        //    //model = _scoreInfo.getMeritsAllTime();
+
+        //    return View(model);
+        //    //return View(await _context.Score.ToListAsync());
+        //}
         [AllowAnonymous]
+        //public async Task<IActionResult> LeaderBoard()
         public IActionResult Badges()
         {
-            var model = new List<ScoreInfo>();
+            var BadgesWeekly = _session.GetString("BadgesWeekly");
+            var BadgesMonthly = _session.GetString("BadgesMonthly");
+            var BadgesYearly = _session.GetString("BadgesYearly");
+            var BadgesAllTime = _session.GetString("BadgesAllTime");
+            var BadgesAsOfDate = _session.GetString("BadgesAsOfDate");
+            var model = new ScoreLeaderboardViewModel();
 
-            model = _scoreInfo.getBadgesLastWeek();
-            model.AddRange(_scoreInfo.getBadgesAllTime());
-            //model = _scoreInfo.getMeritsAllTime();
+            if (BadgesAsOfDate != null && BadgesAsOfDate.Length > 0)
+            {
+                model.AsOfDate = DateTime.ParseExact(BadgesAsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                DateTime today = DateTime.Today;
+                int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
+                model.AsOfDate = today.AddDays(daysSinceSunday); // Sunday of Last Week
+            }
+
+            if (BadgesWeekly == "Y") model.Weekly = true;
+            if (BadgesMonthly == "Y") model.Monthly = true;
+            if (BadgesYearly == "Y") model.Yearly = true;
+            if (BadgesAllTime == "Y") model.AllTime = true;
+            if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
+            {
+                model.Weekly = true;
+                model.AllTime = true;
+                _session.SetString("BadgesWeekly", "Y");
+                _session.SetString("BadgesAllTime", "Y");
+            }
+            model.ScoreInfos = new List<ScoreInfo>();
+            if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfWeek(model.AsOfDate));
+            if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfMonth(model.AsOfDate));
+            if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfYear(model.AsOfDate));
+            if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getBadgesAllTime());
+            //model = _scoreInfo.getBadgesAllTime();
+            _session.SetString("BadgesAsOfdate", model.AsOfDate.ToShortDateString());
 
             return View(model);
             //return View(await _context.Score.ToListAsync());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Badges()
+        //public IActionResult Badges(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool Alltime )
+        public IActionResult Badges(ScoreLeaderboardViewModel model)
+        {
+            //var model = new ScoreBadgesViewModel();
+            if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
+            {
+                //model.Weekly = true;
+                //model.AllTime = true;
+                //_session.SetString("BadgesWeekly", "Y");
+                //_session.SetString("BadgesAllTime", "Y");
+            }
+            model.ScoreInfos = new List<ScoreInfo>();
+            //if (AsOfDate != null && AsOfDate.Length > 0)
+            //{
+            //    model.AsOfDate = DateTime.ParseExact(AsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+            //}
+            //else
+            //{
+            //    model.AsOfDate = DateTime.Today;
+            //}
+            //model.Weekly = Weekly;
+            //model.Monthly = Monthly;
+            //model.Yearly = Yearly;
+            //model.AllTime = Alltime;
+            if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfWeek(model.AsOfDate));
+            if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfMonth(model.AsOfDate));
+            if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfYear(model.AsOfDate));
+            if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getBadgesAllTime());
+            if (model.Weekly) _session.SetString("BadgesWeekly", "Y");
+            else _session.SetString("BadgesWeekly", "N");
+            if (model.Monthly) _session.SetString("BadgesMonthly", "Y");
+            else _session.SetString("BadgesMonthly", "N");
+            if (model.Yearly) _session.SetString("BadgesYearly", "Y");
+            else _session.SetString("BadgesYearly", "N");
+            if (model.AllTime) _session.SetString("BadgesAllTime", "Y");
+            else _session.SetString("BadgesAllTime", "N");
+            _session.SetString("BadgesAsOfDate", model.AsOfDate.ToShortDateString());
+
+
+            return View(model);
+
         }
 
 
