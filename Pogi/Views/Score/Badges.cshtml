@@ -14,7 +14,7 @@
 <div class="container">
     <form asp-action="Badges">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">As Of Date</span>
@@ -22,7 +22,7 @@
                     <input asp-for="AsOfDate" asp- class="form-control" />
                     <span asp-validation-for="AsOfDate" class="text-danger"></span>
                     <div class="input-group-addon">
-                        <input id="List" type="submit" name="List" value="List" class="btn btn-primary" />
+                        <input hidden id="List" type="submit" name="List" value="List" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
@@ -266,6 +266,10 @@
                 $("#AllTime").attr("checked", "checked");
                 $("#AllTime").val = true;
             }
+            $("#List").trigger("click");
+        });
+        $("#AsOfDate").change(function () {
+            console.info("As Of Date Changed");
             $("#List").trigger("click");
         });
 
