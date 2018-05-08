@@ -20,140 +20,140 @@
                 </div>
                 <div class="row">&nbsp;</div>
 
-                    @foreach (var item in Model.TeeTimeInfos)
-        {
-            TeeTime teeTime = item.TeeTime;
-            String teeTimeDisp = teeTime.TeeTimeTS.ToString("f");
-            Member member = item.Member;
-            Course course = item.Course;
-            var teeAssignInfos = item.TeeAssignInfos;
+                @foreach (var item in Model.TeeTimeInfos)
+                {
+                    TeeTime teeTime = item.TeeTime;
+                    String teeTimeDisp = teeTime.TeeTimeTS.ToString("f");
+                    Member member = item.Member;
+                    Course course = item.Course;
+                    var teeAssignInfos = item.TeeAssignInfos;
 
-            <div class="row input-group">
-                <div class="input-group-prepend alert-info  col-md-4">
-                    @Html.DisplayNameFor(model => course.CourseName)
-                </div>
-                <div class="alert-secondary col-md-8">
-                    @Html.DisplayFor(modelItem => course.CourseName)
-                </div>
-            </div>
-            <div class="row input-group">
-                <div class="input-group-prepend alert-info col-md-4">
-                    @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
-                </div>
-                <div class="alert-secondary col-md-8">
-                    @teeTimeDisp
-                </div>
-            </div>
-            <div class="row input-group">
-                <div class="input-group-prepend alert-info col-md-4">
-                    Reserved By
-                </div>
-                <div class="alert-secondary col-md-8">
-                    @Html.DisplayFor(modelItem => member.FirstName)
-                    @Html.DisplayFor(modelItem => member.LastName)
-                </div>
-            </div>
-int group = 0;
-DateTime startTime = teeTime.TeeTimeTS;
-            @for (int i = 0; i < teeTime.NumPlayers; i++)
+                    <div class="row input-group">
+                        <div class="input-group-prepend alert-info  col-md-4">
+                            @Html.DisplayNameFor(model => course.CourseName)
+                        </div>
+                        <div class="alert-secondary col-md-8">
+                            @Html.DisplayFor(modelItem => course.CourseName)
+                        </div>
+                    </div>
+                    <div class="row input-group">
+                        <div class="input-group-prepend alert-info col-md-4">
+                            @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
+                        </div>
+                        <div class="alert-secondary col-md-8">
+                            @teeTimeDisp
+                        </div>
+                    </div>
+                    <div class="row input-group">
+                        <div class="input-group-prepend alert-info col-md-4">
+                            Reserved By
+                        </div>
+                        <div class="alert-secondary col-md-8">
+                            @Html.DisplayFor(modelItem => member.FirstName)
+                            @Html.DisplayFor(modelItem => member.LastName)
+                        </div>
+                    </div>
+                    int group = 0;
+                    DateTime startTime = teeTime.TeeTimeTS;
+                    @for (int i = 0; i < teeTime.NumPlayers; i++)
 
-{
-    if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
-    {
-        group++;
-            <div class="row input-group">
-                <div class="input-group-prepend alert-primary col-md-4">
-                    Group @group
-                </div>
-                <div class="alert-primary col-md-8">
-                    Start Time: @startTime.ToShortTimeString()
-                </div>
-            </div>
-startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
-}
-            <div class="row input-group">
-                <div class="input-group-prepend alert-info col-md-4">
-                    Player @(i + 1)
-                </div>
+                    {
+                        if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
+                        {
+                            group++;
+                            <div class="row input-group">
+                                <div class="input-group-prepend alert-primary col-md-4">
+                                    Group @group
+                                </div>
+                                <div class="alert-primary col-md-8">
+                                    Start Time: @startTime.ToShortTimeString()
+                                </div>
+                            </div>
+                            startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
+                        }
+                        <div class="row input-group">
+                            <div class="input-group-prepend alert-info col-md-4">
+                                Player @(i + 1)
+                            </div>
 
-                <div class="col-md-8 text-dark">
-                    @if (i < teeAssignInfos.Count)
-        {
-            var teeAssignInfo = teeAssignInfos[i];
-            @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
-{
-            <span>@teeAssignInfo.TeeAsign.GuestName</span>
+                            <div class="col-md-8 text-dark">
+                                @if (i < teeAssignInfos.Count)
+                                {
+                                    var teeAssignInfo = teeAssignInfos[i];
+                                    @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
+                                    {
+                                        <span>@teeAssignInfo.TeeAsign.GuestName</span>
 
-}
-else
-{
-            <span>@teeAssignInfo.Member.FirstName</span>
-            <span>@teeAssignInfo.Member.LastName</span>
-            @if (teeAssignInfo.Member.CurrHandicap > 0)
-{
-            <span>(@teeAssignInfo.Member.CurrHandicap)</span>
-}
-else
-{
-            <span>(NH)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@teeAssignInfo.Member.FirstName</span>
+                                        <span>@teeAssignInfo.Member.LastName</span>
+                                        @if (teeAssignInfo.Member.CurrHandicap > 0)
+                                        {
+                                            <span>(@teeAssignInfo.Member.CurrHandicap)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>(NH)</span>
 
-}
-}
-}
-else
-{
-            <span class="text-muted">Unassigned</span>
-}
-                </div>
-            </div>
-
-
-}
-            @if (item.TeeTime.MajorTour)
-{
-    int daysToGo = (item.TeeTime.TeeTimeTS.Date - DateTime.Today.Date).Days;
-    DateTime lastWithdrawDate = item.TeeTime.TeeTimeTS.Date.AddDays(-5).AddHours(16);
-            <div class="row">
-                <div class="col-md-12">
-                    <span>This is a major tour event. All active members will be registered to play by default.</span>
-                    <span>Last Withdrawal is on @lastWithdrawDate.ToString("f").</span>
-                    @if (DateTime.Now <= lastWithdrawDate)
-        {
-            <span>You can still withdraw.</span>
-}
-else
-{
-            <span>You can no longer withdraw.</span>
-}
-                </div>
-            </div>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Unassigned</span>
+                                }
+                            </div>
+                        </div>
 
 
-}
-            <div class="row">
-                <div class="col-md-7">
-                    @if (Model.User != null && (Model.User.MemberId == teeTime.ReservedById
+                    }
+                    @if (item.TeeTime.MajorTour)
+                    {
+                        int daysToGo = (item.TeeTime.TeeTimeTS.Date - DateTime.Today.Date).Days;
+                        DateTime lastWithdrawDate = item.TeeTime.TeeTimeTS.Date.AddDays(-5).AddHours(16);
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>This is a major tour event. All active members will be registered to play by default.</span>
+                                <span>Last Withdrawal is on @lastWithdrawDate.ToString("f").</span>
+                                @if (DateTime.Now <= lastWithdrawDate)
+                                {
+                                    <span>You can still withdraw.</span>
+                                }
+                                else
+                                {
+                                    <span>You can no longer withdraw.</span>
+                                }
+                            </div>
+                        </div>
+
+
+                    }
+                    <div class="row">
+                        <div class="col-md-7">
+                            @if (Model.User != null && (Model.User.MemberId == teeTime.ReservedById
 || Model.User.MemberId == 1))
-        {
-            <a data-toggle="tooltip" title="Edit TeeTime" asp-action="Edit" asp-route-id="@teeTime.TeeTimeId">&#x270f;</a><span> | </span>
-            <a data-toggle="tooltip" title="Delete TeeTime" asp-action="Delete" asp-route-id="@teeTime.TeeTimeId" class="fa fa-trash"></a>
-}
+                            {
+                                <a data-toggle="tooltip" title="Edit TeeTime" asp-action="Edit" asp-route-id="@teeTime.TeeTimeId">&#x270f;</a><span> | </span>
+                                <a data-toggle="tooltip" title="Delete TeeTime" asp-action="Delete" asp-route-id="@teeTime.TeeTimeId" class="fa fa-trash"></a>
+                            }
 
-                    @if (Model.User != null && (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
-        {
-            <span> | </span><a data-toggle="tooltip" title="Assign TeeTime" asp-controller="TeeAssign" asp-action="Edit2" asp-route-id="@teeTime.TeeTimeId" class="fa fa-user-plus"></a>
-}
+                            @if (Model.User != null && (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
+                            {
+                                <span> | </span><a data-toggle="tooltip" title="Assign TeeTime" asp-controller="TeeAssign" asp-action="Edit2" asp-route-id="@teeTime.TeeTimeId" class="fa fa-user-plus"></a>
+                            }
 
-                </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-7">
+                            <hr />
+                        </div>
+                    </div>
+
+                }
             </div>
-            <div class="row ">
-                <div class="col-md-7">
-                    <hr />
-                </div>
-            </div>
-
-}
-                </div>
 
             <div class="col-md-7">
                 <div class="row">
@@ -168,110 +168,115 @@ else
                     </div>
                 </div>
                 @{
-        String prevDate = new DateTime(0).ToString("yyyyMMdd");
-        int playerCount = 1;
-        int playerTotal = 0;
+                    String prevDate = new DateTime(0).ToString("yyyyMMdd");
+                    int playerCount = 1;
+                    int playerTotal = 0;
                 }
                 @foreach (var item in Model.PlayerInfos)
-    {
-        DateTime nextDateTime = item.Player.PlayDate;
-        String nextDate = nextDateTime.ToString("yyyyMMdd");
-        String nextDateDisp = nextDateTime.ToString("D");
-        int daysToGo = (nextDateTime.Date - DateTime.Today.Date).Days;
-        if (!nextDate.Equals(prevDate))
-        {
-            @if (playerTotal > 0)
-{
-            <br />
-}
-            <div class="row">
-                <div class="alert-info col-xs-8">
-                    @nextDateDisp, @daysToGo days &nbsp; / &nbsp;
-                </div>
-                <div class="alert-info col-xs">
-                    RegisteredBy &nbsp; / &nbsp;
-                </div>
-                <div class="alert-info col-xs">
-                    Status
-                </div>
-            </div>
-playerCount = 0;
-}
-playerCount++;
-prevDate = nextDate;
-            <div class="row">
-                <div class="col-xs">
-                    @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
-        {
-            <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
-}
-else
-{
-            <span>@playerCount. @item.Member.FirstName @item.Member.LastName</span>
-}
-                    @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId && !item.Player.Withdrawn
+                {
+                    DateTime nextDateTime = item.Player.PlayDate;
+                    String nextDate = nextDateTime.ToString("yyyyMMdd");
+                    String nextDateDisp = nextDateTime.ToString("D");
+                    int daysToGo = (nextDateTime.Date - DateTime.Today.Date).Days;
+                    if (!nextDate.Equals(prevDate))
+                    {
+                        @if (playerTotal > 0)
+                        {
+                            <br />
+                        }
+                        <div class="row">
+                            <div class="alert-info col-xs-8">
+                                @nextDateDisp, @daysToGo days &nbsp; / &nbsp;
+                            </div>
+                            <div class="alert-info col-xs">
+                                RegisteredBy &nbsp; / &nbsp;
+                            </div>
+                            <div class="alert-info col-xs">
+                                Status
+                            </div>
+                        </div>
+                        playerCount = 0;
+                    }
+                    playerCount++;
+                    prevDate = nextDate;
+                    <div class="row">
+                        <div class="col-xs">
+                            @if (item.Player.GuestName != null && item.Player.GuestName.Length > 0)
+                            {
+                                <span>@playerCount. @item.Player.GuestName (Guest of @item.Member.FirstName)</span>
+                            }
+                            else
+                            {
+                                <span>
+                                    @playerCount. @item.Member.FirstName @item.Member.LastName.Substring(0, 1)
+                                    (
+                                    <a data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@item.Member.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0" target="_blank"> @(item.Member.CurrHandicap)</a>
+                                    )
+                                </span>
+                            }
+                            @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId && !item.Player.Withdrawn
 || Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
-        {
-            <a data-toggle="tooltip" title="Withdraw" asp-controller="Player" asp-action="Delete"
-               asp-route-id="@item.Player.PlayId" class="fa fa-trash"></a>
+                            {
+                                <a data-toggle="tooltip" title="Withdraw" asp-controller="Player" asp-action="Delete"
+                                   asp-route-id="@item.Player.PlayId" class="fa fa-trash"></a>
 
-}
-                    @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
+                            }
+                            @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
 && item.Player.RegistrationMethod != RegistrationType.Self
 && item.Player.Confirmed != true && item.Player.Withdrawn != true)
-        {
-            <span> | </span>
-            <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
-               asp-route-id="@item.Player.PlayId"></a>
-}
-                    &nbsp;/&nbsp;
-                </div>
-                <div class="col-xs">
-                    @item.Player.RegistrationMethod&nbsp;/&nbsp;
-                </div>
-                <div class="col-xs">
-                    @if (@item.Player.Withdrawn)
-        {
-            <span class="text-danger">Withdrawn</span>
+                            {
+                                <span> | </span>
+                                <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
+                                   asp-route-id="@item.Player.PlayId"></a>
+                            }
+                            &nbsp;/&nbsp;
+                        </div>
+                        <div class="col-xs">
+                            @item.Player.RegistrationMethod&nbsp;/&nbsp;
+                        </div>
+                        <div class="col-xs">
+                            @if (@item.Player.Withdrawn)
+                            {
+                                <span class="text-danger">Withdrawn</span>
 
-}
-else
-{
-            @if (@item.Player.RegistrationMethod == RegistrationType.Self)
-{
-            <span>Confirmed</span>
-}
-else
-{
-            @if (@item.Player.Confirmed)
-{
-            <span>Confirmed</span>
-}
-else
-{
-            @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
-&& item.Player.RegistrationMethod != RegistrationType.Self
-&& item.Player.Confirmed != true && item.Player.Withdrawn != true)
-{
-            <a class="alert-warning" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
-               asp-route-id="@item.Player.PlayId">Pls Confirm</a>
-}
-else
-{<span class="alert-warning">Pls Confirm</span>}
+                            }
+                            else
+                            {
+                                @if (@item.Player.RegistrationMethod == RegistrationType.Self)
+                                {
+                                    <span>Confirmed</span>
+                                }
+                                else
+                                {
+                                    @if (@item.Player.Confirmed)
+                                    {
+                                        <span>Confirmed</span>
+                                    }
+                                    else
+                                    {
+                                        @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
+                           && item.Player.RegistrationMethod != RegistrationType.Self
+                           && item.Player.Confirmed != true && item.Player.Withdrawn != true)
+                                        {
+                                            <a class="alert-warning" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
+                                               asp-route-id="@item.Player.PlayId">Pls Confirm</a>
+                                        }
+                                        else
+                                        {<span class="alert-warning">Pls Confirm</span>}
 
-}
-}
-}
+                                    }
+                                }
+                            }
 
-                </div>
+                        </div>
 
+                    </div>
+
+
+                    playerTotal++;
+                }
             </div>
-
-
-playerTotal++;
-}
-            </div>
-            </div>
+        </div>
     </div>
 </div>
 @section Scripts {
