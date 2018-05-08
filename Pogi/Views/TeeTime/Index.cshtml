@@ -207,12 +207,19 @@
                             }
                             else
                             {
-                                <span>
-                                    @playerCount. @item.Member.FirstName @item.Member.LastName.Substring(0, 1)
-                                    (
-                                    <a data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@item.Member.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0" target="_blank"> @(item.Member.CurrHandicap)</a>
-                                    )
-                                </span>
+                                <span>@playerCount. @item.Member.FirstName @item.Member.LastName.Substring(0, 1)</span>
+                                <a data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@item.Member.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0" target="_blank">
+                                    @if (item.Member.CurrHandicap > 0)
+                                    {
+                                    <span>(@(item.Member.CurrHandicap))</span>
+                                    }
+                                    else
+                                    {
+                                    <span>(NH)</span>
+                                    }
+                                </a>
+
+
                             }
                             @if (Model.User != null && (Model.User.MemberId == item.Player.MemberId && !item.Player.Withdrawn
 || Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
@@ -255,8 +262,8 @@
                                     else
                                     {
                                         @if (Model.User != null && Model.User.MemberId == item.Player.MemberId
-                           && item.Player.RegistrationMethod != RegistrationType.Self
-                           && item.Player.Confirmed != true && item.Player.Withdrawn != true)
+                         && item.Player.RegistrationMethod != RegistrationType.Self
+                         && item.Player.Confirmed != true && item.Player.Withdrawn != true)
                                         {
                                             <a class="alert-warning" data-toggle="tooltip" title="Confirm" asp-controller="Player" asp-action="Confirm"
                                                asp-route-id="@item.Player.PlayId">Pls Confirm</a>
