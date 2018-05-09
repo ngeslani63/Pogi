@@ -30,72 +30,74 @@
             <div class="col">
                 <div class="input-group">
 
-                        @if (Model.Weekly == true)
-                        {
-                            <button id="btnWeekly" type="button" class="btn btn-primary">
-                                Weekly
-                            </button>
-                        }
-                        else
-                        {
-                            <button id="btnWeekly" type="button" class="btn btn-light" >
-                                Weekly
-                            </button>
+                    <span class="d-none d-md-block input-group-text">Set TimeFrames</span>
+                    @if (Model.Weekly == true)
+                    {
+                        <button id="btnWeekly" type="button" class="btn btn-primary">
+                            Weekly
+                        </button>
+                    }
+                    else
+                    {
+                        <button id="btnWeekly" type="button" class="btn btn-light">
+                            Weekly
+                        </button>
 
-                        }
-                        @*<span class="input-group-text">Weekly&nbsp;&nbsp;</span>*@
+                    }
+                    @*<span class="input-group-text">Weekly&nbsp;&nbsp;</span>*@
 
                     <input hidden id="Weekly" asp-for="Weekly" class="form-control" />
 
-                        @if (Model.Monthly == true)
-                        {
-                            <button id="btnMonthly" type="button" class="btn btn-primary">
-                                Monthly
-                            </button>
-                        }
-                        else
-                        {
-                            <button id="btnMonthly" type="button" class="btn btn-light">
-                                Monthly
-                            </button>
+                    @if (Model.Monthly == true)
+                    {
+                        <button id="btnMonthly" type="button" class="btn btn-primary">
+                            Monthly
+                        </button>
+                    }
+                    else
+                    {
+                        <button id="btnMonthly" type="button" class="btn btn-light">
+                            Monthly
+                        </button>
 
-                        }
+                    }
 
                     <input hidden id="Monthly" asp-for="Monthly" class="form-control " />
 
 
-                        @if (Model.Yearly == true)
-                        {
-                            <button id="btnYearly" type="button" class="btn btn-primary">
-                                Yearly
-                            </button>
-                        }
-                        else
-                        {
-                            <button id="btnYearly" type="button" class="btn btn-light">
-                                Yearly
-                            </button>
+                    @if (Model.Yearly == true)
+                    {
+                        <button id="btnYearly" type="button" class="btn btn-primary">
+                            Yearly
+                        </button>
+                    }
+                    else
+                    {
+                        <button id="btnYearly" type="button" class="btn btn-light">
+                            Yearly
+                        </button>
 
-                        }
+                    }
 
                     <input hidden id="Yearly" asp-for="Yearly" class="form-control " />
 
 
-                        @if (Model.AllTime == true)
-                        {
-                            <button id="btnAllTime" type="button" class="btn btn-primary">
-                                AllTime
-                            </button>
-                        }
-                        else
-                        {
-                            <button id="btnAllTime" type="button" class="btn btn-light">
-                                AllTime
-                            </button>
+                    @if (Model.AllTime == true)
+                    {
+                        <button id="btnAllTime" type="button" class="btn btn-primary">
+                            AllTime
+                        </button>
+                    }
+                    else
+                    {
+                        <button id="btnAllTime" type="button" class="btn btn-light">
+                            AllTime
+                        </button>
 
-                        }
+                    }
 
                     <input hidden id="AllTime" asp-for="AllTime" class="form-control " />
+
                 </div>
             </div>
 
