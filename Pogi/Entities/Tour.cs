@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pogi
+namespace Pogi.Entities
 {
     public class Tour
     {
@@ -26,7 +26,7 @@ namespace Pogi
         [Range(50.0, 100.0)]
         public float HcpAllowPct { get; set; }
         [Display(Name = "Tour Date")]
-        TourType TourType { get; set; } 
+        TourType TourType { get; set; }
         [DataType(DataType.DateTime)]
         ScorerType ScorerType { get; set; }
         public DateTime TourDate { get; set; }
