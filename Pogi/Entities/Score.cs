@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -91,6 +92,11 @@ namespace Pogi.Entities
         public int HoleTotal { get; set; }
         [Display(Name = "Net Score")]
         public int NetScore { get; set; }
+        [Display(Name = "Is this a Tour Event")]
+        [DefaultValue(false)]
+        public bool TourEvent { get; set; }
+        public int TourId { get; set; }
+        public int TourScore { get; set; }
         public int MaxScore { get; set; }
         public int Disaster { get; set; }
         public int QuadBogeys { get; set; }
