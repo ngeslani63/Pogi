@@ -38,6 +38,25 @@
 
     $(function () {
 
+        var TourEventChecked = $("#TourEvent").prop("checked");
+        if (TourEventChecked == true) {
+            $("#TourId").prop("disabled", false);
+        }
+        else {
+            $("#TourId").prop("disabled", true);
+        }
+
+
+        $("#TourEvent").change(function () {
+            var TourEventChecked = $("#TourEvent").prop("checked");
+            console.info("Score Tour Event changed, checked=" + TourEventChecked);
+            if (TourEventChecked == true) {
+                $("#TourId").prop("disabled", false);
+            }
+            else {
+                $("#TourId").prop("disabled", true);
+            }
+        });
 
         // Set Hole Defaults to Par when button clicked
         $("#SetPar").click(function (e) {

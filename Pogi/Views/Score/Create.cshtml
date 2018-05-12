@@ -35,9 +35,25 @@
 
     $("#MemberId").val(@Model.EnteredBy.MemberId);
 
+    var TourEventChecked = $("#TourEvent").prop("checked");
+    if (TourEventChecked == true) {
+        $("#TourId").prop("disabled", false);
+    }
+    else {
+        $("#TourId").prop("disabled", true);
+    }
   
     $(function () {
 
+        $("#TourEvent").change(function () {
+            var TourEventChecked = $("#TourEvent").prop("checked");
+            console.info("Score Tour Event changed, checked=" + TourEventChecked);
+            if (TourEventChecked == true) {
+                $("#TourId").prop("disabled", false);            }
+            else {
+                $("#TourId").prop("disabled", true);   
+            }
+        });
 
           // Set Holes to Placeholder if Score Total = 0
         if ($("#HoleTotal").val() == 0) {
