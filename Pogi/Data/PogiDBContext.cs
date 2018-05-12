@@ -23,6 +23,7 @@ namespace Pogi.Data
         public DbSet<Pogi.Entities.Player> Player { get; set; }
         public DbSet<Pogi.Entities.Handicap> Handicap { get; set; }
         public DbSet<Pogi.Entities.HandicapSchedule> HandicapSchedule { get; set; }
+        public DbSet<Pogi.Entities.Tour> Tour { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

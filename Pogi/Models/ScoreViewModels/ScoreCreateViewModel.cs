@@ -2,6 +2,7 @@
 using Pogi.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace Pogi.Models.ScoreViewModels
         public List<SelectListItem> Courses { get; set; }
         public List<SelectListItem> Members { get; set; }
         public List<SelectListItem> Colors { get; set; }
-        
+        public List<SelectListItem> Tours { get; set; }
+
         public int ScoreId { get; set; }
         [Display(Name = "Score for Member")]
         public int MemberId { get; set; }
@@ -94,6 +96,11 @@ namespace Pogi.Models.ScoreViewModels
         public int HoleOut { get; set; }
         [Display(Name = "Total")]
         public int HoleTotal { get; set; }
+        [Display(Name = "Is this a Tour Event")]
+        [DefaultValue(false)]
+        public bool TourEvent { get; set; }
+        [Display(Name = "Tour Name")]
+        public int TourId { get; set; }
         [Display(Name = "About Game")]
         [MaxLength(200)]
         public string AboutGame { get; set; }

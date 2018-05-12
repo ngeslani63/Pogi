@@ -1,17 +1,19 @@
-﻿@model Pogi.Models.TourViewModels.TourCreateViewModel
-
+﻿@model Pogi.Entities.Tour
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     ViewData["Save"] = "Save";
 
 }
 <div class="container">
     <br />
     <h2>Tour</h2>
-    <h4>Create</h4>
+    <h4>Edit</h4>
     <hr />
     <div class="container-fluid">
-        <form asp-action="Create">
+
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TourId" />
             @Html.Partial("_EditTourPartial", Model)
         </form>
     </div>
@@ -23,8 +25,10 @@
 
 @section Scripts {
     <script type="text/javascript">
-        console.info("Hello From Tour Create");
+        console.info("Hello From Tour Edit");
+
+
+
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-

@@ -9,7 +9,7 @@ namespace Pogi.Models
     {
         Regular,
         MiniTour,
-        STrokePlay,
+        StrokePlay,
         PogiOfYear
     }
 }

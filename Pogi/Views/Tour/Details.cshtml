@@ -1,0 +1,48 @@
+﻿@model Pogi.Entities.Tour
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TourName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HcpAllowPct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HcpAllowPct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ScorerType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ScorerType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TourId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

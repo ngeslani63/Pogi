@@ -1,0 +1,49 @@
+﻿@model Pogi.Entities.Tour
+<section>
+    <div class="form-row">
+        <div class="form-group">
+            <label asp-for="TourName" class="control-label"></label>
+            <input asp-for="TourName" class="form-control" />
+            <span asp-validation-for="TourName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="HcpAllowPct" class="control-label"></label>
+            <input id="CurrHandicapr" asp-for="HcpAllowPct" class="form-control" />
+            <span asp-validation-for="HcpAllowPct" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="TourType" class="control-label"></label>
+            <select asp-for="TourType" asp-items="@Html.GetEnumSelectList<TourType>()" class="form-control"></select>
+            <span asp-validation-for="TourType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <label asp-for="ScorerType" class="control-label"></label>
+            <select asp-for="ScorerType" asp-items="@Html.GetEnumSelectList<ScorerType>()" class="form-control"></select>
+            <span asp-validation-for="ScorerType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <div class="form-group">
+                <label asp-for="TourDate" class="control-label"></label>
+                <input asp-for="TourDate" class="form-control" />
+                <span asp-validation-for="TourDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group  col-md-12">
+            <input type="submit" value="@ViewData["Save"]" class="btn btn-primary" />
+            <span>
+                <a class="btn btn-warning" href="/Tour" role="button">Cancel</a>
+            </span>
+
+        </div>
+    </div>
+</section>

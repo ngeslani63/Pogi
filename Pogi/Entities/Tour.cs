@@ -20,15 +20,18 @@ namespace Pogi.Entities
         public int TourId { get; set; }
         [Display(Name = "Tour Name")]
         [Required, MaxLength(80)]
-        public string CourseName { get; set; }
+        public string TourName { get; set; }
         [Display(Name = "Handicap Allowance")]
         [Required]
         [Range(50.0, 100.0)]
         public float HcpAllowPct { get; set; }
-        [Display(Name = "Tour Date")]
-        TourType TourType { get; set; }
+        [Display(Name = "Tour Duration")]
+        public TourType TourType { get; set; }
         [DataType(DataType.DateTime)]
-        ScorerType ScorerType { get; set; }
+        [Display(Name = "Scorer Engine")]
+        public ScorerType ScorerType { get; set; }
+        [Display(Name = "Tour Date")]
+        [DataType(DataType.Date)]
         public DateTime TourDate { get; set; }
     }
 }

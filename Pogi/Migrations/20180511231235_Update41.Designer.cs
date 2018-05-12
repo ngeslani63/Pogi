@@ -13,9 +13,10 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    partial class PogiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180511231235_Update41")]
+    partial class Update41
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -468,17 +469,13 @@ namespace Pogi.Migrations
                     b.Property<int>("TourId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<float>("HcpAllowPct");
-
-                    b.Property<int>("ScorerType");
-
-                    b.Property<DateTime>("TourDate");
-
-                    b.Property<string>("TourName")
+                    b.Property<string>("CourseName")
                         .IsRequired()
                         .HasMaxLength(80);
 
-                    b.Property<int>("TourType");
+                    b.Property<float>("HcpAllowPct");
+
+                    b.Property<DateTime>("TourDate");
 
                     b.HasKey("TourId");
 

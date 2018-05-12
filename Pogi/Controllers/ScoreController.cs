@@ -28,6 +28,7 @@ namespace Pogi.Controllers
         private readonly ICourseData _courseData;
         private readonly ICourseDetail _courseDetail;
         private readonly IHandicap _handicap;
+        private readonly ITourInfo _tourInfo;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
         public ScoreController(PogiDbContext context, IScoreInfo scoreInfo,
@@ -35,6 +36,7 @@ namespace Pogi.Controllers
                 UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
                 ICourseDetail courseDetail,
                 IHandicap handicap,
+                ITourInfo tourInfo,
                 IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -45,6 +47,7 @@ namespace Pogi.Controllers
             _courseData = courseData;
             _courseDetail = courseDetail;
             _handicap = handicap;
+            _tourInfo = tourInfo;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -291,9 +294,12 @@ namespace Pogi.Controllers
             var Color = _session.GetString("Color");
             var CourseId = _session.GetString("CourseId");
             var ScoreDate = _session.GetString("ScoreDate");
+            var TourEvent = _session.GetString("TourEvent");
+            var TourId = _session.GetString("TourId");
 
             var model = new ScoreCreateViewModel();
             model.Members = _memberData.getSelectList();
+            model.Tours = _tourInfo.getTours();
 
             if (CourseId != null && int.Parse(CourseId) > 0 && Color != null && Color.Length > 0)
             {
@@ -307,6 +313,14 @@ namespace Pogi.Controllers
             {
                 model.Courses = _courseData.getSelectList();
                 model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+            }
+            if (TourEvent != null && TourEvent == "Y" )
+            {
+                model.TourEvent = true;
+                if (TourId != null)
+                {
+                    model.TourId = int.Parse(TourId);
+                }
             }
 
 
@@ -337,6 +351,7 @@ namespace Pogi.Controllers
                     model.Courses = _courseData.getSelectList();
                     model.Members = _memberData.getSelectList();
                     model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+                    model.Tours = _tourInfo.getTours();
                     model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                     return View(model);
                 }
@@ -346,6 +361,7 @@ namespace Pogi.Controllers
                     model.Courses = _courseData.getSelectList();
                     model.Members = _memberData.getSelectList();
                     model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+                    model.Tours = _tourInfo.getTours();
                     model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                     return View(model);
                 }
@@ -379,9 +395,19 @@ namespace Pogi.Controllers
                 Score.HoleIn = model.HoleIn;
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
+                Score.TourEvent = model.TourEvent;
+                Score.TourId = model.TourId;
                 if (model.AboutGame == null) model.AboutGame = "";
                 Score.AboutGame = model.AboutGame;
-                Score.NetScore = 99;
+
+                Score.NetScore = 199;
+                Score.TourScore = 199;
+                float HcpAllowPct = 100.0F;
+                Tour Tour;
+                if (Score.TourEvent == true && (Tour = _tourInfo.getTour(Score.TourId)) != null)
+                {
+                    HcpAllowPct = Tour.HcpAllowPct;
+                }
 
                 Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
                 CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
@@ -390,12 +416,17 @@ namespace Pogi.Controllers
                 if (Handicap != null && Handicap.HcpIndex > 0)
                 {
                     float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
+                    float courseHandicapT = Handicap.HcpIndex * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
                     Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
+                    Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
                 }
                 else
                 {
                     float courseHandicap = getCallawayHcp(Score, Course) * CourseDetail.Slope / 113;
+                    float courseHandicapT = getCallawayHcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
                     Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
+                    Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
+
                 }
 
                 countScores(Score, Course);
@@ -412,12 +443,23 @@ namespace Pogi.Controllers
                 _session.SetString("ScoreDate", model.ScoreDate.ToString());
                 _session.SetString("CourseId", model.CourseId.ToString());
                 _session.SetString("Color", model.Color);
+                if (model.TourEvent == true)
+                {
+                    _session.SetString("TourEvent", "Y");
+                    _session.SetString("TourId", model.TourId.ToString());
+                }
+                else
+                {
+                    _session.SetString("TourEvent", "N");
+                    _session.Remove("TourId");
+                }
 
                 return RedirectToAction(nameof(Index));
             }
             model.Courses = _courseData.getSelectList();
             model.Members = _memberData.getSelectList();
             model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
+            model.Tours = _tourInfo.getTours();
             model.EnteredBy = _memberData.getByEmailAddr(_userManager.GetUserName(User));
             return View(model);
         }
@@ -442,6 +484,7 @@ namespace Pogi.Controllers
             model.MemberId = score.MemberId;
             model.CourseId = score.CourseId;
             model.Colors = _courseDetail.getColors(score.CourseId);
+            model.Tours = _tourInfo.getTours();
             model.Color = score.Color;
             model.ScoreDate = score.ScoreDate;
             model.EnteredBy = _memberData.get(score.EnteredById);
@@ -466,6 +509,8 @@ namespace Pogi.Controllers
             model.HoleIn = score.HoleIn;
             model.HoleOut = score.HoleOut;
             model.HoleTotal = score.HoleTotal;
+            model.TourEvent = score.TourEvent;
+            model.TourId = score.TourId;
             model.AboutGame = score.AboutGame;
             if (model.AboutGame == null) model.AboutGame = "";
 
@@ -520,9 +565,19 @@ namespace Pogi.Controllers
                     Score.HoleIn = model.HoleIn;
                     Score.HoleOut = model.HoleOut;
                     Score.HoleTotal = model.HoleTotal;
+                    Score.TourEvent = model.TourEvent;
+                    Score.TourId = model.TourId;
                     if (model.AboutGame == null) model.AboutGame = "";
                     Score.AboutGame = model.AboutGame;
-                    Score.NetScore = 99;
+
+                    Score.NetScore = 199;
+                    Score.TourScore = 199;
+                    float HcpAllowPct = 100.0F;
+                    Tour Tour;
+                    if (Score.TourEvent == true && (Tour =_tourInfo.getTour(Score.TourId)) != null)
+                    {
+                        HcpAllowPct = Tour.HcpAllowPct;
+                    }
 
                     Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
                     CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
@@ -531,12 +586,17 @@ namespace Pogi.Controllers
                     if (Handicap != null && Handicap.HcpIndex > 0)
                     {
                         float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
+                        float courseHandicapT = Handicap.HcpIndex * (HcpAllowPct/100) * CourseDetail.Slope / 113;
                         Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
+                        Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
                     }
                     else
                     {
                         float courseHandicap = getCallawayHcp(Score, Course) * CourseDetail.Slope / 113;
+                        float courseHandicapT = getCallawayHcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
                         Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
+                        Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
+
                     }
 
                     countScores(Score, Course);

@@ -1,4 +1,4 @@
-﻿@model Pogi.Models.TourViewModels.TourCreateViewModel
+﻿@model Pogi.Entities.Tour
 
 @{
     ViewData["Title"] = "Create";
@@ -11,6 +11,7 @@
     <h4>Create</h4>
     <hr />
     <div class="container-fluid">
+
         <form asp-action="Create">
             @Html.Partial("_EditTourPartial", Model)
         </form>
@@ -24,7 +25,9 @@
 @section Scripts {
     <script type="text/javascript">
         console.info("Hello From Tour Create");
+
+
+
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-

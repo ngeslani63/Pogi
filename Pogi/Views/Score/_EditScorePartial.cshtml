@@ -20,11 +20,13 @@
         <div class="col col-md-4">
             <div class="form-group">
                 <label asp-for="MemberId" class="control-label"></label>
-                @if ((string)ViewData["Title"] == "Create") {
-                <select asp-for="MemberId" asp-items="@Model.Members" class="form-control"></select>
+                @if ((string)ViewData["Title"] == "Create")
+                {
+                    <select asp-for="MemberId" asp-items="@Model.Members" class="form-control"></select>
                 }
-                else {
-                <select readonly="readonly" disabled asp-for="MemberId" asp-items="@Model.Members" class="form-control"></select>
+                else
+                {
+                    <select readonly="readonly" disabled asp-for="MemberId" asp-items="@Model.Members" class="form-control"></select>
                 }
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>
@@ -49,15 +51,27 @@
         </div>
     </div>
     <div class="form-row">
+        <div class="form-group col-sm-2">
+            <label asp-for="TourEvent" class="control-label"></label>
+            <input asp-for="TourEvent" class="form-control"  />
+            <span asp-validation-for="TourEvent" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-2">
+            <label asp-for="TourId" class="control-label"></label>
+            <select asp-for="TourId" asp-items="@Model.Tours" class="form-control"></select>
+            <span asp-validation-for="TourId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
         <div class="col col-md-4">
             <div class="form-group">
                 Holes
                 @if ((string)ViewData["Title"] == "Create")
-    {
-            <a id="SetPar" class="float-right text-primary" href="#"> Default Scores to Par</a>
-            <span class="float-right">&nbsp;|&nbsp;</span>
-            <a id="ClearScore" class="float-right text-primary" href="#">Clear Scores </a>
-  }
+                {
+                    <a id="SetPar" class="float-right text-primary" href="#"> Default Scores to Par</a>
+                    <span class="float-right">&nbsp;|&nbsp;</span>
+                    <a id="ClearScore" class="float-right text-primary" href="#">Clear Scores </a>
+                }
             </div>
         </div>
     </div>
