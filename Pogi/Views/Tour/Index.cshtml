@@ -1,59 +1,71 @@
 ﻿@model IEnumerable<Pogi.Entities.Tour>
-
+@inject UserManager<ApplicationUser> userManager
 @{
     ViewData["Title"] = "Index";
 }
-
+<br />
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore"))
+    {
+        <a asp-action="Create">Create New</a>
+    }
+    else
+    {
+        <span class="text-primary">Display Only</span>
+
+    }
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TourName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HcpAllowPct)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TourType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ScorerType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TourDate)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HcpAllowPct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScorerType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourDate)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TourName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HcpAllowPct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TourType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ScorerType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TourDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TourId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TourId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TourId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TourName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HcpAllowPct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TourType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScorerType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TourDate)
+                </td>
+                @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.TourId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.TourId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.TourId">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
     </tbody>
 </table>

@@ -16,5 +16,6 @@ namespace Pogi.Services
         void deleteAll(int CourseId);
         CourseDetail add(CourseDetail CourseDetail);
         CourseDetail update(CourseDetail CourseDetail);
+       
     }
 }

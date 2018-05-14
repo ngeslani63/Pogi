@@ -12,7 +12,8 @@ using Pogi.Models.TourViewModels;
 
 namespace Pogi.Controllers
 {
-    [Authorize(Roles = "AdminRoot,AdminScore")]
+    [Authorize(Roles = "Member")]
+  
     public class TourController : Controller
     {
         private readonly PogiDbContext _context;
@@ -21,7 +22,7 @@ namespace Pogi.Controllers
         {
             _context = context;
         }
-
+        
         // GET: Tour
         public async Task<IActionResult> Index()
         {
@@ -45,7 +46,7 @@ namespace Pogi.Controllers
 
             return View(tour);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminScore")]
         // GET: Tour/Create
         public IActionResult Create()
         {
@@ -56,6 +57,7 @@ namespace Pogi.Controllers
         // POST: Tour/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "AdminRoot,AdminScore")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TourId,TourName,HcpAllowPct,TourType,ScorerType,TourDate")] Tour tour)
@@ -68,7 +70,7 @@ namespace Pogi.Controllers
             }
             return View(tour);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminScore")]
         // GET: Tour/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,7 +86,7 @@ namespace Pogi.Controllers
             }
             return View(model);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminScore")]
         // POST: Tour/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -119,7 +121,7 @@ namespace Pogi.Controllers
             }
             return View(tour);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminScore")]
         // GET: Tour/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -137,7 +139,7 @@ namespace Pogi.Controllers
 
             return View(tour);
         }
-
+        [Authorize(Roles = "AdminRoot,AdminScore")]
         // POST: Tour/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

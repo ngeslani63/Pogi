@@ -1,30 +1,32 @@
-﻿@model Pogi.Models.TourViewModels.TourCreateViewModel
+﻿@model Pogi.Models.TeeTimeViewModels.TeeTimeCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
     ViewData["Save"] = "Save";
-
+    Member member = @Model.Member;
 }
+<br />
 <div class="container">
     <br />
-    <h2>Tour</h2>
-    <h4>Create</h4>
+    <h2>TeeTime</h2>
+    <h4>Edit</h4>
     <hr />
     <div class="container-fluid">
-        <form asp-action="Create">
-            @Html.Partial("_EditTourPartial", Model)
+        <div class="row">
+            <div class="alert-info col-md-4">
+                Reserved by
+                @Html.DisplayFor(modelItem => member.FirstName)
+                @Html.DisplayFor(modelItem => member.LastName)
+            </div>
+        </div>
+        <br />
+        <form asp-action="Edit">
+            @Html.Partial("_EditTeeTimePartial", Model)
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    <script type="text/javascript">
-        console.info("Hello From Tour Create");
-    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
