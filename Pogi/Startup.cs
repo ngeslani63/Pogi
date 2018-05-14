@@ -50,6 +50,7 @@ namespace Pogi
             services.AddScoped<IScoreInfo, SqlScoreInfo>();
             services.AddScoped<IHandicap, SqlHandicap>();
             services.AddScoped<ITourInfo, SqlTourInfo>();
+            services.AddScoped<IActivity, SqlActivity>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PogiIdentityDb")));

@@ -116,7 +116,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <span>This is a major tour event. All active members will be registered to play by default.</span>
-                                <span>Last Withdrawal is on @lastWithdrawDate.ToString("f").</span>
+                                <span>Last Withdrawal is on @lastWithdrawDate.ToString("f"). Today is @DateTime.u.Now.ToString("f")</span>
                                 @if (DateTime.Now <= lastWithdrawDate)
                                 {
                                     <span>You can still withdraw.</span>

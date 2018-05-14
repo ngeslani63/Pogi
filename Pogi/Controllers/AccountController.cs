@@ -27,6 +27,7 @@ namespace Pogi.Controllers
         private readonly ILogger _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMemberData _memberData;
+        private readonly IActivity _activity;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -34,7 +35,8 @@ namespace Pogi.Controllers
             IEmailSender emailSender,
             ILogger<AccountController> logger,
             RoleManager<IdentityRole> roleManager,
-            IMemberData memberData)
+            IMemberData memberData,
+            IActivity activity)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -42,6 +44,7 @@ namespace Pogi.Controllers
             _logger = logger;
             _roleManager = roleManager;
             _memberData = memberData;
+            _activity = activity;
         }
 
         [TempData]
@@ -55,7 +58,7 @@ namespace Pogi.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
+            _activity.logActivity("Login Screen");
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -90,7 +93,7 @@ namespace Pogi.Controllers
                             await _userManager.RemoveFromRoleAsync(user, "Member");
                     }
 
-
+                    _activity.logActivity("User logged in");
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -101,11 +104,13 @@ namespace Pogi.Controllers
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
+                    _activity.logActivity("User account locked out");
                     return RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    _activity.logActivity("Invalid login attempt");
                     return View(model);
                 }
             }
