@@ -30,6 +30,8 @@ namespace Pogi.Controllers
         private readonly IHandicap _handicap;
         private readonly ITourInfo _tourInfo;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IActivity _activity;
+
         private ISession _session => _httpContextAccessor.HttpContext.Session;
         public ScoreController(PogiDbContext context, IScoreInfo scoreInfo,
              SignInManager<ApplicationUser> signInManager,
@@ -37,7 +39,8 @@ namespace Pogi.Controllers
                 ICourseDetail courseDetail,
                 IHandicap handicap,
                 ITourInfo tourInfo,
-                IHttpContextAccessor httpContextAccessor)
+                IHttpContextAccessor httpContextAccessor,
+              IActivity activity)
         {
             _context = context;
             _scoreInfo = scoreInfo;
@@ -49,20 +52,23 @@ namespace Pogi.Controllers
             _handicap = handicap;
             _tourInfo = tourInfo;
             _httpContextAccessor = httpContextAccessor;
+            _activity = activity;
         }
 
         // GET: Score
         [AllowAnonymous]
         //public async Task<IActionResult> Index()
-        public IActionResult Index()
+        public IActionResult Index(string search, string tour)
         {
             var model = new ScoreDisplayViewModel();
             model.ScoreInfos = _scoreInfo.getAll();
+            string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
                 model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
             }
-
+            _activity.logActivity(userName, "Logbook");
             return View(model);
             //return View(await _context.Score.ToListAsync());
         }

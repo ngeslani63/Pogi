@@ -32,6 +32,48 @@ namespace Pogi.Services
             }
             return ScoreInfos;
         }
+        public List<ScoreInfo> getForTour(string TourName)
+        {
+            List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
+            Tour Tour = _context.Tour.FirstOrDefault(r => r.TourName.Contains(TourName));
+            if (Tour != null) {
+                var Scores = _context.Score.Where(r => r.TourId == Tour.TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+
+                
+                foreach (Score score in Scores)
+                {
+                    Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                    Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+
+                    ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+
+                    ScoreInfos.Add(scoreInfo);
+                }
+            }
+            return ScoreInfos;
+        }
+        public List<ScoreInfo> getForTour(int TourId)
+        {
+            List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
+            if (TourId > 0)
+            {
+                var Scores = _context.Score.Where(r => r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+
+
+                foreach (Score score in Scores)
+                {
+                    Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                    Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+
+                    ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+
+                    ScoreInfos.Add(scoreInfo);
+                }
+            }
+            return ScoreInfos;
+        }
+
+
         public List<ScoreInfo> getMeritsAllTime()
         {
             DateTime startDate = new DateTime(2018, 01, 01).Date;

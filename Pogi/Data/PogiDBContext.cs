@@ -24,8 +24,7 @@ namespace Pogi.Data
         public DbSet<Pogi.Entities.Handicap> Handicap { get; set; }
         public DbSet<Pogi.Entities.HandicapSchedule> HandicapSchedule { get; set; }
         public DbSet<Pogi.Entities.Tour> Tour { get; set; }
-        public DbSet<Pogi.Entities.Activity> Activity { get; set; }
-
+        public DbSet<Pogi.Entities.Log2> Log2 { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CourseDetail>()

@@ -58,7 +58,7 @@ namespace Pogi.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            _activity.logActivity("Login Screen");
+            _activity.logActivity("", "Login Screen");
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -92,8 +92,8 @@ namespace Pogi.Controllers
                         if (await _userManager.IsInRoleAsync(user, "Member"))
                             await _userManager.RemoveFromRoleAsync(user, "Member");
                     }
-
-                    _activity.logActivity("User logged in");
+                    _activity.logActivity(user.Email, "User logged in");
+                 
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -104,13 +104,13 @@ namespace Pogi.Controllers
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    _activity.logActivity("User account locked out");
+                    _activity.logActivity(model.Email, "User account locked out");
                     return RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    _activity.logActivity("Invalid login attempt");
+                    _activity.logActivity(model.Email, "Invalid login attempt");
                     return View(model);
                 }
             }

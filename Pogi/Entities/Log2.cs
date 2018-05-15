@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Pogi.Entities
 {
-    public class Activity
+    public class Log2
     {
-        public Activity()
+        public Log2()
         {
             MemberId = 0;
             UserName = "Guest";

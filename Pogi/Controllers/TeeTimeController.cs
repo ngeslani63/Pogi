@@ -28,11 +28,13 @@ namespace Pogi.Controllers
         private readonly IMemberData _memberData;
         private readonly ICourseData _courseData;
         private readonly IEmailSender _emailSender;
+        private readonly IActivity _activity;
 
         public TeeTimeController(ITeeTimeInfo teeTimeInfo, IPlayerInfo playerInfo, ITeeAssignInfo teeAssignInfo, PogiDbContext context
             , SignInManager<ApplicationUser> signInManager,
               UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
-              IEmailSender emailSender)
+              IEmailSender emailSender,
+              IActivity activity)
         {
             _context = context;
             _teeTimeInfo = teeTimeInfo;
@@ -43,6 +45,7 @@ namespace Pogi.Controllers
             _memberData = memberData;
             _courseData = courseData;
             _emailSender = emailSender;
+            _activity = activity;
         }
 
         // GET: TeeTime
@@ -53,10 +56,14 @@ namespace Pogi.Controllers
             var model = new TeeTimeViewModel();
             model.TeeTimeInfos = _teeTimeInfo.getAll();
             model.PlayerInfos = _playerInfo.getRoster();
+            string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
                 model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
             }
+            _activity.logActivity(userName, "TeeTime Index");
+
             //model.TeeTimeInfos = _teeAssignInfo.getForTeeTime()
 
             return View(model);

@@ -113,11 +113,12 @@
                     {
                         int daysToGo = (item.TeeTime.TeeTimeTS.Date - DateTime.Today.Date).Days;
                         DateTime lastWithdrawDate = item.TeeTime.TeeTimeTS.Date.AddDays(-5).AddHours(16);
+                        var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
                         <div class="row">
                             <div class="col-md-12">
                                 <span>This is a major tour event. All active members will be registered to play by default.</span>
-                                <span>Last Withdrawal is on @lastWithdrawDate.ToString("f"). Today is @DateTime.u.Now.ToString("f")</span>
-                                @if (DateTime.Now <= lastWithdrawDate)
+                                <span>Last Withdrawal is on @lastWithdrawDate.ToString("f"). </span>
+                                @if (TimeZoneInfo.ConvertTime(DateTime.Now, est) <= lastWithdrawDate)
                                 {
                                     <span>You can still withdraw.</span>
                                 }
@@ -177,7 +178,7 @@
                     DateTime nextDateTime = item.Player.PlayDate;
                     String nextDate = nextDateTime.ToString("yyyyMMdd");
                     String nextDateDisp = nextDateTime.ToString("D");
-                    int daysToGo = (nextDateTime.Date - DateTime.Today.Date).Days;
+                    //int daysToGo = (nextDateTime.Date - DateTime.Today.Date).Days;
                     if (!nextDate.Equals(prevDate))
                     {
                         @if (playerTotal > 0)
@@ -186,7 +187,7 @@
                         }
                         <div class="row">
                             <div class="alert-info col-xs-8">
-                                @nextDateDisp, @daysToGo days &nbsp; / &nbsp;
+                                @nextDateDisp &nbsp; / &nbsp;
                             </div>
                             <div class="alert-info col-xs">
                                 RegisteredBy &nbsp; / &nbsp;

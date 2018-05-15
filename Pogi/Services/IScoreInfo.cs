@@ -9,6 +9,8 @@ namespace Pogi.Services
     public interface IScoreInfo
     {
         List<ScoreInfo> getAll();
+        List<ScoreInfo> getForTour(string TourName);
+        List<ScoreInfo> getForTour(int TourId);
         List<ScoreInfo> getMeritsAllTime();
         List<ScoreInfo> getMeritsThisYear();
         List<ScoreInfo> getMeritsLastWeek();

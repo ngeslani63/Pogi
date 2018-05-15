@@ -13,8 +13,8 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    [Migration("20180514111103_Update43")]
-    partial class Update43
+    [Migration("20180515011926_Update47")]
+    partial class Update47
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,25 +22,6 @@ namespace Pogi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Pogi.Entities.Activity", b =>
-                {
-                    b.Property<int>("ActivityId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Action")
-                        .IsRequired();
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<DateTime>("createdTS");
-
-                    b.Property<string>("ipAddr");
-
-                    b.HasKey("ActivityId");
-
-                    b.ToTable("Activity");
-                });
 
             modelBuilder.Entity("Pogi.Entities.Course", b =>
                 {
@@ -217,6 +198,27 @@ namespace Pogi.Migrations
                     b.HasKey("HandicapScheduleId");
 
                     b.ToTable("HandicapSchedule");
+                });
+
+            modelBuilder.Entity("Pogi.Entities.Log", b =>
+                {
+                    b.Property<int>("ActivityId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Action")
+                        .IsRequired();
+
+                    b.Property<int>("MemberId");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<DateTime>("createdTS");
+
+                    b.Property<string>("ipAddr");
+
+                    b.HasKey("ActivityId");
+
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("Pogi.Entities.Member", b =>

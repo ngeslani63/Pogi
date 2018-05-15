@@ -21,8 +21,6 @@ namespace Pogi.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
-        public ClaimsPrincipal User { get; private set; }
-
         public SqlActivity(PogiDbContext context, IMemberData sqlMemberData,
                         UserManager<ApplicationUser> userManager,
                         SignInManager<ApplicationUser> signInManager,
@@ -35,17 +33,16 @@ namespace Pogi.Services
             _signInManager = signInManager;
             _roleManager = roleManager;
             _httpContextAccessor = httpContextAccessor;
-
+            
         }
 
-        public void logActivity(string Action)
+        public void logActivity(string userName, string Action)
         {
-            Pogi.Entities.Activity Activity = new Pogi.Entities.Activity();
+            Pogi.Entities.Log2 Activity = new Pogi.Entities.Log2();
             Activity.Action = Action;
             Activity.ipAddr = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            if (User != null &&_signInManager.IsSignedIn(User))
+            if (userName != null && userName.Length > 0)
             {
-                var userName = _userManager.GetUserName(User);
                 Member member = _memberData.getByEmailAddr(userName.Trim().ToLower());
                 if (member == null) { member = _memberData.getByEmailAddr2nd(userName.Trim().ToLower()); }
                 if (member != null)
@@ -54,7 +51,8 @@ namespace Pogi.Services
                     Activity.UserName = member.FirstName + " " + member.LastName;
                 }
             }
-            _context.Activity.Add(Activity);
+
+            _context.Log2.Add(Activity);
             _context.SaveChanges();
         }
     }
