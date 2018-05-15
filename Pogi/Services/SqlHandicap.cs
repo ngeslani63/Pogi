@@ -95,5 +95,34 @@ namespace Pogi.Services
             }
             return HandicapInfos;
         }
+        public int getCallawayHcp(Score Score, Course Course)
+        {
+            int points = 36;
+            points = points - getCallawayPoints(Score.Hole01, Course.Par01);
+            points = points - getCallawayPoints(Score.Hole02, Course.Par02);
+            points = points - getCallawayPoints(Score.Hole03, Course.Par03);
+            points = points - getCallawayPoints(Score.Hole04, Course.Par04);
+            points = points - getCallawayPoints(Score.Hole05, Course.Par05);
+            points = points - getCallawayPoints(Score.Hole06, Course.Par06);
+            points = points - getCallawayPoints(Score.Hole07, Course.Par07);
+            points = points - getCallawayPoints(Score.Hole08, Course.Par08);
+            points = points - getCallawayPoints(Score.Hole09, Course.Par09);
+            points = points - getCallawayPoints(Score.Hole10, Course.Par10);
+            points = points - getCallawayPoints(Score.Hole11, Course.Par11);
+            points = points - getCallawayPoints(Score.Hole12, Course.Par12);
+            points = points - getCallawayPoints(Score.Hole13, Course.Par13);
+            points = points - getCallawayPoints(Score.Hole14, Course.Par14);
+            points = points - getCallawayPoints(Score.Hole15, Course.Par15);
+            points = points - getCallawayPoints(Score.Hole16, Course.Par16);
+            points = points - getCallawayPoints(Score.Hole17, Course.Par17);
+            points = points - getCallawayPoints(Score.Hole18, Course.Par18);
+            return points;
+        }
+        private int getCallawayPoints(int Score, int Par)
+        {
+            if ((Score - Par) >= 2) return 0;
+            if ((Score - Par) == 1) return 1;
+            return 2;
+        }
     }
 }

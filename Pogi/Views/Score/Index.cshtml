@@ -57,7 +57,7 @@
                 <th class="col-md-1">09<br />18</th>
                 <th class="col-md-1">Out<br />In</th>
                 <th class="col-md-1" data-field="holeTotal" data-sortable="true">Tot</th>
-                <th class="col-md-1"> CHP<br />Tour</th>
+                <th class="col-md-1"> CHcp<br />Tour</th>
                 <th class="col-md-1" data-field="NetScore" data-sortable="true"> USGA<br />Net</th>
                 <th class="col-md-1" data-field="TourScore" data-sortable="true">Tour<br />Net</th>
                 <th class="col-md-1">Action</th>
@@ -72,59 +72,67 @@
                 Course course = item.Course;
                 CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
                 Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
-                var courseHandicap = ((int)Math.Round(Handicap.HcpIndex * CourseDetail.Slope / 113)).ToString();
+                var courseHandicap = "s36";
+                if (Handicap != null && Handicap.HcpIndex >= 0)
+                {
+                    courseHandicap = ((int)Math.Round(Handicap.HcpIndex * CourseDetail.Slope / 113)).ToString();
+                }
                 var courseHandicapT = "n/a";
-
                 Tour Tour = null;
-                if (score.TourEvent == true) {
-                    Tour = _tourInfo.getTour(score.TourId);
-                    courseHandicapT = ((int)Math.Round(Handicap.HcpIndex * (Tour.HcpAllowPct / 100) 
-                        * CourseDetail.Slope / 113)).ToString();
+                if (score.TourEvent == true)
+                {
+                    courseHandicapT = "s36";
+                    if (Handicap != null && Handicap.HcpIndex >= 0)
+                    {
+                        Tour = _tourInfo.getTour(score.TourId);
+                        courseHandicapT = ((int)Math.Round(Handicap.HcpIndex * (Tour.HcpAllowPct / 100)
+                            * CourseDetail.Slope / 113)).ToString();
+                    }
                 }
 
-            <tr>
-                @{
-        DateTime scoreDateTime = score.ScoreDate;
-        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
-                }
+                <tr>
+                    @{
+                        DateTime scoreDateTime = score.ScoreDate;
+                        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
+                    }
 
-                <td class="col-md-2">@scoreDateDisp</td>
-                <td class="col-md-2">@course.CourseName</td>
-                <td class="col-md-2">@member.FirstName @member.LastName</td>
+                    <td class="col-md-2">@scoreDateDisp</td>
+                    <td class="col-md-2">@course.CourseName</td>
+                    <td class="col-md-2">@member.FirstName @member.LastName</td>
 
-                <td>@score.Color</td>
-                <td class="col-md-1">Out<br />In</td>
-                <td class="col-md-1">@score.Hole01<br />@score.Hole10</td>
-                <td class="col-md-1">@score.Hole02<br />@score.Hole11</td>
-                <td class="col-md-1">@score.Hole03<br />@score.Hole12</td>
-                <td class="col-md-1">@score.Hole04<br />@score.Hole13</td>
-                <td class="col-md-1">@score.Hole05<br />@score.Hole14</td>
-                <td class="col-md-1">@score.Hole06<br />@score.Hole15</td>
-                <td class="col-md-1">@score.Hole07<br />@score.Hole16</td>
-                <td class="col-md-1">@score.Hole08<br />@score.Hole17</td>
-                <td class="col-md-1">@score.Hole09<br />@score.Hole18</td>
-                <td class="col-md-1">@score.HoleOut<br />@score.HoleIn</td>
-                <td class="col-md-1">@score.HoleTotal</td>
-                <td class="col-md-1">@courseHandicap<br />@courseHandicapT</td>
-                <td class="col-md-1">@score.NetScore</td>
-                @if (score.TourEvent == true)
-    {
-            <td class="col-md-1">@score.TourScore</td>
-}
-else
-{
-            <td class="col-md-1">n/a</td>
-}
-                <td class="col-md-1">
-                    @if (Model.User != null && (Model.User.MemberId == score.EnteredById || Model.User.MemberId == score.MemberId
+                    <td>@score.Color</td>
+                    <td class="col-md-1">Out<br />In</td>
+                    <td class="col-md-1">@score.Hole01<br />@score.Hole10</td>
+                    <td class="col-md-1">@score.Hole02<br />@score.Hole11</td>
+                    <td class="col-md-1">@score.Hole03<br />@score.Hole12</td>
+                    <td class="col-md-1">@score.Hole04<br />@score.Hole13</td>
+                    <td class="col-md-1">@score.Hole05<br />@score.Hole14</td>
+                    <td class="col-md-1">@score.Hole06<br />@score.Hole15</td>
+                    <td class="col-md-1">@score.Hole07<br />@score.Hole16</td>
+                    <td class="col-md-1">@score.Hole08<br />@score.Hole17</td>
+                    <td class="col-md-1">@score.Hole09<br />@score.Hole18</td>
+                    <td class="col-md-1">@score.HoleOut<br />@score.HoleIn</td>
+                    <td class="col-md-1">@score.HoleTotal</td>
+                    <td class="col-md-1">@courseHandicap<br />@courseHandicapT</td>
+                    <td class="col-md-1">@score.NetScore</td>
+                    @if (score.TourEvent == true)
+                    {
+                        <td class="col-md-1">@score.TourScore</td>
+                    }
+                    else
+                    {
+                        <td class="col-md-1">n/a</td>
+                    }
+                    <td class="col-md-1">
+                        @if (Model.User != null && (Model.User.MemberId == score.EnteredById || Model.User.MemberId == score.MemberId
 || Model.User.RoleAdminTeeTime == true || Model.User.MemberId == 1))
-        {
-            <a data-toggle="tooltip" title="Edit Score" asp-action="Edit" asp-route-id="@score.ScoreId">&#x270f;</a>
-            <a data-toggle="tooltip" title="Delete Score" asp-action="Delete" asp-route-id="@score.ScoreId" class="fa fa-trash"></a>
-}
-                </td>
+                        {
+                            <a data-toggle="tooltip" title="Edit Score" asp-action="Edit" asp-route-id="@score.ScoreId">&#x270f;</a>
+                            <a data-toggle="tooltip" title="Delete Score" asp-action="Delete" asp-route-id="@score.ScoreId" class="fa fa-trash"></a>
+                        }
+                    </td>
 
-            </tr>
+                </tr>
 
             }
         </tbody>
@@ -135,9 +143,14 @@ else
 @section Scripts {
     <script>
         console.info("Hello From Score Index");
+        
         var $table = $('#table'),
             $ok = $('#ok');
         $(function () {
+            $(".search input").change(function () {
+                console.info("Logbook Seach Text changed=" + $(this).val());
+            });
+
             $ok.click(function () {
                 console.info("Refreshing");
                 $table.bootstrapTable('refresh');

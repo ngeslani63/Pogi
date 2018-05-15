@@ -22,5 +22,9 @@ namespace Pogi.Services
 
         IEnumerable<HandicapInfo> getAllForDate(DateTime Date);
 
+        int getCallawayHcp(Score Score, Course Course);
+
+
+
     }
 }
