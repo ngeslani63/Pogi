@@ -62,12 +62,24 @@ namespace Pogi.Controllers
         {
             if (Search == null || Search.Length == 0)
             {
-                _session.Remove("SearchLogbook");
-                Search = "";
+                Search = _session.GetString("SearchLogbook");
+                if (Search == null || Search.Length == 0)
+                {
+                    _session.Remove("SearchLogbook");
+                    Search = "";
+                }
             }
             else
             {
-                _session.SetString("SearchLogbook", Search);
+                if (Search.Equals("***"))
+                {
+                    _session.Remove("SearchLogbook");
+                    Search = "";
+                }
+                else
+                {
+                    _session.SetString("SearchLogbook", Search);
+                }
             }
             if (TourId == null || TourId.Length == 0)
             {

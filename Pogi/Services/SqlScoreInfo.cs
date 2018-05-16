@@ -57,7 +57,7 @@ namespace Pogi.Services
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
             if (TourId > 0)
             {
-                var Scores = _context.Score.Where(r => r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+                var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
 
 
                 foreach (Score score in Scores)
