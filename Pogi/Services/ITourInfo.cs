@@ -10,6 +10,7 @@ namespace Pogi.Services
     public interface ITourInfo
     {
         List<SelectListItem> getTours();
+        List<SelectListItem> getTours(bool add0);
         Tour getTour(int TourId);
         Tour getTourOnDate(DateTime TourDate);
     }

@@ -58,10 +58,42 @@ namespace Pogi.Controllers
         // GET: Score
         [AllowAnonymous]
         //public async Task<IActionResult> Index()
-        public IActionResult Index(string search, string tour)
+        public IActionResult Index(string Search, string TourId)
         {
+            if (Search == null || Search.Length == 0)
+            {
+                _session.Remove("SearchLogbook");
+                Search = "";
+            }
+            else
+            {
+                _session.SetString("SearchLogbook", Search);
+            }
+            if (TourId == null || TourId.Length == 0)
+            {
+                TourId = _session.GetString("TourIdLogbook");
+                if (TourId == null || TourId.Length == 0)
+                {
+                    _session.Remove("TourIdLogbook");
+                    TourId = "";
+                }
+            }
+            else
+            {
+                _session.SetString("TourIdLogbook", TourId);
+            }
             var model = new ScoreDisplayViewModel();
-            model.ScoreInfos = _scoreInfo.getAll();
+            model.Search = Search;
+            if (TourId.Length > 0 && int.Parse(TourId) > 0)
+            {
+                model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                model.TourId = TourId;
+            }
+            else
+            {
+                model.ScoreInfos = _scoreInfo.getAll();
+            }
+            model.Tours = _tourInfo.getTours(true);
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {

@@ -25,10 +25,18 @@ namespace Pogi.Services
         {
             return _context.Tour.FirstOrDefault(r => r.TourDate == TourDate);
         }
-
         public List<SelectListItem> getTours()
         {
+            return getTours(false);
+        }
+        public List<SelectListItem> getTours(bool add0)
+        {
             List<SelectListItem> ToursList = new List<SelectListItem>();
+            if (add0)
+            {
+                SelectListItem sl = new SelectListItem { Text = "No Selection", Value = "0" };
+                ToursList.Add(sl);
+            }
             DateTime today = DateTime.Today;
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysSinceSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek - 7) % 7;
