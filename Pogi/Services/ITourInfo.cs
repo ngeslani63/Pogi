@@ -12,6 +12,7 @@ namespace Pogi.Services
         List<SelectListItem> getTours();
         List<SelectListItem> getTours(bool add0);
         Tour getTour(int TourId);
+        Tour getTour(string TourName);
         Tour getTourOnDate(DateTime TourDate);
     }
 }

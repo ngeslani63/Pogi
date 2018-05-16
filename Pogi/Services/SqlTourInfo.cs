@@ -20,6 +20,10 @@ namespace Pogi.Services
         {
             return _context.Tour.FirstOrDefault(r => r.TourId == TourId);
         }
+        public Tour getTour(string TourName)
+        {
+            return _context.Tour.FirstOrDefault(r => r.TourName == TourName);
+        }
 
         public Tour getTourOnDate(DateTime TourDate)
         {
@@ -34,7 +38,7 @@ namespace Pogi.Services
             List<SelectListItem> ToursList = new List<SelectListItem>();
             if (add0)
             {
-                SelectListItem sl = new SelectListItem { Text = "No Selection", Value = "0" };
+                SelectListItem sl = new SelectListItem { Text = "All Scores", Value = "0" };
                 ToursList.Add(sl);
             }
             DateTime today = DateTime.Today;

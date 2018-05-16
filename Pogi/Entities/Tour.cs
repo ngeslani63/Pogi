@@ -15,6 +15,7 @@ namespace Pogi.Entities
             HcpAllowPct = 80.0F;
             TourType = TourType.SingleDay;
             ScorerType = ScorerType.Regular;
+            TourDate = DateTime.Today;
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TourId { get; set; }
