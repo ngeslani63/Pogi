@@ -4,10 +4,11 @@
     ViewData["Title"] = "Index";
 }
 <br />
-<h2>Index</h2>
+<h2>Tour</h2>
+<h3>Index</h3>
 
 <p>
-    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore"))
+    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))
     {
         <a asp-action="Create">Create New</a>
     }
@@ -55,9 +56,31 @@
                     @Html.DisplayFor(modelItem => item.ScorerType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TourDate)
+                    @if (item.TourType == TourType.MultiDay)
+                    {
+                        if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))
+                        {
+
+
+                            <a asp-action="Index" asp-controller="TourDay" asp-route-id="@item.TourId">Maintain</a>
+
+
+                        }
+                        else
+                        {
+
+                            <a asp-action="Index" asp-controller="TourDay" asp-route-id="@item.TourId">List Dates</a>
+
+                        }
+                    }
+                    else
+                    {
+
+                        @Html.DisplayFor(modelItem => item.TourDate)
+
+                    }
                 </td>
-                @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore"))
+                @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))
                 {
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.TourId">Edit</a> |

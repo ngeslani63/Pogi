@@ -11,10 +11,12 @@ namespace Pogi.Services
     public class SqlScoreInfo : IScoreInfo
     {
         private PogiDbContext _context;
+        private ITourInfo _tourInfo;
 
-        public SqlScoreInfo(PogiDbContext context)
+        public SqlScoreInfo(PogiDbContext context, ITourInfo tourInfo)
         {
             _context = context;
+            _tourInfo = tourInfo;
         }
         public List<ScoreInfo> getAll()
         {
@@ -57,18 +59,41 @@ namespace Pogi.Services
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
             if (TourId > 0)
             {
-                var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
-
-
-                foreach (Score score in Scores)
+                Tour Tour = _tourInfo.getTour(TourId);
+                var TourType = Tour.TourType;
+                if (TourType == TourType.SingleDay)
                 {
-                    Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-                    Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                    var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+                    foreach (Score score in Scores)
+                    {
+                        Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                        Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
 
-                    ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+                        ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
 
-                    ScoreInfos.Add(scoreInfo);
+                        ScoreInfos.Add(scoreInfo);
+                    }
                 }
+                else
+                {
+                    var TourDays = _context.TourDay.Where(r => r.TourId == Tour.TourId).OrderByDescending(r => r.TourDate);
+                    foreach (TourDay TourDay in TourDays)
+                    {
+                        var Scores = _context.Score.Where(r => r.TourEvent && r.ScoreDate.Date == TourDay.TourDate);
+                        foreach (Score score in Scores)
+                        {
+                            Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                            Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+
+                            ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+
+                            ScoreInfos.Add(scoreInfo);
+                        }
+                    }
+                }
+
+
+
             }
             return ScoreInfos;
         }

@@ -1,37 +1,49 @@
-﻿@model Pogi.Entities.TourDay
+﻿@using Pogi.Models.TourDayViewModels
+@model TourDayEditViewModel ;
 
+<br />
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Tour Day</h2>
 
-<h4>TourDay</h4>
+<h4>Edit</h4>
+<hr />
+<div class="row">
+    <div class="alert-info col ">
+        @Html.DisplayFor(modelItem => Model.Tour.TourId).
+        @Html.DisplayFor(modelItem => Model.Tour.TourName)
+    </div>
+    <div class="alert-info col ">
+        @Html.DisplayFor(modelItem => Model.Tour.TourType)
+    </div>
+    <div class="alert-info col ">
+        Handicap Allowance
+        @Html.DisplayFor(modelItem => Model.Tour.HcpAllowPct)%
+    </div>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TourId" />
             <input type="hidden" asp-for="TourDayId" />
-            <div class="form-group">
-                <label asp-for="TourId" class="control-label"></label>
-                <input asp-for="TourId" class="form-control" />
-                <span asp-validation-for="TourId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="TourDate" class="control-label"></label>
                 <input asp-for="TourDate" class="form-control" />
                 <span asp-validation-for="TourDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-controller="TourDay" asp-route-id="@Model.Tour.TourId">Back to List</a>
 </div>
 
 @section Scripts {

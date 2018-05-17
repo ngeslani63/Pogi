@@ -1,41 +1,108 @@
-﻿@model IEnumerable<Pogi.Entities.TourDay>
+﻿@using Pogi.Models.TourDayViewModels
+@model TourDayIndexViewModel ;
 
-@{
-    ViewData["Title"] = "Index";
+<div class="container-fluid">
+    <br />
+    <h2>Tour Day</h2>
+    <h3>Maintain</h3>
+    <hr />
+    <div class="row">
+        <div class="alert-info col ">
+            @Html.DisplayFor(modelItem => Model.Tour.TourId).
+            @Html.DisplayFor(modelItem => Model.Tour.TourName)
+        </div>
+        <div class="alert-info col ">
+            @Html.DisplayFor(modelItem => Model.Tour.TourType)
+        </div>
+        <div class="alert-info col ">
+            Handicap Allowance
+            @Html.DisplayFor(modelItem => Model.Tour.HcpAllowPct)%
+        </div>
+    </div>
+    <hr />
+    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))
+    {
+        <a asp-action="Create" asp-route-id="@Model.Tour.TourId">Record New Tour Date</a>
+    }
+    else
+    {
+        <span class="text-primary">Display Only</span>
+
+    }
+
+    <table id="table"
+           data-toggle="table"
+           data-search="true"
+           data-striped="true"
+           data-pagination="true"
+           data-sort-name="Date"
+           data-sort-order="desc">
+        <thead>
+            <tr>
+                <th class="col-md-2" data-field="TourDayId" data-sortable="true">Tour Day Id</th>
+                <th class="col-md-2" data-field="TourDate" data-sortable="true">Tour Date</th>
+                @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))
+                {
+                    <th class="col-md-1">Action</th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var TourDay in Model.TourDays)
+            {
+                <tr>
+                    @{
+                        DateTime TourDayDateTime = TourDay.TourDate;
+                        String TourDayDateDisp = TourDayDateTime.ToString("yyyy MM/dd");
+                    }
+                    <td class="col-md-2">@TourDay.TourDayId</td>
+                    <td class="col-md-2">@TourDayDateDisp</td>
+                    @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))
+                    {
+
+                        <td class="col-md-1">
+
+                            <a data-toggle="tooltip" title="Edit TourDay" asp-action="Edit" asp-route-id="@TourDay.TourDayId">&#x270f;</a>
+                            <a data-toggle="tooltip" title="Delete TourDay" asp-action="Delete" asp-route-id="@TourDay.TourDayId" class="fa fa-trash"></a>
+
+                        </td>
+                    }
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a asp-action="Index" asp-controller="Tour">Back to Tour Index</a>
+    </div>
+
+</div>
+
+@section Scripts {
+    @*<script>
+            var $table = $('#table'),
+                $ok = $('#ok');
+            $(function () {
+                $ok.click(function () {
+                    $table.bootstrapTable('refresh');
+                    console.log("Hello from ok Button");
+                });
+            });
+            function queryParams() {
+                var params = {};
+                $('#toolbar').find('input[name]').each(function () {
+                    params[$(this).attr('name')] = $(this).val();
+                });
+                return params;
+            }
+            function responseHandler(res) {
+                return res.rows;
+            }
+        </script>*@
+    <script>
+        console.info("Hello From Handicap Index");
+    </script>
 }
-
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TourId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TourDate)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TourId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TourDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TourDayId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TourDayId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TourDayId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

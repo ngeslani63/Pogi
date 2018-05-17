@@ -1,21 +1,36 @@
-﻿@model Pogi.Entities.TourDay
+﻿@using Pogi.Models.TourDayViewModels
+@model TourDayEditViewModel ;
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Tour Day</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>TourDay</h4>
+    <h4>Delete</h4>
+    <hr />
+    <div class="row">
+        <div class="alert-info col ">
+            @Html.DisplayFor(modelItem => Model.Tour.TourId).
+            @Html.DisplayFor(modelItem => Model.Tour.TourName)
+        </div>
+        <div class="alert-info col ">
+            @Html.DisplayFor(modelItem => Model.Tour.TourType)
+        </div>
+        <div class="alert-info col ">
+            Handicap Allowance
+            @Html.DisplayFor(modelItem => Model.Tour.HcpAllowPct)%
+        </div>
+    </div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TourId)
+            @Html.DisplayNameFor(model => model.TourDayId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TourId)
+            @Html.DisplayFor(model => model.TourDayId)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.TourDate)
@@ -24,10 +39,10 @@
             @Html.DisplayFor(model => model.TourDate)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="TourDayId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-controller="Tour" asp-route-id="@Model.Tour.TourId">Back to List</a>
     </form>
 </div>
