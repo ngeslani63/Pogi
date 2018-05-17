@@ -55,5 +55,13 @@ namespace Pogi.Services
             _context.Log2.Add(Activity);
             _context.SaveChanges();
         }
+
+        public IQueryable<Log2> getActivity(int days)
+        {
+            if (days > 14) days = 7; // set Max 
+            DateTime now = DateTime.Now;
+            DateTime start = now.AddDays(days*-1).Date;
+            return _context.Log2.Where(r => r.createdTS >= start).OrderByDescending(r => r.createdTS);
+        }
     }
 }

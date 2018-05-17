@@ -1,0 +1,53 @@
+﻿@model Pogi.Entities.Log2
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Log2</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <input asp-for="MemberId" class="form-control" />
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ipAddr" class="control-label"></label>
+                <input asp-for="ipAddr" class="form-control" />
+                <span asp-validation-for="ipAddr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Action" class="control-label"></label>
+                <input asp-for="Action" class="form-control" />
+                <span asp-validation-for="Action" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="createdTS" class="control-label"></label>
+                <input asp-for="createdTS" class="form-control" />
+                <span asp-validation-for="createdTS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

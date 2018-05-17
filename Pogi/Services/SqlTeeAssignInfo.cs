@@ -19,7 +19,7 @@ namespace Pogi.Services
         }
         public IEnumerable<TeeAssignInfo> getAll()
         {
-            var TeeAssigns = _context.TeeAssign.Where(r => r.RecordStatus == RecordState.Active).OrderBy(r => r.TeeTimeId);
+            var TeeAssigns = _context.TeeAssign.Where(r => r.RecordStatus == RecordState.Active).OrderBy(r => r.Group).ThenBy(r => r.Order).ThenBy(r => r.TeeTimeId);
             List<TeeAssignInfo> TeeAssignInfos = new List<TeeAssignInfo>();
             foreach (TeeAssign teeAssign in TeeAssigns)
             {
@@ -47,7 +47,7 @@ namespace Pogi.Services
             TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeId == teeTimeId);
             Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
 
-            var TeeAssigns = _context.TeeAssign.Where(r => r.TeeTimeId == teeTimeId).OrderBy(r => r.TeeAssignId);
+            var TeeAssigns = _context.TeeAssign.Where(r => r.TeeTimeId == teeTimeId).OrderBy(r => r.Group).ThenBy(r => r.Order).ThenBy(r => r.TeeAssignId);
             List<TeeAssignInfo> TeeAssignInfos = new List<TeeAssignInfo>();
             foreach (TeeAssign teeAssign in TeeAssigns)
             {
