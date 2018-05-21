@@ -13,14 +13,17 @@ namespace Pogi.Services
     {
         private PogiDbContext _context;
 		private ITeeAssignInfo _teeAssignInfo;
-        public SqlTeeTimeInfo(PogiDbContext context, ITeeAssignInfo teeAssignInfo)
+        private IDateTime _dateTime;
+
+        public SqlTeeTimeInfo(PogiDbContext context, ITeeAssignInfo teeAssignInfo, IDateTime dateTime)
         {
             _context = context;
 			_teeAssignInfo = teeAssignInfo;
+            _dateTime = dateTime;
         }
         public IEnumerable<TeeTimeInfo> getAll()
         {
-            var TeeTimes =  _context.TeeTime.Where(r => r.TeeTimeTS >= System.DateTime.Today).OrderBy(r => r.TeeTimeTS);
+            var TeeTimes =  _context.TeeTime.Where(r => r.TeeTimeTS >= _dateTime.getToday()).OrderBy(r => r.TeeTimeTS);
 			
             List<TeeTimeInfo> TeeTimeInfos = new List<TeeTimeInfo>();
             foreach(TeeTime teeTime in TeeTimes)
@@ -28,7 +31,7 @@ namespace Pogi.Services
                 Member member = _context.Member.FirstOrDefault(r => r.MemberId == teeTime.ReservedById);
                 Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
 				List<TeeAssignInfo> teeAssignInfos =_teeAssignInfo.getForTeeTime(teeTime.TeeTimeId);
-	                TeeTimeInfo teeTimeInfo= new TeeTimeInfo(teeTime, member,course,teeAssignInfos);
+	            TeeTimeInfo teeTimeInfo= new TeeTimeInfo(teeTime, member,course,teeAssignInfos);
 
                 TeeTimeInfos.Add(teeTimeInfo);
             }

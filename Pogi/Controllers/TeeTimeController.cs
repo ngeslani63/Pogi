@@ -29,12 +29,14 @@ namespace Pogi.Controllers
         private readonly ICourseData _courseData;
         private readonly IEmailSender _emailSender;
         private readonly IActivity _activity;
+        private readonly IDateTime _dateTime;
 
         public TeeTimeController(ITeeTimeInfo teeTimeInfo, IPlayerInfo playerInfo, ITeeAssignInfo teeAssignInfo, PogiDbContext context
             , SignInManager<ApplicationUser> signInManager,
               UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
               IEmailSender emailSender,
-              IActivity activity)
+              IActivity activity,
+              IDateTime dateTime)
         {
             _context = context;
             _teeTimeInfo = teeTimeInfo;
@@ -46,6 +48,7 @@ namespace Pogi.Controllers
             _courseData = courseData;
             _emailSender = emailSender;
             _activity = activity;
+            _dateTime = dateTime;
         }
 
         // GET: TeeTime
@@ -120,7 +123,7 @@ namespace Pogi.Controllers
                     model.ReservedById = model.Member.MemberId;
                     return View(model);
                 }
-                if (ts < DateTime.Now)
+                if (ts < _dateTime.getNow())
                 {
                     ModelState.AddModelError("TeeTimeTS", "Please specify a future Date and Time");
                     model.Courses = _courseData.getSelectList();
@@ -201,7 +204,7 @@ namespace Pogi.Controllers
 ;
                         return View(model);
                     }
-                    if (ts < DateTime.Now)
+                    if (ts < _dateTime.getNow())
                     {
                         ModelState.AddModelError("TeeTimeTS", "Please specify a future Date and Time");
                         model.Courses = _courseData.getSelectList();

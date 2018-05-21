@@ -20,14 +20,17 @@ namespace Pogi.Controllers
         private readonly PogiDbContext _context;
         private readonly ITeeAssignInfo _teeAssignInfo;
         private readonly IPlayerInfo _playerInfo;
+        private readonly IDateTime _dateTime;
 
         public object Integer { get; private set; }
 
-        public TeeAssignController(IPlayerInfo playerInfo, ITeeAssignInfo teeAssignInfo, PogiDbContext context)
+        public TeeAssignController(IPlayerInfo playerInfo, ITeeAssignInfo teeAssignInfo, PogiDbContext context,
+            IDateTime dateTime)
         {
             _context = context;
             _teeAssignInfo = teeAssignInfo;
             _playerInfo = playerInfo;
+            _dateTime = dateTime;
         }
         public async Task<IActionResult> Edit2(int? id)
         {
@@ -98,7 +101,8 @@ namespace Pogi.Controllers
                         }
                         else
                         {
-                            if(teeAssign.TeeAssignId > 0) _context.TeeAssign.Remove(teeAssign);
+
+                            //if(teeAssign.TeeAssignId > 0) _context.TeeAssign.Remove(teeAssign);
                         }
                         i++;
                     }
