@@ -43,6 +43,7 @@ namespace Pogi.Services
         public void logActivity(string userName, string Action)
         {
             Pogi.Entities.Log2 Activity = new Pogi.Entities.Log2();
+            Activity.createdTS = _dateTime.getNow();
             Activity.Action = Action;
             Activity.ipAddr = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             if (userName != null && userName.Length > 0)
