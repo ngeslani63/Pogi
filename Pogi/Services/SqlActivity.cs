@@ -19,13 +19,16 @@ namespace Pogi.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IDateTime _dateTime;
+
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
         public SqlActivity(PogiDbContext context, IMemberData sqlMemberData,
                         UserManager<ApplicationUser> userManager,
                         SignInManager<ApplicationUser> signInManager,
                         RoleManager<IdentityRole> roleManager,
-                        IHttpContextAccessor httpContextAccessor)
+                        IHttpContextAccessor httpContextAccessor,
+                        IDateTime dateTime)
         {
             _context = context;
             _memberData = sqlMemberData;
@@ -33,6 +36,7 @@ namespace Pogi.Services
             _signInManager = signInManager;
             _roleManager = roleManager;
             _httpContextAccessor = httpContextAccessor;
+            _dateTime = dateTime;
             
         }
 
@@ -59,7 +63,7 @@ namespace Pogi.Services
         public IQueryable<Log2> getActivity(int days)
         {
             if (days > 14) days = 7; // set Max 
-            DateTime now = DateTime.Now;
+            DateTime now = _dateTime.getNow();
             DateTime start = now.AddDays(days*-1).Date;
             return _context.Log2.Where(r => r.createdTS >= start).OrderByDescending(r => r.createdTS);
         }

@@ -96,14 +96,18 @@ namespace Pogi.Controllers
                             {
                                 teeAssign.GuestName = player.GuestName + " (Guest)";
                             }
-                            if (teeAssign.TeeAssignId == 0) _context.Add(teeAssign);
-                            else _context.Update(teeAssign);
+
                         }
                         else
                         {
-
+                            teeAssign.MemberId = 0;
+                            teeAssign.GuestName = "";
                             //if(teeAssign.TeeAssignId > 0) _context.TeeAssign.Remove(teeAssign);
                         }
+                        teeAssign.Group = (int)Math.Floor((float)i / 4.0F) + 1;
+                        teeAssign.Order = i % 4 + 1;
+                        if (teeAssign.TeeAssignId == 0) _context.Add(teeAssign);
+                        else _context.Update(teeAssign);
                         i++;
                     }
 
