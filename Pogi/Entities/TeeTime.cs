@@ -26,5 +26,7 @@ namespace Pogi.Entities
         public bool MajorTour { get; set; }
         [Display(Name = "Minutes between TeeTimes")]
         public int TeeTimeInterval { get; set; }
+        [Display(Name = "Default Tee Color")]
+        public string Color { get; set; }
     }
 }

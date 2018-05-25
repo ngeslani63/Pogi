@@ -53,6 +53,7 @@ namespace Pogi
             services.AddScoped<IActivity, SqlActivity>();
             services.AddScoped<ITourDay, SqlTourDay>();
             services.AddScoped<IDateTime, ImplDateTime>();
+            services.AddScoped<ILogIp, SqlLogIp>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PogiIdentityDb")));

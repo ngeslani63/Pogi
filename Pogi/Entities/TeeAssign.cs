@@ -28,5 +28,7 @@ namespace Pogi.Entities
         public bool NoShow { get; set; } 
         [DefaultValue(RecordState.Active)]
         public RecordState RecordStatus { get; set; }
+
+        public string color { get; set;s }
     }
 }
