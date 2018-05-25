@@ -20,6 +20,7 @@ namespace Pogi.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDateTime _dateTime;
+        private readonly ILogIp _logIp;
 
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
@@ -28,7 +29,8 @@ namespace Pogi.Services
                         SignInManager<ApplicationUser> signInManager,
                         RoleManager<IdentityRole> roleManager,
                         IHttpContextAccessor httpContextAccessor,
-                        IDateTime dateTime)
+                        IDateTime dateTime,
+                        ILogIp logIp)
         {
             _context = context;
             _memberData = sqlMemberData;
@@ -37,6 +39,8 @@ namespace Pogi.Services
             _roleManager = roleManager;
             _httpContextAccessor = httpContextAccessor;
             _dateTime = dateTime;
+            _logIp = logIp;
+
             
         }
 
@@ -54,9 +58,16 @@ namespace Pogi.Services
                 {
                     Activity.MemberId = member.MemberId;
                     Activity.UserName = member.FirstName + " " + member.LastName;
+                    if (Action == "Login" || Action == "LoginExt")
+                    {
+                        _logIp.logIp(Activity.ipAddr, Activity.UserName);
+                    }
                 }
             }
-
+            else
+            {
+                Activity.UserName = _logIp.getUser(Activity.ipAddr) + " (G)";
+            }
             _context.Log2.Add(Activity);
             _context.SaveChanges();
         }

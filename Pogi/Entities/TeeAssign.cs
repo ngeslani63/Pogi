@@ -29,6 +29,6 @@ namespace Pogi.Entities
         [DefaultValue(RecordState.Active)]
         public RecordState RecordStatus { get; set; }
 
-        public string color { get; set;s }
+        public string color { get; set; }
     }
 }

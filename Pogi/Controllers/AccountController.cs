@@ -92,7 +92,7 @@ namespace Pogi.Controllers
                         if (await _userManager.IsInRoleAsync(user, "Member"))
                             await _userManager.RemoveFromRoleAsync(user, "Member");
                     }
-                    _activity.logActivity(user.Email, "User logged in");
+                    _activity.logActivity(user.Email, "Login");
                  
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
@@ -319,6 +319,8 @@ namespace Pogi.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+                var userName = info.Principal.FindFirstValue(ClaimTypes.Email);
+                _activity.logActivity(userName, "LoginExt");
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)

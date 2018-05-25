@@ -121,6 +121,15 @@ namespace Pogi.Controllers
         //public async Task<IActionResult> LeaderBoard()
         public IActionResult LeaderBoard()
         {
+            string userName = "";
+            Member Member = null;
+            if (_signInManager.IsSignedIn(User))
+            {
+                Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (Member != null) userName = Member.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "LeaderBoard");
+
             var LeaderBoardWeekly = _session.GetString("LeaderBoardWeekly");
             var LeaderBoardMonthly = _session.GetString("LeaderBoardMonthly");
             var LeaderBoardYearly = _session.GetString("LeaderBoardYearly");
@@ -224,6 +233,15 @@ namespace Pogi.Controllers
         //public async Task<IActionResult> LeaderBoard()
         public IActionResult Badges()
         {
+            string userName = "";
+            Member Member = null;
+            if (_signInManager.IsSignedIn(User))
+            {
+                Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (Member != null) userName = Member.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Badges");
+
             var BadgesWeekly = _session.GetString("BadgesWeekly");
             var BadgesMonthly = _session.GetString("BadgesMonthly");
             var BadgesYearly = _session.GetString("BadgesYearly");
