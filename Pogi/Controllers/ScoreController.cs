@@ -31,6 +31,7 @@ namespace Pogi.Controllers
         private readonly ITourInfo _tourInfo;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IActivity _activity;
+        private readonly IDateTime _dateTime;
 
         private ISession _session => _httpContextAccessor.HttpContext.Session;
         public ScoreController(PogiDbContext context, IScoreInfo scoreInfo,
@@ -40,7 +41,8 @@ namespace Pogi.Controllers
                 IHandicap handicap,
                 ITourInfo tourInfo,
                 IHttpContextAccessor httpContextAccessor,
-              IActivity activity)
+              IActivity activity,
+              IDateTime dateTime)
         {
             _context = context;
             _scoreInfo = scoreInfo;
@@ -53,6 +55,7 @@ namespace Pogi.Controllers
             _tourInfo = tourInfo;
             _httpContextAccessor = httpContextAccessor;
             _activity = activity;
+            _dateTime = dateTime;
         }
 
         // GET: Score
@@ -365,7 +368,7 @@ namespace Pogi.Controllers
             var TourEvent = _session.GetString("TourEvent");
             var TourId = _session.GetString("TourId");
 
-            var model = new ScoreCreateViewModel();
+            var model = new ScoreCreateViewModel(_dateTime);
             model.Members = _memberData.getSelectList();
             model.Tours = _tourInfo.getTours();
 
@@ -545,7 +548,7 @@ namespace Pogi.Controllers
             {
                 return NotFound();
             }
-            var model = new ScoreCreateViewModel();
+            var model = new ScoreCreateViewModel(_dateTime);
             model.Courses = _courseData.getSelectList();
             model.Members = _memberData.getSelectList();
             model.ScoreId = score.ScoreId;
