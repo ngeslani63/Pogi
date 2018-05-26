@@ -38,7 +38,16 @@ namespace Pogi.Services
             return TeeTimeInfos;
         }
 
-		public bool majorTourDay(DateTime dateTime)
+        public TeeTime GetTeeTime(DateTime dateTime)
+        {
+            DateTime date = dateTime.Date;
+            DateTime datePlus1 = date.AddDays(1);
+            TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeTS >= date
+                && r.TeeTimeTS < datePlus1);
+            return teeTime;
+        }
+
+        public bool majorTourDay(DateTime dateTime)
         {
             bool rc = false;
             DateTime date = dateTime.Date;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Entities;
+using Pogi.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,9 +13,12 @@ namespace Pogi.Models.ScoreViewModels
 {
     public class ScoreCreateViewModel
     {
-        public ScoreCreateViewModel()
+        private IDateTime _dateTime;
+
+        public ScoreCreateViewModel(IDateTime dateTime)
         {
-            DateTime today = DateTime.Today;
+            _dateTime = dateTime;
+            DateTime today = _dateTime.getToday();
             int daysSinceSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek - 7) % 7;
             DateTime lastSaturday = today.AddDays(daysSinceSaturday);
             ScoreDate = lastSaturday;
