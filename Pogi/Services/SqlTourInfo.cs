@@ -49,7 +49,7 @@ namespace Pogi.Services
             foreach (Tour tour in Tours)
             {
                 var selected = false;
-                if (tour.TourDate.Equals(lastSaturday)) selected = true;
+                //if (tour.TourDate.Equals(lastSaturday)) selected = true;
                 SelectListItem sl = new SelectListItem { Text = tour.TourName, Value = tour.TourId.ToString(), Selected = selected };
                 ToursList.Add(sl);
             }

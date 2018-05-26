@@ -147,7 +147,7 @@
                     }
                     <td class="col-md-1">
                         @if (Model.User != null && (Model.User.MemberId == score.EnteredById || Model.User.MemberId == score.MemberId
-|| Model.User.RoleAdminTeeTime == true || Model.User.MemberId == 1))
+ || Model.User.RoleAdminScore == true || Model.User.MemberId == 1))
                         {
                             <a data-toggle="tooltip" title="Edit Score" asp-action="Edit" asp-route-id="@score.ScoreId">&#x270f;</a>
                             <a data-toggle="tooltip" title="Delete Score" asp-action="Delete" asp-route-id="@score.ScoreId" class="fa fa-trash"></a>

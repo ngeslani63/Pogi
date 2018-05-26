@@ -87,7 +87,7 @@ namespace Pogi.Controllers
                 if (TourId == null || TourId.Length == 0)
                 {
                     _session.Remove("TourIdLogbook");
-                    TourId = "";
+                    TourId = "0";
                 }
             }
             else
