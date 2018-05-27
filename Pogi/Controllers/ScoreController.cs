@@ -107,6 +107,7 @@ namespace Pogi.Controllers
             else
             {
                 model.ScoreInfos = _scoreInfo.getAll();
+                model.TourId = "0";
             }
             model.Tours = _tourInfo.getTours(true);
             string userName = "";

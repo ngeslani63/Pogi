@@ -50,6 +50,16 @@
             @*<button id="ok" type="submit" class="btn btn-default">OK</button>*@
         </div>
     </div>
+
+    @{var sortName = "scoreDate";
+        var sortOrder = "desc";
+        if (Model.TourId != "0")
+        {
+            sortName = "TourScore";
+            sortOrder = "asc";
+
+        }
+    }
     <table id="table"
            data-toolbar="#toolbar"
            data-toggle="table"
@@ -57,8 +67,8 @@
            data-search-text="@Model.Search"
            data-striped="true"
            data-pagination="true"
-           data-sort-name="scoreDate"
-           data-sort-order="desc"
+           data-sort-name="@sortName"
+           data-sort-order="@sortOrder"
            data-remember-order="true"
            data-sort-stable="true">
         <thead>
