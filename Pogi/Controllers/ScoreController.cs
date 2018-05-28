@@ -369,7 +369,7 @@ namespace Pogi.Controllers
             var TourEvent = _session.GetString("TourEvent");
             var TourId = _session.GetString("TourId");
 
-            var model = new ScoreCreateViewModel(_dateTime);
+            var model = new ScoreCreateViewModel();
             model.Members = _memberData.getSelectList();
             model.Tours = _tourInfo.getTours();
 
@@ -549,7 +549,7 @@ namespace Pogi.Controllers
             {
                 return NotFound();
             }
-            var model = new ScoreCreateViewModel(_dateTime);
+            var model = new ScoreCreateViewModel();
             model.Courses = _courseData.getSelectList();
             model.Members = _memberData.getSelectList();
             model.ScoreId = score.ScoreId;

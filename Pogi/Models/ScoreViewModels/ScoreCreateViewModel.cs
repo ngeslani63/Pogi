@@ -15,10 +15,10 @@ namespace Pogi.Models.ScoreViewModels
     {
         private IDateTime _dateTime;
 
-        public ScoreCreateViewModel(IDateTime dateTime)
+        public ScoreCreateViewModel()
         {
-            _dateTime = dateTime;
-            DateTime today = _dateTime.getToday();
+            TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime today = (TimeZoneInfo.ConvertTime(DateTime.Now, est)).Date;
             int daysSinceSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek - 7) % 7;
             DateTime lastSaturday = today.AddDays(daysSinceSaturday);
             ScoreDate = lastSaturday;
