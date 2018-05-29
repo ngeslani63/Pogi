@@ -61,12 +61,12 @@
 
                     }
 
-                    <td class="col-md-1">
+                        <td class="col-md-1">
 
-                        <a data-toggle="tooltip" title="Edit Handicap" asp-action="Edit" asp-route-id="@handicap.HandicapId">&#x270f;</a>
-                        <a data-toggle="tooltip" title="Delete Handicap" asp-action="Delete" asp-route-id="@handicap.HandicapId" class="fa fa-trash"></a>
+                            <a data-toggle="tooltip" title="Edit Handicap" asp-action="Edit" asp-route-id="@handicap.HandicapId">&#x270f;</a>&nbsp;| &nbsp;
+                            <a data-toggle="tooltip" title="Delete Handicap" asp-action="Delete" asp-route-id="@handicap.HandicapId" class="fa fa-trash"></a>
 
-                    </td>
+                        </td>
 
                 </tr>
 
@@ -75,7 +75,8 @@
     </table>
 
     <div>
-        <a asp-action="Index" asp-controller="Member">Back to Maintan Members</a>
+        <a asp-action="Index" asp-controller="Member">Back to Maintan Members</a>&nbsp;| &nbsp;
+        <a asp-action="List" asp-controller="Handicap">Back to Handicap List</a>
     </div>
 
 </div>

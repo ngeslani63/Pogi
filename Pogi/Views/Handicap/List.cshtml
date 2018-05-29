@@ -1,5 +1,7 @@
 ﻿@using Pogi.Models.HandicapViewModels
 @model HandicapListViewModel ;
+@inject SignInManager<ApplicationUser> SignInManager
+
 
 <br />
 @{
@@ -40,16 +42,16 @@
                    data-toggle="table"
                    data-search="true"
                    data-striped="true"
-                   data-pagination="true"
+                   data-pagination="false"
                    data-sort-name="Name"
-                   data-sort-order="desc">
+                   data-sort-order="asc">
                 <thead>
                     <tr>
-                        <th class="col-md-3" data-field="Date" data-sortable="true">Date</th>
+                        <th class="col-md-2" data-field="Date" data-sortable="true">Date</th>
                         <th class="col-md-3" data-field="Name" data-sortable="true">Name</th>
                         <th class="col-md-2" data-field="GHIN" data-sortable="true">GHIN</th>
                         <th class="col-md-2" data-field="HcpIndex" data-sortable="true">H.I.</th>
-                        <th class="col-md-1">Action</th>
+                        <th class="col-md-2">Action</th>
 
                     </tr>
                 </thead>
@@ -65,7 +67,7 @@
                                 String hcpDateDisp = hcpDateTime.ToString("yyyy MM/dd");
                             }
 
-                            <td class="col-md-3">@hcpDateDisp</td>
+                            <td class="col-md-2">@hcpDateDisp</td>
                             <td class="col-md-3">@Name</td>
                             <td class="col-md-2">@handicap.GhinNumber</td>
                             @if (handicap == null || handicap.HcpIndex > 0)
@@ -76,11 +78,21 @@
                             {
                                 <td class="col-md-2">NH</td>
                             }
-                            <td class="col-md-1">
-                                <a  data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@handicap.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0"  target="_blank">Lookup</a>
-                                @*<a href="http://162.245.224.193/Widgets/HandicapLookupResults.aspx?entry=1&ghinno=@handicap.GhinNumber" target="_blank">Lookup</a>*@
-                                @*<a data-toggle="tooltip" title="Member Handicap" asp-action="Index" asp-route-id="@member.MemberId">&#x270f;</a>*@
-                            </td>
+                            @if (SignInManager.IsSignedIn(User) &&
+                               (User.IsInRole("AdminRoot") || User.IsInRole("AdminUser")))
+                            {
+                                <td class="col-md-2">
+                                    <a data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@handicap.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0" target="_blank">Lookup</a>&nbsp;| &nbsp;
+                                    <a data-toggle="tooltip" title="Maintain Handicap" asp-controller="Handicap" asp-action="Index" asp-route-id="@member.MemberId" class="fa fa-wheelchair"></a>
+
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="col-md-2">
+                                    <a data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@handicap.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0" target="_blank">Lookup</a>
+                                </td>
+                            }
 
                         </tr>
 
