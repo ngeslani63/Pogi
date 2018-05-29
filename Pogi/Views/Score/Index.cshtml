@@ -53,10 +53,12 @@
 
     @{var sortName = "scoreDate";
         var sortOrder = "desc";
+        var dataPagination = "true";
         if (Model.TourId != "0")
         {
             sortName = "TourScore";
             sortOrder = "asc";
+            dataPagination = "false";
 
         }
     }
@@ -66,7 +68,7 @@
            data-search="true"
            data-search-text="@Model.Search"
            data-striped="true"
-           data-pagination="true"
+           data-pagination="@dataPagination"
            data-sort-name="@sortName"
            data-sort-order="@sortOrder"
            data-remember-order="true"
