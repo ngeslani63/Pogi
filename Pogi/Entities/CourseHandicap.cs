@@ -10,7 +10,47 @@ namespace Pogi.Entities
 
     public class CourseHandicap
     {
+        public CourseHandicap()
+        {
+            MenHcp01 = 1;
+            MenHcp02 = 1;
+            MenHcp03 = 1;
+            MenHcp04 = 1;
+            MenHcp05 = 1;
+            MenHcp06 = 1;
+            MenHcp07 = 1;
+            MenHcp08 = 1;
+            MenHcp09 = 1;
+            MenHcp10 = 1;
+            MenHcp11 = 1;
+            MenHcp12 = 1;
+            MenHcp13 = 1;
+            MenHcp14 = 1;
+            MenHcp15 = 1;
+            MenHcp16 = 1;
+            MenHcp17 = 1;
+            MenHcp18 = 1;
+            LadiesHcp01 = 1;
+            LadiesHcp02 = 1;
+            LadiesHcp03 = 1;
+            LadiesHcp04 = 1;
+            LadiesHcp05 = 1;
+            LadiesHcp06 = 1;
+            LadiesHcp07 = 1;
+            LadiesHcp08 = 1;
+            LadiesHcp09 = 1;
+            LadiesHcp10 = 1;
+            LadiesHcp11 = 1;
+            LadiesHcp12 = 1;
+            LadiesHcp13 = 1;
+            LadiesHcp14 = 1;
+            LadiesHcp15 = 1;
+            LadiesHcp16 = 1;
+            LadiesHcp17 = 1;
+            LadiesHcp18 = 1;
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CourseHandicapId { get; set; }
         public int CourseId { get; set; }
         public int MenHcp01 { get; set; }
         public int MenHcp02 { get; set; }

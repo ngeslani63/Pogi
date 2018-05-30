@@ -1,0 +1,251 @@
+﻿@model IEnumerable<Pogi.Entities.CourseHandicap>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp01)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp02)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp03)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp04)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp05)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp06)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp07)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp08)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp09)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp10)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp11)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp12)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp13)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp14)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp15)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp16)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp17)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenHcp18)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp01)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp02)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp03)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp04)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp05)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp06)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp07)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp08)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp09)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp10)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp11)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp12)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp13)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp14)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp15)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp16)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp17)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LadiesHcp18)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp09)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp11)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp12)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp13)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp14)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp15)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp16)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp17)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenHcp18)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp09)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp11)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp12)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp13)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp14)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp15)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp16)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp17)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LadiesHcp18)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CourseHandicapId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CourseHandicapId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CourseHandicapId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
