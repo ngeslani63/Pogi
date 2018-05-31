@@ -12,6 +12,7 @@ namespace Pogi.Entities
             Phone1stType = PhoneType.Mobile;
             State = StateCode.NJ;
             CurrHandicap = (float)0.00;
+            Gender = GenderType.Male;
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberId { get; set; }
@@ -47,6 +48,8 @@ namespace Pogi.Entities
         public string Profession { get; set; }
         [Display(Name = "Marital Status")]
         public MaritalState MaritalStatus { get; set; }
+        [Display(Name = "Gender")]
+        public GenderType Gender { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         [DefaultValue(StateCode.NJ)]

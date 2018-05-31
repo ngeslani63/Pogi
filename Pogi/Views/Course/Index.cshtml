@@ -105,6 +105,7 @@
                         <a data-toggle="tooltip" title="Edit Course" asp-action="Edit" asp-route-id="@item.CourseId">&#x270f;</a>
                         @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminCourse"))
                         {
+                            <span> |</span> <a data-toggle="tooltip" title="Edit Course Handicap" asp-controller="CourseHandicap" asp-action="Edit" asp-route-id="@item.CourseId" class="fa fa-wheelchair"></a>
                             <span> |</span> <a data-toggle="tooltip" title="Edit Course" asp-action="Delete" asp-route-id="@item.CourseId">&#xe083;</a>
                         }
                     </div>

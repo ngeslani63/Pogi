@@ -49,10 +49,11 @@
 
                     </div>
                     <div class="alert-info col-md-2">
-                        @Html.DisplayNameFor(model => model.MaritalStatus)
+                        Marital / Gender
                     </div>
                     <div class="col-md-4">
-                        @(Html.DisplayFor(modelItem => item.MaritalStatus))
+                        @(Html.DisplayFor(modelItem => item.MaritalStatus)) /
+                        @(Html.DisplayFor(modelItem => item.Gender))
                     </div>
                 </div>
                 <div class="row">

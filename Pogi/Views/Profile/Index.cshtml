@@ -12,81 +12,84 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone1st)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone1stType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone2nd)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone2ndType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmailAddr1st)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmailAddr2nd)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RecordStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MemberStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Profession)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MaritalStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Street)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.State)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Zip)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Country)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GhinNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CurrHandicap)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoleAdminRoot)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoleAdminUser)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoleAdminCourse)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoleAdminTeeTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoleAdminScore)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoleAdminTour)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone1st)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone1stType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone2nd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone2ndType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddr1st)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddr2nd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profession)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GhinNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrHandicap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleAdminRoot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleAdminUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleAdminCourse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleAdminTeeTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleAdminScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleAdminTour)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -122,6 +125,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MemberStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Profession)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Pogi.Models.CourseHandicapViewModel;
 
 namespace Pogi.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class CourseHandicapController : Controller
     {
         private readonly PogiDbContext _context;
@@ -83,6 +85,7 @@ namespace Pogi.Controllers
                 await _context.SaveChangesAsync();
             }
             var model = new CourseHandicapEditViewModel(courseHandicap);
+            model.Course = await _context.Course.SingleOrDefaultAsync(r => r.CourseId == id);
 
             return View(model);
         }
@@ -117,9 +120,10 @@ namespace Pogi.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Edit","Course", new { id = id });
+                return RedirectToAction("Index","Course");
             }
             var model = new CourseHandicapEditViewModel(courseHandicap);
+            model.Course = await _context.Course.SingleOrDefaultAsync(r => r.CourseId == id);
             return View(model);
         }   
 
