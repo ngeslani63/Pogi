@@ -38,10 +38,11 @@ namespace Pogi.Services
         {
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
             Tour Tour = _context.Tour.FirstOrDefault(r => r.TourName.Contains(TourName));
-            if (Tour != null) {
+            if (Tour != null)
+            {
                 var Scores = _context.Score.Where(r => r.TourId == Tour.TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
 
-                
+
                 foreach (Score score in Scores)
                 {
                     Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
@@ -141,7 +142,7 @@ namespace Pogi.Services
             int theMonth = date.Month;
             DateTime startDate = new DateTime(theYear, theMonth, 01).Date;
             DateTime endDate = new DateTime(theYear, theMonth + 1, 01).Date.AddMinutes(-1);
-            return getMeritsByDate("Month " + theYear.ToString() + "/" + theMonth.ToString() + " " , startDate, endDate);
+            return getMeritsByDate("Month " + theYear.ToString() + "/" + theMonth.ToString() + " ", startDate, endDate);
         }
 
         public List<ScoreInfo> getMeritsOfYear(DateTime date)
@@ -211,7 +212,7 @@ namespace Pogi.Services
 
             scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderBy(r => r.NetScore).ThenBy(r => r.HoleTotal).ToList();
-            
+
             if (scores.Count > 0)
             {
                 score = scores[0];
@@ -263,7 +264,7 @@ namespace Pogi.Services
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
             DateTime startDate = today.AddDays(daysSinceSunday - 7); // Sunday of Last Week
-            DateTime endDate = today.AddDays(daysSinceSunday ); // Sunday 12:00 AM
+            DateTime endDate = today.AddDays(daysSinceSunday); // Sunday 12:00 AM
             return getBadgesByDate("Weekly ", startDate, endDate);
         }
         public List<ScoreInfo> getBadgesOfWeek(DateTime date)
@@ -314,7 +315,7 @@ namespace Pogi.Services
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
 
             var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
-                .OrderByDescending(r => r.Pars + r.Birdies+ r.Eagles + r.Albatross).ThenBy(r => r.NetScore).ToList();
+                .OrderByDescending(r => r.Pars + r.Birdies + r.Eagles + r.Albatross).ThenBy(r => r.NetScore).ToList();
             Score score;
             Member member;
             Course course;
@@ -356,7 +357,7 @@ namespace Pogi.Services
 
             scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
                 .OrderByDescending(r => r.Birdies + r.Eagles + r.Albatross).ThenBy(r => r.NetScore).ToList();
-            
+
             if (scores.Count > 0)
             {
                 score = scores[0];
@@ -391,6 +392,78 @@ namespace Pogi.Services
                 }
             }
             return ScoreInfos;
+        }
+
+        public string getTiebreaker(Score Score)
+        {
+            Member member = _context.Member.SingleOrDefault(r => r.MemberId == Score.MemberId);
+            CourseHandicap courseHandicap = _context.CourseHandicap.SingleOrDefault(r => r.CourseId == Score.CourseId);
+            byte[] scores = new byte[18];
+            scores[0] = (byte)Score.Hole01;
+            scores[1] = (byte)Score.Hole02;
+            scores[2] = (byte)Score.Hole03;
+            scores[3] = (byte)Score.Hole04;
+            scores[4] = (byte)Score.Hole05;
+            scores[5] = (byte)Score.Hole06;
+            scores[6] = (byte)Score.Hole07;
+            scores[7] = (byte)Score.Hole08;
+            scores[8] = (byte)Score.Hole09;
+            scores[9] = (byte)Score.Hole10;
+            scores[10] = (byte)Score.Hole11;
+            scores[11] = (byte)Score.Hole12;
+            scores[12] = (byte)Score.Hole13;
+            scores[13] = (byte)Score.Hole14;
+            scores[14] = (byte)Score.Hole15;
+            scores[15] = (byte)Score.Hole16;
+            scores[16] = (byte)Score.Hole17;
+            scores[17] = (byte)Score.Hole18;
+            byte[] cHcps = new byte[18];
+            if (member.Gender == GenderType.Male)
+            {
+                cHcps[0] = (byte)courseHandicap.MenHcp01;
+                cHcps[1] = (byte)courseHandicap.MenHcp02;
+                cHcps[2] = (byte)courseHandicap.MenHcp03;
+                cHcps[3] = (byte)courseHandicap.MenHcp04;
+                cHcps[4] = (byte)courseHandicap.MenHcp05;
+                cHcps[5] = (byte)courseHandicap.MenHcp06;
+                cHcps[6] = (byte)courseHandicap.MenHcp07;
+                cHcps[7] = (byte)courseHandicap.MenHcp08;
+                cHcps[8] = (byte)courseHandicap.MenHcp09;
+                cHcps[9] = (byte)courseHandicap.MenHcp10;
+                cHcps[10] = (byte)courseHandicap.MenHcp11;
+                cHcps[11] = (byte)courseHandicap.MenHcp12;
+                cHcps[12] = (byte)courseHandicap.MenHcp13;
+                cHcps[13] = (byte)courseHandicap.MenHcp14;
+                cHcps[14] = (byte)courseHandicap.MenHcp15;
+                cHcps[15] = (byte)courseHandicap.MenHcp16;
+                cHcps[16] = (byte)courseHandicap.MenHcp17;
+                cHcps[17] = (byte)courseHandicap.MenHcp18;
+            }
+            else
+            {
+                cHcps[0] = (byte)courseHandicap.LadiesHcp01;
+                cHcps[1] = (byte)courseHandicap.LadiesHcp02;
+                cHcps[2] = (byte)courseHandicap.LadiesHcp03;
+                cHcps[3] = (byte)courseHandicap.LadiesHcp04;
+                cHcps[4] = (byte)courseHandicap.LadiesHcp05;
+                cHcps[5] = (byte)courseHandicap.LadiesHcp06;
+                cHcps[6] = (byte)courseHandicap.LadiesHcp07;
+                cHcps[7] = (byte)courseHandicap.LadiesHcp08;
+                cHcps[8] = (byte)courseHandicap.LadiesHcp09;
+                cHcps[9] = (byte)courseHandicap.LadiesHcp10;
+                cHcps[10] = (byte)courseHandicap.LadiesHcp11;
+                cHcps[11] = (byte)courseHandicap.LadiesHcp12;
+                cHcps[12] = (byte)courseHandicap.LadiesHcp13;
+                cHcps[13] = (byte)courseHandicap.LadiesHcp14;
+                cHcps[14] = (byte)courseHandicap.LadiesHcp15;
+                cHcps[15] = (byte)courseHandicap.LadiesHcp16;
+                cHcps[16] = (byte)courseHandicap.LadiesHcp17;
+                cHcps[17] = (byte)courseHandicap.LadiesHcp18;
+            }
+        }
+        private void pushScore(byte[] scores, byte[] ties, int i)
+        {
+
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Pogi.Entities
             DateTime lastSaturday = today.AddDays(daysSinceSaturday);
             CreatedTs = DateTime.Now;
             ScoreDate = lastSaturday;
+            Tiebreaker = "010101010101010101010101010101010101";
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ScoreId { get; set; }
@@ -111,6 +112,7 @@ namespace Pogi.Entities
         [Display(Name = "About Game")]
         [MaxLength(200)]
         public string AboutGame { get; set; }
+        public string Tiebreaker { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedTs { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

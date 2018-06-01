@@ -1,4 +1,5 @@
-﻿using Pogi.Models;
+﻿using Pogi.Entities;
+using Pogi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,7 @@ namespace Pogi.Services
         List<ScoreInfo> getBadgesOfWeek(DateTime time);
         List<ScoreInfo> getBadgesOfMonth(DateTime time);
         List<ScoreInfo> getBadgesOfYear(DateTime time);
+
+        String getTiebreaker(Score Score);
     }
 }
