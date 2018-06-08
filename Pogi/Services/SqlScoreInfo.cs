@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Pogi.Data;
 using Pogi.Entities;
@@ -64,7 +65,7 @@ namespace Pogi.Services
                 var TourType = Tour.TourType;
                 if (TourType == TourType.SingleDay)
                 {
-                    var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+                    var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
                     foreach (Score score in Scores)
                     {
                         Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
@@ -80,7 +81,7 @@ namespace Pogi.Services
                     var TourDays = _context.TourDay.Where(r => r.TourId == Tour.TourId).OrderByDescending(r => r.TourDate);
                     foreach (TourDay TourDay in TourDays)
                     {
-                        var Scores = _context.Score.Where(r => r.TourEvent && r.ScoreDate.Date == TourDay.TourDate);
+                        var Scores = _context.Score.Where(r => r.TourEvent && r.ScoreDate.Date == TourDay.TourDate).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
                         foreach (Score score in Scores)
                         {
                             Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
@@ -398,72 +399,88 @@ namespace Pogi.Services
         {
             Member member = _context.Member.SingleOrDefault(r => r.MemberId == Score.MemberId);
             CourseHandicap courseHandicap = _context.CourseHandicap.SingleOrDefault(r => r.CourseId == Score.CourseId);
-            byte[] scores = new byte[18];
-            scores[0] = (byte)Score.Hole01;
-            scores[1] = (byte)Score.Hole02;
-            scores[2] = (byte)Score.Hole03;
-            scores[3] = (byte)Score.Hole04;
-            scores[4] = (byte)Score.Hole05;
-            scores[5] = (byte)Score.Hole06;
-            scores[6] = (byte)Score.Hole07;
-            scores[7] = (byte)Score.Hole08;
-            scores[8] = (byte)Score.Hole09;
-            scores[9] = (byte)Score.Hole10;
-            scores[10] = (byte)Score.Hole11;
-            scores[11] = (byte)Score.Hole12;
-            scores[12] = (byte)Score.Hole13;
-            scores[13] = (byte)Score.Hole14;
-            scores[14] = (byte)Score.Hole15;
-            scores[15] = (byte)Score.Hole16;
-            scores[16] = (byte)Score.Hole17;
-            scores[17] = (byte)Score.Hole18;
-            byte[] cHcps = new byte[18];
+            if (courseHandicap == null)
+            {
+                return new string('9', 36);
+            }
+            int[] scores = new int[18];
+            scores[0] = Score.Hole01;
+            scores[1] = Score.Hole02;
+            scores[2] = Score.Hole03;
+            scores[3] = Score.Hole04;
+            scores[4] = Score.Hole05;
+            scores[5] = Score.Hole06;
+            scores[6] = Score.Hole07;
+            scores[7] = Score.Hole08;
+            scores[8] = Score.Hole09;
+            scores[9] = Score.Hole10;
+            scores[10] = Score.Hole11;
+            scores[11] = Score.Hole12;
+            scores[12] = Score.Hole13;
+            scores[13] = Score.Hole14;
+            scores[14] = Score.Hole15;
+            scores[15] = Score.Hole16;
+            scores[16] = Score.Hole17;
+            scores[17] = Score.Hole18;
+            int[] cHcps = new int[18];
             if (member.Gender == GenderType.Male)
             {
-                cHcps[0] = (byte)courseHandicap.MenHcp01;
-                cHcps[1] = (byte)courseHandicap.MenHcp02;
-                cHcps[2] = (byte)courseHandicap.MenHcp03;
-                cHcps[3] = (byte)courseHandicap.MenHcp04;
-                cHcps[4] = (byte)courseHandicap.MenHcp05;
-                cHcps[5] = (byte)courseHandicap.MenHcp06;
-                cHcps[6] = (byte)courseHandicap.MenHcp07;
-                cHcps[7] = (byte)courseHandicap.MenHcp08;
-                cHcps[8] = (byte)courseHandicap.MenHcp09;
-                cHcps[9] = (byte)courseHandicap.MenHcp10;
-                cHcps[10] = (byte)courseHandicap.MenHcp11;
-                cHcps[11] = (byte)courseHandicap.MenHcp12;
-                cHcps[12] = (byte)courseHandicap.MenHcp13;
-                cHcps[13] = (byte)courseHandicap.MenHcp14;
-                cHcps[14] = (byte)courseHandicap.MenHcp15;
-                cHcps[15] = (byte)courseHandicap.MenHcp16;
-                cHcps[16] = (byte)courseHandicap.MenHcp17;
-                cHcps[17] = (byte)courseHandicap.MenHcp18;
+                cHcps[0] = courseHandicap.MenHcp01;
+                cHcps[1] = courseHandicap.MenHcp02;
+                cHcps[2] = courseHandicap.MenHcp03;
+                cHcps[3] = courseHandicap.MenHcp04;
+                cHcps[4] = courseHandicap.MenHcp05;
+                cHcps[5] = courseHandicap.MenHcp06;
+                cHcps[6] = courseHandicap.MenHcp07;
+                cHcps[7] = courseHandicap.MenHcp08;
+                cHcps[8] = courseHandicap.MenHcp09;
+                cHcps[9] = courseHandicap.MenHcp10;
+                cHcps[10] = courseHandicap.MenHcp11;
+                cHcps[11] = courseHandicap.MenHcp12;
+                cHcps[12] = courseHandicap.MenHcp13;
+                cHcps[13] = courseHandicap.MenHcp14;
+                cHcps[14] = courseHandicap.MenHcp15;
+                cHcps[15] = courseHandicap.MenHcp16;
+                cHcps[16] = courseHandicap.MenHcp17;
+                cHcps[17] = courseHandicap.MenHcp18;
             }
             else
             {
-                cHcps[0] = (byte)courseHandicap.LadiesHcp01;
-                cHcps[1] = (byte)courseHandicap.LadiesHcp02;
-                cHcps[2] = (byte)courseHandicap.LadiesHcp03;
-                cHcps[3] = (byte)courseHandicap.LadiesHcp04;
-                cHcps[4] = (byte)courseHandicap.LadiesHcp05;
-                cHcps[5] = (byte)courseHandicap.LadiesHcp06;
-                cHcps[6] = (byte)courseHandicap.LadiesHcp07;
-                cHcps[7] = (byte)courseHandicap.LadiesHcp08;
-                cHcps[8] = (byte)courseHandicap.LadiesHcp09;
-                cHcps[9] = (byte)courseHandicap.LadiesHcp10;
-                cHcps[10] = (byte)courseHandicap.LadiesHcp11;
-                cHcps[11] = (byte)courseHandicap.LadiesHcp12;
-                cHcps[12] = (byte)courseHandicap.LadiesHcp13;
-                cHcps[13] = (byte)courseHandicap.LadiesHcp14;
-                cHcps[14] = (byte)courseHandicap.LadiesHcp15;
-                cHcps[15] = (byte)courseHandicap.LadiesHcp16;
-                cHcps[16] = (byte)courseHandicap.LadiesHcp17;
-                cHcps[17] = (byte)courseHandicap.LadiesHcp18;
+                cHcps[0] = courseHandicap.LadiesHcp01;
+                cHcps[1] = courseHandicap.LadiesHcp02;
+                cHcps[2] = courseHandicap.LadiesHcp03;
+                cHcps[3] = courseHandicap.LadiesHcp04;
+                cHcps[4] = courseHandicap.LadiesHcp05;
+                cHcps[5] = courseHandicap.LadiesHcp06;
+                cHcps[6] = courseHandicap.LadiesHcp07;
+                cHcps[7] = courseHandicap.LadiesHcp08;
+                cHcps[8] = courseHandicap.LadiesHcp09;
+                cHcps[9] = courseHandicap.LadiesHcp10;
+                cHcps[10] = courseHandicap.LadiesHcp11;
+                cHcps[11] = courseHandicap.LadiesHcp12;
+                cHcps[12] = courseHandicap.LadiesHcp13;
+                cHcps[13] = courseHandicap.LadiesHcp14;
+                cHcps[14] = courseHandicap.LadiesHcp15;
+                cHcps[15] = courseHandicap.LadiesHcp16;
+                cHcps[16] = courseHandicap.LadiesHcp17;
+                cHcps[17] = courseHandicap.LadiesHcp18;
             }
+            
+            int[] ties = new int[18];
+            for (int i=0; i< 18; i++)
+            {
+                pushScore(scores, cHcps, ties, i);
+            }
+            StringBuilder tiebreaker = new StringBuilder();
+            for (int i = 0; i < 18; i++)
+            {
+                tiebreaker.Append(ties[i].ToString("00"));
+            }
+            return tiebreaker.ToString();
         }
-        private void pushScore(byte[] scores, byte[] ties, int i)
+        private void pushScore(int[] scores, int[] cHcps, int[] ties, int i)
         {
-
+            ties[cHcps[i]-1]= scores[i];
         }
     }
 }

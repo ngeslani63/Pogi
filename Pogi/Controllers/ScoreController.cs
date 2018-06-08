@@ -502,6 +502,7 @@ namespace Pogi.Controllers
                 }
 
                 countScores(Score, Course);
+                Score.Tiebreaker = _scoreInfo.getTiebreaker(Score);
 
                 Score.CreatedBy = User.Identity.Name;
                 Score.CreatedTs = DateTime.Now;
@@ -672,6 +673,7 @@ namespace Pogi.Controllers
                     }
 
                     countScores(Score, Course);
+                    Score.Tiebreaker = _scoreInfo.getTiebreaker(Score);
 
                     Score.LastUpdatedBy = User.Identity.Name;
                     Score.LastUpdatedTs = DateTime.Now;
