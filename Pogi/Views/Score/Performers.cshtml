@@ -1,8 +1,8 @@
 ﻿@using Pogi.Models.ScoreViewModels;
-@model ScoreLeaderboardViewModel
+@model ScorePerformersViewModel
 
 @{
-    ViewData["Title"] = "Leaderboard";
+    ViewData["Title"] = "Performers";
 }
 <section class="jumbotron text-center">
     <div class="container">
@@ -12,7 +12,7 @@
     </div>
 </section>
 <div class="container">
-    <form asp-action="Leaderboard">
+    <form asp-action="Performers">
         <div class="row">
             <div class="col-md-3">
                 <div class="input-group">
@@ -168,7 +168,7 @@
 
 @section Scripts {
     <script type="text/javascript">
-        console.info("Hello Leaderboard");
+        console.info("Hello Performers");
 
         $(".fileinput").each(function () {
             //console.info("Hello before loadImage "

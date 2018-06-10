@@ -100,6 +100,72 @@ namespace Pogi.Services
             return ScoreInfos;
         }
 
+        public List<ScoreInfo> getPodiumForTour(int TourId)
+        {
+            List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
+            Tour Tour;
+            if (TourId == 0)
+            {
+                return null;
+            }
+            else
+            {
+                Tour = _tourInfo.getTour(TourId);
+                if (Tour == null )
+                {
+                    return null;
+                }
+            }
+            var TourType = Tour.TourType;
+            Member member;
+            Course course;
+            int grossScoreId = 0;
+            if (TourType == TourType.SingleDay)
+            {
+                var grossScore = (Score)_context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.HoleTotal).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker).FirstOrDefault();
+                if (grossScore != null)
+                {
+                    grossScoreId = grossScore.ScoreId;
+                    member = _context.Member.FirstOrDefault(r => r.MemberId == grossScore.MemberId);
+                    course = _context.Course.FirstOrDefault(r => r.CourseId == grossScore.CourseId);
+                    ScoreInfo scoreInfo = new ScoreInfo(member, course, grossScore, "Low Gross Champion");
+                    ScoreInfos.Add(scoreInfo);
+                }
+
+                int podiumCnt = 0;
+                var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate)
+                    .ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
+                foreach (Score score in Scores)
+                {
+                    if (podiumCnt < 3)
+                    {
+                        member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                        course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                        String merit = "";
+                        if (score.ScoreId != grossScoreId)
+                        {
+                            podiumCnt++;
+                            switch (podiumCnt)
+                            {
+                                case 1:
+                                    merit = "Low Net Champion";
+                                    break;
+                                case 2:
+                                    merit = "Net 1st Runner Up";
+                                    break;
+                                case 3:
+                                    merit = "Net 2nd Runner Up";
+                                    break;
+                            }
+                            ScoreInfo scoreInfo = new ScoreInfo(member, course, score, merit);
+                            ScoreInfos.Add(scoreInfo);
+                        }
+                    }
+                }
+            }
+
+            return ScoreInfos;
+        }
 
         public List<ScoreInfo> getMeritsAllTime()
         {
@@ -482,5 +548,6 @@ namespace Pogi.Services
         {
             ties[cHcps[i]-1]= scores[i];
         }
+
     }
 }

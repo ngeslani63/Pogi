@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pogi.Models.ScoreViewModels
 {
-    public class ScoreLeaderboardViewModel : Member
+    public class ScorePerformersViewModel : Member
     {
         [Display(Name = "As Of Date")]
         [DataType(DataType.Date)]

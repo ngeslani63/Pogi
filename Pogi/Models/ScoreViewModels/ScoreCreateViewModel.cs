@@ -13,7 +13,7 @@ namespace Pogi.Models.ScoreViewModels
 {
     public class ScoreCreateViewModel
     {
-        private IDateTime _dateTime;
+        //private IDateTime _dateTime;
 
         public ScoreCreateViewModel()
         {

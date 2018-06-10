@@ -122,8 +122,8 @@ namespace Pogi.Controllers
         }
 
         [AllowAnonymous]
-        //public async Task<IActionResult> LeaderBoard()
-        public IActionResult LeaderBoard()
+        //public async Task<IActionResult> Performers()
+        public IActionResult Performers()
         {
             string userName = "";
             Member Member = null;
@@ -132,18 +132,18 @@ namespace Pogi.Controllers
                 Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                 if (Member != null) userName = Member.EmailAddr1st;
             }
-            _activity.logActivity(userName, "LeaderBoard");
+            _activity.logActivity(userName, "Performers");
 
-            var LeaderBoardWeekly = _session.GetString("LeaderBoardWeekly");
-            var LeaderBoardMonthly = _session.GetString("LeaderBoardMonthly");
-            var LeaderBoardYearly = _session.GetString("LeaderBoardYearly");
-            var LeaderBoardAllTime = _session.GetString("LeaderBoardAllTime");
-            var LeaderBoardAsOfDate = _session.GetString("LeaderBoardAsOfDate");
-            var model = new ScoreLeaderboardViewModel();
+            var PerformersWeekly = _session.GetString("PerformersWeekly");
+            var PerformersMonthly = _session.GetString("PerformersMonthly");
+            var PerformersYearly = _session.GetString("PerformersYearly");
+            var PerformersAllTime = _session.GetString("PerformersAllTime");
+            var PerformersAsOfDate = _session.GetString("PerformersAsOfDate");
+            var model = new ScorePerformersViewModel();
 
-            if (LeaderBoardAsOfDate != null && LeaderBoardAsOfDate.Length > 0)
+            if (PerformersAsOfDate != null && PerformersAsOfDate.Length > 0)
             {
-                model.AsOfDate = DateTime.ParseExact(LeaderBoardAsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+                model.AsOfDate = DateTime.ParseExact(PerformersAsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
             }
             else
             {
@@ -152,16 +152,16 @@ namespace Pogi.Controllers
                 model.AsOfDate = today.AddDays(daysSinceSunday); // Sunday of Last Week
             }
 
-            if (LeaderBoardWeekly == "Y") model.Weekly = true;
-            if (LeaderBoardMonthly == "Y") model.Monthly = true;
-            if (LeaderBoardYearly == "Y") model.Yearly = true;
-            if (LeaderBoardAllTime == "Y") model.AllTime = true;
+            if (PerformersWeekly == "Y") model.Weekly = true;
+            if (PerformersMonthly == "Y") model.Monthly = true;
+            if (PerformersYearly == "Y") model.Yearly = true;
+            if (PerformersAllTime == "Y") model.AllTime = true;
             if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
             {
                 model.Weekly = true;
                 model.AllTime = true;
-                _session.SetString("LeaderBoardWeekly", "Y");
-                _session.SetString("LeaderBoardAllTime", "Y");
+                _session.SetString("PerformersWeekly", "Y");
+                _session.SetString("PerformersAllTime", "Y");
             }
             model.ScoreInfos = new List<ScoreInfo>();
             if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfWeek(model.AsOfDate));
@@ -169,7 +169,7 @@ namespace Pogi.Controllers
             if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfYear(model.AsOfDate));
             if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getMeritsAllTime());
             //model = _scoreInfo.getMeritsAllTime();
-            _session.SetString("LeaderBoardAsOfdate", model.AsOfDate.ToShortDateString());
+            _session.SetString("PerformersAsOfdate", model.AsOfDate.ToShortDateString());
 
             return View(model);
             //return View(await _context.Score.ToListAsync());
@@ -178,17 +178,17 @@ namespace Pogi.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> LeaderBoard()
-        //public IActionResult LeaderBoard(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool Alltime )
-        public IActionResult LeaderBoard(ScoreLeaderboardViewModel model)
+        //public async Task<IActionResult> Performers()
+        //public IActionResult Performers(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool Alltime )
+        public IActionResult Performers(ScorePerformersViewModel model)
         {
-            //var model = new ScoreLeaderboardViewModel();
+            //var model = new ScorePerformersViewModel();
             if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
             {
                 //model.Weekly = true;
                 //model.AllTime = true;
-                //_session.SetString("LeaderBoardWeekly", "Y");
-                //_session.SetString("LeaderBoardAllTime", "Y");
+                //_session.SetString("PerformersWeekly", "Y");
+                //_session.SetString("PerformersAllTime", "Y");
             }
             model.ScoreInfos = new List<ScoreInfo>();
             //if (AsOfDate != null && AsOfDate.Length > 0)
@@ -207,15 +207,15 @@ namespace Pogi.Controllers
             if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfMonth(model.AsOfDate));
             if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfYear(model.AsOfDate));
             if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getMeritsAllTime());
-            if (model.Weekly) _session.SetString("LeaderBoardWeekly", "Y");
-            else _session.SetString("LeaderBoardWeekly", "N");
-            if (model.Monthly) _session.SetString("LeaderBoardMonthly", "Y");
-            else _session.SetString("LeaderBoardMonthly", "N");
-            if (model.Yearly) _session.SetString("LeaderBoardYearly", "Y");
-            else _session.SetString("LeaderBoardYearly", "N");
-            if (model.AllTime) _session.SetString("LeaderBoardAllTime", "Y");
-            else _session.SetString("LeaderBoardAllTime", "N");
-            _session.SetString("LeaderBoardAsOfDate", model.AsOfDate.ToShortDateString());
+            if (model.Weekly) _session.SetString("PerformersWeekly", "Y");
+            else _session.SetString("PerformersWeekly", "N");
+            if (model.Monthly) _session.SetString("PerformersMonthly", "Y");
+            else _session.SetString("PerformersMonthly", "N");
+            if (model.Yearly) _session.SetString("PerformersYearly", "Y");
+            else _session.SetString("PerformersYearly", "N");
+            if (model.AllTime) _session.SetString("PerformersAllTime", "Y");
+            else _session.SetString("PerformersAllTime", "N");
+            _session.SetString("PerformersAsOfDate", model.AsOfDate.ToShortDateString());
 
 
             return View(model);
@@ -234,7 +234,7 @@ namespace Pogi.Controllers
         //    //return View(await _context.Score.ToListAsync());
         //}
         [AllowAnonymous]
-        //public async Task<IActionResult> LeaderBoard()
+        //public async Task<IActionResult> Performers()
         public IActionResult Badges()
         {
             string userName = "";
@@ -251,7 +251,7 @@ namespace Pogi.Controllers
             var BadgesYearly = _session.GetString("BadgesYearly");
             var BadgesAllTime = _session.GetString("BadgesAllTime");
             var BadgesAsOfDate = _session.GetString("BadgesAsOfDate");
-            var model = new ScoreLeaderboardViewModel();
+            var model = new ScorePerformersViewModel();
 
             if (BadgesAsOfDate != null && BadgesAsOfDate.Length > 0)
             {
@@ -292,7 +292,7 @@ namespace Pogi.Controllers
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Badges()
         //public IActionResult Badges(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool Alltime )
-        public IActionResult Badges(ScoreLeaderboardViewModel model)
+        public IActionResult Badges(ScorePerformersViewModel model)
         {
             //var model = new ScoreBadgesViewModel();
             if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))

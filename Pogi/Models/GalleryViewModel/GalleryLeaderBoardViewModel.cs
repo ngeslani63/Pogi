@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pogi.Models.GalleryViewModel
 {
-    public class GalleryLeaderBoardViewModel
+    public class GalleryPerformersViewModel
     {
         public ScoreInfo LowNetWeekly { get; set; }
         public ScoreInfo LowNetMonth { get; set; }

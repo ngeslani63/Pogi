@@ -12,6 +12,7 @@ namespace Pogi.Services
         List<ScoreInfo> getAll();
         List<ScoreInfo> getForTour(string TourName);
         List<ScoreInfo> getForTour(int TourId);
+        List<ScoreInfo> getPodiumForTour(int TourId);
         List<ScoreInfo> getMeritsAllTime();
         List<ScoreInfo> getMeritsThisYear();
         List<ScoreInfo> getMeritsLastWeek();
