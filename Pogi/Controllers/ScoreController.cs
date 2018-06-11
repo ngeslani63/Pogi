@@ -121,6 +121,45 @@ namespace Pogi.Controllers
             //return View(await _context.Score.ToListAsync());
         }
 
+        public IActionResult Podium(string TourId)
+        {
+
+            if (TourId == null || TourId.Length == 0)
+            {
+                TourId = _session.GetString("TourIdPodium");
+                if (TourId == null || TourId.Length == 0)
+                {
+                    _session.Remove("TourIdPodium");
+                    TourId = "1";
+                }
+            }
+            else
+            {
+                _session.SetString("TourIdPodium", TourId);
+            }
+            var model = new ScorePodiumViewModel();
+            if (TourId.Length > 0 && int.Parse(TourId) > 0)
+            {
+                model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                model.TourId = TourId;
+            }
+            else
+            {
+                model.ScoreInfos = null;
+                model.TourId = "1";
+            }
+            model.Tours = _tourInfo.getTours(true);
+            string userName = "";
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Podium");
+            return View(model);
+            //return View(await _context.Score.ToListAsync());
+        }
+
         [AllowAnonymous]
         //public async Task<IActionResult> Performers()
         public IActionResult Performers()
