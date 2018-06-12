@@ -1,0 +1,114 @@
+﻿@using Pogi.Models.ScoreViewModels;
+@model ScorePodiumViewModel
+
+@{
+    ViewData["Title"] = "Badges";
+}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Podium Finishers</h1>
+        <p class="lead text-muted">Give me enough medals and I'll win any war - Napoloean Bonaparte</p>
+
+    </div>
+</section>
+<div class="container">
+    <form asp-action="Podium">
+        <div class="row">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Select Tour</span>
+                </div>
+                <select asp-for="TourId" asp-items="@Model.Tours" class="form-control"></select>
+                <div class="input-group-addon">
+                    <input hidden id="SetTour" type="submit" name="SetTour" value="SetTour" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+<div class="album py-5 bg-light">
+    <div class="container">
+
+
+        <div class="row">
+            @foreach (ScoreInfo ScoreInfo in Model.ScoreInfos)
+            {
+                var member = ScoreInfo.Member;
+                var course = ScoreInfo.Course;
+                var score = ScoreInfo.Score;
+
+                var imgFile = "/images/Profile/" + member.FirstName + member.LastName + ".jpg";
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="fileinput card-img-top" src="@imgFile"
+                             alt="Image not found" onerror="this.src='/images/profile/avatar.jpg';">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h4>@ScoreInfo.Merit</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="text-capitalize">@member.FirstName @member.LastName</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="text-info">Date: </span>@score.ScoreDate.Date.ToShortDateString()
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="text-info">Course: </span>@course.CourseName
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="text-info">Gross Score: </span>@score.HoleTotal
+                                </div>
+                                <div class="col">
+                                    <span class="text-info">Tour Net Score: </span>@score.TourScore
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="text-info">Pars </span>@score.Pars
+                                </div>
+                                <div class="col">
+                                    <span class="text-info">Birdies </span>@score.Birdies
+                                </div>
+                                <div class="col">
+                                    <span class="text-info">Eagles </span>@score.Eagles
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex justify-content-between align-items-center">
+                                    <span>@score.AboutGame</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        console.info("Hello Podium");
+
+        $("#TourId").change(function () {
+            console.info("TourId changed");
+            $("#SetTour").trigger("click");
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -122,7 +122,7 @@ namespace Pogi.Services
             int grossScoreId = 0;
             if (TourType == TourType.SingleDay)
             {
-                var grossScore = (Score)_context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.HoleTotal).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker).FirstOrDefault();
+                var grossScore = (Score)_context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderBy(r => r.HoleTotal).ThenBy(i => i.Tiebreaker).FirstOrDefault();
                 if (grossScore != null)
                 {
                     grossScoreId = grossScore.ScoreId;
@@ -133,8 +133,7 @@ namespace Pogi.Services
                 }
 
                 int podiumCnt = 0;
-                var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate)
-                    .ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
+                var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
                 foreach (Score score in Scores)
                 {
                     if (podiumCnt < 3)
@@ -151,10 +150,10 @@ namespace Pogi.Services
                                     merit = "Low Net Champion";
                                     break;
                                 case 2:
-                                    merit = "Net 1st Runner Up";
+                                    merit = "Low Net 1st Runner Up";
                                     break;
                                 case 3:
-                                    merit = "Net 2nd Runner Up";
+                                    merit = "Low Net 2nd Runner Up";
                                     break;
                             }
                             ScoreInfo scoreInfo = new ScoreInfo(member, course, score, merit);

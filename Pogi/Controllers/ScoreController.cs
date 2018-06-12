@@ -140,15 +140,15 @@ namespace Pogi.Controllers
             var model = new ScorePodiumViewModel();
             if (TourId.Length > 0 && int.Parse(TourId) > 0)
             {
-                model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                model.ScoreInfos = _scoreInfo.getPodiumForTour(int.Parse(TourId));
                 model.TourId = TourId;
             }
             else
             {
                 model.ScoreInfos = null;
-                model.TourId = "1";
+                model.TourId = "0";
             }
-            model.Tours = _tourInfo.getTours(true);
+            model.Tours = _tourInfo.getTours(false);
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
