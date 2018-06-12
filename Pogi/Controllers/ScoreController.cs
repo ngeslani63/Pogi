@@ -120,7 +120,39 @@ namespace Pogi.Controllers
             return View(model);
             //return View(await _context.Score.ToListAsync());
         }
-
+        [AllowAnonymous]
+        public IActionResult Leaderboard(string TourId)
+        {
+            if (TourId == null || TourId.Length == 0)
+            {
+                TourId = _session.GetString("TourIdLeaderboard");
+                if (TourId == null || TourId.Length == 0)
+                {
+                    TourId = "1";
+                    _session.SetString("TourIdLeaderboard", TourId);
+                }
+            }
+            else
+            {
+                _session.SetString("TourIdLeaderboard", TourId);
+            }
+            var model = new ScoreDisplayViewModel();
+            if (TourId.Length > 0 && int.Parse(TourId) > 0)
+            {
+                model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                model.TourId = TourId;
+            }
+            model.Tours = _tourInfo.getTours(false);
+            string userName = "";
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Leaderboard");
+            return View(model);
+        }
+        [AllowAnonymous]
         public IActionResult Podium(string TourId)
         {
 
@@ -425,7 +457,7 @@ namespace Pogi.Controllers
                 model.Courses = _courseData.getSelectList();
                 model.Colors = _courseDetail.getColors(Int32.Parse(model.Courses[0].Value));
             }
-            if (TourEvent != null && TourEvent == "Y" )
+            if (TourEvent != null && TourEvent == "Y")
             {
                 model.TourEvent = true;
                 if (TourId != null)
@@ -686,7 +718,7 @@ namespace Pogi.Controllers
                     Score.TourScore = 199;
                     float HcpAllowPct = 100.0F;
                     Tour Tour;
-                    if (Score.TourEvent == true && (Tour =_tourInfo.getTour(Score.TourId)) != null)
+                    if (Score.TourEvent == true && (Tour = _tourInfo.getTour(Score.TourId)) != null)
                     {
                         HcpAllowPct = Tour.HcpAllowPct;
                     }
@@ -698,7 +730,7 @@ namespace Pogi.Controllers
                     if (Handicap != null && Handicap.HcpIndex > 0)
                     {
                         float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
-                        float courseHandicapT = Handicap.HcpIndex * (HcpAllowPct/100) * CourseDetail.Slope / 113;
+                        float courseHandicapT = Handicap.HcpIndex * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
                         Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                         Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
                     }
