@@ -152,6 +152,32 @@ namespace Pogi.Controllers
             _activity.logActivity(userName, "Leaderboard");
             return View(model);
         }
+        public IActionResult Revision(string EffDate)
+        {
+            if (EffDate == null || EffDate.Length == 0)
+            {
+                EffDate = _session.GetString("EffDateRevision");
+                if (EffDate == null || EffDate.Length == 0)
+                {
+                    EffDate = _handicap.getNextEffDate().ToShortDateString();
+                    _session.SetString("EffDateRevision", EffDate);
+                }
+            }
+            else
+            {
+                _session.SetString("EffDateRevision", EffDate);
+            }
+            var model = new ScoreRevisionViewModel();
+            if (EffDate != null && EffDate.Length > 0 )
+            {
+                DateTime dEffDate = DateTime.ParseExact(EffDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+                model.ScoreInfos = _scoreInfo.getForEffDate(dEffDate);
+                model.EffDate = EffDate;
+            }
+            model.ActiveDates = _handicap.getActiveDates(EffDate);
+
+            return View(model);
+        }
         [AllowAnonymous]
         public IActionResult Podium(string TourId)
         {
@@ -565,8 +591,8 @@ namespace Pogi.Controllers
                 }
                 else
                 {
-                    float courseHandicap = getCallawayHcp(Score, Course) * CourseDetail.Slope / 113;
-                    float courseHandicapT = getCallawayHcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
+                    float courseHandicap = getS36Hcp(Score, Course) * CourseDetail.Slope / 113;
+                    float courseHandicapT = getS36Hcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
                     Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                     Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
 
@@ -736,8 +762,8 @@ namespace Pogi.Controllers
                     }
                     else
                     {
-                        float courseHandicap = getCallawayHcp(Score, Course) * CourseDetail.Slope / 113;
-                        float courseHandicapT = getCallawayHcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
+                        float courseHandicap = getS36Hcp(Score, Course) * CourseDetail.Slope / 113;
+                        float courseHandicapT = getS36Hcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
                         Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                         Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
 
@@ -835,30 +861,30 @@ namespace Pogi.Controllers
             countBadges(Score, Score.Hole17, Course.Par17);
             countBadges(Score, Score.Hole18, Course.Par18);
         }
-        private int getCallawayHcp(Score Score, Course Course)
+        private int getS36Hcp(Score Score, Course Course)
         {
             int points = 36;
-            points = points - getCallawayPoints(Score.Hole01, Course.Par01);
-            points = points - getCallawayPoints(Score.Hole02, Course.Par02);
-            points = points - getCallawayPoints(Score.Hole03, Course.Par03);
-            points = points - getCallawayPoints(Score.Hole04, Course.Par04);
-            points = points - getCallawayPoints(Score.Hole05, Course.Par05);
-            points = points - getCallawayPoints(Score.Hole06, Course.Par06);
-            points = points - getCallawayPoints(Score.Hole07, Course.Par07);
-            points = points - getCallawayPoints(Score.Hole08, Course.Par08);
-            points = points - getCallawayPoints(Score.Hole09, Course.Par09);
-            points = points - getCallawayPoints(Score.Hole10, Course.Par10);
-            points = points - getCallawayPoints(Score.Hole11, Course.Par11);
-            points = points - getCallawayPoints(Score.Hole12, Course.Par12);
-            points = points - getCallawayPoints(Score.Hole13, Course.Par13);
-            points = points - getCallawayPoints(Score.Hole14, Course.Par14);
-            points = points - getCallawayPoints(Score.Hole15, Course.Par15);
-            points = points - getCallawayPoints(Score.Hole16, Course.Par16);
-            points = points - getCallawayPoints(Score.Hole17, Course.Par17);
-            points = points - getCallawayPoints(Score.Hole18, Course.Par18);
+            points = points - getS36Points(Score.Hole01, Course.Par01);
+            points = points - getS36Points(Score.Hole02, Course.Par02);
+            points = points - getS36Points(Score.Hole03, Course.Par03);
+            points = points - getS36Points(Score.Hole04, Course.Par04);
+            points = points - getS36Points(Score.Hole05, Course.Par05);
+            points = points - getS36Points(Score.Hole06, Course.Par06);
+            points = points - getS36Points(Score.Hole07, Course.Par07);
+            points = points - getS36Points(Score.Hole08, Course.Par08);
+            points = points - getS36Points(Score.Hole09, Course.Par09);
+            points = points - getS36Points(Score.Hole10, Course.Par10);
+            points = points - getS36Points(Score.Hole11, Course.Par11);
+            points = points - getS36Points(Score.Hole12, Course.Par12);
+            points = points - getS36Points(Score.Hole13, Course.Par13);
+            points = points - getS36Points(Score.Hole14, Course.Par14);
+            points = points - getS36Points(Score.Hole15, Course.Par15);
+            points = points - getS36Points(Score.Hole16, Course.Par16);
+            points = points - getS36Points(Score.Hole17, Course.Par17);
+            points = points - getS36Points(Score.Hole18, Course.Par18);
             return points;
         }
-        private int getCallawayPoints(int Score, int Par)
+        private int getS36Points(int Score, int Par)
         {
             if ((Score - Par) >= 2) return 0;
             if ((Score - Par) == 1) return 1;

@@ -44,8 +44,8 @@ namespace Pogi.Services
         }
         public IEnumerable<Member> getActive()
         {
-            return _context.Member.Where(r => r.MemberStatus == MemberState.Member ||
-            r.MemberStatus == MemberState.Junior).OrderBy(r => r.LastName);
+            return _context.Member.Where(r => r.RecordStatus == RecordState.Active && 
+                (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior || r.MemberStatus == MemberState.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
 
         public List<SelectListItem> getSelectList()
@@ -53,7 +53,8 @@ namespace Pogi.Services
             List<SelectListItem> memberList = new List<SelectListItem>();
             SelectListItem sl = new SelectListItem { Text = "All Members", Value = "0" };
             memberList.Add(sl);
-            IEnumerable<Member> members = _context.Member.Where(r => r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior).OrderBy(r => r.LastName);
+            IEnumerable<Member> members = _context.Member.Where(r => r.RecordStatus == RecordState.Active && 
+            (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior || r.MemberStatus == MemberState.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
             foreach (Member member in members)
             {
                sl = new SelectListItem { Text = member.LastName+", "+member.FirstName, Value = member.MemberId.ToString() };

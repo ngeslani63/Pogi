@@ -196,9 +196,9 @@
                             <div class="alert-info col-xs-8">
                                 @nextDateDisp &nbsp; / &nbsp;
                             </div>
-                            <div class="alert-info col-xs">
+                            @*<div class="alert-info col-xs">
                                 RegisteredBy &nbsp; / &nbsp;
-                            </div>
+                            </div>*@
                             <div class="alert-info col-xs">
                                 Status
                             </div>
@@ -247,9 +247,9 @@
                             }
                             &nbsp;/&nbsp;
                         </div>
-                        <div class="col-xs">
+                        @*<div class="col-xs">
                             @item.Player.RegistrationMethod&nbsp;/&nbsp;
-                        </div>
+                        </div>*@
                         <div class="col-xs">
                             @if (@item.Player.Withdrawn)
                             {
@@ -260,7 +260,7 @@
                             {
                                 @if (@item.Player.RegistrationMethod == RegistrationType.Self)
                                 {
-                                    <span>Confirmed</span>
+                                    <span>AutoConfirmed</span>
                                 }
                                 else
                                 {

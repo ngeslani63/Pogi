@@ -1,0 +1,100 @@
+﻿@using Pogi.Models.ScoreViewModels
+@using Pogi.Entities
+@inject Pogi.Services.ICourseDetail _courseDetail
+@inject Pogi.Services.IHandicap _handicap
+@inject Pogi.Services.ITourInfo _tourInfo
+@model ScoreRevisionViewModel ;
+
+@{
+    ViewData["Title"] = "Revision";
+}
+
+<div class="container-fluid">
+    <br />
+    <h2>Score</h2>
+    <h3>Revision Posting Report</h3>
+    <hr />
+
+    <form asp-action="Revision">
+        <div class="row">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-1">
+                Effective Date
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select asp-for="EffDate" asp-items="@Model.ActiveDates" class="col form-control"></select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <input type="submit" value="List" class="btn btn-primary" />
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+    
+    @{var sortName = "scoreDate";
+        var sortOrder = "desc";
+        var dataPagination = "false";
+
+    }
+    <table id="table"
+           data-toolbar="#toolbar"
+           data-toggle="table"
+           data-search="false"
+           data-striped="true"
+           data-pagination="@dataPagination"
+           data-sort-name="@sortName"
+           data-sort-order="@sortOrder"
+           data-remember-order="true"
+           data-sort-stable="true">
+        <thead>
+            <tr>
+                <th class="col-md-2" data-field="scoreDate" data-sortable="true">Date</th>
+                <th class="col-md-2" data-field="courseName" data-sortable="false">Course</th>
+                <th class="col-md-2" data-field="color" data-sortable="false">Color</th>
+                <th class="col-md-2" data-field="memberName" data-sortable="true">Member</th>
+                <th class="col-md-2" data-field="GHIN" data-sortable="true">GHIN</th>
+                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Gross</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ScoreInfos)
+            {
+                Score score = item.Score;
+                Member member = item.Member;
+                Course course = item.Course;
+                CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
+                int toPar = score.HoleTotal - course.ParTotal;
+                Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
+            <tr>
+                @{
+        DateTime scoreDateTime = score.ScoreDate;
+        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
+                }
+
+                <td class="col-md-2">@scoreDateDisp</td>
+                <td class="col-md-2">@course.CourseName</td>
+                <td class="col-md-1">@score.Color</td>
+                <td class="col-md-2">@member.FirstName @member.LastName</td>
+                <td class="col-md-2">@member.GhinNumber</td>
+                <td class="col-md-1">@score.HoleTotal</td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    <script>
+        console.info("Hello From Score for Revision");
+    </script>
+}

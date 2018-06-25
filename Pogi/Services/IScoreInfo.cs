@@ -10,6 +10,7 @@ namespace Pogi.Services
     public interface IScoreInfo
     {
         List<ScoreInfo> getAll();
+        List<ScoreInfo> getForEffDate(DateTime EffDate);
         List<ScoreInfo> getForTour(string TourName);
         List<ScoreInfo> getForTour(int TourId);
         List<ScoreInfo> getPodiumForTour(int TourId);
