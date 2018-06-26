@@ -29,26 +29,26 @@
                     var teeAssignInfos = item.TeeAssignInfos;
 
                     <div class="row input-group">
-                        <div class="input-group-prepend alert-info  col-md-4">
+                        <div class="input-group-prepend alert-info  col-sm-4">
                             @Html.DisplayNameFor(model => course.CourseName)
                         </div>
-                        <div class="alert-secondary col-md-8">
+                        <div class="alert-secondary col">
                             @Html.DisplayFor(modelItem => course.CourseName)
                         </div>
                     </div>
                     <div class="row input-group">
-                        <div class="input-group-prepend alert-info col-md-4">
+                        <div class="input-group-prepend alert-info col-sm-4">
                             @Html.DisplayNameFor(model => teeTime.TeeTimeTS)
                         </div>
-                        <div class="alert-secondary col-md-8">
+                        <div class="alert-secondary col">
                             @teeTimeDisp
                         </div>
                     </div>
                     <div class="row input-group">
-                        <div class="input-group-prepend alert-info col-md-4">
+                        <div class="input-group-prepend alert-info col-sm-4">
                             Reserved By
                         </div>
-                        <div class="alert-secondary col-md-8">
+                        <div class="alert-secondary col">
                             @Html.DisplayFor(modelItem => member.FirstName)
                             @Html.DisplayFor(modelItem => member.LastName)
                         </div>
@@ -62,21 +62,21 @@
                         {
                             group++;
                             <div class="row input-group">
-                                <div class="input-group-prepend alert-primary col-md-4">
+                                <div class="input-group-prepend alert-primary col-sm-4">
                                     Group @group
                                 </div>
-                                <div class="alert-primary col-md-8">
+                                <div class="alert-primary col">
                                     Start Time: @startTime.ToShortTimeString()
                                 </div>
                             </div>
                             startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
                         }
                         <div class="row input-group">
-                            <div class="input-group-prepend alert-info col-md-4">
+                            <div class="input-group-prepend col">
                                 Player @(i + 1)
                             </div>
 
-                            <div class="col-md-8 text-dark">
+                            <div class="col text-dark">
                                 @if (i < teeAssignInfos.Count)
                                 {
                                     var teeAssignInfo = teeAssignInfos[i];
@@ -259,7 +259,7 @@
                             {
                                 @if (@item.Player.RegistrationMethod == RegistrationType.Self)
                                 {
-                                    <span>Self-Reg</span>
+                                    <span>Conf1rmed</span>
                                 }
                                 else
                                 {
