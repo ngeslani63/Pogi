@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Pogi.Data;
 using Pogi.Entities;
 using Pogi.Models;
+using Pogi.Models.MemberViewModel;
 using Pogi.Services;
 
 namespace Pogi.Controllers
@@ -44,38 +45,116 @@ namespace Pogi.Controllers
         //public async Task<IActionResult> Index()
         public IActionResult Index()
         {
+            var model = new MemberDisplayViewModel();
+            var displayMembers = _session.GetString("DisplayMembers");
+            var displayGuests = _session.GetString("DisplayGuests");
+            if (displayMembers != null || displayGuests != null)
+            {
+                model.dispMembers = false;
+                model.dispGuests = false;
+                if (displayMembers == "Y") model.dispMembers = true;
+                if (displayGuests == "Y") model.dispGuests = true;
+            }
+            if (!model.dispGuests && !model.dispMembers)
+            {
+                model.dispMembers = true;
+                displayMembers = "Y";
+            }
+
             var search = _session.GetString("SearchMemberName");
             if (search != null && search.Length > 0)
             {
-                var model = _memberData.getAll(search);
-                return View(model);
-
+                if (model.dispMembers && model.dispGuests)
+                {
+                    model.Members = _memberData.getAll(search);
+                }
+                else if (model.dispMembers)
+                {
+                    model.Members = _memberData.getMembers(search);
+                }
+                else model.Members = _memberData.getGuests(search);
             }
             else
             {
-                var model = _memberData.getAll();
-                return View(model);
+
+                if (model.dispMembers && model.dispGuests)
+                {
+                    model.Members = _memberData.getAll();
+                }
+                else if (model.dispMembers)
+                {
+                    model.Members = _memberData.getMembers();
+                }
+                else model.Members = _memberData.getGuests();
+
+
             }
+            displayMembers = "N";
+            displayGuests = "N";
+            if (model.dispMembers) displayMembers = "Y";
+            if (model.dispGuests) displayGuests = "Y";
+            _session.SetString("DisplayMembers", displayMembers);
+            _session.SetString("DisplayGuests", displayGuests);
+            return View(model);
 
             //return View(await _context.Member.ToListAsync());
         }
 
         [HttpPost]
         //public async Task<IActionResult> Index()
-        public IActionResult Index(string search)
+        public IActionResult Index(string search, bool dispMembers, bool dispGuests)
         {
-            if (search == null || search.Length == 0)
+            var model = new MemberDisplayViewModel();
+            var displayMembers = _session.GetString("DisplayMembers");
+            var displayGuests = _session.GetString("DisplayGuests");
+            model.dispMembers = dispMembers;
+            model.dispGuests = dispGuests;
+
+            if (!model.dispGuests && !model.dispMembers)
             {
-                _session.Remove("SearchMemberName");
-                var model = _memberData.getAll();
-                return View(model);
+                if (displayMembers != null && displayMembers == "Y")
+                {
+                    model.dispGuests = true;
+                }
+                else
+                {
+                    model.dispMembers = true;
+                }
+            }
+
+            if (search != null && search.Length > 0)
+            {
+                _session.SetString("SearchMemberName", search);
+                if (model.dispMembers && model.dispGuests)
+                {
+                    model.Members = _memberData.getAll(search);
+                }
+                else if (model.dispMembers)
+                {
+                    model.Members = _memberData.getMembers(search);
+                }
+                else model.Members = _memberData.getGuests(search);
             }
             else
             {
-                _session.SetString("SearchMemberName", search);
-                var model = _memberData.getAll(search);
-                return View(model);
+                _session.Remove("SearchMemberName");
+                    if (model.dispMembers && model.dispGuests)
+                    {
+                        model.Members = _memberData.getAll();
+                    }
+                    else if (model.dispMembers)
+                    {
+                        model.Members = _memberData.getMembers();
+                    }
+                    else model.Members = _memberData.getGuests();
             }
+            displayMembers = "N";
+            displayGuests = "N";
+            if (model.dispMembers) displayMembers = "Y";
+            if (model.dispGuests) displayGuests = "Y";
+            _session.SetString("DisplayMembers", displayMembers);
+            _session.SetString("DisplayGuests", displayGuests);
+            return View(model);
             //return View(await _context.Member.ToListAsync());
         }
 

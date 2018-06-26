@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
-@model IEnumerable<Pogi.Entities.Member>
+@using Pogi.Models.MemberViewModel
+@model MemberDisplayViewModel
 @inject UserManager<ApplicationUser> userManager
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
 
@@ -27,6 +28,45 @@
 
                     }
                 </div>
+                <div class="col">
+                    <div class="input-group">
+
+                        @if (Model.dispMembers == true)
+                        {
+                            <button id="btnMembers" type="button" class="btn btn-primary">
+                                Members
+                            </button>
+                        }
+                        else
+                        {
+                            <button id="btnMembers" type="button" class="btn btn-light">
+                                Members
+                            </button>
+
+                        }
+
+                        <input hidden id="dispMembers" asp-for="dispMembers" class="form-control" />
+
+                        @if (Model.dispGuests == true)
+                        {
+                            <button id="btnGuests" type="button" class="btn btn-primary">
+                                Guests
+                            </button>
+                        }
+                        else
+                        {
+                            <button id="btnGuests" type="button" class="btn btn-light">
+                                Guests
+                            </button>
+
+                        }
+
+                        <input hidden id="dispGuests" asp-for="dispGuests" class="form-control " />
+                        <div class="input-group-addon">
+                            <input hidden id="List" type="submit" name="List" value="List" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4 input-group">
                     <input name="search" class="form-control" type="text" placeholder="Search LastName or FirstName" value="@search">
 
@@ -35,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Members)
             {
 
                 <hr />
@@ -58,14 +98,14 @@
                 </div>
                 <div class="row">
                     <div class="alert-info col-md-2">
-                        @Html.DisplayNameFor(model => model.Phone1st)
+                        @Html.DisplayNameFor(model => item.Phone1st)
                     </div>
                     <div class="col-md-4">
                         @(Html.DisplayFor(modelItem => item.Phone1st))
                         @(Html.DisplayFor(modelItem => item.Phone1stType))
                     </div>
                     <div class="alert-info col-md-2">
-                        @Html.DisplayNameFor(model => model.Phone2nd)
+                        @Html.DisplayNameFor(model => item.Phone2nd)
                     </div>
                     <div class="col-md-4">
                         @(Html.DisplayFor(modelItem => item.Phone2nd))
@@ -102,7 +142,7 @@
                 </div>
                 <div class="row">
                     <div class="alert-info col-md-2">
-                        @Html.DisplayNameFor(model => model.Profession)
+                        @Html.DisplayNameFor(modelItem => item.Profession)
                     </div>
                     <div class="col-md-4">
                         @Html.DisplayFor(modelItem => item.Profession)
@@ -143,3 +183,47 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        console.info("Hello Member");
+
+        $("#btnMembers").click(function () {
+
+            var button = $(this);
+            if (button.hasClass("btn-primary")) {
+                button.removeClass("btn-primary");
+                button.addClass("btn-light");
+                $("#dispMembers").removeAttr("checked");
+                $("#dispMembers").val = false;
+            }
+            else {
+                button.removeClass("btn-light");
+                button.addClass("btn-primary");
+                $("#dispMembers").attr("checked", "checked");
+                $("#dispMembers").val = true;
+            }
+            $("#List").trigger("click");
+        });
+        $("#btnGuests").click(function () {
+
+            var button = $(this);
+            if (button.hasClass("btn-primary")) {
+                button.removeClass("btn-primary");
+                button.addClass("btn-light");
+                $("#dispGuests").removeAttr("checked");
+                $("#MispGuests").val = false;
+            }
+            else {
+                button.removeClass("btn-light");
+                button.addClass("btn-primary");
+                $("#dispGuests").attr("checked", "checked");
+                $("#dispGuests").val = true;
+            }
+            $("#List").trigger("click");
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

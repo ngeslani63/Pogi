@@ -10,7 +10,10 @@ namespace Pogi.Services
     public interface IMemberData
     {
         List<SelectListItem> getSelectList();
-
+        IEnumerable<Member> getMembers();
+        IEnumerable<Member> getMembers(string search);
+        IEnumerable<Member> getGuests();
+        IEnumerable<Member> getGuests(string search);
         IEnumerable<Member> getAll();
         IEnumerable<Member> getAll(string search);
         IEnumerable<Member> getActive();

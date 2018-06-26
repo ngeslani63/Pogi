@@ -34,13 +34,33 @@ namespace Pogi.Services
 
         public IEnumerable<Member> getAll()
         {
-            return _context.Member.OrderBy(r => r.LastName);
+            return _context.Member.OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+        }
+        public IEnumerable<Member> getMembers()
+        {
+            return _context.Member.Where(r => (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+        }
+        public IEnumerable<Member> getGuests()
+        {
+            return _context.Member.Where(r => r.MemberStatus == MemberState.Guest).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getAll(string search)
         {
             string st = "%" + search.Trim() + "%";
             return _context.Member.Where(r => r.LastName.Contains(search.Trim()) ||
-            r.FirstName.Contains(search.Trim())).OrderBy(r => r.LastName);
+            r.FirstName.Contains(search.Trim())).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+        }
+        public IEnumerable<Member> getMembers(string search)
+        {
+            string st = "%" + search.Trim() + "%";
+            return _context.Member.Where(r => (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior) && (r.LastName.Contains(search.Trim()) ||
+            r.FirstName.Contains(search.Trim()))).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+        }
+        public IEnumerable<Member> getGuests(string search)
+        {
+            string st = "%" + search.Trim() + "%";
+            return _context.Member.Where(r => (r.MemberStatus == MemberState.Guest) && (r.LastName.Contains(search.Trim()) ||
+            r.FirstName.Contains(search.Trim()))).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getActive()
         {
