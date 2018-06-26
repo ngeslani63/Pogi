@@ -14,5 +14,7 @@ namespace Pogi.Services
         Tour getTour(int TourId);
         Tour getTour(string TourName);
         Tour getTourOnDate(DateTime TourDate);
+
+        Tour getLatestTour();
     }
 }

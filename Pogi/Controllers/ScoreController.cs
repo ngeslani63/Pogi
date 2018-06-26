@@ -128,7 +128,15 @@ namespace Pogi.Controllers
                 TourId = _session.GetString("TourIdLeaderboard");
                 if (TourId == null || TourId.Length == 0)
                 {
-                    TourId = "1";
+                    Tour tour = _tourInfo.getLatestTour();
+                    if (tour != null)
+                    {
+                        TourId = tour.TourId.ToString();
+                    }
+                    else
+                    {
+                        TourId = "1";
+                    }
                     _session.SetString("TourIdLeaderboard", TourId);
                 }
             }
@@ -161,8 +169,16 @@ namespace Pogi.Controllers
                 TourId = _session.GetString("TourIdPodium");
                 if (TourId == null || TourId.Length == 0)
                 {
-                    _session.Remove("TourIdPodium");
-                    TourId = "1";
+                    Tour tour = _tourInfo.getLatestTour();
+                    if (tour != null)
+                    {
+                        TourId = tour.TourId.ToString();
+                    }
+                    else
+                    {
+                        TourId = "1";
+                    }
+                    _session.SetString("TourIdPodium", TourId);
                 }
             }
             else

@@ -5,17 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Pogi.Data;
 using Pogi.Entities;
+using Pogi.Models;
 
 namespace Pogi.Services
 {
     public class SqlTourInfo : ITourInfo
     {
+        private IDateTime _dateTime;
         private PogiDbContext _context;
 
-        public SqlTourInfo(PogiDbContext context)
+        public SqlTourInfo(PogiDbContext context, IDateTime dateTime)
         {
+            _dateTime = dateTime;
             _context = context;
         }
+
+        public Tour getLatestTour()
+        {
+            return _context.Tour.Where(r => r.TourType == TourType.SingleDay
+                && r.TourDate < _dateTime.getToday()).OrderByDescending(r => r.TourDate).FirstOrDefault();
+        }
+
         public Tour getTour(int TourId)
         {
             return _context.Tour.FirstOrDefault(r => r.TourId == TourId);

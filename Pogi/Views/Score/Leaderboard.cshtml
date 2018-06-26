@@ -71,12 +71,12 @@
            data-sort-stable="true">
         <thead>
             <tr>
-                <th class="col-md-2" data-field="scoreDate" data-sortable="true">Date</th>
-                <th class="col-md-2" data-field="courseName" data-sortable="false">Course</th>
-                <th class="col-md-2" data-field="memberName" data-sortable="true">Member</th>
-                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Gross</th>
-                <th class="col-md-1" data-field="toPar" data-sortable="true">To Par</th>
-                <th class="col-md-1" data-field="TourScore" data-sortable="true">Tour Net</th>
+                @*<th class="col-md-2" data-field="scoreDate" data-sortable="true">Date</th>
+                <th class="col-md-2" data-field="courseName" data-sortable="false">Course</th>*@
+                <th class="col-md-2" data-field="memberName" data-sortable="false">Member</th>
+                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Tot</th>
+                <th class="col-md-1" data-field="toPar" data-sortable="false">Rnd</th>
+                <th class="col-md-1" data-field="TourScore" data-sortable="true">Tour<br /> Net</th>
             </tr>
         </thead>
         <tbody>
@@ -86,7 +86,7 @@
                 Member member = item.Member;
                 Course course = item.Course;
                 CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
-                int toPar = score.HoleTotal - course.ParTotal ;
+                var toPar = (score.HoleTotal - course.ParTotal).ToString("+0;-#");
                 Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
                 var courseHandicap = "s36";
                 if (Handicap != null && Handicap.HcpIndex >= 0)
@@ -112,8 +112,8 @@
         String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
                 }
 
-                <td class="col-md-2">@scoreDateDisp</td>
-                <td class="col-md-2">@course.CourseName</td>
+                @*<td class="col-md-2">@scoreDateDisp</td>
+                <td class="col-md-2">@course.CourseName</td>*@
                 <td class="col-md-2">@member.FirstName @member.LastName</td>
                 <td class="col-md-1">@score.HoleTotal</td>
                 <td class="col-md-1">@toPar</td>
