@@ -13,15 +13,40 @@ namespace Pogi.Services
     {
         private PogiDbContext _context;
         private ITourInfo _tourInfo;
+        private IHandicap _handicap;
 
-        public SqlScoreInfo(PogiDbContext context, ITourInfo tourInfo)
+        public SqlScoreInfo(PogiDbContext context, ITourInfo tourInfo, IHandicap handicap)
         {
             _context = context;
             _tourInfo = tourInfo;
+            _handicap = handicap;
         }
         public List<ScoreInfo> getAll()
         {
             var Scores = _context.Score.OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+
+            List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
+            foreach (Score score in Scores)
+            {
+                Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+
+                ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+
+                ScoreInfos.Add(scoreInfo);
+            }
+            return ScoreInfos;
+        }
+        public List<ScoreInfo> getForEffDate(DateTime EffDate)
+        {
+            DateTime EndTime = EffDate.Date.AddSeconds(-1);
+            DateTime BeginTime = _handicap.getRevBeginDate(EffDate).Date;
+            return getForDateRange(BeginTime, EndTime);
+
+        }
+        private List<ScoreInfo> getForDateRange(DateTime BeginTime, DateTime EndTime)
+        {
+            var Scores = _context.Score.Where(r => r.ScoreDate >= BeginTime && r.ScoreDate <= EndTime).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
 
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
             foreach (Score score in Scores)
@@ -111,7 +136,7 @@ namespace Pogi.Services
             else
             {
                 Tour = _tourInfo.getTour(TourId);
-                if (Tour == null )
+                if (Tour == null)
                 {
                     return null;
                 }
@@ -530,9 +555,9 @@ namespace Pogi.Services
                 cHcps[16] = courseHandicap.LadiesHcp17;
                 cHcps[17] = courseHandicap.LadiesHcp18;
             }
-            
+
             int[] ties = new int[18];
-            for (int i=0; i< 18; i++)
+            for (int i = 0; i < 18; i++)
             {
                 pushScore(scores, cHcps, ties, i);
             }
@@ -545,8 +570,9 @@ namespace Pogi.Services
         }
         private void pushScore(int[] scores, int[] cHcps, int[] ties, int i)
         {
-            ties[cHcps[i]-1]= scores[i];
+            ties[cHcps[i] - 1] = scores[i];
         }
 
+        
     }
 }

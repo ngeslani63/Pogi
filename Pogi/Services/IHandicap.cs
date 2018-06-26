@@ -16,13 +16,15 @@ namespace Pogi.Services
 
         DateTime getNextDate(int GhinNumber);
         DateTime getCurrEffDate();
+        DateTime getNextEffDate();
         List<SelectListItem> getActiveDates(string Date);
+        DateTime getRevBeginDate(DateTime EffDate);
 
         Handicap getHandicapForDate(int GhinNumber, DateTime Date);
 
         IEnumerable<HandicapInfo> getAllForDate(DateTime Date);
 
-        int getCallawayHcp(Score Score, Course Course);
+        int getS36Hcp(Score Score, Course Course);
 
 
 
