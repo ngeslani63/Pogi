@@ -12,24 +12,32 @@
     <Compile Remove="wwwroot\images\News_20180511\**" />
     <Compile Remove="wwwroot\images\News_20180512\**" />
     <Compile Remove="wwwroot\images\News_20180526\**" />
+    <Compile Remove="wwwroot\images\News_20180630\**" />
+    <Compile Remove="wwwroot\images\News_20180714\**" />
     <Content Remove="wwwroot\images\Gallery_20180310\**" />
     <Content Remove="wwwroot\images\Gallery_20180428\**" />
     <Content Remove="wwwroot\images\NewFolder\**" />
     <Content Remove="wwwroot\images\News_20180511\**" />
     <Content Remove="wwwroot\images\News_20180512\**" />
     <Content Remove="wwwroot\images\News_20180526\**" />
+    <Content Remove="wwwroot\images\News_20180630\**" />
+    <Content Remove="wwwroot\images\News_20180714\**" />
     <EmbeddedResource Remove="wwwroot\images\Gallery_20180310\**" />
     <EmbeddedResource Remove="wwwroot\images\Gallery_20180428\**" />
     <EmbeddedResource Remove="wwwroot\images\NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20180511\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20180512\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20180526\**" />
+    <EmbeddedResource Remove="wwwroot\images\News_20180630\**" />
+    <EmbeddedResource Remove="wwwroot\images\News_20180714\**" />
     <None Remove="wwwroot\images\Gallery_20180310\**" />
     <None Remove="wwwroot\images\Gallery_20180428\**" />
     <None Remove="wwwroot\images\NewFolder\**" />
     <None Remove="wwwroot\images\News_20180511\**" />
     <None Remove="wwwroot\images\News_20180512\**" />
     <None Remove="wwwroot\images\News_20180526\**" />
+    <None Remove="wwwroot\images\News_20180630\**" />
+    <None Remove="wwwroot\images\News_20180714\**" />
   </ItemGroup>
 
   <ItemGroup>
