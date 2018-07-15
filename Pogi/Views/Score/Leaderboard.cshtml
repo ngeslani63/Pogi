@@ -18,13 +18,16 @@
 
     <div class="form-row">
 
-        <div class="form-group col-sm-3">
+        <div class="form-group col-md-6">
             <form asp-action="Leaderboard">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Select Tour</span>
+                        <span class="input-group-text">Tour</span>
                     </div>
                     <select asp-for="TourId" asp-items="@Model.Tours" class="form-control"></select>
+                    <div class="input-group-append">
+                        <select asp-for="TourDate" asp-items="@Model.TourDates" class="form-control"></select>
+                    </div>
                     <div class="input-group-addon">
                         <input hidden id="SetTour" type="submit" name="SetTour" value="SetTour" class="btn btn-primary" />
                     </div>
@@ -72,7 +75,7 @@
         <thead>
             <tr>
                 @*<th class="col-md-2" data-field="scoreDate" data-sortable="true">Date</th>
-                <th class="col-md-2" data-field="courseName" data-sortable="false">Course</th>*@
+                    <th class="col-md-2" data-field="courseName" data-sortable="false">Course</th>*@
                 <th class="col-md-2" data-field="memberName" data-sortable="false">Member</th>
                 <th class="col-md-1" data-field="holeTotal" data-sortable="true">Tot</th>
                 <th class="col-md-1" data-field="toPar" data-sortable="false">Rnd</th>
@@ -106,19 +109,19 @@
                     }
                 }
 
-            <tr>
-                @{
-        DateTime scoreDateTime = score.ScoreDate;
-        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
-                }
+                <tr>
+                    @{
+                        DateTime scoreDateTime = score.ScoreDate;
+                        String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
+                    }
 
-                @*<td class="col-md-2">@scoreDateDisp</td>
-                <td class="col-md-2">@course.CourseName</td>*@
-                <td class="col-md-2">@member.FirstName @member.LastName</td>
-                <td class="col-md-1">@score.HoleTotal</td>
-                <td class="col-md-1">@toPar</td>
-                <td class="col-md-1">@score.TourScore</td>
-            </tr>
+                    @*<td class="col-md-2">@scoreDateDisp</td>
+                        <td class="col-md-2">@course.CourseName</td>*@
+                    <td class="col-md-2">@member.FirstName @member.LastName</td>
+                    <td class="col-md-1">@score.HoleTotal</td>
+                    <td class="col-md-1">@toPar</td>
+                    <td class="col-md-1">@score.TourScore</td>
+                </tr>
 
             }
         </tbody>
@@ -139,6 +142,11 @@
             });
         });
         $("#TourId").change(function () {
+            console.info("TourId changed");
+            $("#SetTour").trigger("click");
+            $("#TourDate").val("");
+        });
+        $("#TourDate").change(function () {
             console.info("TourId changed");
             $("#SetTour").trigger("click");
         });
