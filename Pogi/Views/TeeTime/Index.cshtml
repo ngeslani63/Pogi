@@ -147,7 +147,7 @@
                                 <a data-toggle="tooltip" title="Delete TeeTime" asp-action="Delete" asp-route-id="@teeTime.TeeTimeId" class="fa fa-trash"></a>
                             }
 
-                            @if (Model.User != null && (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot))
+                            @if (Model.User != null && (Model.User.RoleAdminTeeTime || Model.User.RoleAdminRoot|| Model.User.RoleAdminTour && Model.User.MemberId == teeTime.ReservedById))
                             {
                                 <span> | </span><a data-toggle="tooltip" title="Assign TeeTime" asp-controller="TeeAssign" asp-action="Edit2" asp-route-id="@teeTime.TeeTimeId" class="fa fa-user-plus"></a>
                             }

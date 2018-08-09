@@ -79,11 +79,11 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="@player.PlayId" />
             <input type="hidden" asp-for="MajorTourDay" />
-            @if (!Model.MajorTourDay || Model.MajorTourDay && DateTime.Now <= lastWithdrawDate)
+            @if (!Model.MajorTourDay || Model.MajorTourDay && DateTime.Now <= lastWithdrawDate || User != null && User.IsInRole("AdminRoot"))
             {
                 <input type="submit" value="@ViewData["Delete"]" class="btn btn-danger" />
             }
-            <span>  </span>
+            <span></span>
             <a class="btn btn-warning" asp-controller="TeeTime" asp-action="Index">Cancel</a>
         </form>
     </div>

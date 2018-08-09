@@ -36,7 +36,7 @@ namespace Pogi.Services
             List<SelectListItem> playerList = new List<SelectListItem>();
             SelectListItem sl = new SelectListItem { Text = "Unassigned", Value = "0" };
             playerList.Add(sl);
-            IEnumerable<Player> players = _context.Player.Where(r => r.PlayDate >= date && r.PlayDate < datePlus).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
+            IEnumerable<Player> players = _context.Player.Where(r => r.PlayDate >= date && r.PlayDate < datePlus && ! r.Withdrawn).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
             foreach (Player player in players)
             {
                 Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);

@@ -335,12 +335,12 @@ namespace Pogi.Controllers
                         }
                         if (member.RoleAdminTour != await _userManager.IsInRoleAsync(user, "AdminTour"))
                         {
-                            if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminTour");
+                            if (member.RoleAdminTour == true) await _userManager.AddToRoleAsync(user, "AdminTour");
                             else await _userManager.RemoveFromRoleAsync(user, "AdminTour");
                         }
-                        if (member.RoleAdminTour != await _userManager.IsInRoleAsync(user, "AdminScore"))
+                        if (member.RoleAdminScore != await _userManager.IsInRoleAsync(user, "AdminScore"))
                         {
-                            if (member.RoleAdminTeeTime == true) await _userManager.AddToRoleAsync(user, "AdminScore");
+                            if (member.RoleAdminScore == true) await _userManager.AddToRoleAsync(user, "AdminScore");
                             else await _userManager.RemoveFromRoleAsync(user, "AdminScore");
                         }
                     }
