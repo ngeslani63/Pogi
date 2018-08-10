@@ -25,7 +25,7 @@ namespace Pogi.Services
         }
         public List<ScoreInfo> getAll()
         {
-            var Scores = _context.Score.OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId);
+            var Scores = _context.Score.OrderByDescending(r => r.ScoreDate).ThenBy(i => i.ScoreId).Take(100);
 
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
             foreach (Score score in Scores)
@@ -207,7 +207,7 @@ namespace Pogi.Services
                 var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
                 foreach (Score score in Scores)
                 {
-                    if (podiumCnt < 3)
+                    if (podiumCnt < 4)
                     {
                         member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
                         course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
@@ -225,6 +225,9 @@ namespace Pogi.Services
                                     break;
                                 case 3:
                                     merit = "Low Net 2nd Runner Up";
+                                    break;
+                                case 4:
+                                    merit = "Low Net 3rd Runner Up";
                                     break;
                             }
                             ScoreInfo scoreInfo = new ScoreInfo(member, course, score, merit);

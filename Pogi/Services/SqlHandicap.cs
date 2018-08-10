@@ -86,6 +86,15 @@ namespace Pogi.Services
                 var Handicap = _context.Handicap.Where(r => r.GhinNumber == Member.GhinNumber && r.Date <= ScoreDate).OrderByDescending(r => r.Date).FirstOrDefault();
                 return Handicap;
             }
+            else
+            {
+                if (Member.CurrHandicap > 0.0F)
+                {
+                    var Handicap = new Handicap();
+                    Handicap.HcpIndex = Member.CurrHandicap;
+                    return Handicap;
+                }
+            }
             return null;
 
         }

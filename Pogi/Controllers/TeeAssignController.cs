@@ -94,7 +94,7 @@ namespace Pogi.Controllers
                             teeAssign.GuestName = "";
                             if (player.GuestName != null && player.GuestName.Length > 0)
                             {
-                                teeAssign.GuestName = player.GuestName + " (Guest)";
+                                teeAssign.GuestName = player.GuestName + ", Guest";
                             }
 
                         }
