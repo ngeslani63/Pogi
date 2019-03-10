@@ -38,6 +38,10 @@ namespace Pogi.Controllers
         {
             return View();
         }
+        public IActionResult Index3()
+        {
+            return View();
+        }
         public IActionResult TeeTimes()
         {
             ViewData["Message"] = "Tee Times";
