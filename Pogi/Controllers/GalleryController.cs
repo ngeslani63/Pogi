@@ -53,7 +53,7 @@ namespace Pogi.Controllers
             }
             _activity.logActivity(userName, "Gallery of Members");
             ViewData["Message"] = "Members";
-            var model = _memberData.getActive();
+            var model = _memberData.getActiveMembers();
 
             return View(model);
         }

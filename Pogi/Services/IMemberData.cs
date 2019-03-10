@@ -17,6 +17,7 @@ namespace Pogi.Services
         IEnumerable<Member> getAll();
         IEnumerable<Member> getAll(string search);
         IEnumerable<Member> getActive();
+        IEnumerable<Member> getActiveMembers();
         Member get(int memberId);
 
         Member getByEmailAddr(string emailAddr);

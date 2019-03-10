@@ -67,6 +67,11 @@ namespace Pogi.Services
             return _context.Member.Where(r => r.RecordStatus == RecordState.Active && 
                 (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior || r.MemberStatus == MemberState.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
+        public IEnumerable<Member> getActiveMembers()
+        {
+            return _context.Member.Where(r => r.RecordStatus == RecordState.Active &&
+                (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior )).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+        }
 
         public List<SelectListItem> getSelectList()
         {
