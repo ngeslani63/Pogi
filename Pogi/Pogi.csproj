@@ -50,9 +50,16 @@
   <ItemGroup>
     <Content Remove="Views\Home\IndexOrig.cshtml" />
     <Content Remove="web.config" />
+    <Content Remove="wwwroot\images\Alfonso_Joey.jpg" />
+    <Content Remove="wwwroot\images\Alfonso_Joey2.jpg" />
+    <Content Remove="wwwroot\images\Alfonso_Joey3.jpg" />
     <Content Remove="wwwroot\images\banner1.svg" />
     <Content Remove="wwwroot\images\banner1o.svg" />
     <Content Remove="wwwroot\images\banner1x.cdr" />
+    <Content Remove="wwwroot\images\favicon.ico" />
+    <Content Remove="wwwroot\images\grass.png" />
+    <Content Remove="wwwroot\images\Jess_Bautista.jpg" />
+    <Content Remove="wwwroot\images\Jess_Bautista3.jpg" />
   </ItemGroup>
 
 
