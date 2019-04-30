@@ -11,6 +11,7 @@ namespace Pogi.Services
     {
         List<SelectListItem> getTours();
         List<SelectListItem> getTours(bool add0);
+        List<SelectListItem> getTours(bool add0, bool thisYear);
         Tour getTour(int TourId);
         Tour getTour(string TourName);
         Tour getTourOnDate(DateTime TourDate);

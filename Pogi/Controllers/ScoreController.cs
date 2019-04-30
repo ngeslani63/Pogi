@@ -197,7 +197,7 @@ namespace Pogi.Controllers
                 model.TourId = TourId;
                 model.TourDate = TourDate;
             }
-            model.Tours = _tourInfo.getTours(false);
+            model.Tours = _tourInfo.getTours(false,true);
             model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
             string userName = "";
             if (_signInManager.IsSignedIn(User))
@@ -270,7 +270,7 @@ namespace Pogi.Controllers
                 model.ScoreInfos = null;
                 model.TourId = "0";
             }
-            model.Tours = _tourInfo.getTours(false);
+            model.Tours = _tourInfo.getTours(false,true);
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {

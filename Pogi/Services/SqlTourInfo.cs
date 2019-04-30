@@ -41,9 +41,13 @@ namespace Pogi.Services
         }
         public List<SelectListItem> getTours()
         {
-            return getTours(false);
+            return getTours(false, true);
         }
         public List<SelectListItem> getTours(bool add0)
+        {
+            return getTours(add0, false);
+        }
+        public List<SelectListItem> getTours(bool add0, bool thisYear)
         {
             List<SelectListItem> ToursList = new List<SelectListItem>();
             if (add0)
@@ -55,7 +59,17 @@ namespace Pogi.Services
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysSinceSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek - 7) % 7;
             DateTime lastSaturday = today.AddDays(daysSinceSaturday).Date;
-            IEnumerable<Tour> Tours = _context.Tour.OrderBy(r => r.TourDate);
+            int year = DateTime.Now.Year;
+            DateTime firstDayofYear = new DateTime(year, 1, 1);
+            IEnumerable<Tour> Tours;
+            if (thisYear)
+            {
+                Tours = _context.Tour.Where(r => r.TourDate >= firstDayofYear).OrderBy(r => r.TourDate);
+            }
+            else
+            {
+                Tours = _context.Tour.OrderBy(r => r.TourDate);
+            }
             foreach (Tour tour in Tours)
             {
                 var selected = false;
