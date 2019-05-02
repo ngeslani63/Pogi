@@ -69,7 +69,11 @@
 
                             <td class="col-md-2">@hcpDateDisp</td>
                             <td class="col-md-3">@Name</td>
-                            <td class="col-md-2">@handicap.GhinNumber</td>
+                            <td class="col-md-2">
+                                <a data-toggle="tooltip" title="Lookup GHIN" href="http://ghp.ghin.com/GHINeNewsletters/ViewPrint.aspx?ghinno=@handicap.GhinNumber&tid=17253&club=9999999&assoc=2&rrid=0" target="_blank">
+                                    @handicap.GhinNumber
+                                </a>
+                            </td>
                             @if (handicap == null || handicap.HcpIndex > 0)
                             {
                                 <td class="col-md-2">@handicap.HcpIndex</td>
