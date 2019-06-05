@@ -36,6 +36,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.TourDate)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllowMultiTee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseColor)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -78,6 +84,19 @@
 
                         @Html.DisplayFor(modelItem => item.TourDate)
 
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllowMultiTee)
+                </td>
+                <td>
+                    @if (item.AllowMultiTee == true)
+                    {
+                    @Html.DisplayFor(modelItem => item.BaseColor)
+                    }
+                    else
+                    {
+                        <span>None</span>
                     }
                 </td>
                 @if (User.IsInRole("AdminRoot") || User.IsInRole("AdminScore") || User.IsInRole("AdminTour"))

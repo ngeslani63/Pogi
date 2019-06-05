@@ -26,6 +26,25 @@
     <script type="text/javascript">
         console.info("Hello From Tour Create");
 
+        var AllowMultiTeeChecked = $("#AllowMultiTee").prop("checked");
+        if (AllowMultiTeeChecked == true) {
+            $("#BaseColor").prop("disabled", false);
+        }
+        else {
+            $("#BaseColor").prop("disabled", true);
+        }
+
+
+        $("#AllowMultiTee").change(function () {
+            var AllowMultiTeeChecked = $("#AllowMultiTee").prop("checked");
+            console.info("Tour AllowMultiTee changed, checked=" + AllowMultiTeeChecked);
+            if (AllowMultiTeeChecked == true) {
+                $("#BaseColor").prop("disabled", false);
+            }
+            else {
+                $("#BaseColor").prop("disabled", true);
+            }
+        });
 
 
     </script>

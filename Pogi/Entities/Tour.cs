@@ -16,6 +16,8 @@ namespace Pogi.Entities
             TourType = TourType.SingleDay;
             ScorerType = ScorerType.Regular;
             TourDate = DateTime.Today;
+            AllowMultiTee = false;
+            BaseColor = TeeColor.White;
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TourId { get; set; }
@@ -34,5 +36,9 @@ namespace Pogi.Entities
         [Display(Name = "Tour Date")]
         [DataType(DataType.Date)]
         public DateTime TourDate { get; set; }
+        [Display(Name = "Allow MultiTee")]
+        public bool AllowMultiTee { get; set; }
+        [Display(Name = "Base Color")]
+        public TeeColor BaseColor { get; set; }
     }
 }

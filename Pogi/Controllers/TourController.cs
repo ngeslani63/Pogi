@@ -60,7 +60,7 @@ namespace Pogi.Controllers
         [Authorize(Roles = "AdminRoot,AdminScore")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TourId,TourName,HcpAllowPct,TourType,ScorerType,TourDate")] Tour tour)
+        public async Task<IActionResult> Create([Bind("TourId,TourName,HcpAllowPct,TourType,ScorerType,TourDate,AllowMultiTee,BaseColor")] Tour tour)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TourId,TourName,HcpAllowPct,TourType,ScorerType,TourDate")] Tour tour)
+        public async Task<IActionResult> Edit(int id, [Bind("TourId,TourName,HcpAllowPct,TourType,ScorerType,TourDate,AllowMultiTee,BaseColor")] Tour tour)
         {
             if (id != tour.TourId)
             {
