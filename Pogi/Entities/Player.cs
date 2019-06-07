@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pogi.Models;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,7 @@ namespace Pogi.Entities
             WithdrawReason = "";
             RegistrationMethod = RegistrationType.Self;
             ConfirmDate = DateTime.MaxValue;
+            PlayerState = PlayerState.UnConfirmed;
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PlayId { get; set; }
@@ -48,6 +50,8 @@ namespace Pogi.Entities
       
         public int EnteredById { get; set; }
         public DateTime ConfirmDate { get; set; }
+        public PlayerState PlayerState { get; set; }
+
 
     }
 }

@@ -636,20 +636,27 @@ namespace Pogi.Controllers
                 Score.NetScore = 199;
                 Score.TourScore = 199;
                 float HcpAllowPct = 100.0F;
+                float MultiAdj = 0.0F;
                 Tour Tour;
-                if (Score.TourEvent == true && (Tour = _tourInfo.getTour(Score.TourId)) != null)
-                {
-                    HcpAllowPct = Tour.HcpAllowPct;
-                }
 
                 Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
                 CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
                 Course Course = _courseData.get(Score.CourseId);
 
+                if (Score.TourEvent == true && (Tour = _tourInfo.getTour(Score.TourId)) != null)
+                {
+                    HcpAllowPct = Tour.HcpAllowPct;
+                    if (Tour.AllowMultiTee == true)
+                    {
+                        CourseDetail BaseCourse = _courseDetail.get(Course.CourseId, Tour.BaseColor.ToString());
+                        MultiAdj = (float)(BaseCourse.Rating - CourseDetail.Rating);
+                    }
+                }
+
                 if (Handicap != null && Handicap.HcpIndex > 0)
                 {
                     float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
-                    float courseHandicapT = Handicap.HcpIndex * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
+                     float courseHandicapT = (Handicap.HcpIndex * CourseDetail.Slope / 113 - MultiAdj) * (HcpAllowPct / 100);
                     Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                     Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
                 }
@@ -807,20 +814,28 @@ namespace Pogi.Controllers
                     Score.NetScore = 199;
                     Score.TourScore = 199;
                     float HcpAllowPct = 100.0F;
+                    float MultiAdj = 0.0F;
                     Tour Tour;
-                    if (Score.TourEvent == true && (Tour = _tourInfo.getTour(Score.TourId)) != null)
-                    {
-                        HcpAllowPct = Tour.HcpAllowPct;
-                    }
+
 
                     Handicap Handicap = _handicap.getHandicapForDate(Score.MemberId, model.ScoreDate);
                     CourseDetail CourseDetail = _courseDetail.get(model.CourseId, model.Color);
                     Course Course = _courseData.get(Score.CourseId);
 
+                    if (Score.TourEvent == true && (Tour = _tourInfo.getTour(Score.TourId)) != null)
+                    {
+                        HcpAllowPct = Tour.HcpAllowPct;
+                        if (Tour.AllowMultiTee == true)
+                        {
+                            CourseDetail BaseCourse = _courseDetail.get(Course.CourseId, Tour.BaseColor.ToString());
+                            MultiAdj = (float)(BaseCourse.Rating - CourseDetail.Rating);
+                        }
+                    }
+
                     if (Handicap != null && Handicap.HcpIndex > 0)
                     {
-                        float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
-                        float courseHandicapT = Handicap.HcpIndex * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
+                        float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113 ;
+                        float courseHandicapT = (Handicap.HcpIndex * CourseDetail.Slope / 113 - MultiAdj) * (HcpAllowPct / 100);
                         Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
                         Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
                     }
