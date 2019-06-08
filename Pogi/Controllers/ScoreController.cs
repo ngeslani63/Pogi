@@ -30,6 +30,7 @@ namespace Pogi.Controllers
         private readonly IHandicap _handicap;
         private readonly ITourInfo _tourInfo;
         private readonly ITourDay _tourDayInfo;
+        private readonly ITeeTimeInfo _teeTimeInfo;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IActivity _activity;
         private readonly IDateTime _dateTime;
@@ -42,6 +43,7 @@ namespace Pogi.Controllers
                 IHandicap handicap,
                 ITourInfo tourInfo,
                 ITourDay tourDayInfo,
+                ITeeTimeInfo teeTimeInfo,
                 IHttpContextAccessor httpContextAccessor,
               IActivity activity,
               IDateTime dateTime)
@@ -56,6 +58,7 @@ namespace Pogi.Controllers
             _handicap = handicap;
             _tourInfo = tourInfo;
             _tourDayInfo = tourDayInfo;
+            _teeTimeInfo = teeTimeInfo;
             _httpContextAccessor = httpContextAccessor;
             _activity = activity;
             _dateTime = dateTime;
@@ -92,8 +95,22 @@ namespace Pogi.Controllers
                 TourId = _session.GetString("TourIdLogbook");
                 if (TourId == null || TourId.Length == 0)
                 {
-                    _session.Remove("TourIdLogbook");
-                    TourId = "0";
+                    TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    DateTime today = (TimeZoneInfo.ConvertTime(DateTime.Now, est)).Date;
+                    Tour todaysTour = _tourInfo.getTourOnDate(today);
+                    if (todaysTour != null)
+                    {
+                        TourId = todaysTour.TourId.ToString();
+                    }
+                    if (TourId == null || TourId.Length == 0)
+                    {
+                       _session.Remove("TourIdLogbook");
+                        TourId = "0";
+                    }
+                    else
+                    {
+                        _session.SetString("TourIdLogbook", TourId);
+                    }
                 }
             }
             else
@@ -530,6 +547,40 @@ namespace Pogi.Controllers
             var TourEvent = _session.GetString("TourEvent");
             var TourId = _session.GetString("TourId");
 
+            if (CourseId == null || int.Parse(CourseId) == 0)
+            {
+                // See if we have a tour today
+                if (ScoreDate == null)
+                {
+                    TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    DateTime today = (TimeZoneInfo.ConvertTime(DateTime.Now, est)).Date;
+                    int daysSinceSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek - 7) % 7;
+                    // Overide, set it for today
+                    daysSinceSaturday = 0;
+                    DateTime lastSaturday = today.AddDays(daysSinceSaturday);
+                    ScoreDate = lastSaturday.ToShortDateString();
+                }
+                Tour todaysTour = _tourInfo.getTourOnDate(DateTime.Parse(ScoreDate, CultureInfo.CurrentCulture));
+                if (todaysTour != null)
+                {
+                    TourId = todaysTour.TourId.ToString();
+                    if (Color == null || Color.Length > 0)
+                    {
+                        Color = todaysTour.BaseColor.ToString();
+                    }
+                    if (TourEvent == null)
+                    {
+                        TourEvent = "Y";
+                    }
+                }
+
+                TeeTime todaysTeeTime = _teeTimeInfo.GetTeeTime(DateTime.Parse(ScoreDate, CultureInfo.CurrentCulture));
+                if (todaysTeeTime != null)
+                {
+                    CourseId = todaysTeeTime.CourseId.ToString();
+                }
+            }
+
             var model = new ScoreCreateViewModel();
             model.Members = _memberData.getSelectList();
             model.Tours = _tourInfo.getTours();
@@ -649,7 +700,10 @@ namespace Pogi.Controllers
                     if (Tour.AllowMultiTee == true)
                     {
                         CourseDetail BaseCourse = _courseDetail.get(Course.CourseId, Tour.BaseColor.ToString());
-                        MultiAdj = (float)(BaseCourse.Rating - CourseDetail.Rating);
+                        if (BaseCourse != null && CourseDetail != null)
+                        {
+                            MultiAdj = (float)(BaseCourse.Rating - CourseDetail.Rating);
+                        }
                     }
                 }
 

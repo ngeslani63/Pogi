@@ -89,26 +89,12 @@ namespace Pogi.Services
             if (TourId > 0)
             {
                 Tour Tour = _tourInfo.getTour(TourId);
-                var TourType = Tour.TourType;
-                if (TourType == TourType.SingleDay)
+                if (Tour != null)
                 {
-                    var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
-                    foreach (Score score in Scores)
+                    var TourType = Tour.TourType;
+                    if (TourType == TourType.SingleDay)
                     {
-                        Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
-                        Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
-
-                        ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
-
-                        ScoreInfos.Add(scoreInfo);
-                    }
-                }
-                else
-                {
-                    var TourDays = _context.TourDay.Where(r => r.TourId == Tour.TourId).OrderByDescending(r => r.TourDate);
-                    foreach (TourDay TourDay in TourDays)
-                    {
-                        var Scores = _context.Score.Where(r => r.TourEvent && r.ScoreDate.Date == TourDay.TourDate).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
+                        var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderByDescending(r => r.ScoreDate).ThenBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
                         foreach (Score score in Scores)
                         {
                             Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
@@ -117,6 +103,23 @@ namespace Pogi.Services
                             ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
 
                             ScoreInfos.Add(scoreInfo);
+                        }
+                    }
+                    else
+                    {
+                        var TourDays = _context.TourDay.Where(r => r.TourId == Tour.TourId).OrderByDescending(r => r.TourDate);
+                        foreach (TourDay TourDay in TourDays)
+                        {
+                            var Scores = _context.Score.Where(r => r.TourEvent && r.ScoreDate.Date == TourDay.TourDate).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
+                            foreach (Score score in Scores)
+                            {
+                                Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                                Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+
+                                ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+
+                                ScoreInfos.Add(scoreInfo);
+                            }
                         }
                     }
                 }

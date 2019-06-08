@@ -23,7 +23,7 @@ namespace Pogi.Services
         public Tour getLatestTour()
         {
             return _context.Tour.Where(r => r.TourType == TourType.SingleDay
-                && r.TourDate < _dateTime.getToday()).OrderByDescending(r => r.TourDate).FirstOrDefault();
+                && r.TourDate <= _dateTime.getToday()).OrderByDescending(r => r.TourDate).FirstOrDefault();
         }
 
         public Tour getTour(int TourId)

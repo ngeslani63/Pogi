@@ -133,11 +133,14 @@
                             CourseDetail BaseCourse = _courseDetail.get(course.CourseId, Tour.BaseColor.ToString());
                             float fullCHcp = (float)(Handicap.HcpIndex * CourseDetail.Slope / 113.0);
                             float allowCHcp = (float)(Handicap.HcpIndex * CourseDetail.Slope / 113.0 * (Tour.HcpAllowPct / 100));
-                            float multiAdj = (float)(BaseCourse.Rating - CourseDetail.Rating);
+                            float multiAdj = 0;
+                            if (BaseCourse != null) {
+                                multiAdj = (float)(BaseCourse.Rating - CourseDetail.Rating);
+                            }
                             float allowMultiAdj = (float)(multiAdj * (Tour.HcpAllowPct / 100));
                             float finalCHcp = allowCHcp - allowMultiAdj;
                             var rndFinalCHcp = ((int)Math.Round(finalCHcp)).ToString();
-                            courseHandicapT = ((int)Math.Round((Handicap.HcpIndex * CourseDetail.Slope / 113 - (BaseCourse.Rating-CourseDetail.Rating)) * (Tour.HcpAllowPct / 100))).ToString();
+                            courseHandicapT = ((int)Math.Round((Handicap.HcpIndex * CourseDetail.Slope / 113 - (multiAdj)) * (Tour.HcpAllowPct / 100))).ToString();
 
                         }
                     }
