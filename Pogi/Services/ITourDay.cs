@@ -11,6 +11,8 @@ namespace Pogi.Services
     {
         IEnumerable<TourDay> getForTour(int TourId);
         List<SelectListItem> getSelectList(int TourId);
+        List<SelectListItem> getSelectList(int TourId, DateTime TourDate);
+        List<SelectListItem> getSelectList(int TourId, DateTime TourDate, Boolean filterFuture);
         TourDay GetLatestTourDay(int TourId);
     }
 }

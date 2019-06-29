@@ -34,10 +34,18 @@ namespace Pogi.Services
             }
             return tourDay;
         }
-
         public List<SelectListItem> getSelectList(int TourId)
         {
             DateTime today = _dateTime.getToday();
+            return getSelectList(TourId, today, false );
+        }
+        public List<SelectListItem> getSelectList(int TourId, DateTime tourDate)
+        {
+            if (tourDate == null) tourDate = _dateTime.getToday();
+            return getSelectList(TourId, tourDate, false);
+        }
+        public List<SelectListItem> getSelectList(int TourId, DateTime tourDate, Boolean filterFuture)
+        {
             bool selected = false;
             List<SelectListItem> tourDayList = new List<SelectListItem>();
 
@@ -49,12 +57,20 @@ namespace Pogi.Services
                 tourDayList.Add(sl);
                 return tourDayList;
             }
-
-            IEnumerable<TourDay> tourDays = _context.TourDay.Where(r => r.TourId == TourId).OrderByDescending(r => r.TourDate);
+            IEnumerable<TourDay> tourDays;
+            if (filterFuture)
+            {
+                DateTime today = _dateTime.getToday();
+                tourDays = _context.TourDay.Where(r => r.TourId == TourId && r.TourDate <= today).OrderByDescending(r => r.TourDate);
+            }
+            else
+            {
+                tourDays = _context.TourDay.Where(r => r.TourId == TourId).OrderByDescending(r => r.TourDate);
+            }
             foreach (TourDay tourDay in tourDays)
             {
                 SelectListItem sl = new SelectListItem { Text = tourDay.TourDate.ToShortDateString(), Value = tourDay.TourDate.ToShortDateString() };
-                if (tourDay.TourDate <= today && selected == false)
+                if (tourDay.TourDate <= tourDate && selected == false)
                 {
                     sl.Selected = true;
                     selected = true;

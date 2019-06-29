@@ -225,6 +225,14 @@ namespace Pogi.Controllers
             }
             model.Tours = _tourInfo.getTours(false,true);
             model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
+            if (TourDate != null && TourDate.Length > 0)
+            {
+                model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId), DateTime.Parse(TourDate).Date, true);
+            }
+            else
+            {
+                model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
+            }
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
@@ -351,7 +359,15 @@ namespace Pogi.Controllers
                 model.TourId = "0";
             }
             model.Tours = _tourInfo.getTours(false,true);
-            model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
+            if (TourDate != null && TourDate.Length > 0)
+            {
+                model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId), DateTime.Parse(TourDate).Date, true);
+            }
+            else
+            {
+                model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
+            }
+           
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
