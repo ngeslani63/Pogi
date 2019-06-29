@@ -13,8 +13,11 @@ namespace Pogi.Models.ScoreViewModels
 
         public List<SelectListItem> Tours { get; set; }
 
+        public List<SelectListItem> TourDates { get; set; }
+
         public string TourId { get; set; }
 
         public Member User { get; set; }
+        public string TourDate { get; set; }
     }
 }

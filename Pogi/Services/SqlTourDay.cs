@@ -28,6 +28,10 @@ namespace Pogi.Services
             DateTime today = _dateTime.getToday();
 
             TourDay tourDay = _context.TourDay.Where(r => r.TourId == TourId && r.TourDate <= today).OrderByDescending(r => r.TourDate).FirstOrDefault();
+            if (tourDay == null)
+            {
+                tourDay = _context.TourDay.Where(r => r.TourId == TourId && r.TourDate > today).OrderBy(r => r.TourDate).FirstOrDefault();
+            }
             return tourDay;
         }
 

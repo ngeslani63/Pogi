@@ -173,6 +173,115 @@ namespace Pogi.Services
             }
             return ScoreInfos;
         }
+        public List<ScoreInfo> getPodiumForTour(int TourId,  DateTime TourDate)
+        {
+            List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
+            Tour Tour;
+            if (TourId == 0)
+            {
+                return null;
+            }
+            else
+            {
+                Tour = _tourInfo.getTour(TourId);
+                if (Tour == null)
+                {
+                    return null;
+                }
+            }
+            var TourType = Tour.TourType;
+            Member member;
+            Course course;
+            int grossScoreId = 0;
+            if (TourType == TourType.SingleDay)
+            {
+                var grossScore = (Score)_context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderBy(r => r.HoleTotal).ThenBy(i => i.Tiebreaker).FirstOrDefault();
+                if (grossScore != null)
+                {
+                    grossScoreId = grossScore.ScoreId;
+                    member = _context.Member.FirstOrDefault(r => r.MemberId == grossScore.MemberId);
+                    course = _context.Course.FirstOrDefault(r => r.CourseId == grossScore.CourseId);
+                    ScoreInfo scoreInfo = new ScoreInfo(member, course, grossScore, "Low Gross Champion");
+                    ScoreInfos.Add(scoreInfo);
+                }
+
+                int podiumCnt = 0;
+                var Scores = _context.Score.Where(r => r.TourEvent && r.TourId == TourId).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
+                foreach (Score score in Scores)
+                {
+                    if (podiumCnt < 4)
+                    {
+                        member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                        course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                        String merit = "";
+                        if (score.ScoreId != grossScoreId)
+                        {
+                            podiumCnt++;
+                            switch (podiumCnt)
+                            {
+                                case 1:
+                                    merit = "Low Net Champion";
+                                    break;
+                                case 2:
+                                    merit = "Low Net 1st Runner Up";
+                                    break;
+                                case 3:
+                                    merit = "Low Net 2nd Runner Up";
+                                    break;
+                                case 4:
+                                    merit = "Low Net 3rd Runner Up";
+                                    break;
+                            }
+                            ScoreInfo scoreInfo = new ScoreInfo(member, course, score, merit);
+                            ScoreInfos.Add(scoreInfo);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var TourDays = _context.TourDay.Where(r => r.TourId == Tour.TourId &&
+                        r.TourDate == TourDate).OrderByDescending(r => r.TourDate);
+                foreach (TourDay TourDay in TourDays)
+                {
+                    int podiumCnt = 0;
+                    var Scores = _context.Score.Where(r => r.TourEvent && r.ScoreDate.Date == TourDay.TourDate).OrderBy(i => i.TourScore).ThenBy(i => i.Tiebreaker);
+                    foreach (Score score in Scores)
+                    {
+                        if (podiumCnt < 4)
+                        {
+                            member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+                            course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+                            String merit = "";
+                            if (score.ScoreId != grossScoreId)
+                            {
+                                podiumCnt++;
+                                switch (podiumCnt)
+                                {
+                                    case 1:
+                                        merit = "Low Net Champion";
+                                        break;
+                                    case 2:
+                                        merit = "Low Net 1st Runner Up";
+                                        break;
+                                    case 3:
+                                        merit = "Low Net 2nd Runner Up";
+                                        break;
+                                    case 4:
+                                        merit = "Low Net 3rd Runner Up";
+                                        break;
+                                }
+                                ScoreInfo scoreInfo = new ScoreInfo(member, course, score, merit);
+                                ScoreInfos.Add(scoreInfo);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            return ScoreInfos;
+        }
 
         public List<ScoreInfo> getPodiumForTour(int TourId)
         {

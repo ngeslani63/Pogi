@@ -158,6 +158,7 @@ namespace Pogi.Controllers
                     {
                         TourId = "1";
                     }
+                    tour = _tourInfo.getTour(int.Parse(TourId));
                     _session.SetString("TourIdLeaderboard", TourId);
                 }
                 else
@@ -189,7 +190,15 @@ namespace Pogi.Controllers
                         }
                         else
                         {
-                            TourDate = _tourDayInfo.GetLatestTourDay(tour.TourId).TourDate.ToShortDateString();
+                            TourDay tourDay = _tourDayInfo.GetLatestTourDay(tour.TourId);
+                            if (tourDay != null)
+                            {
+                                TourDate = tourDay.TourDate.ToShortDateString();
+                            }
+                            else
+                            {
+                                TourDate = "";
+                            }
                         }
                     }
                     _session.SetString("TourDateLeaderboard", TourDate);
@@ -252,15 +261,15 @@ namespace Pogi.Controllers
             return View(model);
         }
         [AllowAnonymous]
-        public IActionResult Podium(string TourId)
+        public IActionResult Podium(string TourId, string TourDate)
         {
-
+            Tour tour = null;
             if (TourId == null || TourId.Length == 0)
             {
                 TourId = _session.GetString("TourIdPodium");
                 if (TourId == null || TourId.Length == 0)
                 {
-                    Tour tour = _tourInfo.getLatestTour();
+                    tour = _tourInfo.getLatestTour();
                     if (tour != null)
                     {
                         TourId = tour.TourId.ToString();
@@ -269,18 +278,72 @@ namespace Pogi.Controllers
                     {
                         TourId = "1";
                     }
+                    tour = _tourInfo.getTour(int.Parse(TourId));
                     _session.SetString("TourIdPodium", TourId);
+                }
+                else
+                {
+                    tour = _tourInfo.getTour(int.Parse(TourId));
                 }
             }
             else
             {
+                tour = _tourInfo.getTour(int.Parse(TourId));
+                string prevTourId = _session.GetString("TourIdPodium");
+                if (prevTourId != null && TourId != prevTourId)
+                {
+                    TourDate = "";
+                    _session.Remove("TourDatePodium");
+                }
                 _session.SetString("TourIdPodium", TourId);
             }
+
+            if (TourDate == null || TourDate.Length == 0)
+            {
+                TourDate = _session.GetString("TourDatePodium");
+                if (TourDate == null || TourDate.Length == 0)
+                {
+                    if (tour != null)
+                    {
+                        if (tour.TourType == TourType.SingleDay)
+                        {
+                            TourDate = tour.TourDate.ToShortDateString();
+                        }
+                        else
+                        {
+                            TourDay tourDay = _tourDayInfo.GetLatestTourDay(tour.TourId);
+                            if (tourDay != null)
+                            {
+                                TourDate = tourDay.TourDate.ToShortDateString();
+                            }
+                            else
+                            {
+                                TourDate = "";
+                            }
+                        }
+                        _session.SetString("TourDatePodium", TourDate);
+                    }
+                    
+                }
+            }
+            else
+            {
+                _session.SetString("TourDatePodium", TourDate);
+            }
+
             var model = new ScorePodiumViewModel();
             if (TourId.Length > 0 && int.Parse(TourId) > 0)
             {
-                model.ScoreInfos = _scoreInfo.getPodiumForTour(int.Parse(TourId));
+                if (tour != null && tour.TourType == TourType.MultiDay)
+                {
+                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId), DateTime.Parse(TourDate).Date);
+                }
+                else
+                {
+                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                }
                 model.TourId = TourId;
+                model.TourDate = TourDate;
             }
             else
             {
@@ -288,6 +351,7 @@ namespace Pogi.Controllers
                 model.TourId = "0";
             }
             model.Tours = _tourInfo.getTours(false,true);
+            model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
