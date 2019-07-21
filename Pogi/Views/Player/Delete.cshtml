@@ -8,7 +8,8 @@
     if (@Model.MajorTourDay) ViewData["Delete"] = "Withdraw";
     var pageAction = (@ViewData["Delete"]).ToString().ToLower();
     int daysToGo = (player.PlayDate.Date - DateTime.Today.Date).Days;
-    DateTime lastWithdrawDate = player.PlayDate.Date.AddDays(-5).AddHours(16);
+    int lockWithdrawDays = Model.LockWithdrawDays;
+    DateTime lastWithdrawDate = player.PlayDate.Date.AddDays(-lockWithdrawDays).AddHours(16);
 }
 <br />
 <h2>Player</h2>

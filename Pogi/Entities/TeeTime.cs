@@ -10,6 +10,10 @@ namespace Pogi.Entities
 {
     public class TeeTime
     {
+        public TeeTime()
+        {
+            LockWithdrawDays = 5;
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TeeTimeId { get; set; }
         public int ReservedById { get; set; }
@@ -28,5 +32,6 @@ namespace Pogi.Entities
         public int TeeTimeInterval { get; set; }
         [Display(Name = "Default Tee Color")]
         public string Color { get; set; }
+        public int LockWithdrawDays { get; set; }
     }
 }

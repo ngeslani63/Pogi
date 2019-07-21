@@ -139,6 +139,7 @@ namespace Pogi.Controllers
                 teeTime.NumPlayers = model.NumPlayers;
                 teeTime.MajorTour = model.MajorTour;
                 teeTime.TeeTimeInterval = model.TeeTimeInterval;
+                teeTime.LockWithdrawDays = model.LockWithdrawDays;
                 teeTime.AutoAssign = false;
                 _context.Add(teeTime);
                 await _context.SaveChangesAsync();
@@ -172,7 +173,8 @@ namespace Pogi.Controllers
             model.NumPlayers = teeTime.NumPlayers;
             model.MajorTour = teeTime.MajorTour;
             model.TeeTimeInterval = teeTime.TeeTimeInterval;
-
+            model.LockWithdrawDays = teeTime.LockWithdrawDays;
+            
             model.Member = _memberData.get(teeTime.ReservedById);
 
 
@@ -219,6 +221,7 @@ namespace Pogi.Controllers
                     teeTime.NumPlayers = model.NumPlayers;
                     teeTime.MajorTour = model.MajorTour;
                     teeTime.TeeTimeInterval = model.TeeTimeInterval;
+                    teeTime.LockWithdrawDays = model.LockWithdrawDays;
                     teeTime.AutoAssign = false;
                        
                     _context.Update(teeTime);

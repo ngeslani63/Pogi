@@ -59,6 +59,17 @@ namespace Pogi.Services
 
             return rc;
         }
+        public int getLockWithdrawDays(DateTime dateTime)
+        {
+            int days = 5;
+            DateTime date = dateTime.Date;
+            DateTime datePlus1 = date.AddDays(1);
+            TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeTS >= date
+                && r.TeeTimeTS < datePlus1
+                && r.MajorTour == true);
+            if (teeTime != null) days = teeTime.LockWithdrawDays;
+            return days;
+        }
 
 
     }

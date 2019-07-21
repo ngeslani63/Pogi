@@ -86,7 +86,8 @@ namespace Pogi.Controllers
                     foreach (TeeAssignInfo teeAssignInfo in teeAssigns)
                     {
                         TeeAssign teeAssign = teeAssignInfo.TeeAsign;
-                        teeAssign.PlayId = int.Parse(playIds[i]);
+                        teeAssign.PlayId = 0;
+                        if (playIds[i] != null) teeAssign.PlayId =  int.Parse(playIds[i]);
                         if (teeAssign.PlayId > 0)
                         {
                             Player player = await _context.Player.SingleOrDefaultAsync(m => m.PlayId == teeAssign.PlayId);

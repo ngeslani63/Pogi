@@ -231,6 +231,7 @@ namespace Pogi.Controllers
                 model.Player.MemberId = model.Member.MemberId;
                 model.Player.PlayDate = player.PlayDate;
                 model.MajorTourDay = _teeTimeInfo.majorTourDay(player.PlayDate);
+                model.LockWithdrawDays = _teeTimeInfo.getLockWithdrawDays(player.PlayDate);
                 if (player.Withdrawn) model.MajorTourDay = false;
             }
             return View(model);

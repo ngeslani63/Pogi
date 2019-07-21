@@ -119,7 +119,8 @@
                     @if (item.TeeTime.MajorTour)
                     {
                         int daysToGo = (item.TeeTime.TeeTimeTS.Date - DateTime.Today.Date).Days;
-                        DateTime lastWithdrawDate = item.TeeTime.TeeTimeTS.Date.AddDays(-5).AddHours(16);
+                        int lockWithdrawDays = item.TeeTime.LockWithdrawDays;
+                        DateTime lastWithdrawDate = item.TeeTime.TeeTimeTS.Date.AddDays(-lockWithdrawDays).AddHours(16);
                         var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
                         <div class="row">
                             <div class="col-md-12">

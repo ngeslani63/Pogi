@@ -34,6 +34,8 @@ namespace Pogi.Models.PlayerViewModels
 
         public Player Player { get; set; }
         public bool MajorTourDay { get; set; }
+        
+        public int LockWithdrawDays { get; set; }
 
     }
 }

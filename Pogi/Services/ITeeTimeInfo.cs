@@ -10,6 +10,7 @@ namespace Pogi.Services
         IEnumerable<TeeTimeInfo> getAll();
         bool majorTourDay(DateTime dateTime);
         TeeTime GetTeeTime(DateTime dateTime);
+        int getLockWithdrawDays(DateTime dateTime);
 
     }
 }

@@ -20,6 +20,7 @@ namespace Pogi.Models.TeeTimeViewModels
  
             TeeTimeTS = nextSaturday;
             NumPlayers = 4;
+            LockWithdrawDays = 5;
         }
 
         public Member Member { get; set; }
@@ -43,6 +44,8 @@ namespace Pogi.Models.TeeTimeViewModels
         public bool MajorTour { get; set; }
         [Display(Name = "Minutes between TeeTimes")]
         public int TeeTimeInterval { get; set; }
+        [Display(Name = "Days to Lock Withdraw")]
+        public int LockWithdrawDays { get; set; }
     }
 
 

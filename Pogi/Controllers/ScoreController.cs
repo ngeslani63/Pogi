@@ -344,11 +344,11 @@ namespace Pogi.Controllers
             {
                 if (tour != null && tour.TourType == TourType.MultiDay)
                 {
-                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId), DateTime.Parse(TourDate).Date);
+                    model.ScoreInfos = _scoreInfo.getPodiumForTour(int.Parse(TourId), DateTime.Parse(TourDate).Date);
                 }
                 else
                 {
-                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                    model.ScoreInfos = _scoreInfo.getPodiumForTour(int.Parse(TourId));
                 }
                 model.TourId = TourId;
                 model.TourDate = TourDate;
