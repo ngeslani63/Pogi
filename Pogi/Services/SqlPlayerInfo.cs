@@ -18,14 +18,46 @@ namespace Pogi.Services
         }
         public IEnumerable<PlayerInfo> getRoster()
         {
-            var Players = _context.Player.Where(r => r.PlayDate >= System.DateTime.Today).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
             List<PlayerInfo> PlayerInfos = new List<PlayerInfo>();
-            foreach (Player player in Players)
+            var confirmedPlayers = _context.Player.Where(r => r.PlayDate >= System.DateTime.Today && 
+                r.Confirmed == true).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
+            foreach (Player player in confirmedPlayers)
             {
                 Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);
 
                 PlayerInfo playerInfo = new PlayerInfo(player, member);
                 PlayerInfos.Add(playerInfo);
+            }
+            var withdrawnPlayers = _context.Player.Where(r => r.PlayDate >= System.DateTime.Today &&
+                r.Withdrawn == true).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
+            foreach (Player player in withdrawnPlayers)
+            {
+                Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);
+
+                PlayerInfo playerInfo = new PlayerInfo(player, member);
+                PlayerInfos.Add(playerInfo);
+            }
+            var Players = _context.Player.Where(r => r.PlayDate >= System.DateTime.Today &&
+                r.Withdrawn == false && r.Confirmed == false).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
+            if (Players != null)
+            {
+                Dictionary<String, PlayerInfo> mapPlayerInfos = new Dictionary<string, PlayerInfo>();
+
+                foreach (Player player in Players)
+                {
+                    Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);
+
+                    PlayerInfo playerInfo = new PlayerInfo(player, member);
+                    mapPlayerInfos.Add(member.LastName + member.FirstName, playerInfo);
+                    // PlayerInfos.Add(playerInfo);
+                }
+                if (mapPlayerInfos.Count > 0)
+                {
+                    foreach (var kvp in mapPlayerInfos.OrderBy (kvp => kvp.Key))
+                    {
+                        PlayerInfos.Add(kvp.Value);
+                    }
+                }
             }
             return PlayerInfos;
         }
