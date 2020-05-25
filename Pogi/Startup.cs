@@ -194,6 +194,8 @@ namespace Pogi
 
             app.UseSession();
 
+            app.UseNodeModules(env.ContentRootPath);
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
