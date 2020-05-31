@@ -154,7 +154,20 @@
 
                     <td class="col-md-2">@scoreDateDisp</td>
                     <td class="col-md-2">@course.CourseName</td>
-                    <td class="col-md-2">@member.FirstName @member.LastName</td>
+
+                    <td class="col-md-2">
+                        @if (Model.User != null && (Model.User.MemberId == score.EnteredById || Model.User.MemberId == score.MemberId
+                            || Model.User.RoleAdminScore == true || Model.User.MemberId == 1))
+                        {
+                            <a asp-action="Edit" asp-route-id="@score.ScoreId">
+                                @member.FirstName @member.LastName
+                            </a>
+                        }
+                        else
+                        {
+                            @member.FirstName @member.LastName
+                        }
+                    </td>
 
                     <td>@score.Color</td>
                     <td class="col-md-1">Out<br />In</td>

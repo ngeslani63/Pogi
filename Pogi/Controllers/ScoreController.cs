@@ -65,7 +65,7 @@ namespace Pogi.Controllers
         }
 
         // GET: Score
-        [AllowAnonymous]
+        // [AllowAnonymous]
         //public async Task<IActionResult> Index()
         public IActionResult Index(string Search, string TourId)
         {

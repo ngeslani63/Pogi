@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div id ="frontNine" class="container-fluid">
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole01" class="control-label"></label>
@@ -136,7 +136,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div id="backNine" class="container-fluid">
         <div class="form-row">
             <div class="form-group col-sm-2">
                 <label asp-for="@Model.Hole10" class="control-label"></label>
@@ -224,10 +224,22 @@
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 
 <script type="text/javascript">
     console.info("Hello From Score Partial");
+    $(document).ready(function () {
+         console.info("Document ready from Score Partial");
+
+        $("input[type=number]").on('focus', function () {
+            console.info($(this).attr("name").valueOf() + "=" + $(this).val());
+            if ($(this).val().length > 0) {
+                //console.info("there is value");
+                $(this).select();
+            }
+        })
+    });
 </script>
 
