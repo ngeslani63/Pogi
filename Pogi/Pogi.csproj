@@ -17,6 +17,8 @@
     <Compile Remove="wwwroot\images\News_20190427\**" />
     <Compile Remove="wwwroot\images\News_20190608\**" />
     <Compile Remove="wwwroot\images\News_20190810\**" />
+    <Compile Remove="wwwroot\images\News_20200516\**" />
+    <Compile Remove="wwwroot\images\News_20200530\**" />
     <Content Remove="wwwroot\images\Gallery_20180310\**" />
     <Content Remove="wwwroot\images\Gallery_20180428\**" />
     <Content Remove="wwwroot\images\News_20180511\**" />
@@ -28,6 +30,8 @@
     <Content Remove="wwwroot\images\News_20190427\**" />
     <Content Remove="wwwroot\images\News_20190608\**" />
     <Content Remove="wwwroot\images\News_20190810\**" />
+    <Content Remove="wwwroot\images\News_20200516\**" />
+    <Content Remove="wwwroot\images\News_20200530\**" />
     <EmbeddedResource Remove="wwwroot\images\Gallery_20180310\**" />
     <EmbeddedResource Remove="wwwroot\images\Gallery_20180428\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20180511\**" />
@@ -39,6 +43,8 @@
     <EmbeddedResource Remove="wwwroot\images\News_20190427\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20190608\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20190810\**" />
+    <EmbeddedResource Remove="wwwroot\images\News_20200516\**" />
+    <EmbeddedResource Remove="wwwroot\images\News_20200530\**" />
     <None Remove="wwwroot\images\Gallery_20180310\**" />
     <None Remove="wwwroot\images\Gallery_20180428\**" />
     <None Remove="wwwroot\images\News_20180511\**" />
@@ -50,6 +56,8 @@
     <None Remove="wwwroot\images\News_20190427\**" />
     <None Remove="wwwroot\images\News_20190608\**" />
     <None Remove="wwwroot\images\News_20190810\**" />
+    <None Remove="wwwroot\images\News_20200516\**" />
+    <None Remove="wwwroot\images\News_20200530\**" />
   </ItemGroup>
 
   <ItemGroup>

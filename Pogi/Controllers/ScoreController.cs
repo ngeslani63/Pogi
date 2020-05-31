@@ -65,10 +65,11 @@ namespace Pogi.Controllers
         }
 
         // GET: Score
-        // [AllowAnonymous]
+        [AllowAnonymous]
         //public async Task<IActionResult> Index()
         public IActionResult Index(string Search, string TourId)
         {
+            Boolean redirect = false;
             if (Search == null || Search.Length == 0)
             {
                 Search = _session.GetString("SearchLogbook");
@@ -76,6 +77,10 @@ namespace Pogi.Controllers
                 {
                     _session.Remove("SearchLogbook");
                     Search = "";
+                }
+                else
+                {
+                    redirect = true;
                 }
             }
             else
@@ -109,13 +114,22 @@ namespace Pogi.Controllers
                     }
                     else
                     {
+                        redirect = true;
                         _session.SetString("TourIdLogbook", TourId);
                     }
+                }
+                else
+                {
+                    redirect = true;
                 }
             }
             else
             {
                 _session.SetString("TourIdLogbook", TourId);
+            }
+            if (redirect)
+            {
+                return RedirectToAction("Index", "Score", new { Search = Search, TourId = TourId });
             }
             var model = new ScoreDisplayViewModel();
             model.Search = Search;
@@ -143,6 +157,7 @@ namespace Pogi.Controllers
         [AllowAnonymous]
         public IActionResult Leaderboard(string TourId, string TourDate)
         {
+            Boolean redirect = false;
             Tour tour = null;
             if (TourId == null || TourId.Length == 0)
             {
@@ -153,6 +168,7 @@ namespace Pogi.Controllers
                     if (tour != null)
                     {
                         TourId = tour.TourId.ToString();
+                        redirect = true;
                     }
                     else
                     {
@@ -164,6 +180,7 @@ namespace Pogi.Controllers
                 else
                 {
                     tour = _tourInfo.getTour(int.Parse(TourId));
+                    redirect = true;
                 }
             }
             else
@@ -187,6 +204,7 @@ namespace Pogi.Controllers
                         if (tour.TourType == TourType.SingleDay)
                         {
                             TourDate = tour.TourDate.ToShortDateString();
+                            redirect = true;
                         }
                         else
                         {
@@ -194,6 +212,7 @@ namespace Pogi.Controllers
                             if (tourDay != null)
                             {
                                 TourDate = tourDay.TourDate.ToShortDateString();
+                                redirect = true;
                             }
                             else
                             {
@@ -203,10 +222,18 @@ namespace Pogi.Controllers
                     }
                     _session.SetString("TourDateLeaderboard", TourDate);
                 }
+                else
+                {
+                    redirect = true;
+                }
             }
             else
             {
                 _session.SetString("TourDateLeaderboard", TourDate);
+            }
+            if (redirect)
+            {
+                return RedirectToAction("Leaderboard", "Score", new { TourDate = TourDate, TourId = TourId });
             }
             var model = new ScoreDisplayViewModel();
             if (TourId.Length > 0 && int.Parse(TourId) > 0)
@@ -271,6 +298,7 @@ namespace Pogi.Controllers
         [AllowAnonymous]
         public IActionResult Podium(string TourId, string TourDate)
         {
+            Boolean redirect = false;
             Tour tour = null;
             if (TourId == null || TourId.Length == 0)
             {
@@ -281,6 +309,7 @@ namespace Pogi.Controllers
                     if (tour != null)
                     {
                         TourId = tour.TourId.ToString();
+                        redirect = true;
                     }
                     else
                     {
@@ -292,6 +321,7 @@ namespace Pogi.Controllers
                 else
                 {
                     tour = _tourInfo.getTour(int.Parse(TourId));
+                    redirect = true;
                 }
             }
             else
@@ -331,6 +361,9 @@ namespace Pogi.Controllers
                         }
                         _session.SetString("TourDatePodium", TourDate);
                     }
+                    else
+                    {
+                    }
                     
                 }
             }
@@ -338,7 +371,10 @@ namespace Pogi.Controllers
             {
                 _session.SetString("TourDatePodium", TourDate);
             }
-
+            if (redirect)
+            {
+                return RedirectToAction("Podium", "Score", new { TourId = TourId });
+            }
             var model = new ScorePodiumViewModel();
             if (TourId.Length > 0 && int.Parse(TourId) > 0)
             {
