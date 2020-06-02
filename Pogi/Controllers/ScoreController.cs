@@ -416,9 +416,11 @@ namespace Pogi.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         //public async Task<IActionResult> Performers()
-        public IActionResult Performers()
+        public IActionResult Performers(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool AllTime)
         {
+            Boolean redirect = false;
             string userName = "";
             Member Member = null;
             if (_signInManager.IsSignedIn(User))
@@ -427,46 +429,97 @@ namespace Pogi.Controllers
                 if (Member != null) userName = Member.EmailAddr1st;
             }
             _activity.logActivity(userName, "Performers");
-
-            var PerformersWeekly = _session.GetString("PerformersWeekly");
-            var PerformersMonthly = _session.GetString("PerformersMonthly");
-            var PerformersYearly = _session.GetString("PerformersYearly");
-            var PerformersAllTime = _session.GetString("PerformersAllTime");
-            var PerformersAsOfDate = _session.GetString("PerformersAsOfDate");
-            var model = new ScorePerformersViewModel();
-
-            if (PerformersAsOfDate != null && PerformersAsOfDate.Length > 0)
+            if (!(Weekly || Monthly || Yearly || AllTime))
             {
-                model.AsOfDate = DateTime.ParseExact(PerformersAsOfDate, "M/d/yyyy", CultureInfo.CurrentCulture);
+                if (_session.GetString("PerformersWeekly") != null && _session.GetString("PerformersWeekly") == "Y")
+                {
+                    Weekly = true;
+                    redirect = true;
+                }
+                if (_session.GetString("PerformersMonthly") != null && _session.GetString("PerformersMonthly") == "Y")
+                {
+                    Monthly = true;
+                    redirect = true;
+                }
+                if (_session.GetString("PerformersYearly") != null && _session.GetString("PerformersYearly") == "Y")
+                {
+                    Yearly = true;
+                    redirect = true;
+                }
+                if (_session.GetString("PerformersAllTime") != null && _session.GetString("PerformersAllTime") == "Y")
+                {
+                    AllTime = true;
+                    redirect = true;
+                }
+                if (_session.GetString("PerformersAsOfDate") != null && _session.GetString("PerformersAsOfDate") != "0001-01-01") {
+                    AsOfDate = _session.GetString("PerformersAsOfDate");
+                    redirect = true;
+                }
+
             }
-            else
+
+            if (!(Weekly || Monthly || Yearly || AllTime))
             {
+                Weekly = true;
+                Monthly = false;
+                Yearly = false;
+                AllTime = true;
+                      
+                _session.SetString("PerformersWeekly", "Y");
+                _session.SetString("PerformersMonthly", "N");
+                _session.SetString("PerformersYearly", "N");
+                _session.SetString("PerformersAllTime", "Y");
+                 redirect = true;
+            }
+            if (AsOfDate == null || AsOfDate == "0001-01-01")
+            {
+
                 DateTime today = DateTime.Today;
                 int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
-                model.AsOfDate = today.AddDays(daysSinceSunday); // Sunday of Last Week
+                AsOfDate = today.AddDays(daysSinceSunday).ToString("yyyy-MM-dd"); // Sunday of Last Week
+                _session.SetString("PerformersAsOfDate", AsOfDate);
+                redirect = true;
             }
 
-            if (PerformersWeekly == "Y") model.Weekly = true;
-            if (PerformersMonthly == "Y") model.Monthly = true;
-            if (PerformersYearly == "Y") model.Yearly = true;
-            if (PerformersAllTime == "Y") model.AllTime = true;
-            if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
+            if (redirect)
             {
-                model.Weekly = true;
-                model.AllTime = true;
-                _session.SetString("PerformersWeekly", "Y");
-                _session.SetString("PerformersAllTime", "Y");
+                return RedirectToAction("Performers", "Score", new
+                {
+                    Weekly = Weekly,
+                    Monthly = Monthly,
+                    Yearly = Yearly,
+                    Alltime = AllTime,
+                    AsOfDate = AsOfDate
+                });
             }
+
+
+            var model = new ScorePerformersViewModel();
+            model.Weekly = Weekly;
+            model.Monthly = Monthly;
+            model.Yearly = Yearly;
+            model.AllTime = AllTime;
+            model.AsOfDate = DateTime.ParseExact(AsOfDate, "yyyy-MM-dd", CultureInfo.CurrentCulture);
+
             model.ScoreInfos = new List<ScoreInfo>();
             if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfWeek(model.AsOfDate));
             if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfMonth(model.AsOfDate));
             if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getMeritsOfYear(model.AsOfDate));
             if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getMeritsAllTime());
             //model = _scoreInfo.getMeritsAllTime();
-            _session.SetString("PerformersAsOfdate", model.AsOfDate.ToShortDateString());
+
+            if (model.Weekly) _session.SetString("PerformersWeekly", "Y");
+            else _session.SetString("PerformersWeekly", "N");
+            if (model.Monthly) _session.SetString("PerformersMonthly", "Y");
+            else _session.SetString("PerformersMonthly", "N");
+            if (model.Yearly) _session.SetString("PerformersYearly", "Y");
+            else _session.SetString("PerformersYearly", "N");
+            if (model.AllTime) _session.SetString("PerformersAllTime", "Y");
+            else _session.SetString("PerformersAllTime", "N");
+            _session.SetString("PerformersAsOfDate", model.AsOfDate.ToString("yyyy-MM-dd"));
 
             return View(model);
-            //return View(await _context.Score.ToListAsync());
+
         }
 
         [AllowAnonymous]
@@ -474,7 +527,8 @@ namespace Pogi.Controllers
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Performers()
         //public IActionResult Performers(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool Alltime )
-        public IActionResult Performers(ScorePerformersViewModel model)
+        public IActionResult xPerformers(ScorePerformersViewModel model)
+
         {
             //var model = new ScorePerformersViewModel();
             if (!(model.Weekly || model.Monthly || model.Yearly || model.AllTime))
@@ -528,8 +582,118 @@ namespace Pogi.Controllers
         //    //return View(await _context.Score.ToListAsync());
         //}
         [AllowAnonymous]
-        //public async Task<IActionResult> Performers()
-        public IActionResult Badges()
+        [HttpGet]
+        //public async Task<IActionResult> Badges()
+        public IActionResult Badges(string AsOfDate, bool Weekly, bool Monthly, bool Yearly, bool AllTime)
+        {
+            Boolean redirect = false;
+            string userName = "";
+            Member Member = null;
+            if (_signInManager.IsSignedIn(User))
+            {
+                Member = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (Member != null) userName = Member.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Badges");
+            if (!(Weekly || Monthly || Yearly || AllTime))
+            {
+                if (_session.GetString("BadgesWeekly") != null && _session.GetString("BadgesWeekly") == "Y")
+                {
+                    Weekly = true;
+                    redirect = true;
+                }
+
+                if (_session.GetString("BadgesMonthly") != null && _session.GetString("BadgesMonthly") == "Y")
+                {
+                    Monthly = true;
+                    redirect = true;
+                }
+                if (_session.GetString("BadgesYearly") != null && _session.GetString("BadgesYearly") == "Y")
+                {
+                    Yearly = true;
+                    redirect = true;
+                }
+                if (_session.GetString("BadgesAllTime") != null && _session.GetString("BadgesAllTime") == "Y")
+                {
+                    AllTime = true;
+                    redirect = true;
+                }
+                if (_session.GetString("BadgesAsOfDate") != null && _session.GetString("BadgesAsOfDate") != "0001-01-01")
+                {
+                    AsOfDate = _session.GetString("BadgesAsOfDate");
+                    redirect = true;
+                }
+
+            }
+
+            if (!(Weekly || Monthly || Yearly || AllTime))
+            {
+                Weekly = true;
+                Monthly = false;
+                Yearly = false;
+                AllTime = true;
+
+                _session.SetString("BadgesWeekly", "Y");
+                _session.SetString("BadgesMonthly", "N");
+                _session.SetString("BadgesYearly", "N");
+                _session.SetString("BadgesAllTime", "Y");
+                redirect = true;
+            }
+            if (AsOfDate == null || AsOfDate == "0001-01-01")
+            {
+
+                DateTime today = DateTime.Today;
+                int daysSinceSunday = ((int)DayOfWeek.Sunday - (int)today.DayOfWeek - 7) % 7;
+                AsOfDate = today.AddDays(daysSinceSunday).ToString("yyyy-MM-dd"); // Sunday of Last Week
+                _session.SetString("BadgesAsOfDate", AsOfDate);
+                redirect = true;
+            }
+
+            if (redirect)
+            {
+                return RedirectToAction("Badges", "Score", new
+                {
+                    Weekly = Weekly,
+                    Monthly = Monthly,
+                    Yearly = Yearly,
+                    Alltime = AllTime,
+                    AsOfDate = AsOfDate
+                });
+            }
+
+
+            var model = new ScorePerformersViewModel();
+            model.Weekly = Weekly;
+            model.Monthly = Monthly;
+            model.Yearly = Yearly;
+            model.AllTime = AllTime;
+            model.AsOfDate = DateTime.ParseExact(AsOfDate, "yyyy-MM-dd", CultureInfo.CurrentCulture);
+
+            model.ScoreInfos = new List<ScoreInfo>();
+            if (model.Weekly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfWeek(model.AsOfDate));
+            if (model.Monthly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfMonth(model.AsOfDate));
+            if (model.Yearly) model.ScoreInfos.AddRange(_scoreInfo.getBadgesOfYear(model.AsOfDate));
+            if (model.AllTime) model.ScoreInfos.AddRange(_scoreInfo.getBadgesAllTime());
+            //model = _scoreInfo.getBadgesAllTime();
+
+            if (model.Weekly) _session.SetString("BadgesWeekly", "Y");
+            else _session.SetString("BadgesWeekly", "N");
+            if (model.Monthly) _session.SetString("BadgesMonthly", "Y");
+            else _session.SetString("BadgesMonthly", "N");
+            if (model.Yearly) _session.SetString("BadgesYearly", "Y");
+            else _session.SetString("BadgesYearly", "N");
+            if (model.AllTime) _session.SetString("BadgesAllTime", "Y");
+            else _session.SetString("BadgesAllTime", "N");
+            _session.SetString("BadgesAsOfDate", model.AsOfDate.ToString("yyyy-MM-dd"));
+
+            return View(model);
+
+        }
+
+
+        [AllowAnonymous]
+        //public async Task<IActionResult> xPerformers()
+        public IActionResult xxBadges()
         {
             string userName = "";
             Member Member = null;
