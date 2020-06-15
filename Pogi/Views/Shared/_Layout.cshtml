@@ -9,16 +9,15 @@
 
     <title>POGI</title>
 
-    <script src="/node_modules/jquery/dist/jquery.js"></script>
-    <script src="/node_modules/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
-    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     @*<link href="~/css/site.css" rel="stylesheet" />*@
+    <style>
+        body {
+            margin-top:40px;
+        }
+    </style>
+
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    @* <link href="~/lib/bootstrat-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet" />*@
     <!-- Custom styles for this template -->
     <link href="~/css/carousel.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
@@ -124,6 +123,12 @@
         </footer>
     </div>
 
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+
     <script src="~/lib/bootstrat-4.0.0/assets/js/vendor/popper.min.js"></script>
     <script src="~/lib/bootstrat-4.0.0/dist/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
@@ -138,35 +143,19 @@
 
 
     <script src="~/lib/lightgallery/dist/js/lightgallery-all.js"></script>
-    @*<script src="~/lib/lightgallery/lib/jquery.mousewheel.min.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-autoplay.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-fullscreen.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-hash.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-pager.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-share.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-thumbnail.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-video.js"></script>
-        <script src="~/lib/lightgallery/modules/lg-zoom.js"></script>*@
 
-    <!-- Latest compiled and minified JavaScript -->
+    <!-- Bootstrap Table -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
-    @*<script src="~/lib/bootstrap-table-master/dist/bootstrap-table.js"></script>*@
     <script src="~/lib/bootstrap-table-master/src/locale/bootstrap-table-en-US.js"></script>
     <script src="~/lib/bootstrap-table-examples-master/ga.js"></script>
-
-
+    
     <script src="~/lib/JavaScript-Load-Image-master/js/load-image.all.min.js"></script>
+
     <script>
         //console.info("Hello From Layout");
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-
-            //require(['~/lib/lightgallery/dist/js/lightgallery.js'], function () {
-            //    require(["~/lib/lg-zoom/dist/lg-zoom.js", "~/lib/lg-thumbnail/dist/lg-thumbnail.js"], function () {
-            //        $("#lightgallery").lightGallery();
-            //    });
-            //});
 
         });
     </script>
