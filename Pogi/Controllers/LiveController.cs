@@ -30,7 +30,7 @@ namespace Pogi.Controllers
         private readonly IActivity _activity;
         private readonly IDateTime _dateTime;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
-        
+
         public LiveController(PogiDbContext context, IScoreInfo scoreInfo,
              SignInManager<ApplicationUser> signInManager,
                 UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
@@ -58,7 +58,7 @@ namespace Pogi.Controllers
             _activity = activity;
             _dateTime = dateTime;
         }
-        
+
         public IActionResult Index(string TourId, string TourDate)
         {
             Boolean redirect = false;
@@ -140,7 +140,7 @@ namespace Pogi.Controllers
                 return RedirectToAction("Index", "Live", new { TourDate = TourDate, TourId = TourId });
             }
             var model = new LiveSelectViewModel();
-            if (TourDate != null )
+            if (TourDate != null)
             {
                 TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate).Date);
                 if (teeTime != null)
@@ -168,6 +168,10 @@ namespace Pogi.Controllers
             }
             _activity.logActivity(userName, "Live");
             return View(model);
-          }
+        }
+        public IActionResult Score(string TourId, string TourDate)
+        {
+            return View();
+        }
     }
 }
