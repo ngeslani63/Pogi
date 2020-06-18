@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Live Tournament Scoring";
 }
-    <section class="container">
+<section class="container">
         <br />
         <h2>Live Scoring</h2>
         <h3>Select Group</h3>
@@ -50,28 +50,53 @@
 
                 int group = 0;
                 DateTime startTime = teeTime.TeeTimeTS;
-                    @for (int i = 0; i < teeTime.NumPlayers; i++)
+                @if (teeTime.NumPlayers > 0)
+                {
+                <section class="row">
+                    <div class="col-4">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            @for (int i = 0; i < teeTime.NumPlayers; i++)
 
-                    {
-                        if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
-                        {
-                            group++;
-                            <div class="row input-group">
-                                <div class="input-group-prepend alert-primary col-sm-4">
-                                    Group @group
-                                </div>
-                                <div class="alert-primary col">
-                                    Start Time: @startTime.ToShortTimeString()
-                                </div>
-                            </div>
-                            startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
-                        }
-                        <div class="row input-group">
-                            <div class="input-group-prepend col">
+                            {
+                                if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
+                                {
+                                    group++;
+                                    var opts = "active";
+                                    if (group > 1) { opts = ""; }
+                                    <a class="list-group-item list-group-item-action @opts"
+                                       id="list-group@(group)-list"
+                                       data-toggle="list" href="#list-group@(group)" role="tab"
+                                       aria-controls="group@(group)">
+                                        Group @group 
+                                        <br />
+                                        Start Time  @startTime.ToShortTimeString()
+                                    </a>
+                                    startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    @{group = 0;
+                      startTime = teeTime.TeeTimeTS;
+                    }
+                    <div class="col-8">
+                        <div class="tab-content" id="nav-tabContent">
+                            
+                            @for (int i = 0; i < teeTime.NumPlayers; i++)
+                            {
+                                @if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
+                                {
+                                    group++;
+                                    startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
+
+                                    var opts = "fade show active";
+                                    if (group > 1) { opts = "fade"; }
+                                    <div class="tab-pane @opts" id="list-group@(group)" role="tabpanel"
+                                        aria-labelledby="list-group@(group)-list">
+                                }
+
                                 Player @(i + 1)
-                            </div>
-
-                            <div class="col text-dark">
                                 @if (i < teeAssignInfos.Count)
                                 {
                                     var teeAssignInfo = teeAssignInfos[i];
@@ -106,15 +131,20 @@
                                 {
                                     <span class="text-muted">Unassigned</span>
                                 }
-                            </div>
+                                @if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
+                                {
+                                    </div>
+                                }
+                            }
+
+                            
                         </div>
-
-
-                    }
-                
+                    </div>
+                </section>
+                }
             }
         }
-        </section>
+     </section>
 
 
 
