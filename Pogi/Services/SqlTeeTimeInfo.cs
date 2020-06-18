@@ -37,6 +37,15 @@ namespace Pogi.Services
             }
             return TeeTimeInfos;
         }
+        public TeeTimeInfo getTeeTimeInfo(TeeTime teeTime)
+        {
+            Member member = _context.Member.FirstOrDefault(r => r.MemberId == teeTime.ReservedById);
+            Course course = _context.Course.FirstOrDefault(r => r.CourseId == teeTime.CourseId);
+            List<TeeAssignInfo> teeAssignInfos = _teeAssignInfo.getForTeeTime(teeTime.TeeTimeId);
+            TeeTimeInfo teeTimeInfo = new TeeTimeInfo(teeTime, member, course, teeAssignInfos);
+                   
+            return teeTimeInfo;
+        }
 
         public TeeTime GetTeeTime(DateTime dateTime)
         {
@@ -44,6 +53,14 @@ namespace Pogi.Services
             DateTime datePlus1 = date.AddDays(1);
             TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeTS >= date
                 && r.TeeTimeTS < datePlus1);
+            return teeTime;
+        }
+        public TeeTime GetMajorTeeTime(DateTime dateTime)
+        {
+            DateTime date = dateTime.Date;
+            DateTime datePlus1 = date.AddDays(1);
+            TeeTime teeTime = _context.TeeTime.FirstOrDefault(r => r.TeeTimeTS >= date
+                && r.TeeTimeTS < datePlus1 && r.MajorTour == true);
             return teeTime;
         }
 
@@ -71,6 +88,6 @@ namespace Pogi.Services
             return days;
         }
 
-
+       
     }
 }
