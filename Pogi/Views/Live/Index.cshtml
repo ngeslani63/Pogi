@@ -59,7 +59,7 @@
                                     @for (int i = 0; i < teeTime.NumPlayers; i++)
 
                                     {
-                                        @if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
+                                        @if (teeTime.MajorTour && i % 4 == 0)
                                         {
                                             group++;
                                             var opts = "active";
@@ -117,7 +117,8 @@
                                                                 @if (j < teeAssignInfos.Count)
                                                                 {
                                                                     var teeAssignInfo = teeAssignInfos[j];
-                                                                    @if (teeAssignInfo.TeeAsign.MemberId > 0)
+                                                                    @if (teeAssignInfo != null && teeAssignInfo.TeeAsign != null
+                                                                        && teeAssignInfo.TeeAsign.MemberId > 0)
                                                                     {
                                                                         <span id="g@(group)p@(j % 4 + 1)" value="@teeAssignInfo.Member.MemberId"></span>
                                                                         @if (gOfMFound == "N" &&

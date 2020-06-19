@@ -10,9 +10,11 @@ using Pogi.Entities;
 using Pogi.Models;
 using Pogi.Services;
 using Pogi.Models.LiveViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pogi.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class LiveController : Controller
     {
         private readonly PogiDbContext _context;
