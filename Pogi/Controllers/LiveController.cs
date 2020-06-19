@@ -59,7 +59,8 @@ namespace Pogi.Controllers
             _dateTime = dateTime;
         }
 
-        public IActionResult Index(string TourId, string TourDate)
+        public IActionResult Index(string TourId, string TourDate, string memberId, string tGroup,
+            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
             Boolean redirect = false;
             Tour tour = null;
@@ -169,7 +170,8 @@ namespace Pogi.Controllers
             _activity.logActivity(userName, "Live");
             return View(model);
         }
-        public IActionResult Score(string TourId, string TourDate)
+        public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup,
+            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
             return View();
         }

@@ -10,9 +10,9 @@
         <h3>Select Group</h3>
         <hr />
         <form class="px-0" asp-action="Live" method="get">
-        <section class="row">
-            <div class="col">
-                @*<form class="px-0" asp-action="Live" method="get">*@
+            <section class="row">
+                <div class="col">
+                    @*<form class="px-0" asp-action="Live" method="get">*@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tour</span>
@@ -27,154 +27,172 @@
                                    name="SetTour" value="SetTour" class="btn btn-primary" />
                         </div>
                     </div>
-                @*</form>*@
-            </div>
-        </section>
-        <hr />
-        @{
-            TeeTimeInfo teeTimeInfo = Model.TeeTimeInfo;
-            if (teeTimeInfo != null)
-            {
-                TeeTime teeTime = teeTimeInfo.TeeTime;
-                String teeTimeDisp = teeTime.TeeTimeTS.ToString("f");
-                Member member = teeTimeInfo.Member;
-                Course course = teeTimeInfo.Course;
-                var teeAssignInfos = teeTimeInfo.TeeAssignInfos;
-            <section class="row ">
-                <div class="col-4 alert-info px-3">
-                    @Html.DisplayNameFor(model => course.CourseName)
-                </div>
-                <div class="col alert-secondary px-3">
-                    @Html.DisplayFor(modelItem => course.CourseName)
+                    @*</form>*@
                 </div>
             </section>
             <hr />
-                int group = 0;
-                DateTime startTime = teeTime.TeeTimeTS;
-            @if (teeTime.NumPlayers > 0)
+            @{
+                TeeTimeInfo teeTimeInfo = Model.TeeTimeInfo;
+                if (teeTimeInfo != null)
                 {
-            <section class="row">
-                <div class="col-5">
-                    <div class="list-group" id="list-tab" role="tablist">
-                        @for (int i = 0; i < teeTime.NumPlayers; i++)
-
-                            {
-                        @if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
-                                {
-                                    group++;
-                                    var opts = "active";
-                        @if (group > 1) { opts = ""; }
-                        <a class="list-group-item list-group-item-action px-2 @opts"
-                           id="list-group@(group)-list"
-                           data-toggle="list" href="#list-group@(group)" role="tab"
-                           aria-controls="group@(group)">
-                            <small>
-                                Group @group
-                                @startTime.ToShortTimeString()
-                            </small>
-                        </a>
-                                    startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
-                                }
-
-                            }
-                    </div>
-                </div>
-                @{group = 0;
-                      startTime = teeTime.TeeTimeTS;
-                }
-                <div class="col-7 pl-0">
-                    <div class="tab-content" id="nav-tabContent">
-
-                        @for (int i = 0; i < teeTime.NumPlayers; i++)
-                            {
-                        @if (teeTime.MajorTour && i % 4 == 0)
-                                {
-                                    group++;
-                                    startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
-
-                                    var opts = "fade show active";
-                        @if (group > 1)
-                                    { opts = "fade";
-                                    }
-                        <div class="tab-pane @opts" id="list-group@(group)" role="tabpanel"
-                             aria-labelledby="list-group@(group)-list">
-                            <table class="table table-hover">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Player</th>
-                                        <th scope="col">H.I.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (int j=i ; j < teeTime.NumPlayers && j < i+4 ; j++)
-                                        {
-                                    <tr scope="row">
-                                        <th>@(j % 4 + 1). </th>
-
-                                        @if (j < teeAssignInfos.Count)
-                                                {
-                                                    var teeAssignInfo = teeAssignInfos[j];
-                                        @if (teeAssignInfo.TeeAsign.MemberId > 0)
-                                                    {
-                                        @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
-                                                        {
-                                        <td>@teeAssignInfo.TeeAsign.GuestName</td>
-
-                                                        }
-                                                        else
-                                                        {
-                                        <td>
-                                            <small>
-                                                @teeAssignInfo.Member.FirstName
-                                                @teeAssignInfo.Member.LastName
-                                            </small>
-                                        </td>
-                                        @if (teeAssignInfo.Member.CurrHandicap > 0)
-                                                            {
-                                        <td>@teeAssignInfo.Member.CurrHandicap</td>
-                                                            }
-                                                            else
-                                                            {
-                                        <td>(NH)</td>
-
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                        <td class="text-muted">Unassigned</td>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                        <td class="text-muted">Unassigned</td>
-                                                }
-
-                                    </tr>
-                                         }
-                                </tbody>
-                            </table>
+                    TeeTime teeTime = teeTimeInfo.TeeTime;
+                    String teeTimeDisp = teeTime.TeeTimeTS.ToString("f");
+                    Member member = teeTimeInfo.Member;
+                    Course course = teeTimeInfo.Course;
+                    var teeAssignInfos = teeTimeInfo.TeeAssignInfos;
+                    <section class="row ">
+                        <div class="col-4 alert-info px-3">
+                            @Html.DisplayNameFor(model => course.CourseName)
                         </div>
-                                }
+                        <div class="col alert-secondary px-3">
+                            @Html.DisplayFor(modelItem => course.CourseName)
+                        </div>
+                    </section>
+                    <hr />
+                    int group = 0;
+                    DateTime startTime = teeTime.TeeTimeTS;
+                    @if (teeTime.NumPlayers > 0)
+                    {
+                        <section class="row">
+                            <div class="col-5">
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    @for (int i = 0; i < teeTime.NumPlayers; i++)
+
+                                    {
+                                        @if (teeTime.MajorTour && teeTime.NumPlayers > 4 && i % 4 == 0)
+                                        {
+                                            group++;
+                                            var opts = "active";
+                                            @if (group > 1) { opts = ""; }
+                                            <a class="list-group-item list-group-item-action px-2 @opts"
+                                               id="list-group@(group)-list"
+                                               data-toggle="list" href="#list-group@(group)" role="tab"
+                                               aria-controls="group@(group)" tgroup="@(group)">
+                                                <small>
+                                                    Group @group
+                                                    @startTime.ToShortTimeString()
+                                                </small>
+                                            </a>
+                                            startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                            @{group = 0;
+                                startTime = teeTime.TeeTimeTS;
                             }
+                            <div class="col-7 pl-0">
+                                <div class="tab-content" id="nav-tabContent">
+
+                                    @for (int i = 0; i < teeTime.NumPlayers; i++)
+                                    {
+                                        @if (teeTime.MajorTour && i % 4 == 0)
+                                        {
+                                            group++;
+                                            startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
+
+                                            var gOfMFound = "N";
+                                            var opts = "fade show active";
+                                            @if (group > 1)
+                                            {
+                                                opts = "fade";
+                                            }
+                                            <div class="tab-pane @opts" id="list-group@(group)" role="tabpanel"
+                                                 aria-labelledby="list-group@(group)-list">
+                                                <table class="table table-hover">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Player</th>
+                                                            <th scope="col">H.I.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
+                                                        {
+                                                            <tr scope="row">
+                                                                <th>@(j % 4 + 1). </th>
+
+                                                                @if (j < teeAssignInfos.Count)
+                                                                {
+                                                                    var teeAssignInfo = teeAssignInfos[j];
+                                                                    @if (teeAssignInfo.TeeAsign.MemberId > 0)
+                                                                    {
+                                                                        <span id="g@(group)p@(j % 4 + 1)" value="@teeAssignInfo.Member.MemberId"></span>
+                                                                        @if (gOfMFound == "N" &&
+                                                                            Model.User.MemberId == teeAssignInfo.Member.MemberId)
+                                                                        {
+                                                                            <span id="gOfM" value="@group"></span>
+                                                                            gOfMFound = "Y";
+                                                                        }
+                                                                        @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
+                                                                        {
+                                                                            <td>@teeAssignInfo.TeeAsign.GuestName</td>
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td>
+                                                                                <small>
+                                                                                    @teeAssignInfo.Member.FirstName
+                                                                                    @teeAssignInfo.Member.LastName
+                                                                                </small>
+                                                                            </td>
+                                                                            @if (teeAssignInfo.Member.CurrHandicap > 0)
+                                                                            {
+                                                                                <td>@teeAssignInfo.Member.CurrHandicap</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td>(NH)</td>
+
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td class="text-muted">Unassigned</td>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td class="text-muted">Unassigned</td>
+                                                                }
+
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        }
+                                    }
 
 
-                    </div>
-                </div>
-            </section>
-            @*<form class="px-0" asp-action="Live" method="get">*@
-                <section class="row mt-0">
-                    <button type="submit" formaction=@Url.Action("Score") class="col-11 py-3 mx-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
-                </section>
-            @*</form>*@
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="row mt-0">
+                            <button type="submit" formaction=@Url.Action("Score","Live") ) class="col-11 py-3 mx-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
+                        </section>
+                       
+
+                    }
 
                 }
-
             }
-        }
+        <section>
+            <input type="text" id="tGroup" name="tGroup" hidden />
+            <input type="text" id="memberId" name="memberId" hidden/>
+            <input type="text" id="sMemberId1" name="sMemberId1" hidden/>
+            <input type="text" id="sMemberId2" name="sMemberId2" hidden/>
+            <input type="text" id="sMemberId3" name="sMemberId3" hidden/>
+            <input type="text" id="sMemberId4" name="sMemberId4" hidden/>
+        </section>
         </form>
     </section>
+
 
 @section Scripts {
     <script>
@@ -188,6 +206,57 @@
         $("#TourDate").change(function () {
             console.info("TourId changed");
             $("#SetTour").trigger("click");
+        });
+        $(".list-group-item").click(function () {
+            var tGroup = $(this).attr("tGroup");
+            console.info("Group Clicked " + tGroup);
+            $("#tGroup").val(tGroup);
+            var sMemberId1 = $("#g" + tGroup + "p1").attr("value")
+            var sMemberId2 = $("#g" + tGroup + "p2").attr("value")
+            var sMemberId3 = $("#g" + tGroup + "p3").attr("value")
+            var sMemberId4 = $("#g" + tGroup + "p4").attr("value");
+            console.info("Members=" + sMemberId1 + ", " + sMemberId2
+                + ", " + sMemberId3 + ", " + sMemberId4);
+            if (sMemberId1 != "undefined") {
+                console.info("Setting sMemberId1 to " + sMemberId1);
+                $("#sMemberId1").val(sMemberId1);
+            }
+            if (sMemberId2 != "undefined") {
+                $("#sMemberId2").val(sMemberId2);
+            }
+            if (sMemberId3 != "undefined") {
+                $("#sMemberId3").val(sMemberId3);
+            }
+            if (sMemberId4 != "undefined") {
+                $("#sMemberId4").val(sMemberId4);
+            }
+            
+            var m1 = $("#sMemberId1").val();
+            console.info("sMemberId1=" + m1);
+        });
+        $(document).ready(function () {
+            console.info("Document Ready");
+
+            var g = $("#tGroup").val();
+            if (g == "") {
+                var gOfM = $("#gOfM").attr("value");
+                if (gOfM != "undefined" && gOfM > "") {
+                    console.info("setting tGroup to Members group of "+gOfM)
+                    g =gOfM;
+                }
+                else {
+                    console.info("defaulting tGroup to 1")
+                    g = 1;
+                }
+                
+            }
+            console.info("tGroup=" + g);
+            var gid = "#list-group" + g + "-list";
+            console.info("triggering " + gid);
+
+            $(gid).trigger("click");
+
+            console.info("Group 1 Player 1 = " + $("#g1p1").attr("value"));
         });
 
 
