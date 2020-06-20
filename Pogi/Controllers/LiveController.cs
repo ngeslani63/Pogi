@@ -11,6 +11,7 @@ using Pogi.Models;
 using Pogi.Services;
 using Pogi.Models.LiveViewModels;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 namespace Pogi.Controllers
 {
@@ -175,7 +176,154 @@ namespace Pogi.Controllers
         public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
-            return View();
+            Boolean redirect = false;
+            Tour tour = null;
+            if (TourId == null || TourId.Length == 0)
+            {
+                TourId = _session.GetString("TourIdLive");
+                if (TourId == null || TourId.Length == 0)
+                {
+                    tour = _tourInfo.getLatestTour();
+                    if (tour != null)
+                    {
+                        TourId = tour.TourId.ToString();
+                        redirect = true;
+                    }
+                    else
+                    {
+                        TourId = "1";
+                    }
+                    tour = _tourInfo.getTour(int.Parse(TourId));
+                    _session.SetString("TourIdLive", TourId);
+                }
+                else
+                {
+                    tour = _tourInfo.getTour(int.Parse(TourId));
+                    redirect = true;
+                }
+            }
+            else
+            {
+                tour = _tourInfo.getTour(int.Parse(TourId));
+                string prevTourId = _session.GetString("TourIdLive");
+                if (prevTourId != null && TourId != prevTourId)
+                {
+                    TourDate = "";
+                    _session.Remove("TourDateLive");
+                }
+                _session.SetString("TourIdLive", TourId);
+            }
+            if (TourDate == null || TourDate.Length == 0)
+            {
+                TourDate = _session.GetString("TourDateLive");
+                if (TourDate == null || TourDate.Length == 0)
+                {
+                    if (tour != null)
+                    {
+                        if (tour.TourType == TourType.SingleDay)
+                        {
+                            TourDate = tour.TourDate.ToShortDateString();
+                            redirect = true;
+                        }
+                        else
+                        {
+                            TourDay tourDay = _tourDayInfo.GetLatestTourDay(tour.TourId);
+                            if (tourDay != null)
+                            {
+                                TourDate = tourDay.TourDate.ToShortDateString();
+                                redirect = true;
+                            }
+                            else
+                            {
+                                TourDate = "";
+                            }
+                        }
+                    }
+                    _session.SetString("TourDateLive", TourDate);
+                }
+                else
+                {
+                    redirect = true;
+                }
+            }
+            else
+            {
+                _session.SetString("TourDateLive", TourDate);
+            }
+            if (tour == null)
+            {
+                return RedirectToAction("Index", "Live");
+            }
+            string[] sPlayer = { sMemberId1, sMemberId2, sMemberId3, sMemberId4 };
+            int[] player = { 0, 0, 0, 0 };
+            int pCnt = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                try
+                {
+                    int mId = int.Parse(sPlayer[i]);
+                    if (mId > 0)
+                    {
+                        pCnt++;
+                        player[pCnt - 1] = mId;
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            if (pCnt == 0)
+            {
+                return RedirectToAction("Index", "Live");
+            }
+            var model = new LiveScoreViewModel();
+            model.Tour = tour;
+            TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate,
+                CultureInfo.CurrentCulture));
+            model.Course = _courseData.get(teeTime.CourseId);
+            Member user = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+            for (int i = 0; i < pCnt; i++)
+            {
+                Member member = _memberData.get(player[i]);
+
+                model.Players.Add(member);
+                Score score = PrimeScore(DateTime.Parse(TourDate, CultureInfo.CurrentCulture),
+                               member, model.Course, tour, user);
+                model.Scores.Add(score) ;
+            }
+            return View(model);
+        }
+
+     
+        private Score PrimeScore(DateTime scoreDate, Member member,
+            Course course, Tour tour, Member user)
+        {
+            Score score;
+            score = _scoreInfo.getScoreByTourId(tour.TourId, member.MemberId);
+            if (score == null)
+            {
+                score = new Score();
+                score.ScoreDate = scoreDate;
+                score.MemberId = member.MemberId;
+                score.CourseId = course.CourseId;
+                score.CreatedTs = DateTime.Now;
+                score.EnteredById = user.MemberId;
+                score.Color = tour.BaseColor.ToString();
+                score.TourEvent = true;
+                score.TourId = tour.TourId;
+                score.ScoreType = ScoreType.DraftScore;
+                _context.Add(score);
+                _context.SaveChanges();
+            }
+            return score;
+
         }
     }
+        
 }
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pogi.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -118,6 +119,7 @@ namespace Pogi.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string LastUpdatedBy { get; set; }
         public DateTime LastUpdatedTs { get; set; }
+        public ScoreType ScoreType { get; set; }
 
     }
 }

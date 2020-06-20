@@ -734,6 +734,19 @@ namespace Pogi.Services
             ties[cHcps[i] - 1] = scores[i];
         }
 
-        
+        public Score getScorebyDate(DateTime scoreDate, int memberId, int courseId)
+        {
+            Score score;
+            score = _context.Score.SingleOrDefault(r => r.ScoreDate == scoreDate
+                    && r.MemberId == memberId && r.CourseId == courseId);
+            return score;
+        }
+
+        public Score getScoreByTourId(int tourId, int memberId)
+        {
+            Score score;
+            score = _context.Score.SingleOrDefault(r => r.TourId == tourId && r.MemberId == memberId);
+            return score;
+        }
     }
 }

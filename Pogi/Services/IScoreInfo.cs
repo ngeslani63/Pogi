@@ -9,6 +9,8 @@ namespace Pogi.Services
 {
     public interface IScoreInfo
     {
+        Score getScorebyDate(DateTime ScoreDate, int MemberId, int CourseId);
+        Score getScoreByTourId(int TourId, int MemberId);
         List<ScoreInfo> getAll();
         List<ScoreInfo> getForEffDate(DateTime EffDate);
         List<ScoreInfo> getForTour(string TourName);

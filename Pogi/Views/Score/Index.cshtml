@@ -113,7 +113,7 @@
                 }
                 var courseHandicapT = "n/a";
                 Tour Tour = null;
-                if (score.TourEvent == true)
+                if (score.TourId > 0 && score.TourEvent == true)
                 {
                     courseHandicapT = "s36";
                     if (Handicap != null && Handicap.HcpIndex >= 0)
