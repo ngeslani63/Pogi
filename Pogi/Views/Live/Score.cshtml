@@ -24,24 +24,52 @@
         <btn id="prevHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-2 mb-1 border">
             Prev Hole
         </btn>
-        <div id="cHole" class="col bg-info text-light text-center py-2 mb-1 border">
-            Hole #00
+        <div class="col bg-info text-light text-center py-2 mb-1 border">
+            <p id="cHole" class="font-weight-light m-0"><small>Hole #00</small></p>
+            <p id="parOfHole" class="font-weight-light m-0"><small>Par 04, 350 yards</small></p>
         </div>
         <btn id="nextHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-2 mb-1 border">
             Next Hole
         </btn>
     </section>
-    <section class="row align-items-center">
-        @*<div class="col text-center py-3 mb-2 bg-primary text-light border-primary rounded">*@
-            <button id="minusScore" type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
-        @*</div>*@
-        <div class="col text-center py-1 mb-2 bg-secondary text-light border rounded font-weight-bold">
-            <p id="parOfHole" class="h6 font-weight-light">Par 04, 350 yards</p>
-            <label id="scoreOfHole" class="h3 text-light">99</label>
+    <section class="row bg-primary mb-1 align-items-center justify-content-center">
+        <div class="col">
+            <div class="row">
+                <div class="col align-content-center justify-content-center">
+                    <div class="row align-items-center">
+                        <button id="setBirdie" type="button" class="col border-light btn btn-sm btn-primary">Birdie</button>
+                    </div>
+                    <div class="row align-items-center">
+                        <button id="setEagle" type="button" class="col border-light btn btn-sm btn-primary">Eagle</i></button>
+                    </div>
+                    <div class="row align-items-center">
+                        <button id="setOne" type="button" class="col border-light btn btn-sm btn-primary">One</button>
+                    </div>
+                </div>
+                <button id="minusScore" type="button" class="col btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
-        @*<div class="col text-center py-3 mb-2 bg-primary text-light border rounded">*@
-            <button id="plusScore" type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
-        @*</div>*@
+        <div class="col text-center bg-secondary text-light border rounded font-weight-bold">
+            
+            <label id="scoreOfHole" class="h3 text-light m-0">99</label>
+            <p id="pOfHole" class="h6 font-weight-light m-0 mb-1">Nestor</p>
+        </div>
+        <div class="col">
+            <div class="row">
+                <button id="plusScore" type="button" class="col btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
+                <div class="col align-content-center justify-content-center">
+                    <div class="row align-items-center">
+                        <button id="setPar" type="button" class="col border-light btn btn-sm btn-primary">Par</button>
+                    </div>
+                    <div class="row align-items-center">
+                        <button id="setBogey" type="button" class="col border-light btn btn-sm btn-primary">Bogey</i></button>
+                    </div>
+                    <div class="row align-items-center">
+                        <button id="setDouble" type="button" class="col border-light btn btn-sm btn-primary">Double</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="row align-items-center">
@@ -174,7 +202,7 @@
         @foreach (Member player in @Model.Players)
         {
             p++;
-            <label id="btnP@(p)"class="col btn btn-primary text-light text-center py-2 px-2 mt-2 mx-1 mb-1 border">
+            <label id="btnP@(p)"class="col btn btn-info text-light text-center py-2 px-2 mt-2 mx-1 mb-1 border">
                 <input type="radio" name="options" id="option1" autocomplete="off" />
                 @player.FirstName
             </label>
@@ -308,6 +336,45 @@
             setScore(score);
         });
 
+        $("#setPar").click(function () {
+            var parOfHole = getParOfHole();
+            var score = parOfHole;
+            setScore(score);
+        });
+
+        $("#setBogey").click(function () {
+            var parOfHole = getParOfHole();
+            var score = parOfHole;
+            score++;
+            setScore(score);
+        });
+
+        $("#setDouble").click(function () {
+            var parOfHole = getParOfHole();
+            var score = parOfHole;
+            score++;score++;
+            setScore(score);
+        });
+
+        $("#setBirdie").click(function () {
+            var parOfHole = getParOfHole();
+            var score = parOfHole;
+            score--;
+            setScore(score);
+        });
+
+        $("#setEagle").click(function () {
+            var parOfHole = getParOfHole();
+            var score = parOfHole;
+            score--; score--;
+            setScore(score);
+        });
+
+        $("#setOne").click(function () {
+            var score = 1;
+            setScore(score);
+        });
+
         $("#btnP" + pOfM).trigger("click");
    
 
@@ -351,8 +418,17 @@
          
 
             $(getScoreId()).removeClass("bg-secondary");
-            $(getScoreId()).addClass("bg-info");
+            $(getScoreId()).addClass("bg-primary");
 
+        }
+
+        function getPlayerName() {
+
+            var pOfM = $("#tPlayer").val();
+            var pId = "#btnP" + pOfM;
+            var playerName = $(pId).text().trim();
+            console.info("Player " + pOfM + " is " + playerName);
+            return playerName;
         }
 
         function getParOfHole() {
@@ -408,7 +484,7 @@
         }   
         function toggleRow(p, pCnt) {
 
-            $(getScoreId()).removeClass("bg-info");
+            $(getScoreId()).removeClass("bg-primary");
 
             var y;
             for (y = 1; y <= pCnt; y++) {
@@ -471,7 +547,9 @@
             $("#tPlayer").val(p);
 
             $(getScoreId()).removeClass("bg-secondary");
-            $(getScoreId()).addClass("bg-info");
+            $(getScoreId()).addClass("bg-primary");
+
+            $("#pOfHole").text(getPlayerName);
 
         }
         function scoreAll() {
