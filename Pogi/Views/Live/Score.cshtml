@@ -220,10 +220,7 @@
         var pCnt = $("#pCnt").val();
         console.info("There are " + pCnt + " Players");
 
-        var i;
-        for (i = 1; i <= pCnt; i++) {
-            scoreTotal(i);
-        }
+        scoreAll();
 
         var pOfM = $("#tPlayer").val();
         if (pOfM == "undefined" || pOfM == "") {
@@ -377,6 +374,7 @@
             var scoreId = getScoreId();
             $(scoreId).text(score);
             displayScore();
+            scoreRow();
             return;
         }
 
@@ -476,6 +474,19 @@
             $(getScoreId()).addClass("bg-info");
 
         }
+        function scoreAll() {
+            var pCnt = $("#pCnt").val();
+            var i;
+            for (i = 1; i <= pCnt; i++) {
+                scoreTotal(i);
+            }
+        }
+
+        function scoreRow() {
+            var pOfM = $("#tPlayer").val();
+            scoreTotal(pOfM);
+        }
+
         function scoreTotal(p) {
 
 
