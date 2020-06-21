@@ -21,6 +21,7 @@ namespace Pogi.Models.LiveViewModels
         public List<SelectListItem> Colors { get; set; }
         public List<Score> Scores { get; set; }
         public List<Member> Players { get; set; }
+        public string currPlayer { get; set; }
 
     }
 }

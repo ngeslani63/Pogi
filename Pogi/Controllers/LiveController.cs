@@ -173,7 +173,7 @@ namespace Pogi.Controllers
             _activity.logActivity(userName, "Live");
             return View(model);
         }
-        public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup,
+        public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup, string tPlayer,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
             Boolean redirect = false;
@@ -254,6 +254,7 @@ namespace Pogi.Controllers
             {
                 return RedirectToAction("Index", "Live");
             }
+            int currPlayer = 1;
             string[] sPlayer = { sMemberId1, sMemberId2, sMemberId3, sMemberId4 };
             int[] player = { 0, 0, 0, 0 };
             int pCnt = 0;
@@ -266,6 +267,14 @@ namespace Pogi.Controllers
                     {
                         pCnt++;
                         player[pCnt - 1] = mId;
+                       
+                        if (tPlayer != null)
+                        {
+                            if ((int.Parse(tPlayer) -1) == i)
+                            {
+                                currPlayer = pCnt;
+                            }
+                        }
                     }
                 }
                 catch (ArgumentException ex)
@@ -287,6 +296,8 @@ namespace Pogi.Controllers
                 CultureInfo.CurrentCulture));
             model.Course = _courseData.get(teeTime.CourseId);
             Member user = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+            model.currPlayer = currPlayer.ToString();
+
             for (int i = 0; i < pCnt; i++)
             {
                 Member member = _memberData.get(player[i]);

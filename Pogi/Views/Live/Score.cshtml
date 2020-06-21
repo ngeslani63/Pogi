@@ -45,18 +45,18 @@
     </section>
 
     <section class="row align-items-center">
-        <div id="outh-plyr" class="col-1 text-center text-light bg-dark border border-primary px-0">Plyr</div>
-        <div id="outh-1" class="col-1 text-center text-light bg-dark border border-primary px-0">01</div>
-        <div id="outh-2" class="col-1 text-center text-light bg-dark border border-primary px-0">02</div>
-        <div id="outh-3" class="col-1 text-center text-light bg-dark border border-primary px-0">03</div>
-        <div id="outh-4" class="col-1 text-center text-light bg-dark border border-primary px-0">04</div>
-        <div id="outh-5" class="col-1 text-center text-light bg-dark border border-primary px-0">05</div>
-        <div id="outh-6" class="col-1 text-center text-light bg-dark border border-primary px-0">06</div>
-        <div id="outh-7" class="col-1 text-center text-light bg-dark border border-primary px-0">07</div>
-        <div id="outh-8" class="col-1 text-center text-light bg-dark border border-primary px-0">08</div>
-        <div id="outh-9" class="col-1 text-center text-light bg-dark border border-primary px-0">09</div>
-        <div id="outh-sum" class="col-1 text-center text-light bg-dark border border-primary px-0">Out</div>
-        <div id="outh-rnd" aria-atomic="" class="col-1 text-center text-light bg-dark border border-primary px-0">Rnd</div>
+        <div id="outh-plyr" class="col-1 text-center text-light bg-dark border border-light px-0">Plyr</div>
+        <div id="outh-1" class="col-1 text-center text-light bg-dark border border-light px-0">01</div>
+        <div id="outh-2" class="col-1 text-center text-light bg-dark border border-light px-0">02</div>
+        <div id="outh-3" class="col-1 text-center text-light bg-dark border border-light px-0">03</div>
+        <div id="outh-4" class="col-1 text-center text-light bg-dark border border-light px-0">04</div>
+        <div id="outh-5" class="col-1 text-center text-light bg-dark border border-light px-0">05</div>
+        <div id="outh-6" class="col-1 text-center text-light bg-dark border border-light px-0">06</div>
+        <div id="outh-7" class="col-1 text-center text-light bg-dark border border-light px-0">07</div>
+        <div id="outh-8" class="col-1 text-center text-light bg-dark border border-light px-0">08</div>
+        <div id="outh-9" class="col-1 text-center text-light bg-dark border border-light px-0">09</div>
+        <div id="outh-sum" class="col-1 text-center text-light bg-dark border border-light px-0">Out</div>
+        <div id="outh-rnd" aria-atomic="" class="col-1 text-center text-light bg-dark border border-light px-0">Rnd</div>
     </section>
 
     @{
@@ -68,57 +68,57 @@
             + Model.Players[p - 1].LastName.Substring(0, 1);
 
             <section class="row align-items-center" id="out@(p)">
-                <div id="out@(p)-plyr" class="col-1 text-center text-dark
-                 bg-light border border-info px-0">@(initials)</div>
-                <div id="out@(p)-1" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-plyr" class="out@(p)-plyr col-1 text-center text-dark
+                 bg-light border border-secondary px-0">@(initials)</div>
+                <div id="out@(p)-1" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole01)
                 </div>
-                <div id="out@(p)-2" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-2" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole02)
                 </div>
-                <div id="out@(p)-3" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-3" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole03)
                 </div>
-                <div id="out@(p)-4" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-4" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole04)
                 </div>
-                <div id="out@(p)-5" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-5" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole05)
                 </div>
-                <div id="out@(p)-6" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-6" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole06)
                 </div>
-                <div id="out@(p)-7" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-7" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole07)
                 </div>
-                <div id="out@(p)-8" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-8" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole08)
                 </div>
-                <div id="out@(p)-9" class="out@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-9" class="out@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole09)
                 </div>
-                <div id="out@(p)-HoleOut" class="col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-HoleOut" class="out@(p)-plyr col-1 text-center text-dark bg-light border border-secondary px-0">
                     
                 </div>
-                <div id="out@(p)-Rnd" class="col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="out@(p)-Rnd" class="out@(p)-plyr col-1 text-center text-dark bg-light border border-secondary px-0">
                     +00
                 </div>
             </section>
         }
     }
     <section class="row align-items-center">
-        <div id="inh-plyr" class="col-1 text-center text-light bg-dark border border-primary px-0">Plyr</div>
-        <div id="inh-1" class="col-1 text-center text-light bg-dark border border-primary px-0">10</div>
-        <div id="inh-2" class="col-1 text-center text-light bg-dark border border-primary px-0">11</div>
-        <div id="inh-3" class="col-1 text-center text-light bg-dark border border-primary px-0">12</div>
-        <div id="inh-4" class="col-1 text-center text-light bg-dark border border-primary px-0">13</div>
-        <div id="inh-5" class="col-1 text-center text-light bg-dark border border-primary px-0">14</div>
-        <div id="inh-6" class="col-1 text-center text-light bg-dark border border-primary px-0">15</div>
-        <div id="inh-7" class="col-1 text-center text-light bg-dark border border-primary px-0">16</div>
-        <div id="inh-8" class="col-1 text-center text-light bg-dark border border-primary px-0">17</div>
-        <div id="inh-9" class="col-1 text-center text-light bg-dark border border-primary px-0">18</div>
-        <div id="inh-sum" class="col-1 text-center text-light bg-dark border border-primary px-0">In</div>
-        <div id="inh-tot" class="col-1 text-center text-light bg-dark border border-primary px-0">Tot</div>
+        <div id="inh-plyr" class="col-1 text-center text-light bg-dark border border-light px-0">Plyr</div>
+        <div id="inh-1" class="col-1 text-center text-light bg-dark border border-light px-0">10</div>
+        <div id="inh-2" class="col-1 text-center text-light bg-dark border border-light px-0">11</div>
+        <div id="inh-3" class="col-1 text-center text-light bg-dark border border-light px-0">12</div>
+        <div id="inh-4" class="col-1 text-center text-light bg-dark border border-light px-0">13</div>
+        <div id="inh-5" class="col-1 text-center text-light bg-dark border border-light px-0">14</div>
+        <div id="inh-6" class="col-1 text-center text-light bg-dark border border-light px-0">15</div>
+        <div id="inh-7" class="col-1 text-center text-light bg-dark border border-light px-0">16</div>
+        <div id="inh-8" class="col-1 text-center text-light bg-dark border border-light px-0">17</div>
+        <div id="inh-9" class="col-1 text-center text-light bg-dark border border-light px-0">18</div>
+        <div id="inh-sum" class="col-1 text-center text-light bg-dark border border-light px-0">In</div>
+        <div id="inh-tot" class="col-1 text-center text-light bg-dark border border-light px-0">Tot</div>
     </section>
     @{
         p = 0;
@@ -129,39 +129,39 @@
             + Model.Players[p - 1].LastName.Substring(0, 1);
 
             <section class="row align-items-center" id="in@(p)">
-                <div id="in@(p)-plyr" class="col-1 text-center text-dark
-                 bg-light border border-info px-0">@(initials)</div>
-                <div id="in@(p)-1" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-plyr" class="in@(p)-plyr col-1 text-center text-dark
+                 bg-light border border-secondary px-0">@(initials)</div>
+                <div id="in@(p)-1" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole10)
                 </div>
-                <div id="in@(p)-2" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-2" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole11)
                 </div>
-                <div id="in@(p)-3" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-3" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole12)
                 </div>
-                <div id="in@(p)-4" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-4" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole13)
                 </div>
-                <div id="in@(p)-5" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-5" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole14)
                 </div>
-                <div id="in@(p)-6" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-6" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole15)
                 </div>
-                <div id="in@(p)-7" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-7" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole16)
                 </div>
-                <div id="in@(p)-8" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-8" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole17)
                 </div>
-                <div id="in@(p)-9" class="in@(p) col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-9" class="in@(p) col-1 text-center text-dark bg-light border border-secondary px-0">
                     @(Model.Scores[p - 1].Hole18)
                 </div>
-                <div id="in@(p)-HoleIn" class="col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-HoleIn" class="in@(p)-plyr col-1 text-center text-dark bg-light border border-secondary px-0">
                    
                 </div>
-                <div id="in@(p)-Tot" class="col-1 text-center text-dark bg-light border border-info px-0">
+                <div id="in@(p)-Tot" class="in@(p)-plyr col-1 text-center text-dark bg-light border border-secondary px-0">
                     
                 </div>
             </section>
@@ -174,7 +174,7 @@
         @foreach (Member player in @Model.Players)
         {
             p++;
-            <label id="btnP@(p)"class="col btn btn-info text-light text-center py-2 px-2 mt-2 mx-1 mb-1 border">
+            <label id="btnP@(p)"class="col btn btn-primary text-light text-center py-2 px-2 mt-2 mx-1 mb-1 border">
                 <input type="radio" name="options" id="option1" autocomplete="off" />
                 @player.FirstName
             </label>
@@ -204,6 +204,7 @@
     <input type="text" id="par17" value="@Model.Course.Par17" hidden />
     <input type="text" id="par18" value="@Model.Course.Par18" hidden />
     <input type="text" id="pCnt" value="@Model.Scores.Count" hidden />
+    <input type-"text" id="tPlayer" name="tPlayer" value="@Model.currPlayer" hidden />
 
 
 
@@ -225,18 +226,31 @@
             scoreTotal(i);
         }
 
+        var pOfM = $("#tPlayer").val();
+        if (pOfM == "undefined" || pOfM == "") {
+            console.info("Defaulting pOfM");
+            pOfM = "1";
+        }
+        console.info("Current Player is " + pOfM);
+        
         $("#btnP1").click(function () {
-            toggleInitials(1, pCnt)
+            console.info("Click event for btnP1");
+            toggleInitials(1, pCnt);
         });
         $("#btnP2").click(function () {
-            toggleInitials(2, pCnt)
+            console.info("Click event for btnP2");
+            toggleInitials(2, pCnt);
         });
         $("#btnP3").click(function () {
-            toggleInitials(3, pCnt)
+            console.info("Click event for btnP3");
+            toggleInitials(3, pCnt);
         });
         $("#btnP4").click(function () {
+            console.info("Click event for btnP4");
             toggleInitials(4, pCnt);
         });
+
+        $("#btnP" + pOfM).trigger("click");
 
 
     });
@@ -244,24 +258,48 @@
             var y;
             for (y = 1; y <= pCnt; y++) {
                 if (y == p) {
-                    $("#out"+ y + "-plyr").removeClass("bg-light");
-                    $("#out"+ y + "-plyr").removeClass("text-dark");
-                    $("#in"+ y + "-plyr").removeClass("bg-light");
-                    $("#in"+ y + "-plyr").removeClass("text-dark");
-                    $("#out"+ y + "-plyr").addClass("bg-info");
-                    $("#out"+ y + "-plyr").addClass("text-light");
-                    $("#in"+ y + "-plyr").addClass("bg-info");
-                    $("#in"+ y + "-plyr").addClass("text-light");
+                    $(".out"+ y + "-plyr").removeClass("bg-light");
+                    $(".out"+ y + "-plyr").removeClass("text-dark");
+                    $(".in"+ y + "-plyr").removeClass("bg-light");
+                    $(".in" + y + "-plyr").removeClass("text-dark");
+
+                    $(".out"+ y + "-plyr").addClass("bg-info");
+                    $(".out"+ y + "-plyr").addClass("text-light");
+                    $(".in"+ y + "-plyr").addClass("bg-info");
+                    $(".in" + y + "-plyr").addClass("text-light");
+
+                    $(".in" + y).addClass("border-light");
+                    $(".out" + y).addClass("border-light");
+                    $(".in" + y).removeClass("border-secondary");
+                    $(".out" + y).removeClass("border-secondary");
+
+                    $(".in" + y).removeClass("bg-light");
+                    $(".out" + y).removeClass("bg-light");
+                    $(".in" + y).addClass("bg-secondary");
+                    $(".out" + y).addClass("bg-secondary");
+
+
                 }
                 else {
-                    $("#out"+ y + "-plyr").addClass("bg-light");
-                    $("#out"+ y + "-plyr").addClass("text-dark");
-                    $("#in"+ y + "-plyr").addClass("bg-light");
-                    $("#in"+ y + "-plyr").addClass("text-dark");
-                    $("#out"+ y + "-plyr").removeClass("bg-info");
-                    $("#out"+ y + "-plyr").removeClass("text-light");
-                    $("#in"+ y + "-plyr").removeClass("bg-info");
-                    $("#in"+ y + "-plyr").removeClass("text-light");
+                    $(".out"+ y + "-plyr").addClass("bg-light");
+                    $(".out"+ y + "-plyr").addClass("text-dark");
+                    $(".in"+ y + "-plyr").addClass("bg-light");
+                    $(".in" + y + "-plyr").addClass("text-dark");
+
+                    $(".out"+ y + "-plyr").removeClass("bg-info");
+                    $(".out"+ y + "-plyr").removeClass("text-light");
+                    $(".in"+ y + "-plyr").removeClass("bg-info");
+                    $(".in" + y + "-plyr").removeClass("text-light");
+
+                    $(".in" + y).removeClass("border-light");
+                    $(".out" + y).removeClass("border-light");
+                    $(".in" + y).addClass("border-secondary");
+                    $(".out" + y).addClass("border-secondary");
+
+                    $(".in" + y).removeClass("bg-secondary");
+                    $(".out" + y).removeClass("bg-secondary");
+                    $(".in" + y).addClass("bg-light");
+                    $(".out" + y).addClass("bg-light")
 
                 }
             }
@@ -306,9 +344,15 @@
             console.info("Player " + p + " Rnd: " + rnd);
             console.info("Player " + p + " Total: " + total);
 
-
+            var rndSign = "";
+            if (rnd > 0) {
+                rndSign = "+";
+            }
+            else if (rnd < 0) {
+                rndSign = "-";
+            }
             $("#out" + p + "-HoleOut").text(totOut);
-            $("#out" + p + "-Rnd").text(rnd);
+            $("#out" + p + "-Rnd").text(rndSign+rnd);
             $("#in" + p + "-HoleIn").text(totIn);
             $("#in" + p + "-Tot").text(total);
         }

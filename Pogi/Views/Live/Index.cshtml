@@ -124,6 +124,7 @@
                                                                         @if (gOfMFound == "N" &&
                                                                             Model.User.MemberId == teeAssignInfo.Member.MemberId)
                                                                         {
+                                                                            <span id="pOfM" value="@(j % 4 + 1)"></span>
                                                                             <span id="gOfM" value="@group"></span>
                                                                             gOfMFound = "Y";
                                                                         }
@@ -185,7 +186,7 @@
             }
         <section>
             <input type="text" id="tGroup" name="tGroup" hidden />
-            <input type="text" id="memberId" name="memberId" hidden/>
+            <input type="text" id="tPlayer" name="tPlayer" hidden/>
             <input type="text" id="sMemberId1" name="sMemberId1" hidden/>
             <input type="text" id="sMemberId2" name="sMemberId2" hidden/>
             <input type="text" id="sMemberId3" name="sMemberId3" hidden/>
@@ -251,6 +252,22 @@
                 }
                 
             }
+
+            var p = $("#tPlayer").val();
+            if (p == "") {
+                var pOfM = $("#pOfM").attr("value");
+                if (pOfM != "undefined" && pOfM > "") {
+                    console.info("setting tPlayer to " + pOfM)
+                    p = pOfM;
+                }
+                else {
+                    console.info("defaulting tGroup to 1")
+                    p = 1;
+                }
+                $("#tPlayer").val(p);
+
+            }
+
             console.info("tGroup=" + g);
             var gid = "#list-group" + g + "-list";
             console.info("triggering " + gid);
