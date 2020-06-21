@@ -307,6 +307,31 @@ namespace Pogi.Controllers
                                member, model.Course, tour, user);
                 model.Scores.Add(score) ;
             }
+
+            model.nextHole = "1";
+            Score sc = model.Scores[currPlayer-1];
+            if (sc != null)
+            {
+                if (sc.Hole18 == 0) model.nextHole = "18";
+                if (sc.Hole17 == 0) model.nextHole = "17";
+                if (sc.Hole16 == 0) model.nextHole = "16";
+                if (sc.Hole15 == 0) model.nextHole = "15";
+                if (sc.Hole14 == 0) model.nextHole = "14";
+                if (sc.Hole13 == 0) model.nextHole = "13";
+                if (sc.Hole12 == 0) model.nextHole = "12";
+                if (sc.Hole11 == 0) model.nextHole = "11";
+                if (sc.Hole10 == 0) model.nextHole = "10";
+                if (sc.Hole09 == 0) model.nextHole = "9";
+                if (sc.Hole08 == 0) model.nextHole = "8";
+                if (sc.Hole07 == 0) model.nextHole = "7";
+                if (sc.Hole06 == 0) model.nextHole = "6";
+                if (sc.Hole05 == 0) model.nextHole = "5";
+                if (sc.Hole04 == 0) model.nextHole = "4";
+                if (sc.Hole03 == 0) model.nextHole = "3";
+                if (sc.Hole02 == 0) model.nextHole = "2";
+            }
+            
+
             return View(model);
         }
 

@@ -21,40 +21,40 @@
         </ul>
     </section>
     <section class="row">
-        <div class="col bg-warning text-light text-center py-1 mb-1 border">
+        <btn id="prevHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-1 mb-1 border">
             Prev Hole
+        </btn>
+        <div id="cHole" class="col bg-info text-light text-center py-1 mb-1 border">
+            Hole #00
         </div>
-        <div class="col bg-info text-light text-center py-1 mb-1 border">
-            Hole #05
-        </div>
-        <div class="col bg-warning text-light text-center py-1 mb-1 border">
+        <btn id="nextHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-1 mb-1 border">
             Next Hole
-        </div>
+        </btn>
     </section>
     <section class="row align-items-center">
-        <div class="col text-center py-3 mb-2 bg-secondary text-light border-primary rounded">
-            <button type="button" class="btn btn-secondary"><i class="fa fa-minus"></i></button>
-        </div>
+        @*<div class="col text-center py-3 mb-2 bg-primary text-light border-primary rounded">*@
+            <button type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
+        @*</div>*@
         <div class="col text-center py-1 mb-2 bg-secondary text-light border rounded font-weight-bold">
-            <p class="h6 font-weight-light">Par 04, 350 yards</p>
-            <p class="h3 text-light">03</p>
+            <p id="parOfHole" class="h6 font-weight-light">Par 04, 350 yards</p>
+            <label id="scoreOfHole" class="h3 text-light">99</label>
         </div>
-        <div class="col text-center py-3 mb-2 bg-secondary text-light border rounded">
-            <button type="button" class="btn btn-secondary"><i class="fa fa-plus"></i></button>
-        </div>
+        @*<div class="col text-center py-3 mb-2 bg-primary text-light border rounded">*@
+            <button type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
+        @*</div>*@
     </section>
 
     <section class="row align-items-center">
         <div id="outh-plyr" class="col-1 text-center text-light bg-dark border border-light px-0">Plyr</div>
-        <div id="outh-1" class="col-1 text-center text-light bg-dark border border-light px-0">01</div>
-        <div id="outh-2" class="col-1 text-center text-light bg-dark border border-light px-0">02</div>
-        <div id="outh-3" class="col-1 text-center text-light bg-dark border border-light px-0">03</div>
-        <div id="outh-4" class="col-1 text-center text-light bg-dark border border-light px-0">04</div>
-        <div id="outh-5" class="col-1 text-center text-light bg-dark border border-light px-0">05</div>
-        <div id="outh-6" class="col-1 text-center text-light bg-dark border border-light px-0">06</div>
-        <div id="outh-7" class="col-1 text-center text-light bg-dark border border-light px-0">07</div>
-        <div id="outh-8" class="col-1 text-center text-light bg-dark border border-light px-0">08</div>
-        <div id="outh-9" class="col-1 text-center text-light bg-dark border border-light px-0">09</div>
+        <div id="outh-1" class="outh col-1 text-center text-light bg-dark border border-light px-0">01</div>
+        <div id="outh-2" class="outh col-1 text-center text-light bg-dark border border-light px-0">02</div>
+        <div id="outh-3" class="outh col-1 text-center text-light bg-dark border border-light px-0">03</div>
+        <div id="outh-4" class="outh col-1 text-center text-light bg-dark border border-light px-0">04</div>
+        <div id="outh-5" class="outh col-1 text-center text-light bg-dark border border-light px-0">05</div>
+        <div id="outh-6" class="outh col-1 text-center text-light bg-dark border border-light px-0">06</div>
+        <div id="outh-7" class="outh col-1 text-center text-light bg-dark border border-light px-0">07</div>
+        <div id="outh-8" class="outh col-1 text-center text-light bg-dark border border-light px-0">08</div>
+        <div id="outh-9" class="outh col-1 text-center text-light bg-dark border border-light px-0">09</div>
         <div id="outh-sum" class="col-1 text-center text-light bg-dark border border-light px-0">Out</div>
         <div id="outh-rnd" aria-atomic="" class="col-1 text-center text-light bg-dark border border-light px-0">Rnd</div>
     </section>
@@ -108,15 +108,15 @@
     }
     <section class="row align-items-center">
         <div id="inh-plyr" class="col-1 text-center text-light bg-dark border border-light px-0">Plyr</div>
-        <div id="inh-1" class="col-1 text-center text-light bg-dark border border-light px-0">10</div>
-        <div id="inh-2" class="col-1 text-center text-light bg-dark border border-light px-0">11</div>
-        <div id="inh-3" class="col-1 text-center text-light bg-dark border border-light px-0">12</div>
-        <div id="inh-4" class="col-1 text-center text-light bg-dark border border-light px-0">13</div>
-        <div id="inh-5" class="col-1 text-center text-light bg-dark border border-light px-0">14</div>
-        <div id="inh-6" class="col-1 text-center text-light bg-dark border border-light px-0">15</div>
-        <div id="inh-7" class="col-1 text-center text-light bg-dark border border-light px-0">16</div>
-        <div id="inh-8" class="col-1 text-center text-light bg-dark border border-light px-0">17</div>
-        <div id="inh-9" class="col-1 text-center text-light bg-dark border border-light px-0">18</div>
+        <div id="inh-1" class="inh col-1 text-center text-light bg-dark border border-light px-0">10</div>
+        <div id="inh-2" class="inh col-1 text-center text-light bg-dark border border-light px-0">11</div>
+        <div id="inh-3" class="inh col-1 text-center text-light bg-dark border border-light px-0">12</div>
+        <div id="inh-4" class="inh col-1 text-center text-light bg-dark border border-light px-0">13</div>
+        <div id="inh-5" class="inh col-1 text-center text-light bg-dark border border-light px-0">14</div>
+        <div id="inh-6" class="inh col-1 text-center text-light bg-dark border border-light px-0">15</div>
+        <div id="inh-7" class="inh col-1 text-center text-light bg-dark border border-light px-0">16</div>
+        <div id="inh-8" class="inh col-1 text-center text-light bg-dark border border-light px-0">17</div>
+        <div id="inh-9" class="inh col-1 text-center text-light bg-dark border border-light px-0">18</div>
         <div id="inh-sum" class="col-1 text-center text-light bg-dark border border-light px-0">In</div>
         <div id="inh-tot" class="col-1 text-center text-light bg-dark border border-light px-0">Tot</div>
     </section>
@@ -205,8 +205,7 @@
     <input type="text" id="par18" value="@Model.Course.Par18" hidden />
     <input type="text" id="pCnt" value="@Model.Scores.Count" hidden />
     <input type-"text" id="tPlayer" name="tPlayer" value="@Model.currPlayer" hidden />
-
-
+    <input type-"text" id="tHole" name="tHole" value="@Model.nextHole" hidden />
 
 </section>
 
@@ -232,29 +231,117 @@
             pOfM = "1";
         }
         console.info("Current Player is " + pOfM);
+
+        var hOfM = $("#tHole").val();
+        if (hOfM == "undefined" || hOfM == "") {
+            console.info("Defaulting hOfM");
+            hOfM = "1";
+        }
+        console.info("Current Hole is " + hOfM);
         
         $("#btnP1").click(function () {
             console.info("Click event for btnP1");
-            toggleInitials(1, pCnt);
+            toggleRow(1, pCnt);
         });
         $("#btnP2").click(function () {
             console.info("Click event for btnP2");
-            toggleInitials(2, pCnt);
+            toggleRow(2, pCnt);
         });
         $("#btnP3").click(function () {
             console.info("Click event for btnP3");
-            toggleInitials(3, pCnt);
+            toggleRow(3, pCnt);
         });
         $("#btnP4").click(function () {
             console.info("Click event for btnP4");
-            toggleInitials(4, pCnt);
+            toggleRow(4, pCnt);
         });
 
-        $("#btnP" + pOfM).trigger("click");
+        $("#prevHole").click(function() {
 
+            var hh = parseInt($("#tHole").val());
+            if (hh > 1) {
+                hh = hh - 1;
+                selectHole(hh);
+                setScore(getScoreId());
+            }
+
+        });
+        $("#nextHole").click(function () {
+
+            var hh = parseInt($("#tHole").val());
+            if (hh < 18) {
+                hh = hh + 1;
+                selectHole(hh);
+                setScore(getScoreId());
+            }
+
+        });
+    
+        $("#btnP" + pOfM).trigger("click");
+   
+
+        selectHole(hOfM);
+        setScore(getScoreId());
 
     });
-        function toggleInitials(p, pCnt) {
+        function selectHole(hOfM) {
+            var iH = hOfM;
+            console.info("Highlighting Hole " + iH);
+            $(".inh").removeClass("bg-info");
+            $(".outh").removeClass("bg-info");
+            $(".inh").addClass("bg-dark");
+            $(".outh").addClass("bg-dark");
+
+            if (iH > 9) {
+                var inH = iH - 9;
+                var inId = "#inh-" + inH;
+                console.info("Toggling inId=" + inId);
+                $(inId).removeClass("bg-dark");
+                $(inId).addClass("bg-info");
+                $("#cHole").text('Hole #' + inH);
+            }
+            else {
+                var outH = iH;
+                var outId = "#outh-" + outH 
+                console.info("Toggling outId=" + outId);
+                $(outId).removeClass("bg-dark");
+                $(outId).addClass("bg-info");
+                $("#cHole").text("Hole No 0" + outH);
+            }
+            // get Par of Hole
+            var parOfHole = $("#par" + iH).val();
+            $("#parOfHole").text("Par " + parOfHole);
+            $("#tHole").val(iH);
+
+        }
+        function setScore(scoreId) {
+
+            var score = $(scoreId).text().trim();
+            console.info("Setting Score to " + score);
+            $("#scoreOfHole").text(score);
+
+        }
+
+        function getScoreId() {
+
+            var pOfM = $("#tPlayer").val();
+            var hOfM = $("#tHole").val();
+            console.info("Getting Score Id of Player " + pOfM
+                + ", Hole " + hOfM);
+
+            var idOfScore;
+            if (hOfM > 9) {
+                var inH = hOfM - 9;
+                idOfScore = "#in" + pOfM + "-" + inH;
+            }
+            else {
+                var outH = hOfM;
+                idOfScore = "#out" + pOfM + "-" + outH;
+            }
+            console.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
+            return idOfScore;
+        }   
+        function toggleRow(p, pCnt) {
             var y;
             for (y = 1; y <= pCnt; y++) {
                 if (y == p) {
@@ -303,6 +390,7 @@
 
                 }
             }
+            $("#tPlayer").val(p);
 
         }
         function scoreTotal(p) {
