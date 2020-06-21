@@ -285,6 +285,10 @@
 
     });
         function selectHole(hOfM) {
+
+            $(getScoreId()).removeClass("bg-info");
+            $(getScoreId()).addClass("bg-secondary");
+
             var iH = hOfM;
             console.info("Highlighting Hole " + iH);
             $(".inh").removeClass("bg-info");
@@ -312,6 +316,9 @@
             var parOfHole = $("#par" + iH).val();
             $("#parOfHole").text("Par " + parOfHole);
             $("#tHole").val(iH);
+
+            $(getScoreId()).removeClass("bg-secondary");
+            $(getScoreId()).addClass("bg-info");
 
         }
         function setScore(scoreId) {
@@ -342,6 +349,9 @@
             return idOfScore;
         }   
         function toggleRow(p, pCnt) {
+
+            $(getScoreId()).removeClass("bg-info");
+
             var y;
             for (y = 1; y <= pCnt; y++) {
                 if (y == p) {
@@ -364,6 +374,11 @@
                     $(".out" + y).removeClass("bg-light");
                     $(".in" + y).addClass("bg-secondary");
                     $(".out" + y).addClass("bg-secondary");
+
+                    $(".in" + y).removeClass("text-dark");
+                    $(".out" + y).removeClass("text-dark");
+                    $(".in" + y).addClass("text-light");
+                    $(".out" + y).addClass("text-light");
 
 
                 }
@@ -388,9 +403,17 @@
                     $(".in" + y).addClass("bg-light");
                     $(".out" + y).addClass("bg-light")
 
+                    $(".in" + y).removeClass("text-light");
+                    $(".out" + y).removeClass("text-light");
+                    $(".in" + y).addClass("text-dark");
+                    $(".out" + y).addClass("text-dark");
+
                 }
             }
             $("#tPlayer").val(p);
+
+            $(getScoreId()).removeClass("bg-secondary");
+            $(getScoreId()).addClass("bg-info");
 
         }
         function scoreTotal(p) {
