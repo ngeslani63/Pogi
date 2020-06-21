@@ -329,6 +329,7 @@ namespace Pogi.Controllers
                 if (sc.Hole04 == 0) model.nextHole = "4";
                 if (sc.Hole03 == 0) model.nextHole = "3";
                 if (sc.Hole02 == 0) model.nextHole = "2";
+                if (sc.Hole01 == 0) model.nextHole = "1";
             }
             
 

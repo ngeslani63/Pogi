@@ -21,26 +21,26 @@
         </ul>
     </section>
     <section class="row">
-        <btn id="prevHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-1 mb-1 border">
+        <btn id="prevHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-2 mb-1 border">
             Prev Hole
         </btn>
-        <div id="cHole" class="col bg-info text-light text-center py-1 mb-1 border">
+        <div id="cHole" class="col bg-info text-light text-center py-2 mb-1 border">
             Hole #00
         </div>
-        <btn id="nextHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-1 mb-1 border">
+        <btn id="nextHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-2 mb-1 border">
             Next Hole
         </btn>
     </section>
     <section class="row align-items-center">
         @*<div class="col text-center py-3 mb-2 bg-primary text-light border-primary rounded">*@
-            <button type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
+            <button id="minusScore" type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
         @*</div>*@
         <div class="col text-center py-1 mb-2 bg-secondary text-light border rounded font-weight-bold">
             <p id="parOfHole" class="h6 font-weight-light">Par 04, 350 yards</p>
             <label id="scoreOfHole" class="h3 text-light">99</label>
         </div>
         @*<div class="col text-center py-3 mb-2 bg-primary text-light border rounded">*@
-            <button type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
+            <button id="plusScore" type="button" class="col py-3 mb-2 btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
         @*</div>*@
     </section>
 
@@ -242,18 +242,22 @@
         $("#btnP1").click(function () {
             console.info("Click event for btnP1");
             toggleRow(1, pCnt);
+            displayScore();
         });
         $("#btnP2").click(function () {
             console.info("Click event for btnP2");
             toggleRow(2, pCnt);
+            displayScore();
         });
         $("#btnP3").click(function () {
             console.info("Click event for btnP3");
             toggleRow(3, pCnt);
+            displayScore();
         });
         $("#btnP4").click(function () {
             console.info("Click event for btnP4");
             toggleRow(4, pCnt);
+            displayScore();
         });
 
         $("#prevHole").click(function() {
@@ -262,7 +266,7 @@
             if (hh > 1) {
                 hh = hh - 1;
                 selectHole(hh);
-                setScore(getScoreId());
+                displayScore();
             }
 
         });
@@ -272,16 +276,46 @@
             if (hh < 18) {
                 hh = hh + 1;
                 selectHole(hh);
-                setScore(getScoreId());
+                displayScore();
             }
 
         });
-    
+
+        $("#minusScore").click(function () {
+            var score = getScore();
+            console.info("Minus Score before = " + score);
+            if (score == 0) {
+                var parOfHole = getParOfHole();
+                console.info("Score was zero, setting initially to par");
+                score = parOfHole;
+            }
+            else if (score > 1) {
+                score--;
+            }
+            console.info("Minus Score computed = " + score);
+            setScore(score);
+        });
+
+        $("#plusScore").click(function () {
+            var score = getScore();
+            console.info("Plus Score before = " + score);
+            if (score == 0) {
+                var parOfHole = getParOfHole();
+                console.info("Score was zero, setting initially to par");
+                score = parOfHole;
+            }
+            else if (score < 15) {
+                score++;
+            }
+            console.info("Plus Score computed = " + score);
+            setScore(score);
+        });
+
         $("#btnP" + pOfM).trigger("click");
    
 
         selectHole(hOfM);
-        setScore(getScoreId());
+        displayScore();
 
     });
         function selectHole(hOfM) {
@@ -290,6 +324,8 @@
             $(getScoreId()).addClass("bg-secondary");
 
             var iH = hOfM;
+            $("#tHole").val(iH);
+
             console.info("Highlighting Hole " + iH);
             $(".inh").removeClass("bg-info");
             $(".outh").removeClass("bg-info");
@@ -310,19 +346,43 @@
                 console.info("Toggling outId=" + outId);
                 $(outId).removeClass("bg-dark");
                 $(outId).addClass("bg-info");
-                $("#cHole").text("Hole No 0" + outH);
+                $("#cHole").text("Hole # 0" + outH);
             }
             // get Par of Hole
             var parOfHole = $("#par" + iH).val();
             $("#parOfHole").text("Par " + parOfHole);
-            $("#tHole").val(iH);
+         
 
             $(getScoreId()).removeClass("bg-secondary");
             $(getScoreId()).addClass("bg-info");
 
         }
-        function setScore(scoreId) {
 
+        function getParOfHole() {
+            // get current Hole
+            var hole = $("#tHole").val();
+            var parOfHole = $("#par" + hole).val();
+            return parOfHole;
+        }
+
+        function getScore() {
+
+            var scoreId = getScoreId();
+            var score = $(scoreId).text().trim();
+            return score;
+        }
+
+        function setScore(score) {
+
+            var scoreId = getScoreId();
+            $(scoreId).text(score);
+            displayScore();
+            return;
+        }
+
+        function displayScore() {
+
+            var scoreId = getScoreId();
             var score = $(scoreId).text().trim();
             console.info("Setting Score to " + score);
             $("#scoreOfHole").text(score);
