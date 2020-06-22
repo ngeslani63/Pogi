@@ -385,10 +385,11 @@
         $("#postScore").click(function () {
             if (testChg() == "Y") {
                 postAll();
-                $("#postScore").removeClass("bg-danger");
-                $("#postScore").addClass("bg-secondary");
-                allChgOff();
+                $("#postScore").removeClass("btn-danger");
+                $("#postScore").addClass("btn-secondary");
+                chgAllOff();
             }
+            console.info("postScore Click end with testChg=" + testChg());
          });
 
         $("#btnP" + pOfM).trigger("click");
@@ -488,7 +489,7 @@
 
             var scoreId = getScoreId();
             var score = $(scoreId).text().trim();
-            console.info("Setting Score to " + score);
+            console.info("Setting BillBoard Score to " + score);
             $("#scoreOfHole").text(score);
 
             if (testChg() == "Y") {
@@ -674,7 +675,7 @@
         return chgInd;
     }
 
-    function allChgOff() {
+    function chgAllOff() {
 
         console.info("Clearing Changes");
         var pCnt = $("#pCnt").val();
@@ -704,6 +705,7 @@
         $("#chgs" + s).val("Y");
     }
     function chgOff(s) {
+        console.info("Turning off chg ind for player " + s);
         $("#chgs" + s).val("N");
     }
 
