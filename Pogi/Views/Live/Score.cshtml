@@ -21,16 +21,35 @@
         </ul>
     </section>
     <section class="row">
-        <btn id="prevHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-2 mb-1 border">
-            Prev Hole
-        </btn>
-        <div class="col bg-info text-light text-center py-2 mb-1 border">
+
+        <div class="col">
+            <div class="row">
+                <btn id="prevPlay" type="button" class="col btn btn-info text-light text-center py-2 mb-1 border">
+                    Prev player
+                </btn>
+                <btn id="prevHole" type="button" class="col btn btn-warning text-light text-center py-2 mb-1 border">
+                    Prev Hole
+                </btn>
+
+            </div>
+        </div>
+
+        <div class="col bg-secondary text-light text-center py-2 mb-1 border">
             <p id="cHole" class="font-weight-light m-0"><small>Hole #00</small></p>
             <p id="parOfHole" class="font-weight-light m-0"><small>Par 04, 350 yards</small></p>
         </div>
-        <btn id="nextHole" type="button" class="btn btn-lg col btn-warning text-light text-center py-2 mb-1 border">
-            Next Hole
-        </btn>
+
+        <div class="col">
+            <div class="row">
+                <btn id="nextHole" type="button" class="col btn btn-warning text-light text-center py-2 mb-1 border">
+                    Next Hole
+                </btn>
+                <btn id="nextPlay" type="button" class="col btn btn-info text-light text-center py-2 mb-1 border">
+                    Next Player
+                </btn>
+            </div>
+        </div>
+
     </section>
     <section class="row bg-primary mb-1 align-items-center justify-content-center">
         <div class="col">
@@ -270,6 +289,34 @@
             hOfM = "1";
         }
         console.info("Current Hole is " + hOfM);
+
+        $("#prevPlay").click(function () {
+            var pCnt = $("#pCnt").val();
+            var p = $("#tPlayer").val();
+            if (p > 1) {
+                p--;
+            }
+            else {
+                p = pCnt;
+            }
+                
+            $("#btnP" + p).trigger("click");
+
+        });
+
+        $("#nextPlay").click(function () {
+            var pCnt = $("#pCnt").val();
+            var p = $("#tPlayer").val();
+            if (p < pCnt) {
+                p++;
+            }
+            else {
+                p = 1;
+            }
+                
+            $("#btnP" + p).trigger("click");
+
+        });
         
         $("#btnP1").click(function () {
             console.info("Click event for btnP1");
