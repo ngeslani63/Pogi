@@ -398,6 +398,18 @@
         displayScore();
 
     });
+        function postAll() {
+            console.info("Entering postAll");
+            var pCnt = $("#pCnt").val();
+            var i;
+            for (i = 1; i <= pCnt; i++) {
+                if (getChg(i) == "Y") {
+                    console.info("Posting Changes for Player " + i);
+                    postScore(i);
+                }
+            }
+        }
+
         function selectHole(hOfM) {
 
             $(getScoreId()).removeClass("bg-info");
@@ -647,14 +659,7 @@
             $("#in" + p + "-Tot").text(total);
         }
 
-    function postAll() {
-        var pCnt = $("#pCnt").val();
-        var i;
-        for (i = 1; i <= pCnt; i++) {
-            postScore(i);
-        }
-    }
-
+    
     function testChg() {
 
         var pCnt = $("#pCnt").val();
@@ -705,27 +710,27 @@
     function postScore(p) {
 
         scoreTotal(p);
-        var url = "https://localhost:44323/api/scores/" + getsId(p);
+        var url = "/api/scores/" + getsId(p);
         console.info("postScore calling " + url);
         var scoreId = $("#scoreId" + p).val();
-        var hole01 = $("#out" + p + "-1").val();
-        var hole02 = $("#out" + p + "-2").val();
-        var hole03 = $("#out" + p + "-3").val();
-        var hole04 = $("#out" + p + "-4").val();
-        var hole05 = $("#out" + p + "-5").val();
-        var hole06 = $("#out" + p + "-6").val();
-        var hole07 = $("#out" + p + "-7").val();
-        var hole08 = $("#out" + p + "-8").val();
-        var hole09 = $("#out" + p + "-9").val();
-        var hole10 = $("#in" + p + "-1").val();
-        var hole11 = $("#in" + p + "-2").val();
-        var hole12 = $("#in" + p + "-3").val();
-        var hole13 = $("#in" + p + "-4").val();
-        var hole14 = $("#in" + p + "-5").val();
-        var hole15 = $("#in" + p + "-6").val();
-        var hole16 = $("#in" + p + "-7").val();
-        var hole17 = $("#in" + p + "-8").val();
-        var hole18 = $("#in" + p + "-9").val();
+        var hole01 = $("#out" + p + "-1").text();
+        var hole02 = $("#out" + p + "-2").text();
+        var hole03 = $("#out" + p + "-3").text();
+        var hole04 = $("#out" + p + "-4").text();
+        var hole05 = $("#out" + p + "-5").text();
+        var hole06 = $("#out" + p + "-6").text();
+        var hole07 = $("#out" + p + "-7").text();
+        var hole08 = $("#out" + p + "-8").text();
+        var hole09 = $("#out" + p + "-9").text();
+        var hole10 = $("#in" + p + "-1").text();
+        var hole11 = $("#in" + p + "-2").text();
+        var hole12 = $("#in" + p + "-3").text();
+        var hole13 = $("#in" + p + "-4").text();
+        var hole14 = $("#in" + p + "-5").text();
+        var hole15 = $("#in" + p + "-6").text();
+        var hole16 = $("#in" + p + "-7").text();
+        var hole17 = $("#in" + p + "-8").text();
+        var hole18 = $("#in" + p + "-9").text();
         var holeOut = $("#out" + p + "-HoleOut").text();
         var holeIn = $("#in" + p + "-HoleIn").text();
         var holeTotal = $("#in" + p + "-Tot").text();
@@ -754,12 +759,14 @@
             holeIn: holeIn,
             holeTotal: holeTotal
         };
-
+        var jSendInfo = JSON.stringify(sendInfo);
+        console.info("postScore calling with " + jSendInfo);
 
         $.ajax({
             type: "PUT",
             url: url,
-            dataType: "json",
+            dataType: "json",               
+            contentType: "application/json",
             success: function (msg) {
                 if (msg) {
                     alert("Score Id " + scoreId + " was updated!");
@@ -768,7 +775,7 @@
                     alert("Cannot update score Id " + scoreId);
                 }
             },
-            data: sendInfo
+            data: jSendInfo
         });
 
     }
