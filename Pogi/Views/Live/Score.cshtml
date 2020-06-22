@@ -24,35 +24,35 @@
 
         <div class="col">
             <div class="row">
-                <btn id="prevPlay" type="button" class="col btn btn-info text-light text-center py-2 mb-1 border">
-                    Prev player
+                <btn id="prevHole" type="button" class="col btn btn-warning text-dark text-center py-2 mb-1 border">
+                    Prev Hole
                 </btn>
             </div>
             <div class="row">
-                <btn id="prevHole" type="button" class="col btn btn-warning text-light text-center py-2 mb-1 border">
-                    Prev Hole
+                <btn id="prevPlay" type="button" class="col btn btn-info text-dark text-center py-2 mb-1 border">
+                    Prev Player
                 </btn>
             </div>
         </div>
         
 
-        <div class="col bg-secondary text-light text-center py-2 mb-1 border">
+        <div class="col bg-warning text-dark text-center py-2 mb-1 border">
             <p id="cHole" class="font-weight-light m-0"><small>Hole #00</small></p>
             <p id="parOfHole" class="font-weight-light m-0"><small>Par 04, 350 yards</small></p>
         </div>
 
         <div class="col">
             <div class="row">
-                <btn id="nextPlay" type="button" class="col btn btn-info text-light text-center py-2 mb-1 border">
-                    Next Player
-                </btn>
-            </div>
-            <div class="row">
-                <btn id="nextHole" type="button" class="col btn btn-warning text-light text-center py-2 mb-1 border">
+                <btn id="nextHole" type="button" class="col btn btn-warning text-dark text-center py-2 mb-1 border">
                     Next Hole
                 </btn>
             </div>
-        </div>
+            <div class="row">
+                <btn id="nextPlay" type="button" class="col btn btn-info text-dark text-center py-2 mb-1 border">
+                    Next Player
+                </btn>
+            </div>
+         </div>
 
     </section>
     <section class="row bg-primary mb-1 align-items-center justify-content-center">
@@ -274,25 +274,25 @@
 <script>
 
     $(document).ready(function () {
-        console.info("Document Ready");
+        console.info("Scores Document Ready");
         var pCnt = $("#pCnt").val();
-        console.info("There are " + pCnt + " Players");
+        //console.info.info("There are " + pCnt + " Players");
 
         scoreAll();
 
         var pOfM = $("#tPlayer").val();
         if (pOfM == "undefined" || pOfM == "") {
-            console.info("Defaulting pOfM");
+            //console.info.info("Defaulting pOfM");
             pOfM = "1";
         }
-        console.info("Current Player is " + pOfM);
+        //console.info.info("Current Player is " + pOfM);
 
         var hOfM = $("#tHole").val();
         if (hOfM == "undefined" || hOfM == "") {
-            console.info("Defaulting hOfM");
+            //console.info.info("Defaulting hOfM");
             hOfM = "1";
         }
-        console.info("Current Hole is " + hOfM);
+        //console.info.info("Current Hole is " + hOfM);
 
         $("#prevPlay").click(function () {
             var pCnt = $("#pCnt").val();
@@ -323,22 +323,22 @@
         });
         
         $("#btnP1").click(function () {
-            console.info("Click event for btnP1");
+            //console.info.info("Click event for btnP1");
             toggleRow(1, pCnt);
             displayScore();
         });
         $("#btnP2").click(function () {
-            console.info("Click event for btnP2");
+            //console.info.info("Click event for btnP2");
             toggleRow(2, pCnt);
             displayScore();
         });
         $("#btnP3").click(function () {
-            console.info("Click event for btnP3");
+            //console.info.info("Click event for btnP3");
             toggleRow(3, pCnt);
             displayScore();
         });
         $("#btnP4").click(function () {
-            console.info("Click event for btnP4");
+            //console.info.info("Click event for btnP4");
             toggleRow(4, pCnt);
             displayScore();
         });
@@ -350,6 +350,7 @@
                 hh = hh - 1;
                 selectHole(hh);
                 displayScore();
+                hideZeroes();
             }
 
         });
@@ -360,37 +361,38 @@
                 hh = hh + 1;
                 selectHole(hh);
                 displayScore();
-            }
+                hideZeroes();
+        }
 
         });
 
         $("#minusScore").click(function () {
             var score = getScore();
-            console.info("Minus Score before = " + score);
+            //console.info.info("Minus Score before = " + score);
             if (score == 0) {
                 var parOfHole = getParOfHole();
-                console.info("Score was zero, setting initially to par");
+                //console.info.info("Score was zero, setting initially to par");
                 score = parOfHole;
             }
             else if (score > 1) {
                 score--;
             }
-            console.info("Minus Score computed = " + score);
+            //console.info.info("Minus Score computed = " + score);
             setScore(score);
         });
 
         $("#plusScore").click(function () {
             var score = getScore();
-            console.info("Plus Score before = " + score);
+            //console.info.info("Plus Score before = " + score);
             if (score == 0) {
                 var parOfHole = getParOfHole();
-                console.info("Score was zero, setting initially to par");
+                //console.info.info("Score was zero, setting initially to par");
                 score = parOfHole;
             }
             else if (score < 15) {
                 score++;
             }
-            console.info("Plus Score computed = " + score);
+            //console.info.info("Plus Score computed = " + score);
             setScore(score);
         });
 
@@ -436,8 +438,8 @@
         $("#postScore").click(function () {
             if (testChg() == "Y") {
                 postAll();
-                $("#postScore").removeClass("bg-danger");
-                $("#postScore").addClass("bg-secondary");
+                $("#postScore").removeClass("btn-danger");
+                $("#postScore").addClass("btn-secondary");
                 allChgOff();
             }
          });
@@ -447,15 +449,44 @@
 
         selectHole(hOfM);
         displayScore();
+        hideZeroes();
 
-    });
+    }); 
+    function hideZeroes() {
+
+        console.info("HideZeroes invoked");
+            $(".out1, .out2, .out3, .out4, .in1, .in2, .in3, .in4").each(function () {
+            if ($(this).text().trim() == "0") {
+                if ($(this).hasClass("bg-secondary")) {
+                    $(this).removeClass("text-light");
+                    $(this).removeClass("text-primary");
+                    $(this).removeClass("text-dark");
+                    $(this).addClass("text-secondary");
+                }
+                if ($(this).hasClass("bg-primary")) {
+                    $(this).removeClass("text-light");
+                    $(this).removeClass("text-secondary");
+                    $(this).removeClass("text-dark");
+                    $(this).addClass("text-light");
+                }
+                if ($(this).hasClass("bg-light")) {
+                    $(this).removeClass("text-secondary");
+                    $(this).removeClass("text-primary");
+                    $(this).removeClass("text-dark");
+                    $(this).addClass("text-light");
+                }
+            }
+        });
+
+        }
+    
         function postAll() {
-            console.info("Entering postAll");
+            //console.info.info("Entering postAll");
             var pCnt = $("#pCnt").val();
             var i;
             for (i = 1; i <= pCnt; i++) {
                 if (getChg(i) == "Y") {
-                    console.info("Posting Changes for Player " + i);
+                    //console.info.info("Posting Changes for Player " + i);
                     postScore(i);
                 }
             }
@@ -463,13 +494,13 @@
 
         function selectHole(hOfM) {
 
-            $(getScoreId()).removeClass("bg-info");
+            $(getScoreId()).removeClass("bg-primary");
             $(getScoreId()).addClass("bg-secondary");
 
             var iH = hOfM;
             $("#tHole").val(iH);
 
-            console.info("Highlighting Hole " + iH);
+            //console.info.info("Highlighting Hole " + iH);
             $(".inh").removeClass("bg-info");
             $(".outh").removeClass("bg-info");
             $(".inh").addClass("bg-dark");
@@ -478,15 +509,15 @@
             if (iH > 9) {
                 var inH = iH - 9;
                 var inId = "#inh-" + inH;
-                console.info("Toggling inId=" + inId);
+                //console.info.info("Toggling inId=" + inId);
                 $(inId).removeClass("bg-dark");
                 $(inId).addClass("bg-info");
-                $("#cHole").text('Hole #' + inH);
+                $("#cHole").text('Hole #' + iH);
             }
             else {
                 var outH = iH;
                 var outId = "#outh-" + outH 
-                console.info("Toggling outId=" + outId);
+                //console.info.info("Toggling outId=" + outId);
                 $(outId).removeClass("bg-dark");
                 $(outId).addClass("bg-info");
                 $("#cHole").text("Hole # 0" + outH);
@@ -498,6 +529,7 @@
 
             $(getScoreId()).removeClass("bg-secondary");
             $(getScoreId()).addClass("bg-primary");
+              
 
         }
 
@@ -506,7 +538,7 @@
             var pOfM = $("#tPlayer").val();
             var pId = "#btnP" + pOfM;
             var playerName = $(pId).text().trim();
-            console.info("Player " + pOfM + " is " + playerName);
+            //console.info.info("Player " + pOfM + " is " + playerName);
             return playerName;
         }
 
@@ -539,7 +571,7 @@
 
             var scoreId = getScoreId();
             var score = $(scoreId).text().trim();
-            console.info("Setting Score to " + score);
+            //console.info.info("Setting Score to " + score);
             $("#scoreOfHole").text(score);
 
             if (testChg() == "Y") {
@@ -563,8 +595,7 @@
 
             var pOfM = $("#tPlayer").val();
             var hOfM = $("#tHole").val();
-            console.info("Getting Score Id of Player " + pOfM
-                + ", Hole " + hOfM);
+            //console.info.info("Getting Score Id of Player " + pOfM + ", Hole " + hOfM);
 
             var idOfScore;
             if (hOfM > 9) {
@@ -575,7 +606,7 @@
                 var outH = hOfM;
                 idOfScore = "#out" + pOfM + "-" + outH;
             }
-            console.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
+            //console.info.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
             return idOfScore;
         }   
         function toggleRow(p, pCnt) {
@@ -647,6 +678,8 @@
 
             $("#pOfHole").text(getPlayerName);
 
+            hideZeroes();
+
         }
         function scoreAll() {
             var pCnt = $("#pCnt").val();
@@ -664,7 +697,7 @@
         function scoreTotal(p) {
 
 
-            console.info("Computing Totals for Player " + p)
+            //console.info.info("Computing Totals for Player " + p)
 
             var pars = new Array(18);
             var x;
@@ -683,7 +716,7 @@
                     rnd = rnd + holeScore - pars[hole];
                 }
             });
-            console.info("Player " + p + " Out: " + totOut);
+            //console.info.info("Player " + p + " Out: " + totOut);
 
             var totIn = 0;
             $(".in" + p).each(function () {
@@ -694,11 +727,11 @@
                     rnd = rnd + holeScore - pars[hole];
                 }
             });
-            console.info("Player " + p + " In: " + totIn);
+            //console.info.info("Player " + p + " In: " + totIn);
 
             var total = totOut + totIn;
-            console.info("Player " + p + " Rnd: " + rnd);
-            console.info("Player " + p + " Total: " + total);
+            //console.info.info("Player " + p + " Rnd: " + rnd);
+            //console.info.info("Player " + p + " Total: " + total);
 
             var rndSign = "";
             if (rnd > 0) {
@@ -721,13 +754,13 @@
                 chgInd = "Y";
             }
         }
-        console.info("testChg for all=" + chgInd);
+        //console.info.info("testChg for all=" + chgInd);
         return chgInd;
     }
 
     function allChgOff() {
 
-        console.info("Clearing Changes");
+        //console.info.info("Clearing Changes");
         var pCnt = $("#pCnt").val();
         var i;
         for (i = 1; i <= pCnt; i++) {
@@ -741,7 +774,7 @@
         if (chgInd == "undefined") {
             return "N";
         }
-        console.info("returning chgInd for player " + s + "=" + chgInd);
+        //console.info.info("returning chgInd for player " + s + "=" + chgInd);
         return chgInd;
     }
 
@@ -751,7 +784,7 @@
     }
 
     function chgOn(s) {
-        console.info("Turning on chg ind for player " + s);
+        //console.info.info("Turning on chg ind for player " + s);
         $("#chgs" + s).val("Y");
     }
     function chgOff(s) {
@@ -762,7 +795,7 @@
 
         scoreTotal(p);
         var url = "/api/scores/" + getsId(p);
-        console.info("postScore calling " + url);
+        //console.info.info("postScore calling " + url);
         var scoreId = $("#scoreId" + p).val();
         var hole01 = $("#out" + p + "-1").text();
         var hole02 = $("#out" + p + "-2").text();
@@ -811,7 +844,7 @@
             holeTotal: holeTotal
         };
         var jSendInfo = JSON.stringify(sendInfo);
-        console.info("postScore calling with " + jSendInfo);
+        //console.info.info("postScore calling with " + jSendInfo);
 
         $.ajax({
             type: "PUT",
