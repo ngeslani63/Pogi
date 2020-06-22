@@ -748,5 +748,19 @@ namespace Pogi.Services
             score = _context.Score.SingleOrDefault(r => r.TourId == tourId && r.MemberId == memberId);
             return score;
         }
+
+        public ScoreInfo getbyScoreId(int id)
+        {
+            var score = _context.Score.Where(r => r.ScoreId == id).FirstOrDefault();
+            if (score == null) return null;
+            Member member = _context.Member.FirstOrDefault(r => r.MemberId == score.MemberId);
+            Course course = _context.Course.FirstOrDefault(r => r.CourseId == score.CourseId);
+
+            ScoreInfo scoreInfo = new ScoreInfo(member, course, score);
+
+            
+        
+            return scoreInfo;
+        }
     }
 }

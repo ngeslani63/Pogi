@@ -138,7 +138,9 @@ namespace Pogi
 
             apiKey = Configuration.GetSection("SENDGRID_API_KEY").Value;
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = 
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                ;
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
             services.AddSession();

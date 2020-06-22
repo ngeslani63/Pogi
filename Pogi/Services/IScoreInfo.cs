@@ -32,5 +32,6 @@ namespace Pogi.Services
         List<ScoreInfo> getBadgesOfYear(DateTime time);
 
         String getTiebreaker(Score Score);
+        ScoreInfo getbyScoreId(int id);
     }
 }
