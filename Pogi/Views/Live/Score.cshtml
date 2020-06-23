@@ -22,7 +22,7 @@
             <li class="nav-item mx-0">
                 <a class="nav-link" asp-controller="Live" asp-action="Leaderboard"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup"
+                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4">Leaders</a>
             </li>
@@ -33,36 +33,36 @@
     </section>
     <section class="row">
 
-        <div class="col">
-            <div class="row">
-                <btn id="prevHole" type="button" class="col btn btn-warning text-dark text-center py-2 mb-1 border">
+        <div class="col m-0 p-0 ">
+            @*<div class="row">*@
+                <btn id="prevHole" type="button" class="col btn btn-warning text-dark text-center py-3 mb-1 border">
                     Prev Hole
                 </btn>
-            </div>
-            <div class="row">
+            @*</div>*@
+            @*<div class="row">
                 <btn id="prevPlay" type="button" class="col btn btn-info text-dark text-center py-2 mb-1 border">
                     Prev Player
                 </btn>
-            </div>
+            </div>*@
         </div>
         
 
-        <div class="col bg-warning text-dark text-center py-2 mb-1 border">
-            <p id="cHole" class="font-weight-light m-0"><small>Hole #00</small></p>
-            <p id="parOfHole" class="font-weight-light m-0"><small>Par 04, 350 yards</small></p>
+        <div class="col d-flex justify-content-center align-content-center bg-warning text-dark text-center py-3 mb-1 border">
+            <p id="cHole" class="m-0"><small>Hole #00</small></p>&nbsp
+            <p id="parOfHole" class="m-0"><small>Par 04, 350 yards</small></p>
         </div>
 
-        <div class="col">
-            <div class="row">
-                <btn id="nextHole" type="button" class="col btn btn-warning text-dark text-center py-2 mb-1 border">
+        <div class="col m-0 p-0">
+            @*<div class="row">*@
+                <btn id="nextHole" type="button" class="col btn btn-warning text-dark text-center py-3 mb-1 border">
                     Next Hole
                 </btn>
-            </div>
-            <div class="row">
+            @*</div>*@
+            @*<div class="row">
                 <btn id="nextPlay" type="button" class="col btn btn-info text-dark text-center py-2 mb-1 border">
                     Next Player
                 </btn>
-            </div>
+            </div>*@
          </div>
 
     </section>

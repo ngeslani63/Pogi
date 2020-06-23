@@ -63,13 +63,14 @@ namespace Pogi.Controllers
 
      
         }
-        public IActionResult Leaderboard(string TourId, string TourDate, string memberId, string tGroup,
+        public IActionResult Leaderboard(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
             ViewBag.memberId = memberId;
-            ViewBag.tgroup = tGroup;
+            ViewBag.tGroup = tGroup;
+            ViewBag.pGroup = pGroup;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -180,13 +181,14 @@ namespace Pogi.Controllers
             return View(model);
         }
 
-        public IActionResult Index(string TourId, string TourDate, string memberId, string tGroup,
+        public IActionResult Index(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
             ViewBag.memberId = memberId;
-            ViewBag.tgroup = tGroup;
+            ViewBag.tGroup = tGroup;
+            ViewBag.pGroup = pGroup;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -306,8 +308,8 @@ namespace Pogi.Controllers
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
             ViewBag.memberId = memberId;
-            ViewBag.tgroup = tGroup;
-            ViewBag.pgroup = pGroup;
+            ViewBag.tGroup = tGroup;
+            ViewBag.pGroup = pGroup;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
