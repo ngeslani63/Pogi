@@ -68,7 +68,7 @@ namespace Pogi.Services
             }
             else
             {
-                Tours = _context.Tour.Where(r => r.TourDate >= lastSaturday).OrderBy(r => r.TourDate);
+                Tours = _context.Tour.OrderBy(r => r.TourDate);
             }
             foreach (Tour tour in Tours)
             {

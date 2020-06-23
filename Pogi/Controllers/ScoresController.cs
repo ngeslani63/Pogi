@@ -109,7 +109,7 @@ namespace Pogi.Controllers
 
         // PUT api/<ScoresController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] ScoresInfo model)
+        public IActionResult Put(int id, [FromBody] ScoresInfo model)
         {
             try
             {
@@ -190,7 +190,7 @@ namespace Pogi.Controllers
 
 
                 _context.Update(Score);
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
