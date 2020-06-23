@@ -463,11 +463,8 @@
                 hOfM = parseInt(id.substr(4, 1)) + 9;
                 console.info("pOfM=" + pOfM + ", hOfM=" + hOfM);
             }
-            $("#tPlayer").val(pOfM);
-            $("#tHole").val(hOfM);
-
-            var pCnt = $("#pCnt").val();
-
+            //$("#tPlayer").val(pOfM);
+            //$("#tHole").val(hOfM);
             $("#btnP" + pOfM).trigger("click");
             selectHole(hOfM);
             displayScore();
