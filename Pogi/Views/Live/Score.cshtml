@@ -446,7 +446,32 @@
                 $("#postScore").addClass("btn-secondary");
                 allChgOff();
             }
-         });
+        });
+
+        $(".out1, .out2, .out3, .out4, .in1, .in2, .in3, .in4").click(function () {
+            var id = $(this).attr("id");
+            console.info("Hole clicked at id=" + id);
+            var pOfM;
+            var hOfM;
+            if (id.substr(0, 3) == "out") {
+                pOfM = id.substr(3, 1);
+                hOfM = id.substr(5, 1);
+                console.info("out pOfM=" + pOfM + ", hOfM=" + hOfM);
+            }
+            else {
+                pOfM = id.substr(2, 1);
+                hOfM = parseInt(id.substr(4, 1)) + 9;
+                console.info("pOfM=" + pOfM + ", hOfM=" + hOfM);
+            }
+            $("#tPlayer").val(pOfM);
+            $("#tHole").val(hOfM);
+
+            var pCnt = $("#pCnt").val();
+
+            $("#btnP" + pOfM).trigger("click");
+            selectHole(hOfM);
+        });
+
 
         $("#btnP" + pOfM).trigger("click");
    
