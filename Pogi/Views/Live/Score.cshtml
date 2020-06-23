@@ -13,7 +13,11 @@
                 <a class="nav-link active" href="#">Score</a>
             </li>
             <li class="nav-item mx-0">
-                <a class="nav-link" asp-controller="Score" asp-action="Leaderboard">Leaders</a>
+                <a class="nav-link" asp-controller="Live" asp-action="Leaderboard"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId1" asp-route-sMemberId4="@ViewBag.sMemberId4">Leaders</a>
             </li>
             <li class="nav-item mx-0">
                 <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index">Groups</a>
