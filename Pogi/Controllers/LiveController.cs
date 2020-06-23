@@ -297,16 +297,17 @@ namespace Pogi.Controllers
                 model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                 if (model.User != null) userName = model.User.EmailAddr1st;
             }
-            _activity.logActivity(userName, "Live");
+            _activity.logActivity(userName, "Live Select Group");
             return View(model);
         }
-        public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup, string tPlayer,
+        public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
             ViewBag.memberId = memberId;
             ViewBag.tgroup = tGroup;
+            ViewBag.pgroup = pGroup;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -467,8 +468,14 @@ namespace Pogi.Controllers
                 if (sc.Hole02 == 0) model.nextHole = "2";
                 if (sc.Hole01 == 0) model.nextHole = "1";
             }
-            
 
+            string userName = "";
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Live Score");
             return View(model);
         }
 

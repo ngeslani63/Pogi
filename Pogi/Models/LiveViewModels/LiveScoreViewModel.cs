@@ -11,10 +11,12 @@ namespace Pogi.Models.LiveViewModels
     {
         public LiveScoreViewModel()
         {
+            Member User = new Member();
             Colors = new List<SelectListItem>();
             Players = new List<Member>();
             Scores = new List<Score>();
         }
+        public Member User { get; set; }
         public Tour Tour { get; set; }
         public TeeTime TeeTime { get; set; }
         public Course Course { get; set; }

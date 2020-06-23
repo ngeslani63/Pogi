@@ -186,11 +186,12 @@
             }
         <section>
             <input type="text" id="tGroup" name="tGroup" hidden />
-            <input type="text" id="tPlayer" name="tPlayer" hidden/>
-            <input type="text" id="sMemberId1" name="sMemberId1" hidden/>
-            <input type="text" id="sMemberId2" name="sMemberId2" hidden/>
-            <input type="text" id="sMemberId3" name="sMemberId3" hidden/>
-            <input type="text" id="sMemberId4" name="sMemberId4" hidden/>
+            <input type="text" id="pGroup" name="pGroup" hidden />
+            <input type="text" id="tPlayer" name="tPlayer" hidden />
+            <input type="text" id="sMemberId1" name="sMemberId1" hidden />
+            <input type="text" id="sMemberId2" name="sMemberId2" hidden />
+            <input type="text" id="sMemberId3" name="sMemberId3" hidden />
+            <input type="text" id="sMemberId4" name="sMemberId4" hidden />
         </section>
         </form>
     </section>
@@ -237,14 +238,16 @@
             console.info("sMemberId1=" + m1);
         });
         $(document).ready(function () {
-            console.info("Document Ready");
+            console.info("Live Index Document Ready");
 
             var g = $("#tGroup").val();
+            console.info("tGroup = *" + g + "*");
             if (g == "") {
                 var gOfM = $("#gOfM").attr("value");
                 if (gOfM != "undefined" && gOfM > "") {
-                    console.info("setting tGroup to Members group of "+gOfM)
-                    g =gOfM;
+                    console.info("setting pGroup to Members group of "+gOfM)
+                    g = gOfM;
+                    $("#pGroup").val(parseInt(g));
                 }
                 else {
                     console.info("defaulting tGroup to 1")

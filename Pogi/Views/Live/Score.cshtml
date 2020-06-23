@@ -2,6 +2,13 @@
 <br />
 @{
     ViewData["Title"] = "Live";
+    var sProtect = "";
+    var pMessage = "";
+    if (@ViewBag.pGroup != @ViewBag.tgroup )
+    {
+        sProtect = "disabled";
+        pMessage = "Scoring disabled for this group. You can only view.";
+    }
 }
 <section class="container">
     <section class="row">
@@ -17,7 +24,7 @@
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
                    asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
-                   asp-route-sMemberId3="@ViewBag.sMemberId1" asp-route-sMemberId4="@ViewBag.sMemberId4">Leaders</a>
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4">Leaders</a>
             </li>
             <li class="nav-item mx-0">
                 <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index">Groups</a>
@@ -64,16 +71,16 @@
             <div class="row">
                 <div class="col align-content-center justify-content-center">
                     <div class="row align-items-center">
-                        <button id="setBirdie" type="button" class="col border-light btn btn-sm btn-primary">Birdie</button>
+                        <button id="setBirdie" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Birdie</button>
                     </div>
                     <div class="row align-items-center">
-                        <button id="setEagle" type="button" class="col border-light btn btn-sm btn-primary">Eagle</i></button>
+                        <button id="setEagle" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Eagle</i></button>
                     </div>
                     <div class="row align-items-center">
-                        <button id="setOne" type="button" class="col border-light btn btn-sm btn-primary">One</button>
+                        <button id="setOne" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">One</button>
                     </div>
                 </div>
-                <button id="minusScore" type="button" class="col btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
+                <button id="minusScore" type="button" @(sProtect) class="col setScore btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
             </div>
         </div>
         <div id="postScore" class="col btn btn btn-secondary text-center text-light border rounded font-weight-bold">
@@ -83,16 +90,16 @@
         </div>
         <div class="col">
             <div class="row">
-                <button id="plusScore" type="button" class="col btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
+                <button id="plusScore" type="button" @(sProtect) class="col setScore btn btn-lg btn-primary"><i class="fa fa-plus"></i></button>
                 <div class="col align-content-center justify-content-center">
                     <div class="row align-items-center">
-                        <button id="setPar" type="button" class="col border-light btn btn-sm btn-primary">Par</button>
+                        <button id="setPar" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Par</button>
                     </div>
                     <div class="row align-items-center">
-                        <button id="setBogey" type="button" class="col border-light btn btn-sm btn-primary">Bogey</i></button>
+                        <button id="setBogey" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Bogey</i></button>
                     </div>
                     <div class="row align-items-center">
-                        <button id="setDouble" type="button" class="col border-light btn btn-sm btn-primary">Double</button>
+                        <button id="setDouble" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Double</button>
                     </div>
                 </div>
             </div>
@@ -234,6 +241,9 @@
                 @player.FirstName
             </label>
         }
+    </section>
+    <section class="row">
+        <p class="h5 text-warning">@(pMessage)</p>
     </section>
 
 </section>
@@ -463,13 +473,15 @@
                 hOfM = parseInt(id.substr(4, 1)) + 9;
                 console.info("pOfM=" + pOfM + ", hOfM=" + hOfM);
             }
-            $("#tPlayer").val(pOfM);
-            $("#tHole").val(hOfM);
+            //$("#tPlayer").val(pOfM);
+            //$("#tHole").val(hOfM);
 
             var pCnt = $("#pCnt").val();
 
             $("#btnP" + pOfM).trigger("click");
             selectHole(hOfM);
+            displayScore();
+            hideZeroes();
         });
 
 
