@@ -15,59 +15,44 @@
     }
     
 }
-<section class="container">
-    <section class="row">
-        <span class="col-3 px-0 mx-1  d-flex justify-content-center align-items-center">
+<section class="container-fluid">
+    <section class="row justify-content-start">
+        <span class="col-3 px-1 mx-1 d-flex align-items-center">
             <small><strong>@Model.Tour.TourName</strong></small>
         </span>
-        <ul class="nav col">
-            <li class="nav-item mx-0">
+        <ul class="nav col-9 row justify-content-start">
+            <li class="nav-item px-0 mx-0">
                 <a class="nav-link active" href="#">Score</a>
             </li>
-            <li class="nav-item mx-0">
-                <a class="nav-link" asp-controller="Live" asp-action="Leaderboard"
+            <li class="nav-item px-0 mx-0">
+                <a class="nav-link " asp-controller="Live" asp-action="Leaderboard"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
                    asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4">Leaders</a>
             </li>
-            <li class="nav-item mx-0">
+            <li class="nav-item px-0 mx-0">
                 <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index">Groups</a>
             </li>
         </ul>
     </section>
     <section class="row">
 
-        <div class="col m-0 p-0 ">
-            @*<div class="row">*@
-                <btn id="prevHole" type="button" class="col btn btn-warning text-dark text-center py-3 mb-1 border">
+        <div class="col mx-0 px-0 align-self-center">
+                <label id="prevHole" type="button" class="col btn btn btn-warning text-dark text-center py-3 mb-1 border">
                     Prev Hole
-                </btn>
-            @*</div>*@
-            @*<div class="row">
-                <btn id="prevPlay" type="button" class="col btn btn-info text-dark text-center py-2 mb-1 border">
-                    Prev Player
-                </btn>
-            </div>*@
+                </label>
         </div>
-        
-
+  
         <div class="col d-flex justify-content-center align-content-center bg-warning text-dark text-center py-3 mb-1 border">
-            <p id="cHole" class="m-0"><small>Hole #00</small></p>&nbsp
-            <p id="parOfHole" class="m-0"><small>Par 04, 350 yards</small></p>
+            <p id="cHole" class="row m-0"><small>Hole 00</small></p>&nbsp
+            <p id="parOfHole" class="row m-0"><small>Par 04, 350 yards</small></p>
         </div>
 
-        <div class="col m-0 p-0">
-            @*<div class="row">*@
-                <btn id="nextHole" type="button" class="col btn btn-warning text-dark text-center py-3 mb-1 border">
+        <div class="col mx-0 px-0  align-self-center">
+                <label id="nextHole" type="button" class="col btn btn-warning text-dark text-center py-3 mb-1 border">
                     Next Hole
-                </btn>
-            @*</div>*@
-            @*<div class="row">
-                <btn id="nextPlay" type="button" class="col btn btn-info text-dark text-center py-2 mb-1 border">
-                    Next Player
-                </btn>
-            </div>*@
+                </label>
          </div>
 
     </section>
@@ -566,7 +551,7 @@
                 //console.info.info("Toggling outId=" + outId);
                 $(outId).removeClass("bg-dark");
                 $(outId).addClass("bg-info");
-                $("#cHole").text("Hole # 0" + outH);
+                $("#cHole").text("Hole #0" + outH);
             }
             // get Par of Hole
             var parOfHole = $("#par" + iH).val();

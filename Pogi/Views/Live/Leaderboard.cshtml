@@ -11,12 +11,12 @@
 }
 
 
-<section class="container">
-    <section class="row">
-        <span class="col-3 px-0 mx-1  d-flex justify-content-center align-items-center">
+<section class="container-fluid">
+    <section class="row justify-content-start">
+        <span class="col-3 px-1 mx-1 d-flex align-items-center">
             <small><strong>@Model.Tour.TourName</strong></small>
         </span>
-        <ul class="nav col">
+        <ul class="nav col-9 row justify-content-start">
             <li class="nav-item mx-0">
                 <a class="nav-link active" asp-controller="Live" asp-action="Score"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
@@ -58,26 +58,29 @@
         {
             sortName = "Round";
             sortOrder = "asc";
-            dataPagination = "false";
+            dataPagination = "true";
 
         }
     }
-    <table id="table"
+    <table id="table" data-classes="table-sm"
            data-toolbar="#toolbar"
+           data-height="600""
            data-toggle="table"
            data-search="false"
            data-striped="true"
            data-pagination="@dataPagination"
+           data-page-size="7"
            data-sort-name="@sortName"
            data-sort-order="@sortOrder"
            data-remember-order="true"
            data-sort-stable="true">
         <thead>
             <tr>
-                <th class="col-md-2" data-field="memberName" data-sortable="false">Member</th>
-                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Gross</th>
-                <th class="col-md-1" data-field="Round" data-sortable="true">Round</th>
-                <th class="col-md-1" data-field="Birdies" data-sortable="true">Birdies</th>
+                <th class="col-sm-2" data-field="memberName" data-sortable="false">Player</th>
+                <th class="col-sm-1" data-field="holeTotal" data-sortable="true">Tot</th>
+                <th class="col-sm-1" data-field="Round" data-sortable="true">Rnd</th>
+                <th class="col-md-1" data-field="TourScore" data-sortable="true">Tour<br />Net</th>
+                <th class="col-sm-1" data-field="Birdies" data-sortable="true">Birds</th>
             </tr>
         </thead>
         <tbody>
@@ -108,19 +111,20 @@
                         }
                     }
 
-                    <tr>
-                        @{
+            <tr>
+                @{
                             DateTime scoreDateTime = score.ScoreDate;
                             String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
-                        }
+                }
 
-                        @*<td class="col-md-2">@scoreDateDisp</td>
-                            <td class="col-md-2">@course.CourseName</td>*@
-                        <td class="col-md-2">@member.FirstName @member.LastName</td>
-                        <td class="col-md-1">@score.HoleTotal</td>
-                        <td class="col-md-1">@score.Round</td>
-                        <td class="col-md-1">@score.Birdies</td>
-                    </tr>
+                @*<td class="col-md-2">@scoreDateDisp</td>
+        <td class="col-md-2">@course.CourseName</td>*@
+                <td class="col-md-2">@member.FirstName @member.LastName</td>
+                <td class="col-md-1">@score.HoleTotal</td>
+                <td class="col-md-1">@score.Round</td>
+                <td class="col-md-1">@score.TourScore</td>
+                <td class="col-md-1">@score.Birdies</td>
+            </tr>
                 }
 
             }
@@ -146,15 +150,6 @@
                 console.info("Refreshing");
                 $table.bootstrapTable('refresh');
             });
-        });
-        $("#TourId").change(function () {
-            console.info("TourId changed");
-            $("#SetTour").trigger("click");
-            $("#TourDate").val("");
-        });
-        $("#TourDate").change(function () {
-            console.info("TourId changed");
-            $("#SetTour").trigger("click");
         });
 
         function queryParams() {
