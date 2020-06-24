@@ -58,18 +58,18 @@
         {
             sortName = "Round";
             sortOrder = "asc";
-            dataPagination = "true";
+            dataPagination = "false";
 
         }
     }
     <table id="table" data-classes="table-sm"
            data-toolbar="#toolbar"
-           data-height="600""
+           data-height="450"
            data-toggle="table"
            data-search="false"
            data-striped="true"
            data-pagination="@dataPagination"
-           data-page-size="7"
+           data-page-size="6"
            data-sort-name="@sortName"
            data-sort-order="@sortOrder"
            data-remember-order="true"
@@ -77,10 +77,10 @@
         <thead>
             <tr>
                 <th class="col-sm-2" data-field="memberName" data-sortable="false">Player</th>
-                <th class="col-sm-1" data-field="holeTotal" data-sortable="true">Tot</th>
+                <th class="col-sm-1" data-field="holeTotal" data-sortable="false">Tot</th>
                 <th class="col-sm-1" data-field="Round" data-sortable="true">Rnd</th>
-                <th class="col-md-1" data-field="TourScore" data-sortable="true">Tour<br />Net</th>
-                <th class="col-sm-1" data-field="Birdies" data-sortable="true">Birds</th>
+                <th class="col-md-1" data-field="TourScore" data-sortable="true">Net</th>
+                <th class="col-sm-1" data-field="Birdies" data-sortable="false">Birds</th>
             </tr>
         </thead>
         <tbody>
@@ -90,6 +90,7 @@
                 Member member = item.Member;
                 Course course = item.Course;
                 CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
+                var player=member.FirstName + " " + member.LastName.Substring(0,1);
                 if (score.HoleTotal > 0) {
                     var toPar = (score.HoleTotal - course.ParTotal).ToString("+0;-#");
                     Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
@@ -119,7 +120,7 @@
 
                 @*<td class="col-md-2">@scoreDateDisp</td>
         <td class="col-md-2">@course.CourseName</td>*@
-                <td class="col-md-2">@member.FirstName @member.LastName</td>
+                <td class="col-md-2">@player</td>
                 <td class="col-md-1">@score.HoleTotal</td>
                 <td class="col-md-1">@score.Round</td>
                 <td class="col-md-1">@score.TourScore</td>
