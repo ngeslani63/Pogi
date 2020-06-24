@@ -56,7 +56,7 @@
         var dataPagination = "true";
         if (Model.TourId != "0")
         {
-            sortName = "TourScore";
+            sortName = "Round";
             sortOrder = "asc";
             dataPagination = "false";
 
@@ -77,9 +77,9 @@
                 @*<th class="col-md-2" data-field="scoreDate" data-sortable="true">Date</th>
                     <th class="col-md-2" data-field="courseName" data-sortable="false">Course</th>*@
                 <th class="col-md-2" data-field="memberName" data-sortable="false">Member</th>
-                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Tot</th>
-                <th class="col-md-1" data-field="toPar" data-sortable="false">Rnd</th>
-                <th class="col-md-1" data-field="TourScore" data-sortable="true">Tour<br /> Net</th>
+                <th class="col-md-1" data-field="holeTotal" data-sortable="true">Gross</th>
+                <th class="col-md-1" data-field="Round" data-sortable="true">Round</th>
+                <th class="col-md-1" data-field="Birdies" data-sortable="true">Birdies</th>
             </tr>
         </thead>
         <tbody>
@@ -119,8 +119,8 @@
                         <td class="col-md-2">@course.CourseName</td>*@
                     <td class="col-md-2">@member.FirstName @member.LastName</td>
                     <td class="col-md-1">@score.HoleTotal</td>
-                    <td class="col-md-1">@toPar</td>
-                    <td class="col-md-1">@score.TourScore</td>
+                    <td class="col-md-1">@score.Round</td>
+                    <td class="col-md-1">@score.Birdies</td>
                 </tr>
 
             }

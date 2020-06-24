@@ -99,6 +99,7 @@ namespace Pogi.Entities
         public bool TourEvent { get; set; }
         public int TourId { get; set; }
         public int TourScore { get; set; }
+        public int Round { get; set; }
         public int MaxScore { get; set; }
         public int Disaster { get; set; }
         public int QuadBogeys { get; set; }

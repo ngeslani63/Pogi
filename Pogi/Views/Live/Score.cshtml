@@ -859,6 +859,7 @@
         var holeOut = $("#out" + p + "-HoleOut").text();
         var holeIn = $("#in" + p + "-HoleIn").text();
         var holeTotal = $("#in" + p + "-Tot").text();
+        var holeRnd = $("#out" + p + "-Rnd").text(); 
 
         var sendInfo = {
             scoreId: scoreId,
@@ -882,7 +883,8 @@
             hole18: hole18,
             holeOut: holeOut,
             holeIn: holeIn,
-            holeTotal: holeTotal
+            holeTotal: holeTotal,
+            round : holeRnd
         };
         var jSendInfo = JSON.stringify(sendInfo);
         //console.info.info("postScore calling with " + jSendInfo);

@@ -139,6 +139,7 @@ namespace Pogi.Controllers
                 Score.HoleIn = model.HoleIn;
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
+                Score.Round = model.Round;
                 //Score.TourEvent = model.TourEvent;
                 //Score.TourId = model.TourId;
                 //if (model.AboutGame == null) model.AboutGame = "";

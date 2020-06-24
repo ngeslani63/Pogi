@@ -82,6 +82,7 @@ namespace Pogi.Models
         public int HoleTotal { get; set; }
         [Display(Name = "Is this a Tour Event")]
         [DefaultValue(false)]
+        public int Round { get; set; }
         public bool TourEvent { get; set; }
         public int TourId { get; set; }
         public ScoreType ScoreType { get; set; }
