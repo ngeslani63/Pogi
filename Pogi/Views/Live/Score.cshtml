@@ -7,8 +7,13 @@
     if (@ViewBag.pGroup != @ViewBag.tgroup )
     {
         sProtect = "disabled";
-        pMessage = "Scoring disabled for this group. You can only view.";
+        pMessage = "Scoring disabled, only view for this group";
+        if (@Model.User.RoleAdminRoot || @Model.User.RoleAdminScore) {
+            sProtect = "";
+            pMessage = "Scoring enabled by Admin right";
+        } 
     }
+    
 }
 <section class="container">
     <section class="row">
