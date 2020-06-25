@@ -330,21 +330,25 @@
             //console.info.info("Click event for btnP1");
             toggleRow(1, pCnt);
             displayScore();
+            showBirdies();
         });
         $("#btnP2").click(function () {
             //console.info.info("Click event for btnP2");
             toggleRow(2, pCnt);
             displayScore();
+            showBirdies();
         });
         $("#btnP3").click(function () {
             //console.info.info("Click event for btnP3");
             toggleRow(3, pCnt);
             displayScore();
+            showBirdies();
         });
         $("#btnP4").click(function () {
             //console.info.info("Click event for btnP4");
             toggleRow(4, pCnt);
             displayScore();
+            showBirdies();
         });
 
         $("#prevHole").click(function() {
@@ -355,6 +359,7 @@
                 selectHole(hh);
                 displayScore();
                 hideZeroes();
+                showBirdies();
             }
 
         });
@@ -366,6 +371,7 @@
                 selectHole(hh);
                 displayScore();
                 hideZeroes();
+                showBirdies();
         }
 
         });
@@ -383,7 +389,7 @@
             }
             //console.info.info("Minus Score computed = " + score);
             setScore(score);
-        });
+         });
 
         $("#plusScore").click(function () {
             var score = getScore();
@@ -472,6 +478,8 @@
             selectHole(hOfM);
             displayScore();
             hideZeroes();
+            showBirdies();
+           
         });
 
 
@@ -481,8 +489,51 @@
         selectHole(hOfM);
         displayScore();
         hideZeroes();
+        showBirdies();
 
     }); 
+
+    function showBirdies() {
+
+        console.info("showBirdies invoked");
+        $(".out1, .out2, .out3, .out4, .in1, .in2, .in3, .in4").each(function () {
+            if ($(this).text().trim() > "0") {
+
+                var id = $(this).attr("id");
+                //console.info("Show Birdies at id=" + id);
+                var pOfM;
+                var hOfM;
+                if (id.substr(0, 3) == "out") {
+                    pOfM = id.substr(3, 1);
+                    hOfM = id.substr(5, 1);
+                    //console.info("out pOfM=" + pOfM + ", hOfM=" + hOfM);
+                }
+                else {
+                    pOfM = id.substr(2, 1);
+                    hOfM = parseInt(id.substr(4, 1)) + 9;
+                    //console.info("pOfM=" + pOfM + ", hOfM=" + hOfM);
+                }
+                var parOfHole = $("#par" + hOfM).val();
+                var scoreOfHole = $(this).text().trim();
+                if (scoreOfHole < parOfHole) {
+                    if ($("#" + id).hasClass("bg-primary")) {
+                        $("#" + id).removeClass("bg-success")
+                        $("#" + id).removeClass("text-light")
+                        $("#" + id).addClass("text-success");
+                    }
+                    else {
+                        $("#" + id).removeClass("bg-secondary");
+                        $("#" + id).removeClass("bg-primary");
+                        $("#" + id).removeClass("bg-light");
+                        $("#" + id).addClass("bg-success");
+                    }
+                }
+
+            }
+        });
+    }
+            
+
     function hideZeroes() {
 
         console.info("HideZeroes invoked");
@@ -525,7 +576,9 @@
 
         function selectHole(hOfM) {
 
-            $(getScoreId()).removeClass("bg-primary");
+            $(getScoreId()).removeClass("bg-primary")
+            $(getScoreId()).removeClass("bg-success");
+            $(getScoreId()).removeClass("text-success");
             $(getScoreId()).addClass("bg-secondary");
 
             var iH = hOfM;
@@ -594,6 +647,7 @@
             chgOnCurrent();
             displayScore();
             scoreRow();
+            showBirdies();
             
             return;
         }
@@ -643,9 +697,14 @@
         function toggleRow(p, pCnt) {
 
             $(getScoreId()).removeClass("bg-primary");
+            $(getScoreId()).removeClass("bg-success");
+            $(getScoreId()).removeClass("text-success");
 
             var y;
             for (y = 1; y <= pCnt; y++) {
+                $(".in" + y).removeClass("bg-success");
+                $(".out" + y).removeClass("bg-success");
+
                 if (y == p) {
                     $(".out"+ y + "-plyr").removeClass("bg-light");
                     $(".out"+ y + "-plyr").removeClass("text-dark");
