@@ -6,8 +6,8 @@
 }
     <section class="container">
         <br />
-        <h2>Live Scoring</h2>
-        <h3>Select Group</h3>
+        <h5>Live Scoring</h5>
+        <h6>Select Group</h6>
         <hr />
         <form class="px-0" asp-action="Live" method="get">
             <section class="row">
@@ -30,7 +30,7 @@
                     @*</form>*@
                 </div>
             </section>
-            <hr />
+            @*<hr />*@
             @{
                 TeeTimeInfo teeTimeInfo = Model.TeeTimeInfo;
                 if (teeTimeInfo != null)
@@ -40,7 +40,7 @@
                     Member member = teeTimeInfo.Member;
                     Course course = teeTimeInfo.Course;
                     var teeAssignInfos = teeTimeInfo.TeeAssignInfos;
-                    <section class="row ">
+                    <section class="row mt-2 mb-3 ">
                         <div class="col-4 alert-info px-3">
                             @Html.DisplayNameFor(model => course.CourseName)
                         </div>
@@ -48,13 +48,13 @@
                             @Html.DisplayFor(modelItem => course.CourseName)
                         </div>
                     </section>
-                    <hr />
+                    @*<hr />*@
                     int group = 0;
                     DateTime startTime = teeTime.TeeTimeTS;
                     @if (teeTime.NumPlayers > 0)
                     {
                         <section class="row">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <div class="list-group" id="list-tab" role="tablist">
                                     @for (int i = 0; i < teeTime.NumPlayers; i++)
 
@@ -64,7 +64,7 @@
                                             group++;
                                             var opts = "active";
                                             @if (group > 1) { opts = ""; }
-                                            <a class="list-group-item list-group-item-action px-2 @opts"
+                                            <a class="list-group-item list-group-item-action btn-info px-2 @opts"
                                                id="list-group@(group)-list"
                                                data-toggle="list" href="#list-group@(group)" role="tab"
                                                aria-controls="group@(group)" tgroup="@(group)">
@@ -82,7 +82,7 @@
                             @{group = 0;
                                 startTime = teeTime.TeeTimeTS;
                             }
-                            <div class="col-7 pl-0">
+                            <div class="col-8 pl-0">
                                 <div class="tab-content" id="nav-tabContent">
 
                                     @for (int i = 0; i < teeTime.NumPlayers; i++)
@@ -136,10 +136,10 @@
                                                                         else
                                                                         {
                                                                             <td>
-                                                                                <small>
+                                                                                @*<small>*@
                                                                                     @teeAssignInfo.Member.FirstName
                                                                                     @teeAssignInfo.Member.LastName
-                                                                                </small>
+                                                                                @*</small>*@
                                                                             </td>
                                                                             @if (teeAssignInfo.Member.CurrHandicap > 0)
                                                                             {
@@ -176,7 +176,7 @@
                         </section>
                         
                         <section class="row mt-0">
-                            <button type="submit" formaction=@Url.Action("Score","Live") ) class="col-11 py-3 mx-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
+                            <button type="submit" formaction=@Url.Action("Score","Live") ) class="col-11 py-3 mx-3 mt-1 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
                         </section>
                        
 
