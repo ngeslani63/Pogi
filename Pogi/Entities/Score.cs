@@ -122,5 +122,7 @@ namespace Pogi.Entities
         public DateTime LastUpdatedTs { get; set; }
         public ScoreType ScoreType { get; set; }
 
+        public int LastHolePlayed { get; set; }
+
     }
 }

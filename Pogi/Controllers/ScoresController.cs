@@ -140,6 +140,30 @@ namespace Pogi.Controllers
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
                 Score.Round = model.Round;
+                int lastHolePlayed = 0;
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 1, model.Hole01);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 2, model.Hole02);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 3, model.Hole03);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 4, model.Hole04);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 5, model.Hole05);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 6, model.Hole06);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 7, model.Hole07);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 8, model.Hole08);
+                lastHolePlayed = setLastHolePlayed(lastHolePlayed, 9, model.Hole09);
+                if (lastHolePlayed == 9)
+                {
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 10, model.Hole10);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 11, model.Hole11);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 12, model.Hole12);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 13, model.Hole13);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 14, model.Hole14);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 15, model.Hole15);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 16, model.Hole16);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 17, model.Hole17);
+                    lastHolePlayed = setLastHolePlayed(lastHolePlayed, 18, model.Hole18);
+                }
+                Score.LastHolePlayed = lastHolePlayed;
+
                 //Score.TourEvent = model.TourEvent;
                 //Score.TourId = model.TourId;
                 //if (model.AboutGame == null) model.AboutGame = "";
@@ -313,6 +337,31 @@ namespace Pogi.Controllers
                 default:
                     Score.Disaster++;
                     break;
+            }
+        }
+        private int setLastHolePlayed(int lastHolePlayed, int holeNo, int holeScore)
+        {
+            if (lastHolePlayed == 0)
+            {
+                if (holeScore > 0)
+                {
+                    return holeNo;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                if (holeScore > 0)
+                {
+                    return holeNo;
+                }
+                else
+                {
+                    return lastHolePlayed;
+                }
             }
         }
 
