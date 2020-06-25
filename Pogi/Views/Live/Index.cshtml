@@ -196,32 +196,31 @@
         </form>
     </section>
 
-
 @section Scripts {
     <script>
-        console.info("Hello From Live Select");
+        //console.info("Hello From Live Select");
 
         $("#TourId").change(function () {
-            console.info("TourId changed");
+            //console.info("TourId changed");
             $("#SetTour").trigger("click");
             $("#TourDate").val("");
         });
         $("#TourDate").change(function () {
-            console.info("TourId changed");
+            //console.info("TourId changed");
             $("#SetTour").trigger("click");
         });
         $(".list-group-item").click(function () {
             var tGroup = $(this).attr("tGroup");
-            console.info("Group Clicked " + tGroup);
+            //console.info("Group Clicked " + tGroup);
             $("#tGroup").val(tGroup);
             var sMemberId1 = $("#g" + tGroup + "p1").attr("value")
             var sMemberId2 = $("#g" + tGroup + "p2").attr("value")
             var sMemberId3 = $("#g" + tGroup + "p3").attr("value")
             var sMemberId4 = $("#g" + tGroup + "p4").attr("value");
-            console.info("Members=" + sMemberId1 + ", " + sMemberId2
-                + ", " + sMemberId3 + ", " + sMemberId4);
+            //console.info("Members=" + sMemberId1 + ", " + sMemberId2
+            //    + ", " + sMemberId3 + ", " + sMemberId4);
             if (sMemberId1 != "undefined") {
-                console.info("Setting sMemberId1 to " + sMemberId1);
+                //console.info("Setting sMemberId1 to " + sMemberId1);
                 $("#sMemberId1").val(sMemberId1);
             }
             if (sMemberId2 != "undefined") {
@@ -235,22 +234,22 @@
             }
             
             var m1 = $("#sMemberId1").val();
-            console.info("sMemberId1=" + m1);
+            //console.info("sMemberId1=" + m1);
         });
         $(document).ready(function () {
-            console.info("Live Index Document Ready");
+            //console.info("Live Index Document Ready");
 
             var g = $("#tGroup").val();
-            console.info("tGroup = *" + g + "*");
+            //console.info("tGroup = *" + g + "*");
             if (g == "") {
                 var gOfM = $("#gOfM").attr("value");
                 if (gOfM != "undefined" && gOfM > "") {
-                    console.info("setting pGroup to Members group of "+gOfM)
+                    //console.info("setting pGroup to Members group of "+gOfM)
                     g = gOfM;
                     $("#pGroup").val(parseInt(g));
                 }
                 else {
-                    console.info("defaulting tGroup to 1")
+                    //console.info("defaulting tGroup to 1")
                     g = 1;
                 }
                 
@@ -260,24 +259,24 @@
             if (p == "") {
                 var pOfM = $("#pOfM").attr("value");
                 if (pOfM != "undefined" && pOfM > "") {
-                    console.info("setting tPlayer to " + pOfM)
+                    //console.info("setting tPlayer to " + pOfM)
                     p = pOfM;
                 }
                 else {
-                    console.info("defaulting tGroup to 1")
+                    //console.info("defaulting tGroup to 1")
                     p = 1;
                 }
                 $("#tPlayer").val(p);
 
             }
 
-            console.info("tGroup=" + g);
+            //console.info("tGroup=" + g);
             var gid = "#list-group" + g + "-list";
-            console.info("triggering " + gid);
+            //console.info("triggering " + gid);
 
             $(gid).trigger("click");
 
-            console.info("Group 1 Player 1 = " + $("#g1p1").attr("value"));
+            //console.info("Group 1 Player 1 = " + $("#g1p1").attr("value"));
         });
 
 

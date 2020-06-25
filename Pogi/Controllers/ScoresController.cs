@@ -150,7 +150,7 @@ namespace Pogi.Controllers
                 lastHolePlayed = setLastHolePlayed(lastHolePlayed, 7, model.Hole07);
                 lastHolePlayed = setLastHolePlayed(lastHolePlayed, 8, model.Hole08);
                 lastHolePlayed = setLastHolePlayed(lastHolePlayed, 9, model.Hole09);
-                if (lastHolePlayed == 9)
+                if (lastHolePlayed == 0 || lastHolePlayed >= 9 )
                 {
                     lastHolePlayed = setLastHolePlayed(lastHolePlayed, 10, model.Hole10);
                     lastHolePlayed = setLastHolePlayed(lastHolePlayed, 11, model.Hole11);
