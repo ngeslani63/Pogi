@@ -4,6 +4,7 @@
     ViewData["Title"] = "Live";
     var sProtect = "";
     var pMessage = "";
+    var postMessage = "Press gray button to refresh scores";
     if (@ViewBag.pGroup != @ViewBag.tgroup )
     {
         sProtect = "disabled";
@@ -11,9 +12,9 @@
         if (@Model.User.RoleAdminRoot || @Model.User.RoleAdminScore) {
             sProtect = "";
             pMessage = "Scoring enabled by Admin right";
-        } 
+        }
     }
-    
+
 }
 <section class="container-fluid">
     <section class="row justify-content-start">
@@ -235,7 +236,8 @@
             </label>
         }
     </section>
-    <section class="row">
+    <section class="row mt-1 px-1">
+        <p id="postMessage" class="h6 text-secondary">@(postMessage)</p>
         <p class="h5 text-warning">@(pMessage)</p>
     </section>
 
@@ -324,7 +326,7 @@
             else {
                 p = 1;
             }
-                
+                irdies
             $("#btnP" + p).trigger("click");
 
         });
@@ -453,7 +455,13 @@
                 postAll();
                 $("#postScore").removeClass("btn-danger");
                 $("#postScore").addClass("btn-secondary");
+                $("#postMessage").text("Press gray button to refresh scores");
+                $("#postMessage").addClass("text-secondary");
+                $("#postMessage").removeClass("text-danger");
                 allChgOff();
+            }
+            else {
+                postAll();
             }
         });
 
@@ -539,6 +547,19 @@
                         $("#" + id).removeClass("text-success");
                         $("#" + id).addClass("text-light");
                     }
+                    else {
+                        
+                        $("#" + id).removeClass("bg-success");
+                        var pOfM2 = $("#tPlayer").val()
+                        if (pOfM == pOfM2) {
+                            $("#" + id).addClass("bg-secondary");
+                            $("#" + id).addClass("text-light");
+                        }
+                        else {
+                            $("#" + id).addClass("text-dark");
+                        }
+
+                    }
                 }
 
             }
@@ -583,7 +604,13 @@
                     //console.info.info("Posting Changes for Player " + i);
                     postScore(i);
                 }
+                else {
+                    refreshScore(i);
+                }
             }
+            //console.info("postAll calling showBirdies");
+            //showBirdies();
+            //console.info("Exiting postAll");
         }
 
         function selectHole(hOfM) {
@@ -674,6 +701,7 @@
             if (testChg() == "Y") {
                 $("#postScore").removeClass("btn-secondary");
                 $("#postScore").addClass("btn-danger");
+
             }
             else {
                 $("#postScore").removeClass("btn-danger");
@@ -799,7 +827,7 @@
         function scoreTotal(p) {
 
 
-            //console.info.info("Computing Totals for Player " + p)
+            console.info("Computing Totals for Player " + p)
 
             var pars = new Array(18);
             var x;
@@ -857,6 +885,12 @@
             }
         }
         //console.info.info("testChg for all=" + chgInd);
+        if (chgInd == "Y") {
+            $("#postMessage").text("Press red button to submit changes");
+            $("#postMessage").addClass("text-danger");
+            $("#postMessage").removeClass("text-secondary");
+
+        }
         return chgInd;
     }
 
@@ -894,7 +928,7 @@
     }
 
     function postScore(p) {
-
+        console.info("Postscore for player " + p);
         scoreTotal(p);
         var url = "/api/scores/" + getsId(p);
         //console.info.info("postScore calling " + url);
@@ -967,6 +1001,54 @@
         });
 
     }
+    function refreshScore(p) {
+
+        console.info("Refresh Score entered for player " + p);
+
+        var url = "/api/scores/" + getsId(p)
+        //console.info("Calling GET, url=" + url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function (data,status,xhr) {
+                //console.info("Return from GET is success, status=" + status);
+                console.info("Return from GET is success");
+                $("#out" + p + "-1").text(data.score.hole01);
+                $("#out" + p + "-2").text(data.score.hole02);
+                $("#out" + p + "-3").text(data.score.hole03);
+                $("#out" + p + "-4").text(data.score.hole04);
+                $("#out" + p + "-5").text(data.score.hole05);
+                $("#out" + p + "-6").text(data.score.hole06);
+                $("#out" + p + "-7").text(data.score.hole07);
+                $("#out" + p + "-8").text(data.score.hole08);
+                $("#out" + p + "-9").text(data.score.hole09);
+                $("#in" + p + "-1").text(data.score.hole10);
+                $("#in" + p + "-2").text(data.score.hole11);
+                $("#in" + p + "-3").text(data.score.hole12);
+                $("#in" + p + "-4").text(data.score.hole13);
+                $("#in" + p + "-5").text(data.score.hole14);
+                $("#in" + p + "-6").text(data.score.hole15);
+                $("#in" + p + "-7").text(data.score.hole16);
+                $("#in" + p + "-8").text(data.score.hole17);
+                $("#in" + p + "-9").text(data.score.hole18);
+                scoreTotal(p);
+                showBirdies();
+            },
+
+
+        })
+            .done(function (data) {
+                console.info("Return from GET is done");
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.info("Return from GET is fail, status=" + textStatus);
+
+
+            });
+
+    }
+    
 
 </script>
 
