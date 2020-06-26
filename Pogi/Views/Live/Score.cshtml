@@ -4,7 +4,7 @@
     ViewData["Title"] = "Live";
     var sProtect = "";
     var pMessage = "";
-    var postMessage = "Press gray button to refresh scores";
+    var postMessage = "Press gray btn to refresh scores from group";
     if (@ViewBag.pGroup != @ViewBag.tgroup )
     {
         sProtect = "disabled";
@@ -455,7 +455,7 @@
                 postAll();
                 $("#postScore").removeClass("btn-danger");
                 $("#postScore").addClass("btn-secondary");
-                $("#postMessage").text("Press gray button to refresh scores");
+                $("#postMessage").text("Press gray btn to refresh scores from group");
                 $("#postMessage").addClass("text-secondary");
                 $("#postMessage").removeClass("text-danger");
                 allChgOff();
@@ -886,7 +886,7 @@
         }
         //console.info.info("testChg for all=" + chgInd);
         if (chgInd == "Y") {
-            $("#postMessage").text("Press red button to submit changes");
+            $("#postMessage").text("Press red button to submit and refresh");
             $("#postMessage").addClass("text-danger");
             $("#postMessage").removeClass("text-secondary");
 
