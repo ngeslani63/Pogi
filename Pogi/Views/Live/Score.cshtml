@@ -303,6 +303,19 @@
         }
         //console.info.info("Current Hole is " + hOfM);
 
+
+        $(".outh, .inh").click(function () {
+            console.info("Par and Hole Display toggle");
+            var plyr = $("#outh-plyr").text().trim();
+            console.info("Par and Hole Display toggle, current setting = " + plyr);
+            if (plyr == "Plyr") {
+                displayPars();
+            }
+            else {
+                displayHoles();
+            }
+        });
+
         $("#prevPlay").click(function () {
             var pCnt = $("#pCnt").val();
             var p = $("#tPlayer").val();
@@ -385,7 +398,7 @@
             var score = getScore();
             //console.info.info("Minus Score before = " + score);
             if (score == 0) {
-                var parOfHole = getParOfHole();
+                var parOfHole = getParOfCurrentHole();
                 //console.info.info("Score was zero, setting initially to par");
                 score = parOfHole;
             }
@@ -400,7 +413,7 @@
             var score = getScore();
             //console.info.info("Plus Score before = " + score);
             if (score == 0) {
-                var parOfHole = getParOfHole();
+                var parOfHole = getParOfCurrentHole();
                 //console.info.info("Score was zero, setting initially to par");
                 score = parOfHole;
             }
@@ -412,34 +425,34 @@
         });
 
         $("#setPar").click(function () {
-            var parOfHole = getParOfHole();
+            var parOfHole = getParOfCurrentHole();
             var score = parOfHole;
             setScore(score);
         });
 
         $("#setBogey").click(function () {
-            var parOfHole = getParOfHole();
+            var parOfHole = getParOfCurrentHole();
             var score = parOfHole;
             score++;
             setScore(score);
         });
 
         $("#setDouble").click(function () {
-            var parOfHole = getParOfHole();
+            var parOfHole = getParOfCurrentHole();
             var score = parOfHole;
             score++;score++;
             setScore(score);
         });
 
         $("#setBirdie").click(function () {
-            var parOfHole = getParOfHole();
+            var parOfHole = getParOfCurrentHole();
             var score = parOfHole;
             score--;
             setScore(score);
         });
 
         $("#setEagle").click(function () {
-            var parOfHole = getParOfHole();
+            var parOfHole = getParOfCurrentHole();
             var score = parOfHole;
             score--; score--;
             setScore(score);
@@ -727,12 +740,61 @@
             return playerName;
         }
 
-        function getParOfHole() {
+        function getParOfCurrentHole() {
             // get current Hole
             var hole = $("#tHole").val();
             var parOfHole = $("#par" + hole).val();
             return parOfHole;
         }
+        function getParOfHole(h) {
+            var parOfHole = $("#par" + h).val();
+            return parOfHole;
+        }
+        function displayPars() {
+            $("#outh-1").text(getParOfHole(1));
+            $("#outh-2").text(getParOfHole(2));
+            $("#outh-3").text(getParOfHole(3));
+            $("#outh-4").text(getParOfHole(4));
+            $("#outh-5").text(getParOfHole(5));
+            $("#outh-6").text(getParOfHole(6));
+            $("#outh-7").text(getParOfHole(7));
+            $("#outh-8").text(getParOfHole(8));
+            $("#outh-9").text(getParOfHole(9));
+            $("#inh-1").text(getParOfHole(10));
+            $("#inh-2").text(getParOfHole(11));
+            $("#inh-3").text(getParOfHole(12));
+            $("#inh-4").text(getParOfHole(13));
+            $("#inh-5").text(getParOfHole(14));
+            $("#inh-6").text(getParOfHole(15));
+            $("#inh-7").text(getParOfHole(16));
+            $("#inh-8").text(getParOfHole(17));
+            $("#inh-9").text(getParOfHole(18));
+            $("#outh-plyr").text("Par");
+            $("#inh-plyr").text("Par");
+        }
+        function displayHoles() {
+            $("#outh-1").text("01");
+            $("#outh-2").text("02");
+            $("#outh-3").text("03");
+            $("#outh-4").text("04");
+            $("#outh-5").text("05");
+            $("#outh-6").text("06");
+            $("#outh-7").text("07");
+            $("#outh-8").text("08");
+            $("#outh-9").text("09");
+            $("#inh-1").text("10");
+            $("#inh-2").text("11");
+            $("#inh-3").text("12");
+            $("#inh-4").text("13");
+            $("#inh-5").text("14");
+            $("#inh-6").text("15");
+            $("#inh-7").text("16");
+            $("#inh-8").text("17");
+            $("#inh-9").text("18");
+            $("#outh-plyr").text("Plyr");
+            $("#inh-plyr").text("Plyr");
+        }
+
 
         function getScore() {
 
