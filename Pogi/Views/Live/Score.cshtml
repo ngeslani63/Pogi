@@ -71,7 +71,7 @@
                         <button id="setEagle" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Eagle</i></button>
                     </div>
                     <div class="row align-items-center">
-                        <button id="setOne" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">One</button>
+                        <button id="setZero" type="button" @(sProtect) class="col setScore border-light btn btn-sm btn-primary">Reset</button>
                     </div>
                 </div>
                 <button id="minusScore" type="button" @(sProtect) class="col setScore btn btn-lg btn-primary"><i class="fa fa-minus"></i></button>
@@ -445,8 +445,8 @@
             setScore(score);
         });
 
-        $("#setOne").click(function () {
-            var score = 1;
+        $("#setZero").click(function () {
+            var score = 0;
             setScore(score);
         });
 
@@ -529,12 +529,15 @@
                 if (scoreOfHole < parOfHole) {
                     if ($("#" + id).hasClass("bg-primary")) {
                         $("#" + id).removeClass("bg-success")
+                        $("#" + id).removeClass("bg-danger")
                         $("#" + id).removeClass("text-light")
                         $("#" + id).addClass("text-success");
                     }
                     else {
                         $("#" + id).removeClass("bg-secondary");
                         $("#" + id).removeClass("bg-primary");
+                        $("#" + id).removeClass("bg-danger
+                            ");
                         $("#" + id).removeClass("bg-light");
                         $("#" + id).addClass("bg-success");
                         // Make pars that are not primary always text-light
@@ -543,20 +546,44 @@
                     }
                 }
                 else {
-                    if ($("#" + id).hasClass("bg-primary")) {
-                        $("#" + id).removeClass("text-success");
-                        $("#" + id).addClass("text-light");
+
+                    if (scoreOfHole > parOfHole) {
+                        if ($("#" + id).hasClass("bg-primary")) {
+                            $("#" + id).removeClass("bg-success")
+                            $("#" + id).removeClass("bg-danger")
+                            $("#" + id).removeClass("text-light")
+                            $("#" + id).addClass("text-danger");
+                        }
+                        else {
+                            $("#" + id).removeClass("bg-secondary");
+                            $("#" + id).removeClass("bg-primary");
+                            $("#" + id).removeClass("bg-success");
+                            $("#" + id).removeClass("bg-light");
+                            $("#" + id).addClass("bg-danger");
+                            // Make pars that are not primary always text-light
+                            $("#" + id).removeClass("text-dark");
+                            $("#" + id).addClass("text-light")
+                        }
                     }
                     else {
-                        
-                        $("#" + id).removeClass("bg-success");
-                        var pOfM2 = $("#tPlayer").val()
-                        if (pOfM == pOfM2) {
-                            $("#" + id).addClass("bg-secondary");
+                        if ($("#" + id).hasClass("bg-primary")) {
+                            $("#" + id).removeClass("text-success");
+                            $("#" + id).removeClass("text-danger")
                             $("#" + id).addClass("text-light");
                         }
                         else {
-                            $("#" + id).addClass("text-dark");
+
+                            $("#" + id).removeClass("bg-success");
+                            $("#" + id).removeClass("bg-danger");
+                            var pOfM2 = $("#tPlayer").val()
+                            if (pOfM == pOfM2) {
+                                $("#" + id).addClass("bg-secondary");
+                                $("#" + id).addClass("text-light");
+                            }
+                            else {
+                                $("#" + id).addClass("text-dark");
+                            }
+
                         }
 
                     }
