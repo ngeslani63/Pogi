@@ -530,20 +530,24 @@
                 {
                     // Birdies or Better
                     if ($("#" + id).hasClass("bg-primary")) {
+                        $("#" + id).removeClass("bg-warning");
                         $("#" + id).removeClass("bg-success");
                         $("#" + id).removeClass("bg-danger");
+                         $("#" + id).removeClass("text-warning");
                         $("#" + id).removeClass("text-light");
                         $("#" + id).removeClass("text-dark");
                         $("#" + id).removeClass("text-danger");
                         $("#" + id).addClass("text-success");
                     }
                     else {
+                        $("#" + id).removeClass("bg-warning");
                         $("#" + id).removeClass("bg-secondary");
                         $("#" + id).removeClass("bg-primary");
                         $("#" + id).removeClass("bg-danger");
                         $("#" + id).removeClass("bg-light");
                         $("#" + id).addClass("bg-success");
                         // Make pars that are not primary always text-light1
+                        $("#" + id).removeClass("text-warning");
                         $("#" + id).removeClass("text-success");
                         $("#" + id).removeClass("text-danger");
                         $("#" + id).removeClass("text-dark");
@@ -557,9 +561,11 @@
                     // Bogeys or Worse
                     {
                         if ($("#" + id).hasClass("bg-primary"))
-                            {
+                        {
+                            $("#" + id).removeClass("bg-warning");
                             $("#" + id).removeClass("bg-success");
                             $("#" + id).removeClass("bg-danger");
+                            $("#" + id).removeClass("text-warning");
                             $("#" + id).removeClass("text-light");
                             $("#" + id).removeClass("text-dark");
                             $("#" + id).removeClass("text-success");
@@ -567,16 +573,18 @@
                         }
                         else
                         {
+                            $("#" + id).removeClass("bg-warning");
                             $("#" + id).removeClass("bg-secondary");
                             $("#" + id).removeClass("bg-primary");
                             $("#" + id).removeClass("bg-success");
                             $("#" + id).removeClass("bg-light");
                             $("#" + id).addClass("bg-danger");
                             // Make pars that are not primary always text-light1
+                            $("#" + id).removeClass("text-warning");
                             $("#" + id).removeClass("text-success");
                             $("#" + id).removeClass("text-danger");
                             $("#" + id).removeClass("text-dark");
-                            $("#" + id).addClass("text-light")
+                            $("#" + id).addClass("text-light");
                         }
                     }
                     else
@@ -584,30 +592,30 @@
                         // Par
                         if ($("#" + id).hasClass("bg-primary"))
                         {
+                            $("#" + id).removeClass("bg-warning");
+                            $("#" + id).removeClass("bg-secondary");
+                            $("#" + id).removeClass("bg-success");
+                            $("#" + id).removeClass("bg-light");
+
+                            $("#" + id).removeClass("text-light");
+                            $("#" + id).removeClass("text-dark");
                             $("#" + id).removeClass("text-success");
-                            $("#" + id).removeClass("text-danger")
-                            $("#" + id).addClass("text-light");
+                            $("#" + id).removeClass("text-danger");
+                            $("#" + id).addClass("text-warning");
                         }
                         else
                         {
 
                             $("#" + id).removeClass("bg-success");
                             $("#" + id).removeClass("bg-danger");
+                            $("#" + id).removeClass("bg-secondary");
+                            $("#" + id).removeClass("bg-light");
+                            $("#" + id).removeClass("text-dark");
                             $("#" + id).removeClass("text-success");
                             $("#" + id).removeClass("text-danger");
-                            var pOfM2 = $("#tPlayer").val()
-                            if (pOfM == pOfM2)
-                            {
-                                $("#" + id).addClass("bg-secondary");
-                                $("#" + id).addClass("text-light");
-                                $("#" + id).removeClass("text-dark")
-                            }
-                            else
-                            {
-                                $("#" + id).removeClass("bg-secondary");
-                                $("#" + id).addClass("text-dark");
-                                $("#" + id).removeClass("text-light")
-                            }
+                            $("#" + id).addClass("bg-warning");
+                            $("#" + id).addClass("text-light");
+                                                   
 
                         }
 
@@ -669,7 +677,9 @@
 
             $(getScoreId()).removeClass("bg-primary")
             $(getScoreId()).removeClass("bg-success");
+            $(getScoreId()).removeClass("bg-warning");
             $(getScoreId()).removeClass("text-success");
+            $(getScoreId()).removeClass("text-warning");
             $(getScoreId()).addClass("bg-secondary");
 
             var iH = hOfM;
@@ -879,7 +889,7 @@
         function scoreTotal(p) {
 
 
-            console.info("Computing Totals for Player " + p)
+            // console.info("Computing Totals for Player " + p)
 
             var pars = new Array(18);
             var x;
