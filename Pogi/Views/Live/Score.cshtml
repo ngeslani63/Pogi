@@ -526,62 +526,87 @@
                 }
                 var parOfHole = $("#par" + hOfM).val();
                 var scoreOfHole = $(this).text().trim();
-                if (scoreOfHole < parOfHole) {
+                if (scoreOfHole < parOfHole)
+                {
+                    // Birdies or Better
                     if ($("#" + id).hasClass("bg-primary")) {
-                        $("#" + id).removeClass("bg-success")
-                        $("#" + id).removeClass("bg-danger")
-                        $("#" + id).removeClass("text-light")
+                        $("#" + id).removeClass("bg-success");
+                        $("#" + id).removeClass("bg-danger");
+                        $("#" + id).removeClass("text-light");
+                        $("#" + id).removeClass("text-dark");
+                        $("#" + id).removeClass("text-danger");
                         $("#" + id).addClass("text-success");
                     }
                     else {
                         $("#" + id).removeClass("bg-secondary");
                         $("#" + id).removeClass("bg-primary");
-                        $("#" + id).removeClass("bg-danger
-                            ");
+                        $("#" + id).removeClass("bg-danger");
                         $("#" + id).removeClass("bg-light");
                         $("#" + id).addClass("bg-success");
-                        // Make pars that are not primary always text-light
+                        // Make pars that are not primary always text-light1
+                        $("#" + id).removeClass("text-success");
+                        $("#" + id).removeClass("text-danger");
                         $("#" + id).removeClass("text-dark");
                         $("#" + id).addClass("text-light")
                     }
                 }
-                else {
+                else
+                {
 
-                    if (scoreOfHole > parOfHole) {
-                        if ($("#" + id).hasClass("bg-primary")) {
-                            $("#" + id).removeClass("bg-success")
-                            $("#" + id).removeClass("bg-danger")
-                            $("#" + id).removeClass("text-light")
+                    if (scoreOfHole > parOfHole)
+                    // Bogeys or Worse
+                    {
+                        if ($("#" + id).hasClass("bg-primary"))
+                            {
+                            $("#" + id).removeClass("bg-success");
+                            $("#" + id).removeClass("bg-danger");
+                            $("#" + id).removeClass("text-light");
+                            $("#" + id).removeClass("text-dark");
+                            $("#" + id).removeClass("text-success");
                             $("#" + id).addClass("text-danger");
                         }
-                        else {
+                        else
+                        {
                             $("#" + id).removeClass("bg-secondary");
                             $("#" + id).removeClass("bg-primary");
                             $("#" + id).removeClass("bg-success");
                             $("#" + id).removeClass("bg-light");
                             $("#" + id).addClass("bg-danger");
-                            // Make pars that are not primary always text-light
+                            // Make pars that are not primary always text-light1
+                            $("#" + id).removeClass("text-success");
+                            $("#" + id).removeClass("text-danger");
                             $("#" + id).removeClass("text-dark");
                             $("#" + id).addClass("text-light")
                         }
                     }
-                    else {
-                        if ($("#" + id).hasClass("bg-primary")) {
+                    else
+                    {
+                        // Par
+                        if ($("#" + id).hasClass("bg-primary"))
+                        {
                             $("#" + id).removeClass("text-success");
                             $("#" + id).removeClass("text-danger")
                             $("#" + id).addClass("text-light");
                         }
-                        else {
+                        else
+                        {
 
                             $("#" + id).removeClass("bg-success");
                             $("#" + id).removeClass("bg-danger");
+                            $("#" + id).removeClass("text-success");
+                            $("#" + id).removeClass("text-danger");
                             var pOfM2 = $("#tPlayer").val()
-                            if (pOfM == pOfM2) {
+                            if (pOfM == pOfM2)
+                            {
                                 $("#" + id).addClass("bg-secondary");
                                 $("#" + id).addClass("text-light");
+                                $("#" + id).removeClass("text-dark")
                             }
-                            else {
+                            else
+                            {
+                                $("#" + id).removeClass("bg-secondary");
                                 $("#" + id).addClass("text-dark");
+                                $("#" + id).removeClass("text-light")
                             }
 
                         }
