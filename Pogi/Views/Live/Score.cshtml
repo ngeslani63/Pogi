@@ -862,12 +862,21 @@
 
             $(getScoreId()).removeClass("bg-primary");
             $(getScoreId()).removeClass("bg-success");
+            $(getScoreId()).removeClass("bg-danger");
+            $(getScoreId()).removeClass("bg-warning");
             $(getScoreId()).removeClass("text-success");
+            $(getScoreId()).removeClass("text-danger");
+            $(getScoreId()).removeClass("text-warning");
 
             var y;
             for (y = 1; y <= pCnt; y++) {
                 $(".in" + y).removeClass("bg-success");
                 $(".out" + y).removeClass("bg-success");
+                //$(".in" + y).removeClass("bg-danger");
+                //$(".out" + y).removeClass("bg-danger");
+                //$(".in" + y).removeClass("bg-warning");
+                //$(".out" + y).removeClass("bg-warning");
+
 
                 if (y == p) {
                     $(".out"+ y + "-plyr").removeClass("bg-light");
