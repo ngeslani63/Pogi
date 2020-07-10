@@ -140,6 +140,27 @@ namespace Pogi.Controllers
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
                 Score.Round = model.Round;
+                
+                int holesPlayed = 0;
+                if (Score.Hole01 > 0) holesPlayed++;
+                if (Score.Hole02 > 0) holesPlayed++;
+                if (Score.Hole03 > 0) holesPlayed++;
+                if (Score.Hole04 > 0) holesPlayed++;
+                if (Score.Hole05 > 0) holesPlayed++;
+                if (Score.Hole06 > 0) holesPlayed++;
+                if (Score.Hole07 > 0) holesPlayed++;
+                if (Score.Hole08 > 0) holesPlayed++;
+                if (Score.Hole09 > 0) holesPlayed++;
+                if (Score.Hole10 > 0) holesPlayed++;
+                if (Score.Hole11 > 0) holesPlayed++;
+                if (Score.Hole12 > 0) holesPlayed++;
+                if (Score.Hole13 > 0) holesPlayed++;
+                if (Score.Hole14 > 0) holesPlayed++;
+                if (Score.Hole15 > 0) holesPlayed++;
+                if (Score.Hole16 > 0) holesPlayed++;
+                if (Score.Hole17 > 0) holesPlayed++;
+                if (Score.Hole18 > 0) holesPlayed++;
+
                 int lastHolePlayed = 0;
                 lastHolePlayed = setLastHolePlayed(lastHolePlayed, 1, model.Hole01);
                 lastHolePlayed = setLastHolePlayed(lastHolePlayed, 2, model.Hole02);
@@ -194,15 +215,15 @@ namespace Pogi.Controllers
                 {
                     float courseHandicap = Handicap.HcpIndex * CourseDetail.Slope / 113;
                     float courseHandicapT = (Handicap.HcpIndex * CourseDetail.Slope / 113 - MultiAdj) * (HcpAllowPct / 100);
-                    Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
-                    Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
+                    Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap*holesPlayed/18.0);
+                    Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT * holesPlayed / 18.0);
                 }
                 else
                 {
                     float courseHandicap = getS36Hcp(Score, Course) * CourseDetail.Slope / 113;
                     float courseHandicapT = getS36Hcp(Score, Course) * (HcpAllowPct / 100) * CourseDetail.Slope / 113;
-                    Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap);
-                    Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT);
+                    Score.NetScore = (int)Math.Round(model.HoleTotal - courseHandicap * holesPlayed / 18.0);
+                    Score.TourScore = (int)Math.Round(model.HoleTotal - courseHandicapT * holesPlayed / 18.0);
 
                 }
 
