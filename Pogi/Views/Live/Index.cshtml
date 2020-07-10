@@ -104,7 +104,7 @@
                                                  aria-labelledby="list-group@(group)-list">
                                                 <table class="table table-hover">
                                                     <thead class="thead-light">
-                                                        <tr class="row">
+                                                        <tr class="row d-flex justify-content-start" scope="row">
                                                             <th class="col-1 ml-1" scope="col">#</th>
                                                             <th class="col-6" scope="col">Player</th>
                                                             <th class="col" scope="col">H.I.</th>
@@ -113,8 +113,10 @@
                                                     <tbody class="d-flex flex-column">
                                                         @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
                                                             {
-                                                                <tr id="order-P@(j % 4+ 1)" scope="row" class="order-@(posP[j % 4])">
-                                                                    <td class="col-1 ml-1">@(j % 4+ 1). </td>
+                                                                <tr id="order-P@(j % 4+ 1)" scope="row" class="justify-content-start order-@(posP[j % 4])">
+                                                                    <td scope="col" class="col-1 ml-1 p@(j % 4 + 1)-num" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                        @(j % 4+ 1). 
+                                                                    </td>
 
                                                                     @if (j < teeAssignInfos.Count)
                                                                     {
@@ -132,12 +134,14 @@
                                                                             }
                                                                             @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
                                                                             {
-                                                                                <td class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">@teeAssignInfo.TeeAsign.GuestName</td>
+                                                                                <td scope="col" class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                    @teeAssignInfo.TeeAsign.GuestName
+                                                                                </td>
 
                                                                             }
                                                                             else
                                                                             {
-                                                                                <td class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                <td scope="col" class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     @*<small>*@
                                                                                     @teeAssignInfo.Member.FirstName
                                                                                     @teeAssignInfo.Member.LastName
@@ -147,31 +151,58 @@
                                                                                 {
                                                                                     <td class="col">
 
-                                                                                        <span style="display:block" class="p@(j % 4 + 1)-handicap">
+                                                                                        <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                             <label>@teeAssignInfo.Member.CurrHandicap</label>
                                                                                         </span>
                                                                                         <span style="display:none" class="p@(j % 4 + 1)-move">
-                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                             <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                         </span>
 
                                                                                     </td>
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    <td>(NH)</td>
-
+                                                                                    <td class="col">
+                                                                                        <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                            <label>(NH)</label>
+                                                                                        </span>
+                                                                                        <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                                                        </span>
+                                                                                    </td>
                                                                                 }
                                                                             }
                                                                         }
                                                                         else
                                                                         {
-                                                                            <td class="text-muted">Unassigned</td>
+                                                                            <td scope="col" class="col-6 p@(j % 4 + 1)-player text-muted" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                Unassigned
+                                                                            </td>
+                                                                            <td scope="col">
+                                                                                <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                    <label>&nbsp;</label>
+                                                                                </span>
+                                                                                <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                                                </span>
+                                                                            </td>
                                                                         }
                                                                     }
                                                                     else
                                                                     {
                                                                         <td class="text-muted">Unassigned</td>
+                                                                        <td>
+                                                                                <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                    <label>&nbsp;</label>
+                                                                                </span>
+                                                                                <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                                                </span>
+                                                                            </td>
                                                                     }
 
                                                                 </tr>
@@ -216,7 +247,8 @@
 @section Scripts {
     <script>
         console.info("Hello From Live Select");
-        $(".p1-player, .p2-player, .p3-player, .p4-player").click(function () {
+        $(".p1-player, .p2-player, .p3-player, .p4-player, .p1-num, .p2-num, .p3-num, .p4-num, " +
+            ".p1-handicap, .p2-handicap, .p3-handicap, .p4-handicap").click(function () {
             var sPlayer = $(this).attr("sPlayer");
             console.info("Player " + sPlayer + " selected");
             var sP;

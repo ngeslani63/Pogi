@@ -417,17 +417,19 @@ namespace Pogi.Controllers
             {
                 try
                 {
-                    int mId = int.Parse(sPlayer[i]);
-                    if (mId > 0)
-                    {
-                        pCnt++;
-                        player[pCnt - 1] = mId;
-                       
-                        if (tPlayer != null)
+                    if (sPlayer[i] != null) {
+                        int mId = int.Parse(sPlayer[i]);
+                        if (mId > 0)
                         {
-                            if ((int.Parse(tPlayer) -1) == i)
+                            pCnt++;
+                            player[pCnt - 1] = mId;
+                           
+                            if (tPlayer != null)
                             {
-                                currPlayer = pCnt;
+                                if ((int.Parse(tPlayer) -1) == i)
+                                {
+                                    currPlayer = pCnt;
+                                }
                             }
                         }
                     }
