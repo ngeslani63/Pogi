@@ -104,18 +104,18 @@
                                                  aria-labelledby="list-group@(group)-list">
                                                 <table class="table table-hover">
                                                     <thead class="thead-light">
-                                                        <tr class="row d-flex justify-content-start" scope="row">
-                                                            <th class="col-1 ml-1" scope="col">#</th>
-                                                            <th class="col-6" scope="col">Player</th>
-                                                            <th class="col" scope="col">H.I.</th>
+                                                        <tr class="row d-flex justify-content-end" scope="row">
+                                                            <th class="col-1 ml-1 text-center" scope="col">#</th>
+                                                            <th class="col-7 text-center" scope="col">Player</th>
+                                                            <th class="col text-center" scope="col">H.I.</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="d-flex flex-column">
                                                         @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
                                                             {
-                                                                <tr id="order-G@(group)P@(j % 4+ 1)" scope="row" class="justify-content-start order-@(posP[j % 4])">
-                                                                    <td scope="col" class="col-1 ml-1 p@(j % 4 + 1)-num" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                        @(j % 4+ 1). 
+                                                                <tr id="order-G@(group)P@(j % 4+ 1)" scope="row" class="row order-@(posP[j % 4])">
+                                                                    <td class="col-1 p@(j % 4 + 1)-num" sgroup="@(group)" splayer="@(j % 4 + 1)">
+                                                                        @(j % 4+ 1).
                                                                     </td>
 
                                                                     @if (j < teeAssignInfos.Count)
@@ -134,14 +134,14 @@
                                                                             }
                                                                             @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
                                                                             {
-                                                                                <td scope="col" class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                <td class="col-7 p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     @teeAssignInfo.TeeAsign.GuestName
                                                                                 </td>
 
                                                                             }
                                                                             else
                                                                             {
-                                                                                <td scope="col" class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                <td class="col-7 p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     @*<small>*@
                                                                                     @teeAssignInfo.Member.FirstName
                                                                                     @teeAssignInfo.Member.LastName
@@ -149,7 +149,7 @@
                                                                                 </td>
                                                                                 @if (teeAssignInfo.Member.CurrHandicap > 0)
                                                                                 {
-                                                                                    <td class="col">
+                                                                                    <td class="col px-0 text-center">
 
                                                                                         <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                             <label>@teeAssignInfo.Member.CurrHandicap</label>
@@ -163,7 +163,7 @@
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    <td class="col">
+                                                                                    <td class="col px-0 text-center">
                                                                                         <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                             <label>(NH)</label>
                                                                                         </span>
@@ -177,10 +177,10 @@
                                                                         }
                                                                         else
                                                                         {
-                                                                            <td scope="col" class="col-6 p@(j % 4 + 1)-player text-muted" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                Unassigned
+                                                                            <td class="col-7 p@(j % 4 + 1)-player text-muted text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                UnAssigned
                                                                             </td>
-                                                                            <td scope="col">
+                                                                            <td class="col px-0 text-center">
                                                                                 <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     <label>&nbsp;</label>
                                                                                 </span>
@@ -193,8 +193,8 @@
                                                                     }
                                                                     else
                                                                     {
-                                                                        <td class="text-muted">Unassigned</td>
-                                                                        <td>
+                                                                        <td class="col-7 px-0 text-muted text-left">Unassigned</td>
+                                                                        <td class="col px-0 text-center">
                                                                                 <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     <label>&nbsp;</label>
                                                                                 </span>
@@ -202,7 +202,7 @@
                                                                                     <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
                                                                                     <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                 </span>
-                                                                            </td>
+                                                                        </td>
                                                                     }
 
                                                                 </tr>
@@ -218,9 +218,14 @@
                                 </div>
                             </div>
                         </section>
-                        
-                        <section class="row mt-0">
-                            <button type="submit" formaction=@Url.Action("Score","Live") ) class="col-11 py-3 mx-3 mt-1 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
+                        <section class="row d-flex justify-content-end">
+                            <label class="d-block text-info text center mt-0 pr-1"><small>Select player to move scorecard position</small></label>
+                        </section>
+                        <section class="row mt-1">
+                            
+                            <div class="w-100">
+                                <button type="submit" formaction=@Url.Action("Score","Live") ) class="col py-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
+                            </div>
                         </section>
                        
 
