@@ -1158,7 +1158,15 @@
                         }
                     },
                     data: jSendInfo
-                });
+                })
+                    .done(function (data) {
+                        console.info("Return from PUT is done");
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.info("Return from PUT is fail, status=" + textStatus);
+
+
+                    });
 
             }
             function refreshScore(p) {
@@ -1199,10 +1207,10 @@
 
                 })
                     .done(function (data) {
-                        //console.info("Return from GET is done");
+                        console.info("Return from GET is done");
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
-                        //console.info("Return from GET is fail, status=" + textStatus);
+                        console.info("Return from GET is fail, status=" + textStatus);
 
 
                     });
