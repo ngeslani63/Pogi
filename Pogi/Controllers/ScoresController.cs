@@ -75,7 +75,7 @@ namespace Pogi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Failed to get Scores");
+                return BadRequest("Failed to get Scores " + ex.Message.ToString());
             }
 
         }
@@ -96,7 +96,7 @@ namespace Pogi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Failed to get Scores");
+                return BadRequest("Failed to get Scores e " + ex.Message.ToString() );
             }
 
         }

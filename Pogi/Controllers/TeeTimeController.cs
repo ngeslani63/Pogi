@@ -72,6 +72,24 @@ namespace Pogi.Controllers
             return View(model);
             //return View(await _context.TeeTime.ToListAsync());
         }
+        public IActionResult Register()
+        {
+            var model = new TeeTimeViewModel();
+            model.TeeTimeInfos = _teeTimeInfo.getAll();
+            model.PlayerInfos = _playerInfo.getRoster();
+            string userName = "";
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "TeeTime Index");
+
+            //model.TeeTimeInfos = _teeAssignInfo.getForTeeTime()
+
+            return View(model);
+            //return View(await _context.TeeTime.ToListAsync());
+        }
 
         // GET: TeeTime/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -103,6 +121,7 @@ namespace Pogi.Controllers
             }
             return View(model);
         }
+
 
         // POST: TeeTime/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

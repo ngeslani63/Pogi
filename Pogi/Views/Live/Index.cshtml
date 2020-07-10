@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Live Tournament Scoring";
+    int[] posP = { @ViewBag.posP1, ViewBag.posP2, ViewBag.posP3, ViewBag.posP4 };
+
 }
     <section class="container">
         <br />
@@ -102,68 +104,79 @@
                                                  aria-labelledby="list-group@(group)-list">
                                                 <table class="table table-hover">
                                                     <thead class="thead-light">
-                                                        <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">Player</th>
-                                                            <th scope="col">H.I.</th>
+                                                        <tr class="row">
+                                                            <th class="col-1 ml-1" scope="col">#</th>
+                                                            <th class="col-6" scope="col">Player</th>
+                                                            <th class="col" scope="col">H.I.</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="d-flex flex-column">
                                                         @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
-                                                        {
-                                                            <tr scope="row">
-                                                                <th>@(j % 4 + 1). </th>
+                                                            {
+                                                                <tr id="order-P@(j % 4+ 1)" scope="row" class="order-@(posP[j % 4])">
+                                                                    <td class="col-1 ml-1">@(j % 4+ 1). </td>
 
-                                                                @if (j < teeAssignInfos.Count)
-                                                                {
-                                                                    var teeAssignInfo = teeAssignInfos[j];
-                                                                    @if (teeAssignInfo != null && teeAssignInfo.TeeAsign != null
-                                                                        && teeAssignInfo.TeeAsign.MemberId > 0)
+                                                                    @if (j < teeAssignInfos.Count)
                                                                     {
-                                                                        <span id="g@(group)p@(j % 4 + 1)" value="@teeAssignInfo.Member.MemberId"></span>
-                                                                        @if (gOfMFound == "N" &&
-                                                                            Model.User.MemberId == teeAssignInfo.Member.MemberId)
+                                                                        var teeAssignInfo = teeAssignInfos[j];
+                                                                        @if (teeAssignInfo != null && teeAssignInfo.TeeAsign != null
+                                                                           && teeAssignInfo.TeeAsign.MemberId > 0)
                                                                         {
-                                                                            <span id="pOfM" value="@(j % 4 + 1)"></span>
-                                                                            <span id="gOfM" value="@group"></span>
-                                                                            gOfMFound = "Y";
-                                                                        }
-                                                                        @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
-                                                                        {
-                                                                            <td>@teeAssignInfo.TeeAsign.GuestName</td>
-
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <td>
-                                                                                @*<small>*@
-                                                                                    @teeAssignInfo.Member.FirstName
-                                                                                    @teeAssignInfo.Member.LastName
-                                                                                @*</small>*@
-                                                                            </td>
-                                                                            @if (teeAssignInfo.Member.CurrHandicap > 0)
+                                                                            <span id="g@(group)p@(j % 4 + 1)" value="@teeAssignInfo.Member.MemberId"></span>
+                                                                            @if (gOfMFound == "N" &&
+                                                                               Model.User.MemberId == teeAssignInfo.Member.MemberId)
                                                                             {
-                                                                                <td>@teeAssignInfo.Member.CurrHandicap</td>
+                                                                                <span id="pOfM" value="@(j % 4 + 1)"></span>
+                                                                                <span id="gOfM" value="@group"></span>
+                                                                                gOfMFound = "Y";
+                                                                            }
+                                                                            @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
+                                                                            {
+                                                                                <td class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">@teeAssignInfo.TeeAsign.GuestName</td>
+
                                                                             }
                                                                             else
                                                                             {
-                                                                                <td>(NH)</td>
+                                                                                <td class="col-6 p@(j % 4 + 1)-player" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                    @*<small>*@
+                                                                                    @teeAssignInfo.Member.FirstName
+                                                                                    @teeAssignInfo.Member.LastName
+                                                                                    @*</small>*@
+                                                                                </td>
+                                                                                @if (teeAssignInfo.Member.CurrHandicap > 0)
+                                                                                {
+                                                                                    <td class="col">
 
+                                                                                        <span style="display:block" class="p@(j % 4 + 1)-handicap">
+                                                                                            <label>@teeAssignInfo.Member.CurrHandicap</label>
+                                                                                        </span>
+                                                                                        <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                                                        </span>
+
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <td>(NH)</td>
+
+                                                                                }
                                                                             }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td class="text-muted">Unassigned</td>
                                                                         }
                                                                     }
                                                                     else
                                                                     {
                                                                         <td class="text-muted">Unassigned</td>
                                                                     }
-                                                                }
-                                                                else
-                                                                {
-                                                                    <td class="text-muted">Unassigned</td>
-                                                                }
 
-                                                            </tr>
-                                                        }
+                                                                </tr>
+                                                            }
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -192,13 +205,97 @@
             <input type="text" id="sMemberId2" name="sMemberId2" hidden />
             <input type="text" id="sMemberId3" name="sMemberId3" hidden />
             <input type="text" id="sMemberId4" name="sMemberId4" hidden />
+            <input type-"text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
+            <input type-"text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
+            <input type-"text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
+            <input type-"text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
         </section>
         </form>
     </section>
 
 @section Scripts {
     <script>
-        //console.info("Hello From Live Select");
+        console.info("Hello From Live Select");
+        $(".p1-player, .p2-player, .p3-player, .p4-player").click(function () {
+            var sPlayer = $(this).attr("sPlayer");
+            console.info("Player " + sPlayer + " selected");
+            var sP;
+            for (sP = 1; sP <= 4; sP++) {
+                if (sP == sPlayer) {
+                    $(".p" + sP + "-handicap").css("display", "none");
+                    $(".p" + sP + "-move").css("display", "block");    
+                }
+                else {
+                    $(".p" + sP + "-handicap").css("display", "block");
+                    $(".p" + sP + "-move").css("display", "none");   
+
+                }
+            }
+        });
+        $(".move-Down").click(function () {
+            var sPlayer = $(this).attr("sPlayer");
+            var selPlayerCurrPos = parseInt($("#posP" + sPlayer).val());
+            var selPlayerNextPos = selPlayerCurrPos + 1;
+            console.info("move-Down for player " + sPlayer + " from " + selPlayerCurrPos + " to " + selPlayerNextPos);
+            var nextPlayerCurrPos = selPlayerNextPos;
+            var nextPlayerNextPos = nextPlayerCurrPos - 1;
+            console.info("player on pos " + nextPlayerCurrPos + " will move to " + nextPlayerNextPos);
+            if (selPlayerNextPos <= 4) {
+                for (oP = 1; oP <= 4; oP++) {
+                    var posP = parseInt($("#posP" + oP).val());
+                    console.info("oP=*" + oP + "*, posP=*" + posP + "*");
+                    if (posP == selPlayerCurrPos) {
+                        $("#posP" + oP).val(selPlayerNextPos);
+                        console.info("setting curr player " + oP + " from " + selPlayerCurrPos + " to " + selPlayerNextPos);
+                    }
+                    else {
+                        if (parseInt($("#posP" + oP).val()) == nextPlayerCurrPos) {
+                            $("#posP" + oP).val(nextPlayerNextPos);
+                            console.info("setting next player " + oP + " from " + nextPlayerCurrPos + " to " + nextPlayerNextPos);
+                        }
+                    }
+
+                    
+                }
+                $("#order-P1, #order-P2, #order-P3, #order-P4").removeClass("order-1 order-2 order-3 order-4");
+                $("#order-P1").addClass("order-" + $("#posP1").val());
+                $("#order-P2").addClass("order-" + $("#posP2").val());
+                $("#order-P3").addClass("order-" + $("#posP3").val());
+                $("#order-P4").addClass("order-" + $("#posP4").val());
+            }
+        });
+        $(".move-Up").click(function () {
+            var sPlayer = $(this).attr("sPlayer");
+            var selPlayerCurrPos = parseInt($("#posP" + sPlayer).val());
+            var selPlayerNextPos = selPlayerCurrPos -1;
+            console.info("move-Up for player " + sPlayer + " from " + selPlayerCurrPos + " to " + selPlayerNextPos);
+            var nextPlayerCurrPos = selPlayerNextPos;
+            var nextPlayerNextPos = nextPlayerCurrPos + 1;
+            console.info("player on pos " + nextPlayerCurrPos + " will move to " + nextPlayerNextPos);
+            if (selPlayerNextPos >= 1) {
+                for (oP = 1; oP <= 4; oP++) {
+                    var posP = parseInt($("#posP" + oP).val());
+                    console.info("oP=*" + oP + "*, posP=*" + posP + "*");
+                    if (posP == selPlayerCurrPos) {
+                        $("#posP" + oP).val(selPlayerNextPos);
+                        console.info("setting curr player " + oP + " from " + selPlayerCurrPos + " to " + selPlayerNextPos);
+                    }
+                    else {
+                        if (parseInt($("#posP" + oP).val()) == nextPlayerCurrPos) {
+                            $("#posP" + oP).val(nextPlayerNextPos);
+                            console.info("setting next player " + oP + " from " + nextPlayerCurrPos + " to " + nextPlayerNextPos);
+                        }
+                    }
+
+
+                }
+                $("#order-P1, #order-P2, #order-P3, #order-P4").removeClass("order-1 order-2 order-3 order-4");
+                $("#order-P1").addClass("order-" + $("#posP1").val());
+                $("#order-P2").addClass("order-" + $("#posP2").val());
+                $("#order-P3").addClass("order-" + $("#posP3").val());
+                $("#order-P4").addClass("order-" + $("#posP4").val());
+            }
+        });
 
         $("#TourId").change(function () {
             //console.info("TourId changed");

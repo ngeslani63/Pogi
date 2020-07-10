@@ -64,7 +64,8 @@ namespace Pogi.Controllers
      
         }
         public IActionResult Leaderboard(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
-            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
+            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
+            int posP1 = 1, int posP2 = 2 , int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
@@ -75,8 +76,13 @@ namespace Pogi.Controllers
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
             ViewBag.sMemberId4 = sMemberId4;
+            ViewBag.posP1 = posP1;
+            ViewBag.posP2 = posP2;
+            ViewBag.posP3 = posP3;
+            ViewBag.posP4 = posP4;
+            
 
-            Boolean redirect = false;
+            //Boolean redirect = false;
             Tour tour = null;
             if (TourId == null || TourId.Length == 0)
             {
@@ -87,7 +93,7 @@ namespace Pogi.Controllers
                     if (tour != null)
                     {
                         TourId = tour.TourId.ToString();
-                        redirect = true;
+                        //redirect = true;
                     }
                     else
                     {
@@ -99,7 +105,7 @@ namespace Pogi.Controllers
                 else
                 {
                     tour = _tourInfo.getTour(int.Parse(TourId));
-                    redirect = true;
+                    //redirect = true;
                 }
             }
             else
@@ -123,7 +129,7 @@ namespace Pogi.Controllers
                         if (tour.TourType == TourType.SingleDay)
                         {
                             TourDate = tour.TourDate.ToShortDateString();
-                            redirect = true;
+                            //redirect = true;
                         }
                         else
                         {
@@ -131,7 +137,7 @@ namespace Pogi.Controllers
                             if (tourDay != null)
                             {
                                 TourDate = tourDay.TourDate.ToShortDateString();
-                                redirect = true;
+                                //redirect = true;
                             }
                             else
                             {
@@ -143,7 +149,7 @@ namespace Pogi.Controllers
                 }
                 else
                 {
-                    redirect = true;
+                    //redirect = true;
                 }
             }
             else
@@ -182,7 +188,8 @@ namespace Pogi.Controllers
         }
 
         public IActionResult Index(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
-            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
+            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
+            int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
@@ -193,7 +200,10 @@ namespace Pogi.Controllers
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
             ViewBag.sMemberId4 = sMemberId4;
-
+            ViewBag.posP1 = posP1;
+            ViewBag.posP2 = posP2;
+            ViewBag.posP3 = posP3;
+            ViewBag.posP4 = posP4;
             Boolean redirect = false;
             Tour tour = null;
             if (TourId == null || TourId.Length == 0)
@@ -270,7 +280,8 @@ namespace Pogi.Controllers
             }
             if (redirect)
             {
-                return RedirectToAction("Index", "Live", new { TourDate = TourDate, TourId = TourId });
+                return RedirectToAction("Index", "Live", new { TourDate = TourDate, TourId = TourId,
+                    posP1 = posP1, posP2 = posP2, posP3 = posP3, posP4 = posP4});
             }
             var model = new LiveSelectViewModel();
             if (TourDate != null)
@@ -303,7 +314,8 @@ namespace Pogi.Controllers
             return View(model);
         }
         public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
-            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4)
+            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
+            int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
@@ -314,8 +326,12 @@ namespace Pogi.Controllers
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
             ViewBag.sMemberId4 = sMemberId4;
+            ViewBag.posP1 = posP1;
+            ViewBag.posP2 = posP2;
+            ViewBag.posP3 = posP3;
+            ViewBag.posP4 = posP4;
 
-            Boolean redirect = false;
+            //Boolean redirect = false;
             Tour tour = null;
             if (TourId == null || TourId.Length == 0)
             {
@@ -326,7 +342,7 @@ namespace Pogi.Controllers
                     if (tour != null)
                     {
                         TourId = tour.TourId.ToString();
-                        redirect = true;
+                        //redirect = true;
                     }
                     else
                     {
@@ -338,7 +354,7 @@ namespace Pogi.Controllers
                 else
                 {
                     tour = _tourInfo.getTour(int.Parse(TourId));
-                    redirect = true;
+                    //redirect = true;
                 }
             }
             else
@@ -362,7 +378,7 @@ namespace Pogi.Controllers
                         if (tour.TourType == TourType.SingleDay)
                         {
                             TourDate = tour.TourDate.ToShortDateString();
-                            redirect = true;
+                            //redirect = true;
                         }
                         else
                         {
@@ -370,7 +386,7 @@ namespace Pogi.Controllers
                             if (tourDay != null)
                             {
                                 TourDate = tourDay.TourDate.ToShortDateString();
-                                redirect = true;
+                                //redirect = true;
                             }
                             else
                             {
@@ -382,7 +398,7 @@ namespace Pogi.Controllers
                 }
                 else
                 {
-                    redirect = true;
+                    //redirect = true;
                 }
             }
             else
@@ -418,7 +434,7 @@ namespace Pogi.Controllers
                 }
                 catch (ArgumentException ex)
                 {
-
+                    throw ex;
                 }
                 catch (Exception ex)
                 {

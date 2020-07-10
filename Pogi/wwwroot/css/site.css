@@ -16,6 +16,13 @@
     line-height: 1.4;
 }
 
+.ng-display-none {
+    display: none;
+}
+.ng-display-block {
+    display: block;
+}
+
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
