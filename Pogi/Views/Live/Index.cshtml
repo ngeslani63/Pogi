@@ -302,7 +302,7 @@
             var sGroup = $(this).attr("sGroup");
             var selPlayerCurrPos = parseInt($("#posP" + sPlayer).val());
             var selPlayerNextPos = selPlayerCurrPos -1;
-            console.info("move-Up for player " + sPlayer + " from " + selPlayerCurrPos + " to " + selPlayerNextPos);
+            console.info("move-Up for group " + sGroup + ",  player " + sPlayer + " from " + selPlayerCurrPos + " to " + selPlayerNextPos);
             var nextPlayerCurrPos = selPlayerNextPos;
             var nextPlayerNextPos = nextPlayerCurrPos + 1;
             console.info("player on pos " + nextPlayerCurrPos + " will move to " + nextPlayerNextPos);
@@ -323,11 +323,11 @@
 
 
                 }
-                $("#order-P1, #order-P2, #order-P3, #order-P4").removeClass("order-1 order-2 order-3 order-4");
-                $("#order-P1").addClass("order-" + $("#posP1").val());
-                $("#order-P2").addClass("order-" + $("#posP2").val());
-                $("#order-P3").addClass("order-" + $("#posP3").val());
-                $("#order-P4").addClass("order-" + $("#posP4").val());
+                $("#order-G"+sGroup+"P1, #order-G"+sGroup+"P2, #order-G"+sGroup+"P3, #order-G"+sGroup+"P4").removeClass("order-1 order-2 order-3 order-4");
+                $("#order-G"+sGroup+"P1").addClass("order-" + $("#posP1").val());
+                $("#order-G"+sGroup+"P2").addClass("order-" + $("#posP2").val());
+                $("#order-G"+sGroup+"P3").addClass("order-" + $("#posP3").val());
+                $("#order-G"+sGroup+"P4").addClass("order-" + $("#posP4").val());
             }
         });
 
