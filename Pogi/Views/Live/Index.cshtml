@@ -114,7 +114,7 @@
                                                         @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
                                                             {
                                                                 <tr id="order-G@(group)P@(j % 4+ 1)" scope="row" class="row order-@(posP[j % 4])">
-                                                                    <td class="col-1 p@(j % 4 + 1)-num" sgroup="@(group)" splayer="@(j % 4 + 1)">
+                                                                    <td class="col-1 p@(j % 4 + 1)-num" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                         @(j % 4+ 1).
                                                                     </td>
 
@@ -151,10 +151,10 @@
                                                                                 {
                                                                                     <td class="col px-0 text-center">
 
-                                                                                        <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                        <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                             <label>@teeAssignInfo.Member.CurrHandicap</label>
                                                                                         </span>
-                                                                                        <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                        <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
                                                                                             <btn sGroup="@(group)" sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
                                                                                             <btn sGroup="@(group)" sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                         </span>
@@ -164,10 +164,10 @@
                                                                                 else
                                                                                 {
                                                                                     <td class="col px-0 text-center">
-                                                                                        <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                        <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                             <label>(NH)</label>
                                                                                         </span>
-                                                                                        <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                        <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
                                                                                             <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
                                                                                             <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                         </span>
@@ -181,10 +181,10 @@
                                                                                 UnAssigned
                                                                             </td>
                                                                             <td class="col px-0 text-center">
-                                                                                <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     <label>&nbsp;</label>
                                                                                 </span>
-                                                                                <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
                                                                                     <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
                                                                                     <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                 </span>
@@ -195,10 +195,10 @@
                                                                     {
                                                                         <td class="col-7 px-0 text-muted text-left">Unassigned</td>
                                                                         <td class="col px-0 text-center">
-                                                                                <span style="display:block" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                                                <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                                                     <label>&nbsp;</label>
                                                                                 </span>
-                                                                                <span style="display:none" class="p@(j % 4 + 1)-move">
+                                                                                <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
                                                                                     <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
                                                                                     <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
                                                                                 </span>
@@ -253,18 +253,24 @@
     <script>
         console.info("Hello From Live Select");
         $(".p1-player, .p2-player, .p3-player, .p4-player, .p1-num, .p2-num, .p3-num, .p4-num, " +
-            ".p1-handicap, .p2-handicap, .p3-handicap, .p4-handicap").click(function () {
+        ".p1-handicap, .p2-handicap, .p3-handicap, .p4-handicap").click(function () {
+            var sGroup = $(this).attr("sGroup");
             var sPlayer = $(this).attr("sPlayer");
-            console.info("Player " + sPlayer + " selected");
+            console.info("Player " + sPlayer + " of Group " + sGroup + " selected");
+            var gOfM = $("#gOfM").attr("value");
+            if (gOfM == "undefined" || gOfM == "" || gOfM != sGroup) {
+                console.info("Does not belong in this group, gOfM = *" + gOfM + "*");
+                return;
+            }
             var sP;
             for (sP = 1; sP <= 4; sP++) {
                 if (sP == sPlayer) {
-                    $(".p" + sP + "-handicap").css("display", "none");
-                    $(".p" + sP + "-move").css("display", "block");    
+                    $("#g" + sGroup + "p" + sP + "-handicap").css("display", "none");
+                    $("#g" + sGroup + "p" + sP + "-move").css("display", "block");    
                 }
                 else {
-                    $(".p" + sP + "-handicap").css("display", "block");
-                    $(".p" + sP + "-move").css("display", "none");   
+                    $("#g" + sGroup + "p" + sP + "-handicap").css("display", "block");
+                    $("#g" + sGroup + "p" + sP + "-move").css("display", "none");   
 
                 }
             }
