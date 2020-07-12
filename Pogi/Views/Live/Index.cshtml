@@ -67,7 +67,7 @@
                                             var opts = "active";
                                             @if (group > 1) { opts = ""; }
                                             <a class="list-group-item list-group-item-action btn-info px-2 @opts"
-                                               id="list-group@(group)-list"
+                                               id="list-group@(group)-list" sGroup="@(group)"
                                                data-toggle="list" href="#list-group@(group)" role="tab"
                                                aria-controls="group@(group)" tgroup="@(group)">
                                                 <small>
@@ -219,7 +219,7 @@
                             </div>
                         </section>
                         <section class="row d-flex justify-content-end">
-                            <label class="d-block text-info text center mt-0 pr-1"><small>Select player to move scorecard position</small></label>
+                            <label id="selPlayerMsg" class="d-block text-info text center mt-0 pr-1"><small>Select player to move scorecard position</small></label>
                         </section>
                         <section class="row mt-1">
                             
@@ -373,6 +373,15 @@
             }
             if (sMemberId4 != "undefined") {
                 $("#sMemberId4").val(sMemberId4);
+            }
+            var gOfM = $("#gOfM").attr("value");
+            if (gOfM == "undefined" || gOfM == "" || gOfM != tGroup) {
+                $("#selPlayerMsg").addClass("invisible");
+                $("#selPlayerMsg").removeClassClass("visible");
+            }
+            else {
+                $("#selPlayerMsg").addClass("visible");
+                $("#selPlayerMsg").removeClass("invisible");
             }
             
             var m1 = $("#sMemberId1").val();

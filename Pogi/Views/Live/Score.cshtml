@@ -571,8 +571,8 @@
                             hOfM = parseInt(id.substr(4, 1)) + 9;
                             // //console.info("pOfM=" + pOfM + ", hOfM=" + hOfM);
                         }
-                        var parOfHole = $("#par" + hOfM).val();
-                        var scoreOfHole = $(this).text().trim();
+                        var parOfHole = parseInt($("#par" + hOfM).val());
+                        var scoreOfHole = parseInt($(this).text().trim());
                         if (scoreOfHole < parOfHole) {
                             // Birdies or Better
                             if ($("#" + id).hasClass("bg-primary")) {
