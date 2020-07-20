@@ -63,6 +63,129 @@ namespace Pogi.Controllers
 
      
         }
+        public IActionResult MapHole(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
+    string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
+    int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
+        {
+            ViewBag.TourId = TourId;
+            ViewBag.TourDate = TourDate;
+            ViewBag.memberId = memberId;
+            ViewBag.tGroup = tGroup;
+            ViewBag.pGroup = pGroup;
+            ViewBag.sMemberId1 = sMemberId1;
+            ViewBag.sMemberId2 = sMemberId2;
+            ViewBag.sMemberId3 = sMemberId3;
+            ViewBag.sMemberId4 = sMemberId4;
+            ViewBag.posP1 = posP1;
+            ViewBag.posP2 = posP2;
+            ViewBag.posP3 = posP3;
+            ViewBag.posP4 = posP4;
+
+
+            //Boolean redirect = false;
+            Tour tour = null;
+            if (TourId == null || TourId.Length == 0)
+            {
+                TourId = _session.GetString("TourIdLive");
+                if (TourId == null || TourId.Length == 0)
+                {
+                    tour = _tourInfo.getLatestTour();
+                    if (tour != null)
+                    {
+                        TourId = tour.TourId.ToString();
+                        //redirect = true;
+                    }
+                    else
+                    {
+                        TourId = "1";
+                    }
+                    tour = _tourInfo.getTour(int.Parse(TourId));
+                    _session.SetString("TourIdLive", TourId);
+                }
+                else
+                {
+                    tour = _tourInfo.getTour(int.Parse(TourId));
+                    //redirect = true;
+                }
+            }
+            else
+            {
+                tour = _tourInfo.getTour(int.Parse(TourId));
+                string prevTourId = _session.GetString("TourIdLive");
+                if (prevTourId != null && TourId != prevTourId)
+                {
+                    TourDate = "";
+                    _session.Remove("TourDateLive");
+                }
+                _session.SetString("TourIdLive", TourId);
+            }
+            if (TourDate == null || TourDate.Length == 0)
+            {
+                TourDate = _session.GetString("TourDateLive");
+                if (TourDate == null || TourDate.Length == 0)
+                {
+                    if (tour != null)
+                    {
+                        if (tour.TourType == TourType.SingleDay)
+                        {
+                            TourDate = tour.TourDate.ToShortDateString();
+                            //redirect = true;
+                        }
+                        else
+                        {
+                            TourDay tourDay = _tourDayInfo.GetLatestTourDay(tour.TourId);
+                            if (tourDay != null)
+                            {
+                                TourDate = tourDay.TourDate.ToShortDateString();
+                                //redirect = true;
+                            }
+                            else
+                            {
+                                TourDate = "";
+                            }
+                        }
+                    }
+                    _session.SetString("TourDateLive", TourDate);
+                }
+                else
+                {
+                    //redirect = true;
+                }
+            }
+            else
+            {
+                _session.SetString("TourDateLive", TourDate);
+            }
+            if (tour == null)
+            {
+                return RedirectToAction("Select", "Live", new { TourDate = TourDate, TourId = TourId });
+            }
+            var model = new LiveLeaderBoardViewModel();
+            model.Tour = tour;
+            if (TourId.Length > 0 && int.Parse(TourId) > 0)
+            {
+                if (tour != null && tour.TourType == TourType.MultiDay)
+                {
+                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId), DateTime.Parse(TourDate).Date);
+                }
+                else
+                {
+                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
+                }
+
+                model.TourId = TourId;
+                model.TourDate = TourDate;
+            }
+
+            string userName = "";
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Live Leaderboard");
+            return View(model);
+        }
         public IActionResult Leaderboard(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
             int posP1 = 1, int posP2 = 2 , int posP3 = 3, int posP4 = 4)

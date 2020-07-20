@@ -1,0 +1,79 @@
+﻿@using Pogi.Models.LiveViewModels
+@using Pogi.Entities
+@inject Pogi.Services.ICourseDetail _courseDetail
+@inject Pogi.Services.IHandicap _handicap
+@inject Pogi.Services.ITourInfo _tourInfo
+@model LiveLeaderBoardViewModel ;
+
+<br />
+@{
+    ViewData["Title"] = "Map Hole";
+}
+
+
+<section class="container-fluid">
+    <section class="row justify-content-start">
+        <span class="col-3 px-1 mx-1 d-flex align-items-center">
+            <small><strong>@Model.Tour.TourName</strong></small>
+        </span>
+        <ul class="nav col-9 row justify-content-start">
+            <li class="nav-item mx-0">
+                <a class="nav-link active" asp-controller="Live" asp-action="Score"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Score</a>
+            </li>
+            <li class="nav-item mx-0">
+                <a class="nav-link" href="#">Leaders</a>
+            </li>
+            <li class="nav-item mx-0">
+                <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Groups</a>
+            </li>
+        </ul>
+    </section>
+    <section id="map">
+    </section>
+</section>
+
+
+
+
+@section Scripts {
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqYaBYbtWxo7HDPzBTGZVU-dGQ9yNAy80&callback=initMap">
+        </script>
+    <script>
+            (function (exports) {
+                "use strict";
+
+                function initMap() {
+                    exports.map = new google.maps.Map(document.getElementById("map"), {
+                        center: {
+                            lat: -34.397,
+                            lng: 150.644
+                        },
+                        zoom: 8
+                    });
+                }
+
+                exports.initMap = initMap;
+            })((this.window = this.window || {}));
+        </script>
+
+    <script>
+
+       $(document).ready(function () {
+                    console.info("MapHole Document Ready");
+       });
+
+        </script>
+
+}
