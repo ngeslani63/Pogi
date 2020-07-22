@@ -28,6 +28,7 @@ namespace Pogi.Data
         public DbSet<Pogi.Entities.Log2> Log2 { get; set; }
         public DbSet<Pogi.Entities.IpGuest> IpGuest { get; set; }
         public DbSet<Pogi.Entities.CourseHandicap> CourseHandicap { get; set; }
+        public DbSet<Pogi.Entities.CourseMap> CourseMap { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CourseDetail>()

@@ -26,6 +26,7 @@ namespace Pogi.Controllers
         private readonly ICourseData _courseData;
         private readonly ICourseDetail _courseDetail;
         private readonly IHandicap _handicap;
+        private readonly ICourseMap _courseMap;
         private readonly ITourInfo _tourInfo;
         private readonly ITourDay _tourDayInfo;
         private readonly ITeeTimeInfo _teeTimeInfo;
@@ -39,6 +40,7 @@ namespace Pogi.Controllers
                 UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
                 ICourseDetail courseDetail,
                 IHandicap handicap,
+                ICourseMap courseMap,
                 ITourInfo tourInfo,
                 ITourDay tourDayInfo,
                 ITeeTimeInfo teeTimeInfo,
@@ -54,6 +56,7 @@ namespace Pogi.Controllers
             _courseData = courseData;
             _courseDetail = courseDetail;
             _handicap = handicap;
+            _courseMap = courseMap;
             _tourInfo = tourInfo;
             _tourDayInfo = tourDayInfo;
             _teeTimeInfo = teeTimeInfo;
@@ -65,7 +68,7 @@ namespace Pogi.Controllers
         }
         public IActionResult MapHole(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
     string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
-    int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
+    int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4, int tHole = 1)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
@@ -80,6 +83,7 @@ namespace Pogi.Controllers
             ViewBag.posP2 = posP2;
             ViewBag.posP3 = posP3;
             ViewBag.posP4 = posP4;
+            ViewBag.tHole = tHole;
 
 
             //Boolean redirect = false;
@@ -158,23 +162,144 @@ namespace Pogi.Controllers
             }
             if (tour == null)
             {
-                return RedirectToAction("Select", "Live", new { TourDate = TourDate, TourId = TourId });
+                return RedirectToAction("Index", "Live");
             }
-            var model = new LiveLeaderBoardViewModel();
-            model.Tour = tour;
-            if (TourId.Length > 0 && int.Parse(TourId) > 0)
+            
+            
+            var model = new LiveMapHoleViewModel();
+            
+            TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate,
+                CultureInfo.CurrentCulture));
+            model.Course = _courseData.get(teeTime.CourseId);
+            model.Hole = (short)tHole;
+            CourseMap courseMap = _courseMap.get(teeTime.CourseId);
+            if (courseMap != null)
             {
-                if (tour != null && tour.TourType == TourType.MultiDay)
-                {
-                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId), DateTime.Parse(TourDate).Date);
-                }
-                else
-                {
-                    model.ScoreInfos = _scoreInfo.getForTour(int.Parse(TourId));
-                }
+                model.Zoom = courseMap.Zoom;
 
-                model.TourId = TourId;
-                model.TourDate = TourDate;
+                model.Lat01 = courseMap.Lat01;
+                model.Lat02 = courseMap.Lat02;
+                model.Lat03 = courseMap.Lat03;
+                model.Lat04 = courseMap.Lat04;
+                model.Lat05 = courseMap.Lat05;
+                model.Lat06 = courseMap.Lat06;
+                model.Lat07 = courseMap.Lat07;
+                model.Lat08 = courseMap.Lat08;
+                model.Lat09 = courseMap.Lat09;
+                model.Lat10 = courseMap.Lat10;
+                model.Lat11 = courseMap.Lat11;
+                model.Lat12 = courseMap.Lat12;
+                model.Lat13 = courseMap.Lat13;
+                model.Lat14 = courseMap.Lat14;
+                model.Lat15 = courseMap.Lat15;
+                model.Lat16 = courseMap.Lat16;
+                model.Lat17 = courseMap.Lat17;
+                model.Lat18 = courseMap.Lat18;
+
+                model.Lng01 = courseMap.Lng01;
+                model.Lng02 = courseMap.Lng02;
+                model.Lng03 = courseMap.Lng03;
+                model.Lng04 = courseMap.Lng04;
+                model.Lng05 = courseMap.Lng05;
+                model.Lng06 = courseMap.Lng06;
+                model.Lng07 = courseMap.Lng07;
+                model.Lng08 = courseMap.Lng08;
+                model.Lng09 = courseMap.Lng09;
+                model.Lng10 = courseMap.Lng10;
+                model.Lng11 = courseMap.Lng11;
+                model.Lng12 = courseMap.Lng12;
+                model.Lng13 = courseMap.Lng13;
+                model.Lng14 = courseMap.Lng14;
+                model.Lng15 = courseMap.Lng15;
+                model.Lng16 = courseMap.Lng16;
+                model.Lng17 = courseMap.Lng17;
+                model.Lng18 = courseMap.Lng18;
+                switch (tHole)
+                {
+                    case 01:
+                        model.Lat = courseMap.Lat01;
+                        model.Lng = courseMap.Lng01;
+                        break;
+                    case 02:
+                        model.Lat = courseMap.Lat02;
+                        model.Lng = courseMap.Lng02;
+                        break;
+                    case 03:
+                        model.Lat = courseMap.Lat03;
+                        model.Lng = courseMap.Lng03;
+                        break;
+                    case 04:
+                        model.Lat = courseMap.Lat04;
+                        model.Lng = courseMap.Lng04;
+                        break;
+                    case 05:
+                        model.Lat = courseMap.Lat05;
+                        model.Lng = courseMap.Lng05;
+                        break;
+                    case 06:
+                        model.Lat = courseMap.Lat06;
+                        model.Lng = courseMap.Lng06;
+                        break;
+                    case 07:
+                        model.Lat = courseMap.Lat07;
+                        model.Lng = courseMap.Lng07;
+                        break;
+                    case 08:
+                        model.Lat = courseMap.Lat08;
+                        model.Lng = courseMap.Lng08;
+                        break;
+                    case 09:
+                        model.Lat = courseMap.Lat09;
+                        model.Lng = courseMap.Lng09;
+                        break;
+                    case 10:
+                        model.Lat = courseMap.Lat10;
+                        model.Lng = courseMap.Lng10;
+                        break;
+                    case 11:
+                        model.Lat = courseMap.Lat11;
+                        model.Lng = courseMap.Lng11;
+                        break;
+                    case 12:
+                        model.Lat = courseMap.Lat12;
+                        model.Lng = courseMap.Lng12;
+                        break;
+                    case 13:
+                        model.Lat = courseMap.Lat13;
+                        model.Lng = courseMap.Lng13;
+                        break;
+                    case 14:
+                        model.Lat = courseMap.Lat14;
+                        model.Lng = courseMap.Lng14;
+                        break;
+                    case 15:
+                        model.Lat = courseMap.Lat15;
+                        model.Lng = courseMap.Lng15;
+                        break;
+                    case 16:
+                        model.Lat = courseMap.Lat16;
+                        model.Lng = courseMap.Lng16;
+                        break;
+                    case 17:
+                        model.Lat = courseMap.Lat17;
+                        model.Lng = courseMap.Lng17;
+                        break;
+                    case 18:
+                        model.Lat = courseMap.Lat18;
+                        model.Lng = courseMap.Lng18;
+                        break;
+                    default:
+                        model.Lat = courseMap.Lat01;
+                        model.Lng = courseMap.Lng01;
+                        break;
+                }
+            }
+            else
+            {
+                courseMap = new CourseMap();
+                model.Zoom = courseMap.Zoom;
+                model.Lat = courseMap.Lat01;    
+                model.Lng = courseMap.Lng01;
             }
 
             string userName = "";
@@ -183,7 +308,7 @@ namespace Pogi.Controllers
                 model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
                 if (model.User != null) userName = model.User.EmailAddr1st;
             }
-            _activity.logActivity(userName, "Live Leaderboard");
+            _activity.logActivity(userName, "Live MapHole");
             return View(model);
         }
         public IActionResult Leaderboard(string TourId, string TourDate, string memberId, string tGroup, string pGroup,

@@ -1,18 +1,16 @@
 ﻿@using Pogi.Models.LiveViewModels
 @using Pogi.Entities
-@inject Pogi.Services.ICourseDetail _courseDetail
-@inject Pogi.Services.IHandicap _handicap
-@inject Pogi.Services.ITourInfo _tourInfo
-@model LiveLeaderBoardViewModel ;
+
+@model LiveMapHoleViewModel ;
 
 <br />
 @{
     ViewData["Title"] = "Map Hole";
 }
+<h5>@Model.Course.CourseName</h5>
+<h6>Hole @Model.Hole</h6>
 
-<div id="map"  style="height: 500px"></div>
-
-
+<div id="map" style="height: 500px"></div>
 
 
 @section Scripts {
@@ -33,10 +31,10 @@
             function initMap() {
                 exports.map = new google.maps.Map(document.getElementById("map"), {
                     center: {
-                        lat: 40.463744,
-                        lng: -74.641093
+                        lat: @Model.Lat,
+                        lng: @Model.Lng
                     },
-                    zoom: 8
+                    zoom: @Model.Zoom
                 });
             }
 

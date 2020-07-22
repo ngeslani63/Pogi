@@ -49,6 +49,7 @@ namespace Pogi
             services.AddScoped<IMemberData, SqlMemberData>();
             services.AddScoped<IScoreInfo, SqlScoreInfo>();
             services.AddScoped<IHandicap, SqlHandicap>();
+            services.AddScoped<ICourseMap, SqlCourseMap>();
             services.AddScoped<ITourInfo, SqlTourInfo>();
             services.AddScoped<IActivity, SqlActivity>();
             services.AddScoped<ITourDay, SqlTourDay>();
