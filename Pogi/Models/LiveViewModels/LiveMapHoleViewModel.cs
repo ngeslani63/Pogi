@@ -9,6 +9,7 @@ namespace Pogi.Models.LiveViewModels
     public class LiveMapHoleViewModel
     {
         public Member User { get; set; }
+        public Tour Tour { get; set; }
         public Course Course { get; set;} 
         public short Hole { get; set; }
         public short Zoom { get; set; }

@@ -167,7 +167,8 @@ namespace Pogi.Controllers
             
             
             var model = new LiveMapHoleViewModel();
-            
+            model.Tour = tour;
+
             TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate,
                 CultureInfo.CurrentCulture));
             model.Course = _courseData.get(teeTime.CourseId);

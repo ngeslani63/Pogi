@@ -7,36 +7,78 @@
 @{
     ViewData["Title"] = "Map Hole";
 }
-<div class="container">
-    <section class="d-block text-center">
-        <h6>Mattawang Golf Club, Hole @Model.Hole</h6>
+<section class="container-fluid">
+    <section class="row justify-content-start">
+        <span class="col-3 px-1 mx-1 d-flex align-items-center">
+            <small><strong>@Model.Tour.TourName</strong></small>
+        </span>
+        <ul class="nav col-9 row justify-content-start">
+            <li class="nav-item mx-0">
+                <a class="nav-link active" asp-controller="Live" asp-action="Score"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Score</a>
+            </li>
+            <li class="nav-item px-0 mx-0">
+                <a class="nav-link " asp-controller="Live" asp-action="Leaderboard"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Leaders</a>
+            </li>
+            <li class="nav-item px-0 mx-0">
+                <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Groups</a>
+            </li>
+        </ul>
     </section>
-    <section id="msg" class="d-block text-center">
+
+    <section class="container">
+        <section class="row btn bg-warning text-dark d-block">
+            Hole  @Model.Hole:&nbsp;
+           <span id="msg" class=""></span>
+        </section>
+        <section class="row" id="map" style="height: 450px"></section>
     </section>
 
-    <div id="map" style="height: 450px"></div>
-</div>
+</section>
 
 
-@section Scripts {
+
+    @section Scripts {
 
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default">
 
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqYaBYbtWxo7HDPzBTGZVU-dGQ9yNAy80&callback=initMap&libraries=&v=weekly"
-            defer>
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqYaBYbtWxo7HDPzBTGZVU-dGQ9yNAy80&callback=initMap&libraries=&v=weekly"
+                defer>
 
-    </script>
+        </script>
 
-    <script>
+        <script>
         (function (exports) {
             "use strict";
 
             var map;
             var markers = [];
 
-            function haversine_distance(mk1, mk2) {                var R = 3958.8; // Radius of the Earth in miles                var rlat1 = mk1.position.lat() * (Math.PI / 180); // Convert degrees to radians                var rlat2 = mk2.position.lat() * (Math.PI / 180); // Convert degrees to radians                var difflat = rlat2 - rlat1; // Radian difference (latitudes)                var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Radian difference (longitudes)                var d = Math.round(1760 * 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2))));                return Math.trunc(d);            }
+            function haversine_distance(mk1, mk2) {
+                var R = 3958.8; // Radius of the Earth in miles
+                var rlat1 = mk1.position.lat() * (Math.PI / 180); // Convert degrees to radians
+                var rlat2 = mk2.position.lat() * (Math.PI / 180); // Convert degrees to radians
+                var difflat = rlat2 - rlat1; // Radian difference (latitudes)
+                var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Radian difference (longitudes)
+
+                var d = Math.round(1760 * 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2))));
+                return Math.trunc(d);
+            }
 
             function initMap() {
                 var pPosn = { lat: 40.461444, lng: -74.640222 };
@@ -55,11 +97,14 @@
                     mapTypeControl: false,
                     heading: 180
                 });
-               
+
                 //var line = new google.maps.Polyline({ path: [pPosn, gPosn], map: map });
-                var mk1 = new google.maps.Marker({ position: pPosn, map: map });                var mk2 = new google.maps.Marker({ position: gPosn, map: map });                var distance = haversine_distance(mk1, mk2);                document.getElementById('msg').innerHTML = distance + " Yards to Center of Green";
+                var mk1 = new google.maps.Marker({ position: pPosn, map: map });
+                var mk2 = new google.maps.Marker({ position: gPosn, map: map });
+                var distance = haversine_distance(mk1, mk2);
+                document.getElementById('msg').innerHTML = "<strong>" + distance + " Yards</strong> to Center of Green";
                 mk2.setMap(null);
-                
+
 
                 exports.map = map;
 
@@ -67,14 +112,14 @@
 
             exports.initMap = initMap;
         })((this.window = this.window || {}));
-    </script>
+        </script>
 
-    <script>
+        <script>
 
-        $(document).ready(function () {
-            console.info("MapHole Document Ready");
-        });
+            $(document).ready(function () {
+                console.info("MapHole Document Ready");
+            });
 
-    </script>
+        </script>
 
-}
+    }
