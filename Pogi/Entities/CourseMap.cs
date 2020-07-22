@@ -46,7 +46,7 @@ namespace Pogi.Entities
             Lng16 = -74.641093;
             Lng17 = -74.641093;
             Lng18 = -74.641093;
-            Zoom = 8;
+            Zoom = 17;
 
         }
         public int CourseMapId { get; set; }

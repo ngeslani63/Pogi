@@ -174,6 +174,10 @@ namespace Pogi.Controllers
             model.Course = _courseData.get(teeTime.CourseId);
             model.Hole = (short)tHole;
             CourseMap courseMap = _courseMap.get(teeTime.CourseId);
+            if (courseMap == null)
+            {
+                courseMap = new CourseMap();
+            }
             if (courseMap != null)
             {
                 model.Zoom = courseMap.Zoom;
