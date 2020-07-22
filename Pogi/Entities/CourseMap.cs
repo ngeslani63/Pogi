@@ -10,7 +10,7 @@ namespace Pogi.Entities
     {
         public CourseMap ()
         {
-            Lat01 = 40.463744;
+            Lat01 = 40.461433; 
             Lat02 = 40.463744;
             Lat03 = 40.463744;
             Lat04 = 40.463744;
@@ -28,7 +28,7 @@ namespace Pogi.Entities
             Lat16 = 40.463744;
             Lat17 = 40.463744;
             Lat18 = 40.463744;
-            Lng01 = -74.641093;
+            Lng01 = -74.640231;
             Lng02 = -74.641093;
             Lng03 = -74.641093;
             Lng04 = -74.641093;
@@ -90,6 +90,24 @@ namespace Pogi.Entities
         public double Lng16 { get; set; }
         public double Lng17 { get; set; }
         public double Lng18 { get; set; }
+        public short Hdg01 { get; set; }
+        public short Hdg02 { get; set; }
+        public short Hdg03 { get; set; }
+        public short Hdg04 { get; set; }
+        public short Hdg05 { get; set; }
+        public short Hdg06 { get; set; }
+        public short Hdg07 { get; set; }
+        public short Hdg08 { get; set; }
+        public short Hdg09 { get; set; }
+        public short Hdg10 { get; set; }
+        public short Hdg11 { get; set; }
+        public short Hdg12 { get; set; }
+        public short Hdg13 { get; set; }
+        public short Hdg14 { get; set; }
+        public short Hdg15 { get; set; }
+        public short Hdg16 { get; set; }
+        public short Hdg17 { get; set; }
+        public short Hdg18 { get; set; }
 
     }
 }

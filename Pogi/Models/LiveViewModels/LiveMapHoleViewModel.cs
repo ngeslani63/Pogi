@@ -14,6 +14,7 @@ namespace Pogi.Models.LiveViewModels
         public short Zoom { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
+        public short Hdg { get; set; }
         public double Lat01 { get; set; }
         public double Lat02 { get; set; }
         public double Lat03 { get; set; }
@@ -50,6 +51,24 @@ namespace Pogi.Models.LiveViewModels
         public double Lng16 { get; set; }
         public double Lng17 { get; set; }
         public double Lng18 { get; set; }
+        public short Hdg01 { get; set; }
+        public short Hdg02 { get; set; }
+        public short Hdg03 { get; set; }
+        public short Hdg04 { get; set; }
+        public short Hdg05 { get; set; }
+        public short Hdg06 { get; set; }
+        public short Hdg07 { get; set; }
+        public short Hdg08 { get; set; }
+        public short Hdg09 { get; set; }
+        public short Hdg10 { get; set; }
+        public short Hdg11 { get; set; }
+        public short Hdg12 { get; set; }
+        public short Hdg13 { get; set; }
+        public short Hdg14 { get; set; }
+        public short Hdg15 { get; set; }
+        public short Hdg16 { get; set; }
+        public short Hdg17 { get; set; }
+        public short Hdg18 { get; set; }
 
 
     }

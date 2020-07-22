@@ -219,78 +219,97 @@ namespace Pogi.Controllers
                     case 01:
                         model.Lat = courseMap.Lat01;
                         model.Lng = courseMap.Lng01;
+                        model.Hdg = courseMap.Hdg01;
                         break;
                     case 02:
                         model.Lat = courseMap.Lat02;
                         model.Lng = courseMap.Lng02;
+                        model.Hdg = courseMap.Hdg02;
                         break;
                     case 03:
                         model.Lat = courseMap.Lat03;
                         model.Lng = courseMap.Lng03;
+                        model.Hdg = courseMap.Hdg03;
                         break;
                     case 04:
                         model.Lat = courseMap.Lat04;
                         model.Lng = courseMap.Lng04;
+                        model.Hdg = courseMap.Hdg04;
                         break;
                     case 05:
                         model.Lat = courseMap.Lat05;
                         model.Lng = courseMap.Lng05;
+                        model.Hdg = courseMap.Hdg05;
                         break;
                     case 06:
                         model.Lat = courseMap.Lat06;
                         model.Lng = courseMap.Lng06;
+                        model.Hdg = courseMap.Hdg06;
                         break;
                     case 07:
                         model.Lat = courseMap.Lat07;
                         model.Lng = courseMap.Lng07;
+                        model.Hdg = courseMap.Hdg07;
                         break;
                     case 08:
                         model.Lat = courseMap.Lat08;
                         model.Lng = courseMap.Lng08;
+                        model.Hdg = courseMap.Hdg08;
                         break;
                     case 09:
                         model.Lat = courseMap.Lat09;
                         model.Lng = courseMap.Lng09;
+                        model.Hdg = courseMap.Hdg09;
                         break;
                     case 10:
                         model.Lat = courseMap.Lat10;
                         model.Lng = courseMap.Lng10;
+                        model.Hdg = courseMap.Hdg10;
                         break;
                     case 11:
                         model.Lat = courseMap.Lat11;
                         model.Lng = courseMap.Lng11;
+                        model.Hdg = courseMap.Hdg11;
                         break;
                     case 12:
                         model.Lat = courseMap.Lat12;
-                        model.Lng = courseMap.Lng12;
+                        model.Lng = courseMap.Lng12
+                        model.Hdg = courseMap.Hdg12;
                         break;
                     case 13:
                         model.Lat = courseMap.Lat13;
                         model.Lng = courseMap.Lng13;
+                        model.Hdg = courseMap.Hdg13;
                         break;
                     case 14:
                         model.Lat = courseMap.Lat14;
                         model.Lng = courseMap.Lng14;
+                        model.Hdg = courseMap.Hdg14;
                         break;
                     case 15:
                         model.Lat = courseMap.Lat15;
                         model.Lng = courseMap.Lng15;
+                        model.Hdg = courseMap.Hdg15;
                         break;
                     case 16:
                         model.Lat = courseMap.Lat16;
                         model.Lng = courseMap.Lng16;
+                        model.Hdg = courseMap.Hdg16;
                         break;
                     case 17:
                         model.Lat = courseMap.Lat17;
                         model.Lng = courseMap.Lng17;
+                        model.Hdg = courseMap.Hdg17;
                         break;
                     case 18:
                         model.Lat = courseMap.Lat18;
                         model.Lng = courseMap.Lng18;
+                        model.Hdg = courseMap.Hdg18;
                         break;
                     default:
                         model.Lat = courseMap.Lat01;
                         model.Lng = courseMap.Lng01;
+                        model.Hdg = courseMap.Hdg01;
                         break;
                 }
             }
@@ -300,6 +319,7 @@ namespace Pogi.Controllers
                 model.Zoom = courseMap.Zoom;
                 model.Lat = courseMap.Lat01;    
                 model.Lng = courseMap.Lng01;
+                model.Hdg = courseMap.Hdg01;
             }
 
             string userName = "";

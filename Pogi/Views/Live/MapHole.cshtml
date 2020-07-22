@@ -7,10 +7,15 @@
 @{
     ViewData["Title"] = "Map Hole";
 }
-<h5>@Model.Course.CourseName</h5>
-<h6>Hole @Model.Hole</h6>
+<div class="container">
+    <section class="d-block text-center">
+        <h6>Mattawang Golf Club, Hole @Model.Hole</h6>
+    </section>
+    <section id="msg" class="d-block text-center">
+    </section>
 
-<div id="map" style="height: 500px"></div>
+    <div id="map" style="height: 450px"></div>
+</div>
 
 
 @section Scripts {
@@ -28,14 +33,31 @@
         (function (exports) {
             "use strict";
 
+            function haversine_distance(mk1, mk2) {                var R = 3958.8; // Radius of the Earth in miles                var rlat1 = mk1.position.lat() * (Math.PI / 180); // Convert degrees to radians                var rlat2 = mk2.position.lat() * (Math.PI / 180); // Convert degrees to radians                var difflat = rlat2 - rlat1; // Radian difference (latitudes)                var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Radian difference (longitudes)                var d = 1760 * 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)));                return d;            }
+
             function initMap() {
-                exports.map = new google.maps.Map(document.getElementById("map"), {
+                var pPosn = { lat: 40.461444, lng: -74.640222 };
+                var gPosn = { lat: 40.460419, lng: -74.640562 };
+                var map = new google.maps.Map(document.getElementById("map"), {
                     center: {
-                        lat: @Model.Lat,
-                        lng: @Model.Lng
+                        lat: 40.461444,
+                        lng: -74.640231
+                        @*lat: @Model.Lat,
+                        lng: @Model.Lng*@
                     },
-                    zoom: @Model.Zoom
+                    @*zoom: @Model.Zoom*@
+                    zoom: 18,
+                    streetViewControl: false,
+                    mapTypeId: "satellite",
+                    mapTypeControl: false,
+                    heading: 180
                 });
+               
+                var line = new google.maps.Polyline({ path: [pPosn, gPosn], map: map });
+                var mk1 = new google.maps.Marker({ position: pPosn, map: map });                var mk2 = new google.maps.Marker({ position: gPosn, map: map });
+                var distance = haversine_distance(mk1, mk2);                document.getElementById('msg').innerHTML = distance.toFixed(2) + " Yards";
+                exports.map = map;
+
             }
 
             exports.initMap = initMap;
