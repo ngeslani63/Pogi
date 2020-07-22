@@ -273,7 +273,7 @@ namespace Pogi.Controllers
                         break;
                     case 12:
                         model.Lat = courseMap.Lat12;
-                        model.Lng = courseMap.Lng12
+                        model.Lng = courseMap.Lng12;
                         model.Hdg = courseMap.Hdg12;
                         break;
                     case 13:
