@@ -10,9 +10,8 @@ namespace Pogi.Entities
     {
         public CourseMap ()
         {
-
-            Lat01 = 40.461419;
-            Lng01 = -74.640562;
+            Lat01 = 40.460426;
+            Lng01 = -74.640557;
             InitLat01 = 40.461444;
             InitLng01 = -74.640231;
             Hdg01 = 180;
