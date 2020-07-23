@@ -20,7 +20,8 @@
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
-                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Score</a>
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"
+                   asp-route-tHole="@ViewBag.tHole">Score</a>
             </li>
             <li class="nav-item px-0 mx-0">
                 <a class="nav-link " asp-controller="Live" asp-action="Leaderboard"
@@ -29,7 +30,8 @@
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
-                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Leaders</a>
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"
+                   asp-route-tHole="@ViewBag.tHole">Leaders</a>
             </li>
             <li class="nav-item px-0 mx-0">
                 <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
@@ -52,10 +54,22 @@
             <label id="refresh" class="col btn btn-info text-light text-center py-2 px-2 mt-1 mx-1 mb-1 border">
                 Refresh
             </label>
-            <label id="refresh" class="col btn btn-info text-light text-center py-2 px-2 mt-1 mx-1 mb-1 border">
+            <label id="nextHole" class="col btn btn-info text-light text-center py-2 px-2 mt-1 mx-1 mb-1 border">
                 Next Hole
             </label>
         </section>
+    </section>
+    <section>
+        <input type="text" id="tHole" name="tHole" value="@ViewBag.tHole" hidden />
+        <span>
+            <a id="copyHref" class="nav-link " asp-controller="Live" asp-action="MapHole"
+               asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+               asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+               asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+               asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+               asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+               asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
+        </span>
     </section>
     
 
@@ -285,6 +299,40 @@
 
             $(document).ready(function () {
                 console.info("MapHole Document Ready");
+
+                $("#prevHole").click(function (){
+
+                    var tHole = $("#tHole").val();
+                    console.info("PrevHole clicked, current Hole = " + tHole);
+                    tHole--;
+                    if (tHole > 0) {
+                        var href = $("#copyHref").attr("href");
+                        console.info("prev hole=" + tHole + ", href=" + href);
+                        var href2 = href + "&thole=" + tHole;
+                        console.info("href2=" + href2);
+                        $("#tHole").val(tHole);
+                        window.location.href = href2;
+                    }
+    
+                });
+                $("#nextHole").click(function () {
+
+                    var tHole = $("#tHole").val();
+                    console.info("PrevHole clicked, current Hole = " + tHole);
+                    tHole++;
+                    if (tHole <= 18) {
+                        var href = $("#copyHref").attr("href");
+                        console.info("next hole=" + tHole + ", href=" + href);
+                        var href2 = href + "&thole=" + tHole;
+                        console.info("href2=" + href2);
+                        $("#tHole").val(tHole);
+                        window.location.href = href2;
+                    }
+
+                });
+                $("#refresh").click(function () {
+                    location.reload();
+                });
             });
 
         </script>
