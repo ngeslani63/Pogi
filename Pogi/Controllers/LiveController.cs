@@ -180,8 +180,6 @@ namespace Pogi.Controllers
             }
             if (courseMap != null)
             {
-                model.Zoom = courseMap.Zoom;
-
                 model.Lat01 = courseMap.Lat01;
                 model.Lat02 = courseMap.Lat02;
                 model.Lat03 = courseMap.Lat03;
@@ -219,102 +217,233 @@ namespace Pogi.Controllers
                 model.Lng16 = courseMap.Lng16;
                 model.Lng17 = courseMap.Lng17;
                 model.Lng18 = courseMap.Lng18;
+
+                model.InitLat01 = courseMap.InitLat01;
+                model.InitLat02 = courseMap.InitLat02;
+                model.InitLat03 = courseMap.InitLat03;
+                model.InitLat04 = courseMap.InitLat04;
+                model.InitLat05 = courseMap.InitLat05;
+                model.InitLat06 = courseMap.InitLat06;
+                model.InitLat07 = courseMap.InitLat07;
+                model.InitLat08 = courseMap.InitLat08;
+                model.InitLat09 = courseMap.InitLat09;
+                model.InitLat10 = courseMap.InitLat10;
+                model.InitLat11 = courseMap.InitLat11;
+                model.InitLat12 = courseMap.InitLat12;
+                model.InitLat13 = courseMap.InitLat13;
+                model.InitLat14 = courseMap.InitLat14;
+                model.InitLat15 = courseMap.InitLat15;
+                model.InitLat16 = courseMap.InitLat16;
+                model.InitLat17 = courseMap.InitLat17;
+                model.InitLat18 = courseMap.InitLat18;
+
+                model.InitLng01 = courseMap.InitLng01;
+                model.InitLng02 = courseMap.InitLng02;
+                model.InitLng03 = courseMap.InitLng03;
+                model.InitLng04 = courseMap.InitLng04;
+                model.InitLng05 = courseMap.InitLng05;
+                model.InitLng06 = courseMap.InitLng06;
+                model.InitLng07 = courseMap.InitLng07;
+                model.InitLng08 = courseMap.InitLng08;
+                model.InitLng09 = courseMap.InitLng09;
+                model.InitLng10 = courseMap.InitLng10;
+                model.InitLng11 = courseMap.InitLng11;
+                model.InitLng12 = courseMap.InitLng12;
+                model.InitLng13 = courseMap.InitLng13;
+                model.InitLng14 = courseMap.InitLng14;
+                model.InitLng15 = courseMap.InitLng15;
+                model.InitLng16 = courseMap.InitLng16;
+                model.InitLng17 = courseMap.InitLng17;
+                model.InitLng18 = courseMap.InitLng18;
+                model.Hdg01 = courseMap.Hdg01;
+                model.Hdg02 = courseMap.Hdg02;
+                model.Hdg03 = courseMap.Hdg03;
+                model.Hdg04 = courseMap.Hdg04;
+                model.Hdg05 = courseMap.Hdg05;
+                model.Hdg06 = courseMap.Hdg06;
+                model.Hdg07 = courseMap.Hdg07;
+                model.Hdg08 = courseMap.Hdg08;
+                model.Hdg09 = courseMap.Hdg09;
+                model.Hdg10 = courseMap.Hdg10;
+                model.Hdg11 = courseMap.Hdg11;
+                model.Hdg12 = courseMap.Hdg12;
+                model.Hdg13 = courseMap.Hdg13;
+                model.Hdg14 = courseMap.Hdg14;
+                model.Hdg15 = courseMap.Hdg15;
+                model.Hdg16 = courseMap.Hdg16;
+                model.Hdg17 = courseMap.Hdg17;
+                model.Hdg18 = courseMap.Hdg18;
+                model.Zoom01 = courseMap.Zoom01;
+                model.Zoom02 = courseMap.Zoom02;
+                model.Zoom03 = courseMap.Zoom03;
+                model.Zoom04 = courseMap.Zoom04;
+                model.Zoom05 = courseMap.Zoom05;
+                model.Zoom06 = courseMap.Zoom06;
+                model.Zoom07 = courseMap.Zoom07;
+                model.Zoom08 = courseMap.Zoom08;
+                model.Zoom09 = courseMap.Zoom09;
+                model.Zoom10 = courseMap.Zoom10;
+                model.Zoom11 = courseMap.Zoom11;
+                model.Zoom12 = courseMap.Zoom12;
+                model.Zoom13 = courseMap.Zoom13;
+                model.Zoom14 = courseMap.Zoom14;
+                model.Zoom15 = courseMap.Zoom15;
+                model.Zoom16 = courseMap.Zoom16;
+                model.Zoom17 = courseMap.Zoom17;
+                model.Zoom18 = courseMap.Zoom18;
                 switch (tHole)
                 {
                     case 01:
                         model.Lat = courseMap.Lat01;
                         model.Lng = courseMap.Lng01;
+                        model.InitLat = courseMap.InitLat01;
+                        model.InitLng = courseMap.InitLng01;
                         model.Hdg = courseMap.Hdg01;
+                        model.Zoom = courseMap.Zoom01;
                         break;
                     case 02:
                         model.Lat = courseMap.Lat02;
                         model.Lng = courseMap.Lng02;
+                        model.InitLat = courseMap.InitLat02;
+                        model.InitLng = courseMap.InitLng02;
                         model.Hdg = courseMap.Hdg02;
+                        model.Zoom = courseMap.Zoom02;
                         break;
                     case 03:
                         model.Lat = courseMap.Lat03;
                         model.Lng = courseMap.Lng03;
+                        model.InitLat = courseMap.InitLat03;
+                        model.InitLng = courseMap.InitLng03;
                         model.Hdg = courseMap.Hdg03;
+                        model.Zoom = courseMap.Zoom03;
                         break;
                     case 04:
                         model.Lat = courseMap.Lat04;
                         model.Lng = courseMap.Lng04;
+                        model.InitLat = courseMap.InitLat04;
+                        model.InitLng = courseMap.InitLng04;
                         model.Hdg = courseMap.Hdg04;
+                        model.Zoom = courseMap.Zoom04;
                         break;
                     case 05:
                         model.Lat = courseMap.Lat05;
                         model.Lng = courseMap.Lng05;
+                        model.InitLat = courseMap.InitLat05;
+                        model.InitLng = courseMap.InitLng05;
                         model.Hdg = courseMap.Hdg05;
+                        model.Zoom = courseMap.Zoom05;
                         break;
                     case 06:
                         model.Lat = courseMap.Lat06;
                         model.Lng = courseMap.Lng06;
+                        model.InitLat = courseMap.InitLat06;
+                        model.InitLng = courseMap.InitLng06;
                         model.Hdg = courseMap.Hdg06;
+                        model.Zoom = courseMap.Zoom06;
                         break;
                     case 07:
                         model.Lat = courseMap.Lat07;
                         model.Lng = courseMap.Lng07;
+                        model.InitLat = courseMap.InitLat07;
+                        model.InitLng = courseMap.InitLng07;
                         model.Hdg = courseMap.Hdg07;
+                        model.Zoom = courseMap.Zoom07;
                         break;
                     case 08:
                         model.Lat = courseMap.Lat08;
                         model.Lng = courseMap.Lng08;
+                        model.InitLat = courseMap.InitLat08;
+                        model.InitLng = courseMap.InitLng08;
                         model.Hdg = courseMap.Hdg08;
+                        model.Zoom = courseMap.Zoom08;
                         break;
                     case 09:
                         model.Lat = courseMap.Lat09;
                         model.Lng = courseMap.Lng09;
+                        model.InitLat = courseMap.InitLat09;
+                        model.InitLng = courseMap.InitLng09;
                         model.Hdg = courseMap.Hdg09;
+                        model.Zoom = courseMap.Zoom09;
                         break;
                     case 10:
                         model.Lat = courseMap.Lat10;
                         model.Lng = courseMap.Lng10;
+                        model.InitLat = courseMap.InitLat10;
+                        model.InitLng = courseMap.InitLng10;
                         model.Hdg = courseMap.Hdg10;
+                        model.Zoom = courseMap.Zoom10;
                         break;
                     case 11:
                         model.Lat = courseMap.Lat11;
                         model.Lng = courseMap.Lng11;
+                        model.InitLat = courseMap.InitLat11;
+                        model.InitLng = courseMap.InitLng11;
                         model.Hdg = courseMap.Hdg11;
+                        model.Zoom = courseMap.Zoom11;
                         break;
                     case 12:
                         model.Lat = courseMap.Lat12;
                         model.Lng = courseMap.Lng12;
+                        model.InitLat = courseMap.InitLat12;
+                        model.InitLng = courseMap.InitLng12;
                         model.Hdg = courseMap.Hdg12;
+                        model.Zoom = courseMap.Zoom12;
                         break;
                     case 13:
                         model.Lat = courseMap.Lat13;
                         model.Lng = courseMap.Lng13;
+                        model.InitLat = courseMap.InitLat13;
+                        model.InitLng = courseMap.InitLng13;
                         model.Hdg = courseMap.Hdg13;
+                        model.Zoom = courseMap.Zoom13;
                         break;
                     case 14:
                         model.Lat = courseMap.Lat14;
                         model.Lng = courseMap.Lng14;
+                        model.InitLat = courseMap.InitLat14;
+                        model.InitLng = courseMap.InitLng14;
                         model.Hdg = courseMap.Hdg14;
+                        model.Zoom = courseMap.Zoom14;
                         break;
                     case 15:
                         model.Lat = courseMap.Lat15;
                         model.Lng = courseMap.Lng15;
+                        model.InitLat = courseMap.InitLat15;
+                        model.InitLng = courseMap.InitLng15;
                         model.Hdg = courseMap.Hdg15;
+                        model.Zoom = courseMap.Zoom15;
                         break;
                     case 16:
                         model.Lat = courseMap.Lat16;
                         model.Lng = courseMap.Lng16;
+                        model.InitLat = courseMap.InitLat16;
+                        model.InitLng = courseMap.InitLng16;
                         model.Hdg = courseMap.Hdg16;
+                        model.Zoom = courseMap.Zoom16;
                         break;
                     case 17:
                         model.Lat = courseMap.Lat17;
                         model.Lng = courseMap.Lng17;
+                        model.InitLat = courseMap.InitLat17;
+                        model.InitLng = courseMap.InitLng17;
                         model.Hdg = courseMap.Hdg17;
+                        model.Zoom = courseMap.Zoom17;
                         break;
                     case 18:
                         model.Lat = courseMap.Lat18;
                         model.Lng = courseMap.Lng18;
+                        model.InitLat = courseMap.InitLat18;
+                        model.InitLng = courseMap.InitLng18;
                         model.Hdg = courseMap.Hdg18;
+                        model.Zoom = courseMap.Zoom18;
                         break;
                     default:
                         model.Lat = courseMap.Lat01;
                         model.Lng = courseMap.Lng01;
+                        model.InitLat = courseMap.InitLat01;
+                        model.InitLng = courseMap.InitLng01;
                         model.Hdg = courseMap.Hdg01;
+                        model.Zoom = courseMap.Zoom01;
                         break;
                 }
             }
@@ -324,6 +453,8 @@ namespace Pogi.Controllers
                 model.Zoom = courseMap.Zoom;
                 model.Lat = courseMap.Lat01;    
                 model.Lng = courseMap.Lng01;
+                model.InitLat = courseMap.InitLat01;
+                model.InitLng = courseMap.InitLng01;
                 model.Hdg = courseMap.Hdg01;
             }
 

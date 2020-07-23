@@ -13,9 +13,10 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    partial class PogiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200723013407_Update64")]
+    partial class Update64
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,42 +447,6 @@ namespace Pogi.Migrations
                     b.Property<double>("Lng18");
 
                     b.Property<short>("Zoom");
-
-                    b.Property<short>("Zoom01");
-
-                    b.Property<short>("Zoom02");
-
-                    b.Property<short>("Zoom03");
-
-                    b.Property<short>("Zoom04");
-
-                    b.Property<short>("Zoom05");
-
-                    b.Property<short>("Zoom06");
-
-                    b.Property<short>("Zoom07");
-
-                    b.Property<short>("Zoom08");
-
-                    b.Property<short>("Zoom09");
-
-                    b.Property<short>("Zoom10");
-
-                    b.Property<short>("Zoom11");
-
-                    b.Property<short>("Zoom12");
-
-                    b.Property<short>("Zoom13");
-
-                    b.Property<short>("Zoom14");
-
-                    b.Property<short>("Zoom15");
-
-                    b.Property<short>("Zoom16");
-
-                    b.Property<short>("Zoom17");
-
-                    b.Property<short>("Zoom18");
 
                     b.HasKey("CourseMapId");
 
