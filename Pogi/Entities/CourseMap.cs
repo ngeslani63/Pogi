@@ -43,7 +43,7 @@ namespace Pogi.Entities
             InitLat05 = 40.464206;
             InitLng05 = -74.647461;
             Hdg05 = 25;
-            Zoom = 18;
+            Zoom05 = 18;
             //6
             Lat06 = 40.465987;
             Lng06 = -74.645733;
