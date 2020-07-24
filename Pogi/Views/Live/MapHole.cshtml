@@ -73,7 +73,7 @@
                asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
         </span>
     </section>
-    
+
 
 
 
@@ -89,7 +89,7 @@
         </script>
 
         <script>
-   
+
             "use strict";
 
             var map;
@@ -97,7 +97,7 @@
             var lMarker;
             var pMarker;
             var infoWindow;
-            
+
             var markersArray = [];
             var linesArray = [];
 
@@ -114,7 +114,7 @@
                 //console.info("lPosn.lat=" + lPosn.lat + ", lPosn.lng=" + lPosn.lng);
                 //console.info("gPosn.lat=" + gPosn.lat + ", gPosn.lng=" + gPosn.lng);
                 var distance = haversine_distance(lMarker, gMarker);
-               
+
                 //document.getElementById('msg').innerHTML = "<strong>" + distance + " Yards</strong> to Center of Green";
 
                 var bubbleContent = "<small>" + distance + " Yards to Green</small>";
@@ -133,7 +133,7 @@
                 bubble.open(map, lMarker);
 
                 markersArray.push(lMarker);
-               
+
             }
             function addLine(p1, p2, map) {
                 let lToGLine = new google.maps.Polyline({
@@ -188,7 +188,7 @@
                  if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(
                             position => {
-                                const pos = {
+                                let pos = {
                                     lat: position.coords.latitude,
                                     lng: position.coords.longitude
                                 };
@@ -200,22 +200,42 @@
                                     //console.info("Geo pPosn.lat=" + pPosn.lat + ", pPosn.lng=" + pPosn.lng);
                                     if (pMarker != undefined) {
                                         pMarker.setMap(null);
-                                    }  
+                                    }
                                 pMarker = new google.maps.Marker({
                                     position: pos,
                                     map: map,
                                     icon: {
-                                        url: "https://maps.google.com/mapfiles/kml/shapes/golf.png"
+                                        //url: "https://maps.google.com/mapfiles/kml/shapes/golf.png"
+                                        //url: "https://maps.google.com/mapfiles/kml/pal4/icon20.png"
+                                        url: "https://maps.google.com/mapfiles/kml/pal2/icon57.png"
                                     }
                                 });
-                                
+
                                     var distance = haversine_distance(pMarker, gMarker);
-                                    
+
+                                    if (distance.toFixed(0) > 5000) {
+                                        console.info("Golfer is not in the course, simulating position");
+                                        pMarker.setMap(null);
+                                        pMarker = new google.maps.Marker({
+                                            position: map.getCenter(),
+                                            map: map,
+                                            icon: {
+                                                //url: "https://maps.google.com/mapfiles/kml/shapes/golf.png"
+                                                //url: "https://maps.google.com/mapfiles/kml/pal4/icon20.png"
+                                                url: "https://maps.google.com/mapfiles/kml/pal2/icon57.png"
+                                            }
+                                        });
+                                        let pLat = parseFloat(map.getCenter().lat());
+                                        let pLng = parseFloat(map.getCenter().lng());
+                                        pos = { lat: pLat, lng: pLng }
+                                        distance = haversine_distance(pMarker, gMarker);
+                                    }
+
 
                                     if (lMarker != undefined) {
                                         let layupDistance = haversine_distance(lMarker, pMarker);
                                         //console.info("Layup Distance = " + layupDistance);
-                                        
+
                                         //var layupBubble = new google.maps.InfoWindow({
                                         //    content: layupMessage
                                         //});
@@ -244,8 +264,8 @@
                                         document.getElementById('msg').innerHTML = "<strong>" + distance + " Yards</strong> to Green";
                                     }
 
-                                     
-                                    
+
+
 
 
                             },
@@ -305,6 +325,7 @@
                     map: map,
                     icon: {
                         url: "https://maps.google.com/mapfiles/kml/pal2/icon13.png"
+                        //url: "https://maps.google.com/mapfiles/kml/shapes/flag.png"
                     }
                 });
 
@@ -348,13 +369,13 @@
                 //console.info("calling addMarker pPosn.lat=" + pPosn.lat + ", pPosn.lng=" + pPosn.lng);
 
                 //addMarker(cPosn, gPosn, map);
-              
-                
+
+
 
                 infoWindow = new google.maps.InfoWindow();
 
 
-                                                           
+
                 google.maps.event.addListener(map, 'click', function (event) {
                     let clickPos = event.latLng;
 
@@ -368,15 +389,15 @@
                     removeLines();
                     addMarker(ccPos, gPosn, map);
                     markPlayer();
-                                        
+
 
                 });
 
 
-               
+
             }
-            
-            
+
+
 
         </script>
 
@@ -385,7 +406,7 @@
             $(document).ready(function () {
                 console.info("MapHole Document Ready");
 
-                $("#prevHole").click(function (){
+                $("#prevHole").click(function () {
 
                     var tHole = $("#tHole").val();
                     console.info("PrevHole clicked, current Hole = " + tHole);
@@ -398,7 +419,7 @@
                         $("#tHole").val(tHole);
                         window.location.href = href2;
                     }
-    
+
                 });
                 $("#nextHole").click(function () {
 
