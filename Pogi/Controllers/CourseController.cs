@@ -53,6 +53,27 @@ namespace Pogi.Controllers
                 return View(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
             }
         }
+        [Route("api/[controller]")]
+        [Produces("application/json")]
+        [HttpGet]
+        public async Task<IActionResult> Get(string search)
+        {
+            try
+            {
+                if (search != null && search.Length > 0)
+                {
+                    return Ok(await _context.Course.Where(r => r.CourseName.Contains(search)).OrderBy(r => r.CourseName).ToListAsync());
+                }
+                else
+                {
+                    return Ok(await _context.Course.OrderBy(r => r.CourseName).ToListAsync());
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Failed to get Courses " + ex.Message.ToString());
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> Index(string search)
         {

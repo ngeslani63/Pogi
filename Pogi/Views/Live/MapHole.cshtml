@@ -283,20 +283,22 @@
 
             function initMap() {
 
-                ////18
-                //Lat = 40.463102;
-                //Lng = -74.638960;
-                //InitLat = 40.462028;
-                //InitLng = -74.638374;
-                //Hdg = 0;
-                //Zoom = 18;
-
+                
                 var Lat = @Model.Lat;
                 var Lng = @Model.Lng;
                 var InitLat = @Model.InitLat;
                 var InitLng = @Model.InitLng;
                 var Zoom = @Model.Zoom;
                 var Hdg = @Model.Hdg;
+
+                //01
+                Lat = 40.525055;
+                Lng = -74.714973;
+                InitLat = 40.525647;
+                InitLng = -74.716581;
+                Zoom = 18;
+                Hdg = 90;
+                
 
                 var cPosn = { lat: InitLat, lng: InitLng };
                 var gPosn = { lat: Lat, lng: Lng };
@@ -312,8 +314,8 @@
                     mapTypeControl: false,
                     heading: Hdg,
                     //minZoom: 18,
-                    tilt: 45,
-                    rotateControl: false,
+                    tilt: 45;,
+                    rotateControl: true,
                     rotateControlOptions: {
                         ControPosition: google.maps.ControlPosition.LEFT_TOP
                     }
