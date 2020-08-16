@@ -131,7 +131,7 @@ namespace Pogi.Controllers
  
                 _context.Add(handicap);
                 
-                if (handicap.Date == _handicap.getCurrEffDate())
+                if (handicap.Date >= _handicap.getCurrEffDate())
                 {
                     Member.CurrHandicap = handicap.HcpIndex;
                     _context.Update(Member);
@@ -194,7 +194,7 @@ namespace Pogi.Controllers
                 try
                 {
                     _context.Update(handicap);
-                    if (handicap.Date == _handicap.getCurrEffDate())
+                    if (handicap.Date >= _handicap.getCurrEffDate())
                     {
                         Member.CurrHandicap = handicap.HcpIndex;
                         _context.Update(Member);

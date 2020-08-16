@@ -143,7 +143,7 @@ namespace Pogi.Controllers
                 model.ScoreInfos = _scoreInfo.getAll();
                 model.TourId = "0";
             }
-            model.Tours = _tourInfo.getTours(true);
+            model.Tours = _tourInfo.getTours(true, true);
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {

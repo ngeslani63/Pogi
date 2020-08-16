@@ -24,18 +24,30 @@ namespace Pogi.Services
             foreach (Player player in confirmedPlayers)
             {
                 Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);
+                try
+                {
+                    PlayerInfo playerInfo = new PlayerInfo(player, member);
+                    PlayerInfos.Add(playerInfo);
+                }
+                catch (Exception)
+                {
 
-                PlayerInfo playerInfo = new PlayerInfo(player, member);
-                PlayerInfos.Add(playerInfo);
+                }
             }
             var withdrawnPlayers = _context.Player.Where(r => r.PlayDate >= System.DateTime.Today &&
                 r.Withdrawn == true).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
             foreach (Player player in withdrawnPlayers)
             {
                 Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);
+                try
+                {
+                    PlayerInfo playerInfo = new PlayerInfo(player, member);
+                    PlayerInfos.Add(playerInfo);
+                }
+                catch (Exception)
+                {
 
-                PlayerInfo playerInfo = new PlayerInfo(player, member);
-                PlayerInfos.Add(playerInfo);
+                }
             }
             var Players = _context.Player.Where(r => r.PlayDate >= System.DateTime.Today &&
                 r.Withdrawn == false && r.Confirmed == false).OrderBy(r => r.PlayDate).ThenBy(r => r.ConfirmDate).ThenBy(r => r.PlayId);
@@ -48,14 +60,28 @@ namespace Pogi.Services
                     Member member = _context.Member.FirstOrDefault(r => r.MemberId == player.MemberId);
 
                     PlayerInfo playerInfo = new PlayerInfo(player, member);
-                    mapPlayerInfos.Add(member.LastName + member.FirstName, playerInfo);
+                    try
+                    {
+                        mapPlayerInfos.Add(member.LastName + member.FirstName, playerInfo);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                     // PlayerInfos.Add(playerInfo);
                 }
                 if (mapPlayerInfos.Count > 0)
                 {
                     foreach (var kvp in mapPlayerInfos.OrderBy (kvp => kvp.Key))
                     {
-                        PlayerInfos.Add(kvp.Value);
+                        try
+                        {
+                            PlayerInfos.Add(kvp.Value);
+                        }
+                        catch (Exception )
+                        {
+
+                        }
                     }
                 }
             }
