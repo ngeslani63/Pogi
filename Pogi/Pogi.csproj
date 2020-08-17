@@ -19,7 +19,8 @@
     <Compile Remove="wwwroot\images\News_20190810\**" />
     <Compile Remove="wwwroot\images\News_20200516\**" />
     <Compile Remove="wwwroot\images\News_20200530\**" />
-    <Compile Remove="wwwroot\images\News_20200815\**" />
+    <Compile Remove="wwwroot\images\News_20200627\**" />
+    <Compile Remove="wwwroot\images\News_20200725\**" />
     <Content Remove="wwwroot\images\Gallery_20180310\**" />
     <Content Remove="wwwroot\images\Gallery_20180428\**" />
     <Content Remove="wwwroot\images\News_20180511\**" />
@@ -33,7 +34,8 @@
     <Content Remove="wwwroot\images\News_20190810\**" />
     <Content Remove="wwwroot\images\News_20200516\**" />
     <Content Remove="wwwroot\images\News_20200530\**" />
-    <Content Remove="wwwroot\images\News_20200815\**" />
+    <Content Remove="wwwroot\images\News_20200627\**" />
+    <Content Remove="wwwroot\images\News_20200725\**" />
     <EmbeddedResource Remove="wwwroot\images\Gallery_20180310\**" />
     <EmbeddedResource Remove="wwwroot\images\Gallery_20180428\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20180511\**" />
@@ -47,7 +49,8 @@
     <EmbeddedResource Remove="wwwroot\images\News_20190810\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20200516\**" />
     <EmbeddedResource Remove="wwwroot\images\News_20200530\**" />
-    <EmbeddedResource Remove="wwwroot\images\News_20200815\**" />
+    <EmbeddedResource Remove="wwwroot\images\News_20200627\**" />
+    <EmbeddedResource Remove="wwwroot\images\News_20200725\**" />
     <None Remove="wwwroot\images\Gallery_20180310\**" />
     <None Remove="wwwroot\images\Gallery_20180428\**" />
     <None Remove="wwwroot\images\News_20180511\**" />
@@ -61,7 +64,8 @@
     <None Remove="wwwroot\images\News_20190810\**" />
     <None Remove="wwwroot\images\News_20200516\**" />
     <None Remove="wwwroot\images\News_20200530\**" />
-    <None Remove="wwwroot\images\News_20200815\**" />
+    <None Remove="wwwroot\images\News_20200627\**" />
+    <None Remove="wwwroot\images\News_20200725\**" />
   </ItemGroup>
 
   <ItemGroup>
