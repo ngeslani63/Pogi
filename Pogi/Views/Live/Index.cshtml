@@ -86,148 +86,193 @@
                             }
                             <div class="col-8 pl-0">
                                 <div class="tab-content" id="nav-tabContent">
-
+  
                                     @for (int i = 0; i < teeTime.NumPlayers; i++)
                                     {
-                                        @if (teeTime.MajorTour && i % 4 == 0)
+                                    @if (teeTime.MajorTour && i % 4 == 0)
                                         {
                                             group++;
                                             startTime = startTime.AddMinutes(teeTime.TeeTimeInterval);
 
                                             var gOfMFound = "N";
                                             var opts = "fade show active";
-                                            @if (group > 1)
+                                    @if (group > 1)
                                             {
                                                 opts = "fade";
                                             }
-                                            <div class="tab-pane @opts" id="list-group@(group)" role="tabpanel"
-                                                 aria-labelledby="list-group@(group)-list">
-                                                <table class="table table-hover">
-                                                    <thead class="thead-light">
-                                                        <tr class="row d-flex justify-content-end" scope="row">
-                                                            <th class="col-1 ml-1 text-center" scope="col">#</th>
-                                                            <th class="col-7 text-center" scope="col">Player</th>
-                                                            <th class="col text-center" scope="col">H.I.</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="d-flex flex-column">
-                                                        @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
+                                    <div class="tab-pane @opts" id="list-group@(group)" role="tabpanel"
+                                         aria-labelledby="list-group@(group)-list">
+                                        <table class="table table-hover">
+                                            <thead class="thead-light">
+                                                <tr class="row d-flex justify-content-end" scope="row">
+                                                    <th class="col-1 ml-1 text-center" scope="col">#</th>
+                                                    <th class="col-7 text-center" scope="col">Player</th>
+                                                    @if (Model.Tour.ScorerType.ToString().Contains("Ryder"))
                                                             {
-                                                                <tr id="order-G@(group)P@(j % 4+ 1)" scope="row" class="row order-@(posP[j % 4])">
-                                                                    <td class="col-1 p@(j % 4 + 1)-num" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                        @(j % 4+ 1).
-                                                                    </td>
+                                                    <th class="col text-center" scope="col">C-Hcp</th>
+                                                            }
+                                                            else {
+                                                    <th class="col text-center" scope="col">H.I.</th>
+                                                            }
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-flex flex-column">
+                                                
+                                                
+                                               @for (int j = i; j < teeTime.NumPlayers && j < i + 4; j++)
+                                                        {
+                                                            string teamColor = "";
+                                                            if (Model.Tour.ScorerType.ToString().Contains("Ryder"))
+                                                            {
+                                                                teamColor = "bg-danger text-light";
+                                                                if (j % 4 < 2)
+                                                                {
+                                                                    teamColor = "bg-primary text-light";
+                                                                }
+                                                            }
+                                                <tr id="order-G@(group)P@(j % 4+ 1)" scope="row" class="row order-@(posP[j % 4])">
+                                                    <td class="col-1 p@(j % 4 + 1)-num" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                        @(j % 4+ 1).
+                                                    </td>
 
-                                                                    @if (j < teeAssignInfos.Count)
+                                                    @if (j < teeAssignInfos.Count)
+                                                                {
+                                                                    var teeAssignInfo = teeAssignInfos[j];
+                                                    @if (teeAssignInfo != null && teeAssignInfo.TeeAsign != null
+                                                                      && teeAssignInfo.TeeAsign.MemberId > 0)
                                                                     {
-                                                                        var teeAssignInfo = teeAssignInfos[j];
-                                                                        @if (teeAssignInfo != null && teeAssignInfo.TeeAsign != null
-                                                                           && teeAssignInfo.TeeAsign.MemberId > 0)
+                                                    <span id="g@(group)p@(j % 4 + 1)" value="@teeAssignInfo.Member.MemberId"></span>
+                                                    @if (gOfMFound == "N" &&
+                                                                          Model.User.MemberId == teeAssignInfo.Member.MemberId)
                                                                         {
-                                                                            <span id="g@(group)p@(j % 4 + 1)" value="@teeAssignInfo.Member.MemberId"></span>
-                                                                            @if (gOfMFound == "N" &&
-                                                                               Model.User.MemberId == teeAssignInfo.Member.MemberId)
-                                                                            {
-                                                                                <span id="pOfM" value="@(j % 4 + 1)"></span>
-                                                                                <span id="gOfM" value="@group"></span>
-                                                                                gOfMFound = "Y";
-                                                                            }
-                                                                            @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
-                                                                            {
-                                                                                <td class="col-7 p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                    @teeAssignInfo.TeeAsign.GuestName
-                                                                                </td>
+                                                    <span id="pOfM" value="@(j % 4 + 1)"></span>
+                                                    <span id="gOfM" value="@group"></span>
+                                                                            gOfMFound = "Y";
+                                                                        }
+                                                    @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
+                                                                        {
+                                                    <td class="col-7 @(teamColor) p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                        @teeAssignInfo.TeeAsign.GuestName
+                                                    </td>
 
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <td class="col-7 p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                    @*<small>*@
-                                                                                    @teeAssignInfo.Member.FirstName
-                                                                                    @teeAssignInfo.Member.LastName
-                                                                                    @*</small>*@
-                                                                                </td>
-                                                                                @if (teeAssignInfo.Member.CurrHandicap > 0)
-                                                                                {
-                                                                                    <td class="col px-0 text-center">
-
-                                                                                        <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                            <label>@teeAssignInfo.Member.CurrHandicap</label>
-                                                                                        </span>
-                                                                                        <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
-                                                                                            <btn sGroup="@(group)" sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
-                                                                                            <btn sGroup="@(group)" sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
-                                                                                        </span>
-
-                                                                                    </td>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    <td class="col px-0 text-center">
-                                                                                        <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                            <label>(NH)</label>
-                                                                                        </span>
-                                                                                        <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
-                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
-                                                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
-                                                                                        </span>
-                                                                                    </td>
-                                                                                }
-                                                                            }
                                                                         }
                                                                         else
                                                                         {
-                                                                            <td class="col-7 p@(j % 4 + 1)-player text-muted text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                UnAssigned
-                                                                            </td>
-                                                                            <td class="col px-0 text-center">
-                                                                                <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                    <label>&nbsp;</label>
-                                                                                </span>
-                                                                                <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
-                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
-                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
-                                                                                </span>
-                                                                            </td>
+                                                    <td class="col-7 @(teamColor) p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                        @*<small>*@
+                                                        @teeAssignInfo.Member.FirstName
+                                                        @teeAssignInfo.Member.LastName
+                                                        @*</small>*@
+                                                    </td>
+                                                    @if (teeAssignInfo.Member.CurrHandicap > 0)
+                                                                            {
+                                                    <td class="col px-0 text-center">
+
+                                                        <span style="display:block" id="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                            @if (Model.Tour.ScorerType.ToString().Contains("Ryder"))
+                                                                                        {
+                                                                                            float HcpAllowPct = 100.0F;
+                                                                                            float MultiAdj = 0.0F;
+                                                                                            // HcpAllowPct = Model.Tour.HcpAllowPct;
+                                                                                            float cHcpT = (teeAssignInfo.Member.CurrHandicap * Model.BaseCourseDetail.Slope / 113 - MultiAdj) * (HcpAllowPct / 100);
+                                                                                            int cHcp = (int)Math.Round(cHcpT);
+                                                                                            
+                                                                                            <label id="cHcp-g@(group)p@(j % 4+ 1)">@cHcp</label>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <label>@teeAssignInfo.Member.CurrHandicap</label>
+                                                                                        }
+                                                        </span>
+                                                        <span style="display:none" id="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
+                                                            <btn sGroup="@(group)" sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                            <btn sGroup="@(group)" sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                        </span>
+
+                                                    </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                    <td class="col px-0 text-center">
+                                                        <span style="display:block" id="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                            <label>(NH)</label>
+                                                        </span>
+                                                        <span style="display:none" id="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
+                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                        </span>
+                                                    </td>
+                                                                            }
                                                                         }
                                                                     }
                                                                     else
                                                                     {
-                                                                        <td class="col-7 px-0 text-muted text-left">Unassigned</td>
-                                                                        <td class="col px-0 text-center">
-                                                                                <span style="display:block" id ="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
-                                                                                    <label>&nbsp;</label>
-                                                                                </span>
-                                                                                <span style="display:none" id ="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
-                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
-                                                                                    <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
-                                                                                </span>
-                                                                        </td>
+                                                    <td class="col-7 p@(j % 4 + 1)-player text-muted text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                        UnAssigned
+                                                    </td>
+                                                    <td class="col px-0 text-center">
+                                                        <span style="display:block" id="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                            <label>&nbsp;</label>
+                                                        </span>
+                                                        <span style="display:none" id="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
+                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                        </span>
+                                                    </td>
                                                                     }
+                                                                }
+                                                                else
+                                                                {
+                                                    <td class="col-7 px-0 text-muted text-left">Unassigned</td>
+                                                    <td class="col px-0 text-center">
+                                                        <span style="display:block" id="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                            <label>&nbsp;</label>
+                                                        </span>
+                                                        <span style="display:none" id="g@(group)p@(j % 4 + 1)-move" class="p@(j % 4 + 1)-move">
+                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Up mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-up"></i></btn>
+                                                            <btn sPlayer="@(j % 4 + 1)" class="move-Down mx-0 mt-1 btn btn-sm btn-secondary"><i class="fa fa-angle-double-down"></i></btn>
+                                                        </span>
+                                                    </td>
+                                                                }
 
-                                                                </tr>
-                                                            }
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </tr>
+                                                        }
+           
+                                            </tbody>
+                                        </table>
+                                    </div>
                                         }
                                     }
 
 
                                 </div>
+                                <div>
+                                    <label id="handicapMsg" class="d-block text-info text center mt-0 pr-1">
+                                        Blue is playing even with Red
+                                    </label>
+                                </div>
                             </div>
                         </section>
-                        <section class="row d-flex justify-content-end">
-                            <label id="selPlayerMsg" class="d-block text-info text center mt-0 pr-1"><small>Select player to move scorecard position</small></label>
-                        </section>
-                        <section class="row mt-1">
-                            
-                            <div class="w-100">
-                                <button type="submit" formaction=@Url.Action("Score","Live") ) class="col py-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
-                            </div>
-                        </section>
-                       
+                        @if (!Model.Tour.ScorerType.ToString().Contains("Ryder"))
+                        {
+                            <section class="row d-flex justify-content-end">
+                                <label id="selPlayerMsg" class="d-block text-info text center mt-0 pr-1"><small>Select player to move scorecard position</small></label>
+                            </section>
+                            <section class="row mt-1">
+                                <div class="w-100">
+                                    <button type="submit" formaction=@Url.Action("Score", "Live") ) class="col py-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
+                                </div>
+                            </section>
+                        }
+                        else
+                        {
+                            <section class="row mt-1">
+                                <div class="w-100">
+                                    <button type="submit" formaction=@Url.Action("RyderCup", "Live") ) class="col py-3 mt-0 d-block bg-primary text-light rounded">Select this Group and Score it Live</button>
+                                </div>
+                            </section>
+                        }
+
 
                     }
 
@@ -241,10 +286,13 @@
             <input type="text" id="sMemberId2" name="sMemberId2" hidden />
             <input type="text" id="sMemberId3" name="sMemberId3" hidden />
             <input type="text" id="sMemberId4" name="sMemberId4" hidden />
-            <input type-"text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
-            <input type-"text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
-            <input type-"text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
-            <input type-"text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+            <input type="text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
+            <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
+            <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
+            <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+            <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+            <input type="text" id="cHcpDiff" name="cHcpDiff" hidden />
+            <input type="text" id="hcpAllowPct" value="@Model.Tour.HcpAllowPct" hidden/>
         </section>
         </form>
     </section>
@@ -374,10 +422,45 @@
             if (sMemberId4 != "undefined") {
                 $("#sMemberId4").val(sMemberId4);
             }
+
+            var cHcp1 = $("#cHcp-g" + tGroup + "p1").text();
+            var cHcp2 = $("#cHcp-g" + tGroup + "p2").text();
+            var cHcp3 = $("#cHcp-g" + tGroup + "p3").text();
+            var cHcp4 = $("#cHcp-g" + tGroup + "p4").text();
+            var hcpAllowPct = parseInt($("#hcpAllowPct").val());
+            if (cHcp1 != "undefined" && cHcp1 > ""
+                && cHcp2 != "undefined" && cHcp2 > "" 
+                && cHcp3 != "undefined" && cHcp3 > ""
+                && cHcp4 != "undefined" && cHcp4 > "")
+            {
+                //console.info("cHcp1=" + cHcp1 + " ,cHcp2=" + cHcp2 + " ,cHcp3=" + cHcp3 + ", cHcp4=" + cHcp4);
+                var blueHcp = parseInt(cHcp1) + parseInt(cHcp2);
+                var redHcp = parseInt(cHcp3) + parseInt(cHcp4);
+                var handicapMsg = "Blue and Red are playing even";
+                var diffHcp = Math.round(Math.abs(blueHcp - redHcp) * hcpAllowPct / 100);
+
+                console.info("diffHcp=" + diffHcp);
+                if (blueHcp != redHcp) {
+                    if (blueHcp > redHcp) {
+                        handicapMsg = "Blue gets " + diffHcp + " stroke(s) from Red";
+                    }
+                    else {
+                        handicapMsg = "Red gets " + diffHcp + " stroke(s) from Blue";
+                        diffHcp = -diffHcp;
+                    }
+                    
+                }
+                console.info("Setting handicapMsg=" + handicapMsg, ", cHcpDiff="+diffHcp);
+                $("#handicapMsg").text(handicapMsg);
+                $("#cHcpDiff").val(diffHcp);
+
+
+            }
+
             var gOfM = $("#gOfM").attr("value");
             if (gOfM == "undefined" || gOfM == "" || gOfM != tGroup) {
                 $("#selPlayerMsg").addClass("invisible");
-                $("#selPlayerMsg").removeClassClass("visible");
+                $("#selPlayerMsg").removeClass("visible");
             }
             else {
                 $("#selPlayerMsg").addClass("visible");

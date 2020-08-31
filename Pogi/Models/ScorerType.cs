@@ -8,6 +8,7 @@ namespace Pogi.Models
     public enum ScorerType
     {
         Regular,
+        RyderCup,
         MiniTour,
         StrokePlay,
         PogiOfYear

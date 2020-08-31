@@ -16,9 +16,12 @@ namespace Pogi.Models.LiveViewModels
         public List<SelectListItem> Tours { get; set; }
         public List<SelectListItem> TourDates { get; set; }
         public TeeTimeInfo TeeTimeInfo { get; set; }
+        public Course Course { get; set; }
+        public CourseDetail BaseCourseDetail { get; set; }
         public Member User { get; set; }
         public string Search { get; set; }
         public string TourId { get; set; }
         public string TourDate { get; set; }
+        public Tour Tour { get; set; }
     }
 }

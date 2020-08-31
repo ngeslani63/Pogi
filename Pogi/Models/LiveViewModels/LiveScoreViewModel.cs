@@ -15,6 +15,7 @@ namespace Pogi.Models.LiveViewModels
             Colors = new List<SelectListItem>();
             Players = new List<Member>();
             Scores = new List<Score>();
+            int[] CHcps = new [] { -1, -1, -1, 1 };
         }
         public Member User { get; set; }
         public Tour Tour { get; set; }
@@ -23,6 +24,7 @@ namespace Pogi.Models.LiveViewModels
         public List<SelectListItem> Colors { get; set; }
         public List<Score> Scores { get; set; }
         public List<Member> Players { get; set; }
+        public int[] CHcps { get; set; }
         public string currPlayer { get; set; }
         public string nextHole { get; set; }
 

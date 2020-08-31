@@ -690,11 +690,12 @@ namespace Pogi.Controllers
             var model = new LiveSelectViewModel();
             if (TourDate != null)
             {
-                TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate).Date);
-                if (teeTime != null)
+                TeeTime TeeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate).Date);
+                if (TeeTime != null)
                 {
-                    model.TeeTimeInfo = _teeTimeInfo.getTeeTimeInfo(teeTime);
+                    model.TeeTimeInfo = _teeTimeInfo.getTeeTimeInfo(TeeTime);
                 }
+                model.Tour = _tourInfo.getTour(int.Parse(TourId));
                 model.TourId = TourId;
                 model.TourDate = TourDate;
             }
@@ -708,6 +709,12 @@ namespace Pogi.Controllers
             {
                 model.TourDates = _tourDayInfo.getSelectList(int.Parse(model.TourId));
             }
+
+            TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate,
+                CultureInfo.CurrentCulture));
+            model.Course = _courseData.get(teeTime.CourseId);
+            model.BaseCourseDetail = _courseDetail.get(model.Course.CourseId, model.Tour.BaseColor.ToString());
+
             string userName = "";
             if (_signInManager.IsSignedIn(User))
             {
@@ -903,7 +910,195 @@ namespace Pogi.Controllers
             return View(model);
         }
 
-     
+        public IActionResult RyderCup(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
+            string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4, string cHcpDiff,
+            int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
+        {
+            ViewBag.TourId = TourId;
+            ViewBag.TourDate = TourDate;
+            ViewBag.memberId = memberId;
+            ViewBag.tGroup = tGroup;
+            ViewBag.pGroup = pGroup;
+            ViewBag.sMemberId1 = sMemberId1;
+            ViewBag.sMemberId2 = sMemberId2;
+            ViewBag.sMemberId3 = sMemberId3;
+            ViewBag.sMemberId4 = sMemberId4;
+            ViewBag.cHcpDiff = cHcpDiff;
+            ViewBag.posP1 = posP1;
+            ViewBag.posP2 = posP2;
+            ViewBag.posP3 = posP3;
+            ViewBag.posP4 = posP4;
+
+            //Boolean redirect = false;
+            Tour tour = null;
+            if (TourId == null || TourId.Length == 0)
+            {
+                TourId = _session.GetString("TourIdRyderCup");
+                if (TourId == null || TourId.Length == 0)
+                {
+                    tour = _tourInfo.getLatestTour();
+                    if (tour != null)
+                    {
+                        TourId = tour.TourId.ToString();
+                        //redirect = true;
+                    }
+                    else
+                    {
+                        TourId = "1";
+                    }
+                    tour = _tourInfo.getTour(int.Parse(TourId));
+                    _session.SetString("TourIdRyderCup", TourId);
+                }
+                else
+                {
+                    tour = _tourInfo.getTour(int.Parse(TourId));
+                    //redirect = true;
+                }
+            }
+            else
+            {
+                tour = _tourInfo.getTour(int.Parse(TourId));
+                string prevTourId = _session.GetString("TourIdRyderCup");
+                if (prevTourId != null && TourId != prevTourId)
+                {
+                    TourDate = "";
+                    _session.Remove("TourDateRyderCup");
+                }
+                _session.SetString("TourIdRyderCup", TourId);
+            }
+            if (TourDate == null || TourDate.Length == 0)
+            {
+                TourDate = _session.GetString("TourDateRyderCup");
+                if (TourDate == null || TourDate.Length == 0)
+                {
+                    if (tour != null)
+                    {
+                        if (tour.TourType == TourType.SingleDay)
+                        {
+                            TourDate = tour.TourDate.ToShortDateString();
+                            //redirect = true;
+                        }
+                        else
+                        {
+                            TourDay tourDay = _tourDayInfo.GetLatestTourDay(tour.TourId);
+                            if (tourDay != null)
+                            {
+                                TourDate = tourDay.TourDate.ToShortDateString();
+                                //redirect = true;
+                            }
+                            else
+                            {
+                                TourDate = "";
+                            }
+                        }
+                    }
+                    _session.SetString("TourDateRyderCup", TourDate);
+                }
+                else
+                {
+                    //redirect = true;
+                }
+            }
+            else
+            {
+                _session.SetString("TourDateRyderCup", TourDate);
+            }
+            if (tour == null)
+            {
+                return RedirectToAction("RyderCup", "Live");
+            }
+            int currPlayer = 1;
+            string[] sPlayer = { sMemberId1, sMemberId2, sMemberId3, sMemberId4 };
+            int[] player = { 0, 0, 0, 0 };
+            int pCnt = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                try
+                {
+                    if (sPlayer[i] != null)
+                    {
+                        int mId = int.Parse(sPlayer[i]);
+                        if (mId > 0)
+                        {
+                            pCnt++;
+                            player[pCnt - 1] = mId;
+
+                            if (tPlayer != null)
+                            {
+                                if ((int.Parse(tPlayer) - 1) == i)
+                                {
+                                    currPlayer = pCnt;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    throw ex;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            if (currPlayer == 1) currPlayer = 2;
+            else currPlayer = 4;
+            if (pCnt == 0)
+            {
+                return RedirectToAction("RyderCup", "Live");
+            }
+            var model = new LiveScoreViewModel();
+            model.Tour = tour;
+            TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate,
+                CultureInfo.CurrentCulture));
+            model.Course = _courseData.get(teeTime.CourseId);
+            Member user = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+            model.currPlayer = currPlayer.ToString();
+
+            for (int i = 0; i < pCnt; i++)
+            {
+                Member member = _memberData.get(player[i]);
+
+                model.Players.Add(member);
+                Score score = PrimeScore(DateTime.Parse(TourDate, CultureInfo.CurrentCulture),
+                               member, model.Course, tour, user);
+                model.Scores.Add(score);
+            }
+
+            model.nextHole = "1";
+            Score sc = model.Scores[currPlayer - 1];
+            if (sc != null)
+            {
+                if (sc.Hole18 == 0) model.nextHole = "18";
+                if (sc.Hole17 == 0) model.nextHole = "17";
+                if (sc.Hole16 == 0) model.nextHole = "16";
+                if (sc.Hole15 == 0) model.nextHole = "15";
+                if (sc.Hole14 == 0) model.nextHole = "14";
+                if (sc.Hole13 == 0) model.nextHole = "13";
+                if (sc.Hole12 == 0) model.nextHole = "12";
+                if (sc.Hole11 == 0) model.nextHole = "11";
+                if (sc.Hole10 == 0) model.nextHole = "10";
+                if (sc.Hole09 == 0) model.nextHole = "9";
+                if (sc.Hole08 == 0) model.nextHole = "8";
+                if (sc.Hole07 == 0) model.nextHole = "7";
+                if (sc.Hole06 == 0) model.nextHole = "6";
+                if (sc.Hole05 == 0) model.nextHole = "5";
+                if (sc.Hole04 == 0) model.nextHole = "4";
+                if (sc.Hole03 == 0) model.nextHole = "3";
+                if (sc.Hole02 == 0) model.nextHole = "2";
+                if (sc.Hole01 == 0) model.nextHole = "1";
+            }
+
+            string userName = "";
+            if (_signInManager.IsSignedIn(User))
+            {
+                model.User = _memberData.getByEmailAddr(_userManager.GetUserName(User));
+                if (model.User != null) userName = model.User.EmailAddr1st;
+            }
+            _activity.logActivity(userName, "Live RyderCup");
+            return View(model);
+        }
         private Score PrimeScore(DateTime scoreDate, Member member,
             Course course, Tour tour, Member user)
         {
