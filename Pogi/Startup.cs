@@ -43,6 +43,7 @@ namespace Pogi
         {
             services.AddScoped<ICourseData, SqlCourseData>();
             services.AddScoped<ICourseDetail, SqlCourseDetail>();
+            services.AddScoped<ICourseHandicap, SqlCourseHandicap>();
             services.AddScoped<ITeeTimeInfo, SqlTeeTimeInfo>();
             services.AddScoped<IPlayerInfo, SqlPlayerInfo>();
             services.AddScoped<ITeeAssignInfo, SqlTeeAssignInfo>();

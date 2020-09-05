@@ -7,17 +7,33 @@
     var pMessage = "";
     var postMessage = "Press gray btn to refresh scores from group";
     var handicapMessage = "Blue is playing even with Red";
+    var strokesMessage = " stroke";
+    var holesMessage = " in Hole";
     var diffHcp = Int32.Parse(ViewBag.cHcpDiff);
+    var diffHcpAbs = Math.Abs(diffHcp);
+    if (diffHcpAbs > 1) {
+        strokesMessage = " strokes";
+        holesMessage = " in Holes";
+    }
     if (diffHcp != 0) {
-                    if (diffHcp > 0) {
-                        handicapMessage = "Blue gets " + diffHcp + " stroke(s) from Red";
-                    }
-                    else {
-                        var diffHcpAbs = -diffHcp;
-                        handicapMessage = "Red gets " + diffHcpAbs + " stroke(s) from Blue";
-                    }
-                }
-    
+        if (diffHcp > 0) {
+            handicapMessage = "Blue gets " + diffHcp + strokesMessage;
+        }
+        else {
+            handicapMessage = "Red gets " + diffHcpAbs + strokesMessage;
+        }
+    }
+    var holesMesssage = "";
+    if (diffHcpAbs > 0)
+    {
+        for (int i = 0; i < diffHcpAbs; i++)
+        {
+            holesMessage = holesMessage + " #" + Model.rankedHoles[i];
+        }
+        handicapMessage = handicapMessage + holesMessage;
+    }
+
+
     if (@ViewBag.pGroup != @ViewBag.tGroup)
     {
         sProtect = "disabled";
@@ -226,8 +242,8 @@
             }
         }
     </section>
-    <section class="row align-items-center">
-        <div id="inh-plyr" class="col-1 text-center text-light bg-dark border border-light px-0">Plyr</div>
+    <section class="row align-items-center mt-1">
+        <div id="inh-plyr" class="col-1 text-center text-light bg-dark border border-light px-0">Hole</div>
         <div id="inh-1" class="inh col-1 text-center text-light bg-dark border border-light px-0">10</div>
         <div id="inh-2" class="inh col-1 text-center text-light bg-dark border border-light px-0">11</div>
         <div id="inh-3" class="inh col-1 text-center text-light bg-dark border border-light px-0">12</div>
@@ -363,43 +379,61 @@
 
     </section>
 
-    <section>
+<section>
 
-        <input type="text" id="par1" value="@Model.Course.Par01" hidden />
-        <input type="text" id="par2" value="@Model.Course.Par02" hidden />
-        <input type="text" id="par3" value="@Model.Course.Par03" hidden />
-        <input type="text" id="par4" value="@Model.Course.Par04" hidden />
-        <input type="text" id="par5" value="@Model.Course.Par05" hidden />
-        <input type="text" id="par6" value="@Model.Course.Par06" hidden />
-        <input type="text" id="par7" value="@Model.Course.Par07" hidden />
-        <input type="text" id="par8" value="@Model.Course.Par08" hidden />
-        <input type="text" id="par9" value="@Model.Course.Par09" hidden />
-        <input type="text" id="par10" value="@Model.Course.Par10" hidden />
-        <input type="text" id="par11" value="@Model.Course.Par11" hidden />
-        <input type="text" id="par12" value="@Model.Course.Par12" hidden />
-        <input type="text" id="par13" value="@Model.Course.Par13" hidden />
-        <input type="text" id="par14" value="@Model.Course.Par14" hidden />
-        <input type="text" id="par15" value="@Model.Course.Par15" hidden />
-        <input type="text" id="par16" value="@Model.Course.Par16" hidden />
-        <input type="text" id="par17" value="@Model.Course.Par17" hidden />
-        <input type="text" id="par18" value="@Model.Course.Par18" hidden />
-        <input type="text" id="pCnt" value="@Model.Scores.Count" hidden />
-        <input type="text" id="tPlayer" name="tPlayer" value="@Model.currPlayer" hidden />
-        <input type="text" id="tHole" name="tHole" value="@Model.nextHole" hidden />
-        <input type="text" id="chgs1" value="N" hidden />
-        <input type="text" id="chgs2" value="N" hidden />
-        <input type="text" id="chgs3" value="N" hidden />
-        <input type="text" id="chgs4" value="N" hidden />
-        @for (int pp = 0; pp < @Model.Scores.Count; pp++)
+    <input type="text" id="par1" value="@Model.Course.Par01" hidden />
+    <input type="text" id="par2" value="@Model.Course.Par02" hidden />
+    <input type="text" id="par3" value="@Model.Course.Par03" hidden />
+    <input type="text" id="par4" value="@Model.Course.Par04" hidden />
+    <input type="text" id="par5" value="@Model.Course.Par05" hidden />
+    <input type="text" id="par6" value="@Model.Course.Par06" hidden />
+    <input type="text" id="par7" value="@Model.Course.Par07" hidden />
+    <input type="text" id="par8" value="@Model.Course.Par08" hidden />
+    <input type="text" id="par9" value="@Model.Course.Par09" hidden />
+    <input type="text" id="par10" value="@Model.Course.Par10" hidden />
+    <input type="text" id="par11" value="@Model.Course.Par11" hidden />
+    <input type="text" id="par12" value="@Model.Course.Par12" hidden />
+    <input type="text" id="par13" value="@Model.Course.Par13" hidden />
+    <input type="text" id="par14" value="@Model.Course.Par14" hidden />
+    <input type="text" id="par15" value="@Model.Course.Par15" hidden />
+    <input type="text" id="par16" value="@Model.Course.Par16" hidden />
+    <input type="text" id="par17" value="@Model.Course.Par17" hidden />
+    <input type="text" id="par18" value="@Model.Course.Par18" hidden />
+    <input type="text" id="pCnt" value="@Model.Scores.Count" hidden />
+    <input type="text" id="tPlayer" name="tPlayer" value="@Model.currPlayer" hidden />
+    <input type="text" id="tHole" name="tHole" value="@Model.nextHole" hidden />
+    <input type="text" id="chgs1" value="N" hidden />
+    <input type="text" id="chgs2" value="N" hidden />
+    <input type="text" id="chgs3" value="N" hidden />
+    <input type="text" id="chgs4" value="N" hidden />
+    @for (int pp = 0; pp < @Model.Scores.Count; pp++)
     {
         <input type="text" id="sId@(pp+1)" value="@Model.Scores[pp].ScoreId" hidden />
     }
-        <input type="text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
-        <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
-        <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
-        <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+    <input type="text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
+    <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
+    <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
+    <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+    <input type="text" id="rH1" name="rH1" value="@ViewBag.rH1" hidden />
+    <input type="text" id="rH2" name="rH2" value="@ViewBag.rH2" hidden />
+    <input type="text" id="rH3" name="rH3" value="@ViewBag.rH3" hidden />
+    <input type="text" id="rH4" name="rH4" value="@ViewBag.rH4" hidden />
+    <input type="text" id="rH5" name="rH5" value="@ViewBag.rH5" hidden />
+    <input type="text" id="rH6" name="rH6" value="@ViewBag.rH6" hidden />
+    <input type="text" id="rH7" name="rH7" value="@ViewBag.rH7" hidden />
+    <input type="text" id="rH8" name="rH8" value="@ViewBag.rH8" hidden />
+    <input type="text" id="rH9" name="rH9" value="@ViewBag.rH9" hidden />
+    <input type="text" id="rH10" name="rH10" value="@ViewBag.rH10" hidden />
+    <input type="text" id="rH11" name="rH11" value="@ViewBag.rH11" hidden />
+    <input type="text" id="rH12" name="rH12" value="@ViewBag.rH12" hidden />
+    <input type="text" id="rH13" name="rH13" value="@ViewBag.rH13" hidden />
+    <input type="text" id="rH14" name="rH14" value="@ViewBag.rH14" hidden />
+    <input type="text" id="rH15" name="rH15" value="@ViewBag.rH15" hidden />
+    <input type="text" id="rH16" name="rH16" value="@ViewBag.rH16" hidden />
+    <input type="text" id="rH17" name="rH17" value="@ViewBag.rH17" hidden />
+    <input type="text" id="rH18" name="rH18" value="@ViewBag.rH18" hidden />
 
-    </section>
+</section>
 
     @section Scripts {
 

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +22,7 @@ namespace Pogi.Controllers
         private readonly IMemberData _memberData;
         private readonly ICourseData _courseData;
         private readonly ICourseDetail _courseDetail;
+        private readonly ICourseHandicap _courseHandicap;
         private readonly IHandicap _handicap;
         private readonly ICourseMap _courseMap;
         private readonly ITourInfo _tourInfo;
@@ -39,6 +37,7 @@ namespace Pogi.Controllers
              SignInManager<ApplicationUser> signInManager,
                 UserManager<ApplicationUser> userManager, IMemberData memberData, ICourseData courseData,
                 ICourseDetail courseDetail,
+                ICourseHandicap courseHandicap,
                 IHandicap handicap,
                 ICourseMap courseMap,
                 ITourInfo tourInfo,
@@ -55,6 +54,7 @@ namespace Pogi.Controllers
             _memberData = memberData;
             _courseData = courseData;
             _courseDetail = courseDetail;
+            _courseHandicap = courseHandicap;
             _handicap = handicap;
             _courseMap = courseMap;
             _tourInfo = tourInfo;
@@ -713,7 +713,36 @@ namespace Pogi.Controllers
             TeeTime teeTime = _teeTimeInfo.GetMajorTeeTime(DateTime.Parse(TourDate,
                 CultureInfo.CurrentCulture));
             model.Course = _courseData.get(teeTime.CourseId);
+            CourseHandicap courseHandicap = _courseHandicap.get(teeTime.CourseId);
             model.BaseCourseDetail = _courseDetail.get(model.Course.CourseId, model.Tour.BaseColor.ToString());
+
+            if (model.Tour.ScorerType.ToString().Contains("Ryder"))
+            {
+                int[] cHcps = new int[18];
+                cHcps[0] = courseHandicap.MenHcp01;
+                cHcps[1] = courseHandicap.MenHcp02;
+                cHcps[2] = courseHandicap.MenHcp03;
+                cHcps[3] = courseHandicap.MenHcp04;
+                cHcps[4] = courseHandicap.MenHcp05;
+                cHcps[5] = courseHandicap.MenHcp06;
+                cHcps[6] = courseHandicap.MenHcp07;
+                cHcps[7] = courseHandicap.MenHcp08;
+                cHcps[8] = courseHandicap.MenHcp09;
+                cHcps[9] = courseHandicap.MenHcp10;
+                cHcps[10] = courseHandicap.MenHcp11;
+                cHcps[11] = courseHandicap.MenHcp12;
+                cHcps[12] = courseHandicap.MenHcp13;
+                cHcps[13] = courseHandicap.MenHcp14;
+                cHcps[14] = courseHandicap.MenHcp15;
+                cHcps[15] = courseHandicap.MenHcp16;
+                cHcps[16] = courseHandicap.MenHcp17;
+                cHcps[17] = courseHandicap.MenHcp18;
+                model.rankedHoles = new int[18];
+                for (int i = 0; i < 18; i++)
+                {
+                    pushCHcps(model.rankedHoles, cHcps, i);
+                }
+            }
 
             string userName = "";
             if (_signInManager.IsSignedIn(User))
@@ -724,9 +753,13 @@ namespace Pogi.Controllers
             _activity.logActivity(userName, "Live Select Group");
             return View(model);
         }
+        private void pushCHcps(int[] rankedHoles, int[] cHcps, int i)
+        {
+            rankedHoles[cHcps[i] - 1] = i+1;     // Hole 06 = Hcp 01  cHcp(05) = 1
+        }
         public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
-            int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
+              int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
@@ -912,6 +945,8 @@ namespace Pogi.Controllers
 
         public IActionResult RyderCup(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4, string cHcpDiff,
+            string rH1, string rH2, string rH3, string rH4, string rH5, string rH6, string rH7, string rH8, string rH9,
+            string rH10, string rH11, string rH12, string rH13, string rH14, string rH15, string rH16, string rH17, string rH18,
             int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
@@ -924,6 +959,24 @@ namespace Pogi.Controllers
             ViewBag.sMemberId3 = sMemberId3;
             ViewBag.sMemberId4 = sMemberId4;
             ViewBag.cHcpDiff = cHcpDiff;
+            ViewBag.rH1 = rH1;
+            ViewBag.rH2 = rH2;
+            ViewBag.rH3 = rH3;
+            ViewBag.rH4 = rH4;
+            ViewBag.rH5 = rH5;
+            ViewBag.rH6 = rH6;
+            ViewBag.rH7 = rH7;
+            ViewBag.rH8 = rH8;
+            ViewBag.rH9 = rH9;
+            ViewBag.rH10 = rH10;
+            ViewBag.rH11 = rH11;
+            ViewBag.rH12 = rH12;
+            ViewBag.rH13 = rH13;
+            ViewBag.rH14 = rH14;
+            ViewBag.rH15 = rH15;
+            ViewBag.rH16 = rH16;
+            ViewBag.rH17 = rH17;
+            ViewBag.rH18 = rH18;
             ViewBag.posP1 = posP1;
             ViewBag.posP2 = posP2;
             ViewBag.posP3 = posP3;
@@ -1089,6 +1142,27 @@ namespace Pogi.Controllers
                 if (sc.Hole02 == 0) model.nextHole = "2";
                 if (sc.Hole01 == 0) model.nextHole = "1";
             }
+
+
+            model.rankedHoles = new int[18];
+            model.rankedHoles[0] = Int32.Parse(rH1);
+            model.rankedHoles[1] = Int32.Parse(rH2);
+            model.rankedHoles[2] = Int32.Parse(rH3);
+            model.rankedHoles[3] = Int32.Parse(rH4);
+            model.rankedHoles[4] = Int32.Parse(rH5);
+            model.rankedHoles[5] = Int32.Parse(rH6);
+            model.rankedHoles[6] = Int32.Parse(rH7);
+            model.rankedHoles[7] = Int32.Parse(rH8);
+            model.rankedHoles[8] = Int32.Parse(rH9);
+            model.rankedHoles[9] = Int32.Parse(rH10);
+            model.rankedHoles[10] = Int32.Parse(rH11);
+            model.rankedHoles[11] = Int32.Parse(rH12);
+            model.rankedHoles[12] = Int32.Parse(rH13);
+            model.rankedHoles[13] = Int32.Parse(rH14);
+            model.rankedHoles[14] = Int32.Parse(rH15);
+            model.rankedHoles[15] = Int32.Parse(rH16);
+            model.rankedHoles[16] = Int32.Parse(rH17);
+            model.rankedHoles[17] = Int32.Parse(rH18);
 
             string userName = "";
             if (_signInManager.IsSignedIn(User))
