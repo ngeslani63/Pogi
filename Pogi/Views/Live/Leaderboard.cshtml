@@ -19,8 +19,8 @@
         <ul class="nav col-9 row justify-content-start">
             <li class="nav-item mx-0">
                 <a class="nav-link active" asp-controller="Live" asp-action="Score"
-                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate" asp-route-tPlayer="@ViewBag.tPlayer"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
@@ -31,6 +31,10 @@
             </li>
             <li class="nav-item mx-0">
                 <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup" asp-route-tPlayer="@ViewBag.tPlayer"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
                    asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Groups</a>
             </li>

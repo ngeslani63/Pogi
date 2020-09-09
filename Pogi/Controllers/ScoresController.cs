@@ -140,7 +140,10 @@ namespace Pogi.Controllers
                 Score.HoleOut = model.HoleOut;
                 Score.HoleTotal = model.HoleTotal;
                 Score.Round = model.Round;
-                
+                Score.MatchGrp = model.MatchGrp;
+                Score.MatchPlayerNum = model.MatchPlayerNum;
+                Score.MatchPoints = model.MatchPoints;
+                                
                 int holesPlayed = 0;
                 if (Score.Hole01 > 0) holesPlayed++;
                 if (Score.Hole02 > 0) holesPlayed++;

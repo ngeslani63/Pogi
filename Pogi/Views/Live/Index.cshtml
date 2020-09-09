@@ -284,7 +284,8 @@
         <section>
             <input type="text" id="tGroup" name="tGroup" hidden />
             <input type="text" id="pGroup" name="pGroup" hidden />
-            <input type="text" id="tPlayer" name="tPlayer" hidden />
+            <input type="text" id="tPlayer" name="tPlayer" value="@ViewBag.tPlayer" hidden />
+            <input type="text" id="tHole" name="tHole" value="@ViewBag.tHole" hidden />
             <input type="text" id="sMemberId1" name="sMemberId1" hidden />
             <input type="text" id="sMemberId2" name="sMemberId2" hidden />
             <input type="text" id="sMemberId3" name="sMemberId3" hidden />
@@ -293,30 +294,30 @@
             <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
             <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
             <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
-            <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+
 
             @if (Model.Tour.ScorerType.ToString().Contains("Ryder"))
             {
-            <input type="text" id="cHcpDiff" name="cHcpDiff" hidden />
-            <input type="text" id="hcpAllowPct" value="@Model.Tour.HcpAllowPct" hidden />
-            <input type="text" id="rH1" name="rH1" value="@Model.rankedHoles[0]" hidden />
-            <input type="text" id="rH2" name="rH2" value="@Model.rankedHoles[1]" hidden />
-            <input type="text" id="rH3" name="rH3" value="@Model.rankedHoles[2]" hidden />
-            <input type="text" id="rH4" name="rH4" value="@Model.rankedHoles[3]" hidden />
-            <input type="text" id="rH5" name="rH5" value="@Model.rankedHoles[4]" hidden />
-            <input type="text" id="rH6" name="rH6" value="@Model.rankedHoles[5]" hidden />
-            <input type="text" id="rH7" name="rH7" value="@Model.rankedHoles[6]" hidden />
-            <input type="text" id="rH8" name="rH8" value="@Model.rankedHoles[7]" hidden />
-            <input type="text" id="rH9" name="rH9" value="@Model.rankedHoles[8]" hidden />
-            <input type="text" id="rH10" name = "rH10" value="@Model.rankedHoles[9]" hidden />
-            <input type="text" id="rH11" name = "rH11" value="@Model.rankedHoles[10]" hidden />
-            <input type="text" id="rH12" name = "rH12" value="@Model.rankedHoles[11]" hidden />
-            <input type="text" id="rH13" name = "rH13" value="@Model.rankedHoles[12]" hidden />
-            <input type="text" id="rH14" name = "rH14" value="@Model.rankedHoles[13]" hidden />
-            <input type="text" id="rH15" name = "rH15" value="@Model.rankedHoles[14]" hidden />
-            <input type="text" id="rH16" name = "rH16" value="@Model.rankedHoles[15]" hidden />
-            <input type="text" id="rH17" name = "rH17" value="@Model.rankedHoles[16]" hidden />
-            <input type="text" id="rH18" name = "rH18" value="@Model.rankedHoles[17]" hidden />
+                <input type="text" id="cHcpDiff" name="cHcpDiff" hidden />
+                <input type="text" id="hcpAllowPct" value="@Model.Tour.HcpAllowPct" hidden />
+                <input type="text" id="rH1" name="rH1" value="@Model.rankedHoles[0]" hidden />
+                <input type="text" id="rH2" name="rH2" value="@Model.rankedHoles[1]" hidden />
+                <input type="text" id="rH3" name="rH3" value="@Model.rankedHoles[2]" hidden />
+                <input type="text" id="rH4" name="rH4" value="@Model.rankedHoles[3]" hidden />
+                <input type="text" id="rH5" name="rH5" value="@Model.rankedHoles[4]" hidden />
+                <input type="text" id="rH6" name="rH6" value="@Model.rankedHoles[5]" hidden />
+                <input type="text" id="rH7" name="rH7" value="@Model.rankedHoles[6]" hidden />
+                <input type="text" id="rH8" name="rH8" value="@Model.rankedHoles[7]" hidden />
+                <input type="text" id="rH9" name="rH9" value="@Model.rankedHoles[8]" hidden />
+                <input type="text" id="rH10" name="rH10" value="@Model.rankedHoles[9]" hidden />
+                <input type="text" id="rH11" name="rH11" value="@Model.rankedHoles[10]" hidden />
+                <input type="text" id="rH12" name="rH12" value="@Model.rankedHoles[11]" hidden />
+                <input type="text" id="rH13" name="rH13" value="@Model.rankedHoles[12]" hidden />
+                <input type="text" id="rH14" name="rH14" value="@Model.rankedHoles[13]" hidden />
+                <input type="text" id="rH15" name="rH15" value="@Model.rankedHoles[14]" hidden />
+                <input type="text" id="rH16" name="rH16" value="@Model.rankedHoles[15]" hidden />
+                <input type="text" id="rH17" name="rH17" value="@Model.rankedHoles[16]" hidden />
+                <input type="text" id="rH18" name="rH18" value="@Model.rankedHoles[17]" hidden />
             }
         </section>
         </form>
@@ -548,17 +549,34 @@
             }
 
             var p = $("#tPlayer").val();
+            console.info("Live: received tPlayer=" + p)
             if (p == "") {
                 var pOfM = $("#pOfM").attr("value");
                 if (pOfM != "undefined" && pOfM > "") {
-                    //console.info("setting tPlayer to " + pOfM)
+                    console.info("Live: setting tPlayer to " + pOfM)
                     p = pOfM;
                 }
                 else {
-                    //console.info("defaulting tGroup to 1")
+                   console.info("Live: defaulting tPlayer to 1")
                     p = 1;
                 }
                 $("#tPlayer").val(p);
+
+            }
+
+            var h = $("#tHole").val();
+            console.info("Live: received tHole=" + h)
+            if (h == "") {
+                var hOfM = $("#hOfM").attr("value");
+                if (hOfM != "undefined" && hOfM > "") {
+                    console.info("Live: setting tHole to " + hOfM)
+                    h = hOfM;
+                }
+                else {
+                    console.info("Live: defaulting tHole to 1")
+                    h = 1;
+                }
+                $("#tHole").val(h);
 
             }
 

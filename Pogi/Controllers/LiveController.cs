@@ -467,15 +467,17 @@ namespace Pogi.Controllers
             _activity.logActivity(userName, "Live MapHole");
             return View(model);
         }
-        public IActionResult Leaderboard(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
+        public IActionResult Leaderboard(string TourId, string TourDate, string tGroup, string pGroup,
+            string tPlayer, string tHole,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
-            int posP1 = 1, int posP2 = 2 , int posP3 = 3, int posP4 = 4)
+              int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
-            ViewBag.memberId = memberId;
             ViewBag.tGroup = tGroup;
             ViewBag.pGroup = pGroup;
+            ViewBag.tPlayer = tPlayer;
+            ViewBag.tHole = tHole;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -591,15 +593,17 @@ namespace Pogi.Controllers
             return View(model);
         }
 
-        public IActionResult Index(string TourId, string TourDate, string memberId, string tGroup, string pGroup,
+        public IActionResult Index(string TourId, string TourDate, string tGroup, string pGroup, 
+            string tPlayer, string tHole,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
             int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
-            ViewBag.memberId = memberId;
             ViewBag.tGroup = tGroup;
             ViewBag.pGroup = pGroup;
+            ViewBag.tPlayer = tPlayer;
+            ViewBag.tHole = tHole;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -757,15 +761,17 @@ namespace Pogi.Controllers
         {
             rankedHoles[cHcps[i] - 1] = i+1;     // Hole 06 = Hcp 01  cHcp(05) = 1
         }
-        public IActionResult Score(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
+        public IActionResult Score(string TourId, string TourDate, string tGroup, string pGroup,
+            string tPlayer, string tHole,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4,
               int posP1 = 1, int posP2 = 2, int posP3 = 3, int posP4 = 4)
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
-            ViewBag.memberId = memberId;
             ViewBag.tGroup = tGroup;
             ViewBag.pGroup = pGroup;
+            ViewBag.tPlayer = tPlayer;
+            ViewBag.tHole = tHole;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -943,7 +949,8 @@ namespace Pogi.Controllers
             return View(model);
         }
 
-        public IActionResult RyderCup(string TourId, string TourDate, string memberId, string tGroup, string pGroup, string tPlayer,
+        public IActionResult RyderCup(string TourId, string TourDate, string tGroup, string pGroup, 
+            string tPlayer, string tHole,
             string sMemberId1, string sMemberId2, string sMemberId3, string sMemberId4, string cHcpDiff,
             string rH1, string rH2, string rH3, string rH4, string rH5, string rH6, string rH7, string rH8, string rH9,
             string rH10, string rH11, string rH12, string rH13, string rH14, string rH15, string rH16, string rH17, string rH18,
@@ -951,9 +958,10 @@ namespace Pogi.Controllers
         {
             ViewBag.TourId = TourId;
             ViewBag.TourDate = TourDate;
-            ViewBag.memberId = memberId;
             ViewBag.tGroup = tGroup;
             ViewBag.pGroup = pGroup;
+            ViewBag.tPlayer = tPlayer;
+            ViewBag.tHole = tHole;
             ViewBag.sMemberId1 = sMemberId1;
             ViewBag.sMemberId2 = sMemberId2;
             ViewBag.sMemberId3 = sMemberId3;
@@ -1095,7 +1103,7 @@ namespace Pogi.Controllers
                     throw ex;
                 }
             }
-            if (currPlayer == 1) currPlayer = 2;
+            if (currPlayer == 1 || currPlayer == 2) currPlayer = 2;
             else currPlayer = 4;
             if (pCnt == 0)
             {
@@ -1108,6 +1116,7 @@ namespace Pogi.Controllers
             model.Course = _courseData.get(teeTime.CourseId);
             Member user = _memberData.getByEmailAddr(_userManager.GetUserName(User));
             model.currPlayer = currPlayer.ToString();
+            CourseHandicap courseHandicap = _courseHandicap.get(teeTime.CourseId);
 
             for (int i = 0; i < pCnt; i++)
             {
@@ -1163,6 +1172,26 @@ namespace Pogi.Controllers
             model.rankedHoles[15] = Int32.Parse(rH16);
             model.rankedHoles[16] = Int32.Parse(rH17);
             model.rankedHoles[17] = Int32.Parse(rH18);
+
+
+            ViewBag.hH1 = courseHandicap.MenHcp01;
+            ViewBag.hH2 = courseHandicap.MenHcp02;
+            ViewBag.hH3 = courseHandicap.MenHcp03;
+            ViewBag.hH4 = courseHandicap.MenHcp04;
+            ViewBag.hH5 = courseHandicap.MenHcp05;
+            ViewBag.hH6 = courseHandicap.MenHcp06;
+            ViewBag.hH7 = courseHandicap.MenHcp07;
+            ViewBag.hH8 = courseHandicap.MenHcp08;
+            ViewBag.hH9 = courseHandicap.MenHcp09;
+            ViewBag.hH10 = courseHandicap.MenHcp10;
+            ViewBag.hH11 = courseHandicap.MenHcp11;
+            ViewBag.hH12 = courseHandicap.MenHcp12;
+            ViewBag.hH13 = courseHandicap.MenHcp13;
+            ViewBag.hH14 = courseHandicap.MenHcp14;
+            ViewBag.hH15 = courseHandicap.MenHcp15;
+            ViewBag.hH16 = courseHandicap.MenHcp16;
+            ViewBag.hH17 = courseHandicap.MenHcp17;
+            ViewBag.hH18 = courseHandicap.MenHcp18;
 
             string userName = "";
             if (_signInManager.IsSignedIn(User))

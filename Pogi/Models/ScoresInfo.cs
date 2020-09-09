@@ -12,6 +12,9 @@ namespace Pogi.Models
     {
         public ScoresInfo()
         {
+            MatchGrp = 0;
+            MatchPlayerNum = 0;
+            MatchPoints = 0;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -87,5 +90,8 @@ namespace Pogi.Models
         public bool TourEvent { get; set; }
         public int TourId { get; set; }
         public ScoreType ScoreType { get; set; }
+        public int MatchPoints { get; set; }
+        public int MatchGrp { get; set; }
+        public int MatchPlayerNum { get; set; }
     }
 }

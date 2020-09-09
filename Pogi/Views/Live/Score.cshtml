@@ -22,21 +22,43 @@
         <span class="col-3 px-1 mx-1 d-flex align-items-center">
             <small><strong>@Model.Tour.TourName</strong></small>
         </span>
+        <a class="nav-item px-0 mx-0">
+            <a id="leaderHref" class="nav-link " asp-controller="Live" asp-action="Leaderboard"
+               asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+               asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+               asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+               asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+               asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+               asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
+        </a>
+        <a class="nav-item px-0 mx-0">
+            <a id="groupsHref" class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+               asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+               asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+               asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+               asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+               asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+               asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
+        </a>
         <ul class="nav col-9 row justify-content-start">
             <li class="nav-item px-0 mx-0">
                 <a class="nav-link active" href="#">Score</a>
             </li>
             <li class="nav-item px-0 mx-0">
-                <a class="nav-link " asp-controller="Live" asp-action="Leaderboard"
+                <a id="leaderAnchor" class="nav-link " asp-controller="Live" asp-action="Leaderboard"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
                    asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Leaders</a>
             </li>
             <li class="nav-item px-0 mx-0">
-                <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+                <a id="groupsAnchor" class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
                    asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Groups</a>
             </li>
@@ -50,9 +72,9 @@
             </label>
         </div>
             
-         <a id="copyHref" asp-controller="Live" asp-action="MapHole"
+         <a id="mapHref" asp-controller="Live" asp-action="MapHole"
             asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-            asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+            asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
             asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
             asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
             asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
@@ -61,7 +83,7 @@
             <div class="col d-flex justify-content-center align-content-center bg-warning text-dark text-center py-1 mb-1 border">
                 <a id="mapAnchor" asp-controller="Live" asp-action="MapHole"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-                   asp-route-memberId="@ViewBag.memberId" asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
@@ -272,43 +294,45 @@
 
     </section>
 
-    <section>
+<section>
 
-        <input type="text" id="par1" value="@Model.Course.Par01" hidden />
-        <input type="text" id="par2" value="@Model.Course.Par02" hidden />
-        <input type="text" id="par3" value="@Model.Course.Par03" hidden />
-        <input type="text" id="par4" value="@Model.Course.Par04" hidden />
-        <input type="text" id="par5" value="@Model.Course.Par05" hidden />
-        <input type="text" id="par6" value="@Model.Course.Par06" hidden />
-        <input type="text" id="par7" value="@Model.Course.Par07" hidden />
-        <input type="text" id="par8" value="@Model.Course.Par08" hidden />
-        <input type="text" id="par9" value="@Model.Course.Par09" hidden />
-        <input type="text" id="par10" value="@Model.Course.Par10" hidden />
-        <input type="text" id="par11" value="@Model.Course.Par11" hidden />
-        <input type="text" id="par12" value="@Model.Course.Par12" hidden />
-        <input type="text" id="par13" value="@Model.Course.Par13" hidden />
-        <input type="text" id="par14" value="@Model.Course.Par14" hidden />
-        <input type="text" id="par15" value="@Model.Course.Par15" hidden />
-        <input type="text" id="par16" value="@Model.Course.Par16" hidden />
-        <input type="text" id="par17" value="@Model.Course.Par17" hidden />
-        <input type="text" id="par18" value="@Model.Course.Par18" hidden />
-        <input type="text" id="pCnt" value="@Model.Scores.Count" hidden />
-        <input type="text" id="tPlayer" name="tPlayer" value="@Model.currPlayer" hidden />
-        <input type="text" id="tHole" name="tHole" value="@Model.nextHole" hidden />
-        <input type="text" id="chgs1" value="N" hidden />
-        <input type="text" id="chgs2" value="N" hidden />
-        <input type="text" id="chgs3" value="N" hidden />
-        <input type="text" id="chgs4" value="N" hidden />
-        @for (int pp = 0; pp < @Model.Scores.Count; pp++)
-        {
-            <input type="text" id="sId@(pp+1)" value="@Model.Scores[pp].ScoreId" hidden />
-        }
-        <input type="text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
-        <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
-        <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
-        <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4"hidden />
+    <input type="text" id="tGroup" name="tGroup" value="@ViewBag.tGroup" hidden />
+    <input type="text" id="pGroup" name="pGroup" value="@ViewBag.pGroup" hidden />
+    <input type="text" id="tPlayer" name="tPlayer" value="@Model.currPlayer" hidden />
+    <input type="text" id="tHole" name="tHole" value="@Model.nextHole" hidden />
+    <input type="text" id="par1" value="@Model.Course.Par01" hidden />
+    <input type="text" id="par2" value="@Model.Course.Par02" hidden />
+    <input type="text" id="par3" value="@Model.Course.Par03" hidden />
+    <input type="text" id="par4" value="@Model.Course.Par04" hidden />
+    <input type="text" id="par5" value="@Model.Course.Par05" hidden />
+    <input type="text" id="par6" value="@Model.Course.Par06" hidden />
+    <input type="text" id="par7" value="@Model.Course.Par07" hidden />
+    <input type="text" id="par8" value="@Model.Course.Par08" hidden />
+    <input type="text" id="par9" value="@Model.Course.Par09" hidden />
+    <input type="text" id="par10" value="@Model.Course.Par10" hidden />
+    <input type="text" id="par11" value="@Model.Course.Par11" hidden />
+    <input type="text" id="par12" value="@Model.Course.Par12" hidden />
+    <input type="text" id="par13" value="@Model.Course.Par13" hidden />
+    <input type="text" id="par14" value="@Model.Course.Par14" hidden />
+    <input type="text" id="par15" value="@Model.Course.Par15" hidden />
+    <input type="text" id="par16" value="@Model.Course.Par16" hidden />
+    <input type="text" id="par17" value="@Model.Course.Par17" hidden />
+    <input type="text" id="par18" value="@Model.Course.Par18" hidden />
+    <input type="text" id="pCnt" value="@Model.Scores.Count" hidden />
+    <input type="text" id="chgs1" value="N" hidden />
+    <input type="text" id="chgs2" value="N" hidden />
+    <input type="text" id="chgs3" value="N" hidden />
+    <input type="text" id="chgs4" value="N" hidden />
+    @for (int pp = 0; pp < @Model.Scores.Count; pp++)
+    {
+        <input type="text" id="sId@(pp+1)" value="@Model.Scores[pp].ScoreId" hidden />
+    }
+    <input type="text" id="posP1" name="posP1" value="@ViewBag.posP1" hidden />
+    <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
+    <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
+    <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
 
-    </section>
+</section>
 
     @section Scripts {
 
@@ -775,13 +799,20 @@
                 $(getScoreId()).removeClass("bg-secondary");
                 $(getScoreId()).addClass("bg-primary");
 
-                //console.info("Hole " + hOfM + " selected")
-                var hRef = $("#copyHref").attr("href");
                 var tHole = $("#tHole").val();
-                //console.info("hole=" + tHole + ", href=" + hRef);
-                var hRef2 = hRef + "&thole=" + tHole;
-                //console.info("href2=" + hRef2);
-                //$("#mapAnchor").attr("href", hRef2);
+                var tPlayer = $("#tPlayer").val();
+
+                var leaderHref = $("#leaderHref").attr("href");
+                var leaderHref2 = leaderHref + "&tHole=" + tHole + "&tPlayer=" + tPlayer;
+                $("#leaderAnchor").attr("href", leaderHref2);
+
+                var groupsHref = $("#groupsHref").attr("href");
+                var groupsHref2 = groupsHref + "&tHole=" + tHole + "&tPlayer=" + tPlayer;
+                $("#groupsAnchor").attr("href", groupsHref2);
+
+                var mapHref = $("#mapHref").attr("href");
+                var mapHrRef2 = mapHref + "&tHole=" + tHole; + "&tPlayer=" + tPlayer;
+                //$("#mapAnchor").attr("href", mapHref2);
                 $("#mapAnchor").attr("href", "#");
 
             }
