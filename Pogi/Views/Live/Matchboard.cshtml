@@ -1,0 +1,205 @@
+﻿@using Pogi.Models.LiveViewModels
+@using Pogi.Entities
+@inject Pogi.Services.ICourseDetail _courseDetail
+@inject Pogi.Services.IHandicap _handicap
+@inject Pogi.Services.ITourInfo _tourInfo
+@model LiveMatchBoardViewModel ;
+
+<br />
+@{
+    ViewData["Title"] = "MatchBoard";
+}
+
+
+<section class="container-fluid">
+    <section class="row justify-content-start">
+        <span class="col-3 px-1 mx-1 d-flex align-items-center">
+            <small><strong>@Model.Tour.TourName</strong></small>
+        </span>
+        <ul class="nav col-9 row justify-content-start">
+            <li class="nav-item mx-0">
+                <a class="nav-link active" asp-controller="Live" asp-action="RyderCup"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate" 
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-tPlayer="@ViewBag.tPlayer" asp-route-tHole="@ViewBag.tHole"
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+                   asp-route-cHcpDiff="@ViewBag.cHcpDiff"
+                   asp-route-rH1="@ViewBag.rH1" asp-route-rH2="@ViewBag.rH2" asp-route-rH3="@ViewBag.rH3"
+                   asp-route-rH4="@ViewBag.rH4" asp-route-rH5="@ViewBag.rH5" asp-route-rH6="@ViewBag.rH6"
+                   asp-route-rH7="@ViewBag.rH7" asp-route-rH8="@ViewBag.rH8" asp-route-rH9="@ViewBag.rH9"
+                   asp-route-rH10="@ViewBag.rH10" asp-route-rH11="@ViewBag.rH11" asp-route-rH12="@ViewBag.rH12"
+                   asp-route-rH13="@ViewBag.rH13" asp-route-rH14="@ViewBag.rH14" asp-route-rH15="@ViewBag.rH15"
+                   asp-route-rH16="@ViewBag.rH16" asp-route-rH17="@ViewBag.rH17" asp-route-rH18="@ViewBag.rH18"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Score</a>
+            </li>
+            <li class="nav-item mx-0">
+                <a class="nav-link" href="#">Matches</a>
+            </li>
+            <li class="nav-item mx-0">
+                <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup" 
+                   asp-route-tPlayer="@ViewBag.tPlayer" asp-route-tHole="@ViewBag.tHole"
+                   asp-route-cHcpDiff="@ViewBag.cHcpDiff"
+                   asp-route-rH1="@ViewBag.rH1" asp-route-rH2="@ViewBag.rH2" asp-route-rH3="@ViewBag.rH3"
+                   asp-route-rH4="@ViewBag.rH4" asp-route-rH5="@ViewBag.rH5" asp-route-rH6="@ViewBag.rH6"
+                   asp-route-rH7="@ViewBag.rH7" asp-route-rH8="@ViewBag.rH8" asp-route-rH9="@ViewBag.rH9"
+                   asp-route-rH10="@ViewBag.rH10" asp-route-rH11="@ViewBag.rH11" asp-route-rH12="@ViewBag.rH12"
+                   asp-route-rH13="@ViewBag.rH13" asp-route-rH14="@ViewBag.rH14" asp-route-rH15="@ViewBag.rH15"
+                   asp-route-rH16="@ViewBag.rH16" asp-route-rH17="@ViewBag.rH17" asp-route-rH18="@ViewBag.rH18"
+                   
+                   asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+                   asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+                   asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Groups</a>
+            </li>
+        </ul>
+    </section>
+</section>
+
+
+<section class="container-fluid">
+
+    <div id="toolbar">
+        <div class="form-inline" role="form">
+            @*<div class="form-group">
+                    <span>Offset: </span>
+                    <input name="offset" class="form-control w70" type="number" value="0">
+                </div>
+                <div class="form-group">
+                    <span>Limit: </span>
+                    <input name="limit" class="form-control w70" type="number" value="5">
+                </div>*@
+            @*<button id="ok" type="submit" class="btn btn-default">OK</button>*@
+        </div>
+    </div>
+
+    @{var sortName = "scoreDate";
+        var sortOrder = "desc";
+        var dataPagination = "true";
+        if (Model.TourId != "0")
+        {
+            sortName = "TourScore";
+            sortOrder = "asc";
+            dataPagination = "false";
+
+        }
+    }
+    <table id="table" data-classes="table-sm"
+           data-toolbar="#toolbar"
+           data-height="450"
+           data-toggle="table"
+           data-search="false"
+           data-striped="true"
+           data-pagination="@dataPagination"
+           data-page-size="6"
+           data-sort-name="@sortName"
+           data-sort-order="@sortOrder"
+           data-remember-order="true"
+           data-sort-stable="true">
+        <thead>
+            <tr>
+                <th class="col-sm-2" data-field="memberName" data-sortable="false">Player</th>
+                <th class="col-sm-1" data-field="Round" data-sortable="true">Rnd</th>
+                <th class="col-sm-1" data-field="HoleTotal" data-sortable="false">Tot</th>
+                <th class="col-md-1" data-field="TourScore" data-sortable="true">Net</th>
+                <th class="col-sm-1" data-field="LastHolePlayed" data-sortable="false">Thru</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ScoreInfos)
+            {
+                Score score = item.Score;
+                Member member = item.Member;
+                Course course = item.Course;
+                CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
+                var player = member.FirstName + " " + member.LastName.Substring(0, 1);
+                if (score.HoleTotal > 0)
+                {
+                    var toPar = (score.HoleTotal - course.ParTotal).ToString("+0;-#");
+                    Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
+                    var courseHandicap = "s36";
+                    if (Handicap != null && Handicap.HcpIndex >= 0)
+                    {
+                        courseHandicap = ((int)Math.Round(Handicap.HcpIndex * CourseDetail.Slope / 113)).ToString();
+                    }
+                    var courseHandicapT = "n/a";
+                    Tour Tour = null;
+                    if (score.TourEvent == true)
+                    {
+                        courseHandicapT = "s36";
+                        if (Handicap != null && Handicap.HcpIndex >= 0)
+                        {
+                            Tour = _tourInfo.getTour(score.TourId);
+                            courseHandicapT = ((int)Math.Round(Handicap.HcpIndex * (Tour.HcpAllowPct / 100)
+                                * CourseDetail.Slope / 113)).ToString();
+                        }
+                    }
+
+                    <tr>
+                        @{
+                            DateTime scoreDateTime = score.ScoreDate;
+                            String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
+                        }
+
+                        @*<td class="col-md-2">@scoreDateDisp</td>
+                            <td class="col-md-2">@course.CourseName</td>*@
+                        <td class="col-md-2">@player</td>
+                        <td class="col-md-1">@score.Round</td>
+                        <td class="col-md-1">@score.HoleTotal</td>
+                        <td class="col-md-1">@score.TourScore</td>
+                        <td class="col-md-1">@score.LastHolePlayed</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+</section>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+        $(Document).ready(function () {
+            console.info("Hello From Live LeaderBoard");
+        });
+
+        var $table = $('#table'),
+            $ok = $('#ok');
+        $(function () {
+            $ok.click(function () {
+                console.info("Refreshing");
+                $table.bootstrapTable('refresh');
+            });
+        });
+
+        function queryParams() {
+            var params = {};
+            $('#toolbar').find('input[name]').each(function () {
+                params[$(this).attr('name')] = $(this).val();
+            });
+            return params;
+        }
+        function responseHandler(res) {
+            return r0es.rows;
+        }
+        $('#table').bootstrapTable({
+            onLoadSuccess: function (data) {
+                // ...
+            }
+        });
+
+        $('#table').on('load-success.bs.table', function (e, data) {
+            console.info("Hello From load-sucess.ba.table");
+            // ...
+        });
+
+    </script>
+
+}

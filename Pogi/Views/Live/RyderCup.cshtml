@@ -51,11 +51,18 @@
             <small><strong>@Model.Tour.TourName</strong></small>
         </span>
         <a class="nav-item px-0 mx-0">
-            <a id="leaderHref" class="nav-link " asp-controller="Live" asp-action="Leaderboard"
+            <a id="leaderHref" class="nav-link " asp-controller="Live" asp-action="Matchboard"
                asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
                asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+               asp-route-cHcpDiff="@ViewBag.cHcpDiff"
+               asp-route-rH1="@ViewBag.rH1" asp-route-rH2="@ViewBag.rH2" asp-route-rH3="@ViewBag.rH3"
+               asp-route-rH4="@ViewBag.rH4" asp-route-rH5="@ViewBag.rH5" asp-route-rH6="@ViewBag.rH6"
+               asp-route-rH7="@ViewBag.rH7" asp-route-rH8="@ViewBag.rH8" asp-route-rH9="@ViewBag.rH9"
+               asp-route-rH10="@ViewBag.rH10" asp-route-rH11="@ViewBag.rH11" asp-route-rH12="@ViewBag.rH12"
+               asp-route-rH13="@ViewBag.rH13" asp-route-rH14="@ViewBag.rH14" asp-route-rH15="@ViewBag.rH15"
+               asp-route-rH16="@ViewBag.rH16" asp-route-rH17="@ViewBag.rH17" asp-route-rH18="@ViewBag.rH18"
                asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
                asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
         </a>
@@ -65,6 +72,13 @@
                asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+               asp-route-cHcpDiff="@ViewBag.cHcpDiff"
+               asp-route-rH1="@ViewBag.rH1" asp-route-rH2="@ViewBag.rH2" asp-route-rH3="@ViewBag.rH3"
+               asp-route-rH4="@ViewBag.rH4" asp-route-rH5="@ViewBag.rH5" asp-route-rH6="@ViewBag.rH6"
+               asp-route-rH7="@ViewBag.rH7" asp-route-rH8="@ViewBag.rH8" asp-route-rH9="@ViewBag.rH9"
+               asp-route-rH10="@ViewBag.rH10" asp-route-rH11="@ViewBag.rH11" asp-route-rH12="@ViewBag.rH12"
+               asp-route-rH13="@ViewBag.rH13" asp-route-rH14="@ViewBag.rH14" asp-route-rH15="@ViewBag.rH15"
+               asp-route-rH16="@ViewBag.rH16" asp-route-rH17="@ViewBag.rH17" asp-route-rH18="@ViewBag.rH18"
                asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
                asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
         </a>
@@ -73,13 +87,20 @@
                 <a class="nav-link active" href="#">Score</a>
             </li>
             <li class="nav-item px-0 mx-0">
-                <a id="leaderAnchor" class="nav-link " asp-controller="Live" asp-action="Leaderboard"
+                <a id="leaderAnchor" class="nav-link " asp-controller="Live" asp-action="Matchboard"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
                    asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+                   asp-route-cHcpDiff="@ViewBag.cHcpDiff"
+                   asp-route-rH1="@ViewBag.rH1" asp-route-rH2="@ViewBag.rH2" asp-route-rH3="@ViewBag.rH3"
+                   asp-route-rH4="@ViewBag.rH4" asp-route-rH5="@ViewBag.rH5" asp-route-rH6="@ViewBag.rH6"
+                   asp-route-rH7="@ViewBag.rH7" asp-route-rH8="@ViewBag.rH8" asp-route-rH9="@ViewBag.rH9"
+                   asp-route-rH10="@ViewBag.rH10" asp-route-rH11="@ViewBag.rH11" asp-route-rH12="@ViewBag.rH12"
+                   asp-route-rH13="@ViewBag.rH13" asp-route-rH14="@ViewBag.rH14" asp-route-rH15="@ViewBag.rH15"
+                   asp-route-rH16="@ViewBag.rH16" asp-route-rH17="@ViewBag.rH17" asp-route-rH18="@ViewBag.rH18"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
-                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Leaders</a>
+                   asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4">Matches</a>
             </li>
             <li class="nav-item px-0 mx-0">
                 <a id="groupsAnchor" class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
