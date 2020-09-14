@@ -22,24 +22,7 @@
         <span class="col-3 px-1 mx-1 d-flex align-items-center">
             <small><strong>@Model.Tour.TourName</strong></small>
         </span>
-        <a class="nav-item px-0 mx-0">
-            <a id="leaderHref" class="nav-link " asp-controller="Live" asp-action="Leaderboard"
-               asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-               asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
-               asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
-               asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
-               asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
-               asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
-        </a>
-        <a class="nav-item px-0 mx-0">
-            <a id="groupsHref" class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
-               asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-               asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
-               asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
-               asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
-               asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
-               asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
-        </a>
+
         <ul class="nav col-9 row justify-content-start">
             <li class="nav-item px-0 mx-0">
                 <a class="nav-link active" href="#">Score</a>
@@ -331,6 +314,23 @@
     <input type="text" id="posP2" name="posP2" value="@ViewBag.posP2" hidden />
     <input type="text" id="posP3" name="posP3" value="@ViewBag.posP3" hidden />
     <input type="text" id="posP4" name="posP4" value="@ViewBag.posP4" hidden />
+
+    <a hidden id="leaderHref" class="nav-link " asp-controller="Live" asp-action="Leaderboard"
+       asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+       asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+       asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+       asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+       asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+       asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
+
+
+    <a hidden id="groupsHref" class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
+       asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+       asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+       asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
+       asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
+       asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
+       asp-route-posP3="@ViewBag.posP3" asp-route-posP4="@ViewBag.posP4"></a>
 
 </section>
 

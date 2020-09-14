@@ -16,7 +16,7 @@
         <span class="col-3 px-1 mx-1 d-flex align-items-center">
             <small><strong>@Model.Tour.TourName</strong></small>
         </span>
-        <ul class="nav col-9 row justify-content-start">
+        <ul class="col-9 row nav justify-content-start">
             <li class="nav-item mx-0">
                 <a class="nav-link active" asp-controller="Live" asp-action="RyderCup"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate" 
@@ -81,13 +81,22 @@
         var dataPagination = "true";
         if (Model.TourId != "0")
         {
-            sortName = "TourScore";
+            sortName = "Group";
             sortOrder = "asc";
             dataPagination = "false";
 
         }
+    var blueMatchScore = 0;
+    var redMatchScore = 0;
+    var blueTeamScore = 0.0;
+    var redTeamScore = 0.0;
     }
-    <table id="table" data-classes="table-sm"
+    <table id="table"
+           data-smart-display="false"
+           data-show-toggle="false"
+           data-show-refresh="false"
+           data-card-view="false"
+           data-classes="table-sm table-bordered table-striped"
            data-toolbar="#toolbar"
            data-height="450"
            data-toggle="table"
@@ -100,63 +109,130 @@
            data-remember-order="true"
            data-sort-stable="true">
         <thead>
-            <tr>
-                <th class="col-sm-2" data-field="memberName" data-sortable="false">Player</th>
-                <th class="col-sm-1" data-field="Round" data-sortable="true">Rnd</th>
-                <th class="col-sm-1" data-field="HoleTotal" data-sortable="false">Tot</th>
-                <th class="col-md-1" data-field="TourScore" data-sortable="true">Net</th>
-                <th class="col-sm-1" data-field="LastHolePlayed" data-sortable="false">Thru</th>
+            <tr class="">
+                <th colspan="1" data-field="Group" data-sortable="false">Grp </th>
+                <th colspan="1" data-field="Team" data-sortable="false">Team </th>
+                <th colspan="1" data-field="Players" data-sortable="false">Players </th>
+                <th colspan="1" data-field="MatchPoints" data-sortable="false">Pts </th>
+                <th colspan="1" data-field="LastHolePlayed" data-sortable="false">Thru </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.ScoreInfos)
-            {
-                Score score = item.Score;
-                Member member = item.Member;
-                Course course = item.Course;
-                CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
-                var player = member.FirstName + " " + member.LastName.Substring(0, 1);
-                if (score.HoleTotal > 0)
+            @{
+                var players = "";
+                foreach (var item in Model.ScoreInfos)
                 {
-                    var toPar = (score.HoleTotal - course.ParTotal).ToString("+0;-#");
-                    Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
-                    var courseHandicap = "s36";
-                    if (Handicap != null && Handicap.HcpIndex >= 0)
+                    Score score = item.Score;
+                    Member member = item.Member;
+                    Course course = item.Course;
+                    CourseDetail CourseDetail = _courseDetail.get(course.CourseId, score.Color);
+
+                    var team = "";
+                    var group = score.MatchGrp;
+                    if (score.MatchPlayerNum < 3)
                     {
-                        courseHandicap = ((int)Math.Round(Handicap.HcpIndex * CourseDetail.Slope / 113)).ToString();
+
+                        team =  "Blue";
+                        if (score.MatchPlayerNum == 1)
+                        {
+                            players = member.FirstName;
+                        }
+                        else
+                        {
+                            players = players + "-" + member.FirstName;
+                            blueMatchScore = score.MatchPoints;
+                        }
                     }
-                    var courseHandicapT = "n/a";
-                    Tour Tour = null;
-                    if (score.TourEvent == true)
+                    else
                     {
-                        courseHandicapT = "s36";
+                        team = "Red";
+                        if (score.MatchPlayerNum == 3)
+                        {
+                            players = member.FirstName;
+                        }
+                        else
+                        {
+                            players = players + "-" + member.FirstName;
+                            redMatchScore = score.MatchPoints;
+                            if (blueMatchScore > redMatchScore) 
+                            {
+                                blueTeamScore = blueTeamScore + 1.0;
+                            }
+                            else if (blueMatchScore < redMatchScore) 
+                            {
+                                redTeamScore = redTeamScore + 1.0;
+                            }
+                            else 
+                            {
+                                 blueTeamScore = blueTeamScore + 0.5;
+                                 redTeamScore = redTeamScore + 0.5;
+                            }
+            
+                        }
+                    }
+
+                    if (score.HoleTotal > 0)
+                    {
+                        var toPar = (score.HoleTotal - course.ParTotal).ToString("+0;-#");
+                        Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
+                        var courseHandicap = "s36";
                         if (Handicap != null && Handicap.HcpIndex >= 0)
                         {
-                            Tour = _tourInfo.getTour(score.TourId);
-                            courseHandicapT = ((int)Math.Round(Handicap.HcpIndex * (Tour.HcpAllowPct / 100)
-                                * CourseDetail.Slope / 113)).ToString();
+                            courseHandicap = ((int)Math.Round(Handicap.HcpIndex * CourseDetail.Slope / 113)).ToString();
                         }
+                        var courseHandicapT = "n/a";
+                        Tour Tour = null;
+                        if (score.TourEvent == true)
+                        {
+                            courseHandicapT = "s36";
+                            if (Handicap != null && Handicap.HcpIndex >= 0)
+                            {
+                                Tour = _tourInfo.getTour(score.TourId);
+                                courseHandicapT = ((int)Math.Round(Handicap.HcpIndex * (Tour.HcpAllowPct / 100)
+                                    * CourseDetail.Slope / 113)).ToString();
+                            }
+                        }
+                        if (score.MatchPlayerNum == 2
+                            || score.MatchPlayerNum == 4)
+                        {
+
+                <tr class="">
+                    @{
+                                DateTime scoreDateTime = score.ScoreDate;
+                                String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
                     }
 
-                    <tr>
-                        @{
-                            DateTime scoreDateTime = score.ScoreDate;
-                            String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
-                        }
+                    <td colspan="1">@(group)</td>
+                    <td colspan="1">@(team)</td>
+                    <td colspan="1">@players</td>
+                    <td colspan="1">@score.MatchPoints</td>
+                    <td colspan="1">@score.LastHolePlayed</td>
+                </tr>
+                                            }
+                                        }
 
-                        @*<td class="col-md-2">@scoreDateDisp</td>
-                            <td class="col-md-2">@course.CourseName</td>*@
-                        <td class="col-md-2">@player</td>
-                        <td class="col-md-1">@score.Round</td>
-                        <td class="col-md-1">@score.HoleTotal</td>
-                        <td class="col-md-1">@score.TourScore</td>
-                        <td class="col-md-1">@score.LastHolePlayed</td>
-                    </tr>
-                }
-
+                                    }
             }
+
         </tbody>
     </table>
+
+    <div class="d-flex flex-nowrap row">
+        @{
+            String blueTeam = "Blue - " + blueTeamScore;
+            String redTeam = "Red - " + redTeamScore;
+        }
+
+        <label id="btnBlue" class="col btn btn-primary text-light text-center py-2 px-2 mt-2 mx-1 mb-1 border">
+
+            @blueTeam
+        </label>
+
+        <label id="btnRed" class="col btn btn-danger text-light text-center py-2 px-2 mt-2 mx-1 mb-1 border">
+            @redTeam
+        </label>
+
+    </div>
 
 </section>
 
@@ -167,7 +243,7 @@
     <script>
 
         $(Document).ready(function () {
-            console.info("Hello From Live LeaderBoard");
+            console.info("Hello From Live MatchBoard");
         });
 
         var $table = $('#table'),
@@ -194,6 +270,9 @@
                 // ...
             }
         });
+        $(window).resize(function () {
+            $('#table').bootstrapTable('resetView')
+        })
 
         $('#table').on('load-success.bs.table', function (e, data) {
             console.info("Hello From load-sucess.ba.table");
