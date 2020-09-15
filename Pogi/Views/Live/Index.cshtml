@@ -9,7 +9,6 @@
     <section class="container">
         <br />
         <h5>Live Scoring</h5>
-        <h6>Select Group</h6>
         <hr />
         <form class="px-0" asp-action="Live" method="get">
             <section class="row">
@@ -66,7 +65,7 @@
                                             group++;
                                             var opts = "active";
                                             @if (group > 1) { opts = ""; }
-                                            <a class="list-group-item list-group-item-action btn-info px-2 @opts"
+                                            <a class="list-group-item list-group-item-action btn-info px-2 py-0 @opts"
                                                id="list-group@(group)-list" sGroup="@(group)"
                                                data-toggle="list" href="#list-group@(group)" role="tab"
                                                aria-controls="group@(group)" tgroup="@(group)">
@@ -131,7 +130,7 @@
                                                                 }
                                                             }
                                             <tr id="order-G@(group)P@(j % 4+ 1)" scope="row" class="row order-@(posP[j % 4])">
-                                                <td class="col-1 p@(j % 4 + 1)-num" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                <td class="col-1 p@(j % 4 + 1)-num mx-1 px-1 py-1" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                     @(j % 4+ 1).
                                                 </td>
 
@@ -151,14 +150,14 @@
                                                                         }
                                                 @if (teeAssignInfo.TeeAsign.GuestName != null && teeAssignInfo.TeeAsign.GuestName.Length > 0)
                                                                         {
-                                                <td class="col-7 @(teamColor) p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                <td class="col-7 @(teamColor) p@(j % 4 + 1)-player text-left py-1" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                     @teeAssignInfo.TeeAsign.GuestName
                                                 </td>
 
                                                                         }
                                                                         else
                                                                         {
-                                                <td class="col-7 @(teamColor) p@(j % 4 + 1)-player text-left" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
+                                                <td class="col-7 @(teamColor) p@(j % 4 + 1)-player text-left py-1" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                     @*<small>*@
                                                     @teeAssignInfo.Member.FirstName
                                                     @teeAssignInfo.Member.LastName
@@ -166,7 +165,7 @@
                                                 </td>
                                                 @if (teeAssignInfo.Member.CurrHandicap > 0)
                                                                             {
-                                                <td class="col px-0 text-center">
+                                                <td class="col px-0 py-1 text-center">
 
                                                     <span style="display:block" id="g@(group)p@(j % 4 + 1)-handicap" class="p@(j % 4 + 1)-handicap" sGroup="@(group)" sPlayer="@(j % 4 + 1)">
                                                         @if (Model.Tour.ScorerType.ToString().Contains("Ryder"))

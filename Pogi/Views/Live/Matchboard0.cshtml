@@ -19,7 +19,7 @@
         <ul class="col-9 row nav justify-content-start">
             <li class="nav-item mx-0">
                 <a class="nav-link active" asp-controller="Live" asp-action="RyderCup"
-                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
+                   asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate" 
                    asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
                    asp-route-tPlayer="@ViewBag.tPlayer" asp-route-tHole="@ViewBag.tHole"
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
@@ -40,7 +40,7 @@
             <li class="nav-item mx-0">
                 <a class="nav-link" asp-area="" asp-controller="Live" asp-action="Index"
                    asp-route-TourId="@ViewBag.TourId" asp-route-TourDate="@ViewBag.TourDate"
-                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup"
+                   asp-route-tGroup="@ViewBag.tGroup" asp-route-pGroup="@ViewBag.pGroup" 
                    asp-route-tPlayer="@ViewBag.tPlayer" asp-route-tHole="@ViewBag.tHole"
                    asp-route-cHcpDiff="@ViewBag.cHcpDiff"
                    asp-route-rH1="@ViewBag.rH1" asp-route-rH2="@ViewBag.rH2" asp-route-rH3="@ViewBag.rH3"
@@ -49,6 +49,7 @@
                    asp-route-rH10="@ViewBag.rH10" asp-route-rH11="@ViewBag.rH11" asp-route-rH12="@ViewBag.rH12"
                    asp-route-rH13="@ViewBag.rH13" asp-route-rH14="@ViewBag.rH14" asp-route-rH15="@ViewBag.rH15"
                    asp-route-rH16="@ViewBag.rH16" asp-route-rH17="@ViewBag.rH17" asp-route-rH18="@ViewBag.rH18"
+                   
                    asp-route-sMemberId1="@ViewBag.sMemberId1" asp-route-sMemberId2="@ViewBag.sMemberId2"
                    asp-route-sMemberId3="@ViewBag.sMemberId3" asp-route-sMemberId4="@ViewBag.sMemberId4"
                    asp-route-posP1="@ViewBag.posP1" asp-route-posP2="@ViewBag.posP2"
@@ -61,23 +62,59 @@
 
 <section class="container-fluid">
 
-    @{
-        var blueMatchScore = 0;
-        var redMatchScore = 0;
-        var blueTeamScore = 0.0;
-        var redTeamScore = 0.0;
-        var matchStatus = "";
-        var matchStatusBg    = "";
-        var lead = 0;
-    }
-    <table class="table table-sm">
+    <div id="toolbar">
+        <div class="form-inline" role="form">
+            @*<div class="form-group">
+                    <span>Offset: </span>
+                    <input name="offset" class="form-control w70" type="number" value="0">
+                </div>
+                <div class="form-group">
+                    <span>Limit: </span>
+                    <input name="limit" class="form-control w70" type="number" value="5">
+                </div>*@
+            @*<button id="ok" type="submit" class="btn btn-default">OK</button>*@
+        </div>
+    </div>
 
-        <thead class="thead-light">
-            <tr >
-                <th scope="col">Grp</th>
-                <th scope="col">Players</th>
-                <th scope="col">Score</th>
-                <th scope="col">Thru</th>
+    @{var sortName = "scoreDate";
+        var sortOrder = "desc";
+        var dataPagination = "true";
+        if (Model.TourId != "0")
+        {
+            sortName = "Group";
+            sortOrder = "asc";
+            dataPagination = "false";
+
+        }
+    var blueMatchScore = 0;
+    var redMatchScore = 0;
+    var blueTeamScore = 0.0;
+    var redTeamScore = 0.0;
+    }
+    <table id="table"
+           data-smart-display="false"
+           data-show-toggle="false"
+           data-show-refresh="false"
+           data-card-view="false"
+           data-classes="table-sm table-bordered table-striped"
+           data-toolbar="#toolbar"
+           data-height="450"
+           data-toggle="table"
+           data-search="false"
+           data-striped="true"
+           data-pagination="@dataPagination"
+           data-page-size="6"
+           data-sort-name="@sortName"
+           data-sort-order="@sortOrder"
+           data-remember-order="true"
+           data-sort-stable="true">
+        <thead>
+            <tr class="">
+                <th colspan="1" data-field="Group" data-sortable="false">Grp </th>
+                <th colspan="1" data-field="Team" data-sortable="false">Team </th>
+                <th colspan="1" data-field="Players" data-sortable="false">Players </th>
+                <th colspan="1" data-field="MatchPoints" data-sortable="false">Pts </th>
+                <th colspan="1" data-field="LastHolePlayed" data-sortable="false">Thru </th>
             </tr>
         </thead>
         <tbody>
@@ -95,7 +132,7 @@
                     if (score.MatchPlayerNum < 3)
                     {
 
-                        team = "Blue";
+                        team =  "Blue";
                         if (score.MatchPlayerNum == 1)
                         {
                             players = member.FirstName;
@@ -117,60 +154,64 @@
                         {
                             players = players + "-" + member.FirstName;
                             redMatchScore = score.MatchPoints;
-                            if (blueMatchScore > redMatchScore)
+                            if (blueMatchScore > redMatchScore) 
                             {
                                 blueTeamScore = blueTeamScore + 1.0;
-                                lead = blueMatchScore - redMatchScore;
-                                matchStatus = "Blue " + lead + " up";
-                                matchStatusBg = "bg-primary text-light";
                             }
-                            else if (blueMatchScore < redMatchScore)
+                            else if (blueMatchScore < redMatchScore) 
                             {
                                 redTeamScore = redTeamScore + 1.0;
-                                lead = redMatchScore - blueMatchScore;
-                                matchStatus = "Red " + lead + " up";
-                                matchStatusBg = "bg-danger text-light";
                             }
-                            else
+                            else 
                             {
-                                blueTeamScore = blueTeamScore + 0.5;
-                                redTeamScore = redTeamScore + 0.5;
-                                matchStatus = "All Square";
-                                matchStatusBg = "bg-secondary text-light";
+                                 blueTeamScore = blueTeamScore + 0.5;
+                                 redTeamScore = redTeamScore + 0.5;
                             }
-
+            
                         }
                     }
 
                     if (score.HoleTotal > 0)
                     {
-
+                        var toPar = (score.HoleTotal - course.ParTotal).ToString("+0;-#");
+                        Handicap Handicap = _handicap.getHandicapForDate(score.MemberId, score.ScoreDate);
+                        var courseHandicap = "s36";
+                        if (Handicap != null && Handicap.HcpIndex >= 0)
+                        {
+                            courseHandicap = ((int)Math.Round(Handicap.HcpIndex * CourseDetail.Slope / 113)).ToString();
+                        }
+                        var courseHandicapT = "n/a";
+                        Tour Tour = null;
+                        if (score.TourEvent == true)
+                        {
+                            courseHandicapT = "s36";
+                            if (Handicap != null && Handicap.HcpIndex >= 0)
+                            {
+                                Tour = _tourInfo.getTour(score.TourId);
+                                courseHandicapT = ((int)Math.Round(Handicap.HcpIndex * (Tour.HcpAllowPct / 100)
+                                    * CourseDetail.Slope / 113)).ToString();
+                            }
+                        }
                         if (score.MatchPlayerNum == 2
                             || score.MatchPlayerNum == 4)
                         {
 
-                        <tr scope="row">
-                            @if (score.MatchPlayerNum == 2)
-                            {
-                                <th scope="row">@(group)</th>
-                                <td class="text-primary">@players</td>
-                                <td class="text-primary">@score.MatchPoints</td>
-                                <td class="text-primary">@score.LastHolePlayed</td>
-                            }
-                            else
-                            {
-                                <th scope="row">&nbsp;</th>
-                                <td class="text-danger">@players</td>
-                                <td class="text-danger">@score.MatchPoints</td>
-                                <td class="text-center @(matchStatusBg)">@matchStatus</td>
-                                
-                           }
-
-                        </tr>
-                        }
+                <tr class="">
+                    @{
+                                DateTime scoreDateTime = score.ScoreDate;
+                                String scoreDateDisp = scoreDateTime.ToString("yyyy MM/dd");
                     }
 
-                }
+                    <td colspan="1">@(group)</td>
+                    <td colspan="1">@(team)</td>
+                    <td colspan="1">@players</td>
+                    <td colspan="1">@score.MatchPoints</td>
+                    <td colspan="1">@score.LastHolePlayed</td>
+                </tr>
+                                            }
+                                        }
+
+                                    }
             }
 
         </tbody>
@@ -205,6 +246,38 @@
             console.info("Hello From Live MatchBoard");
         });
 
+        var $table = $('#table'),
+            $ok = $('#ok');
+        $(function () {
+            $ok.click(function () {
+                console.info("Refreshing");
+                $table.bootstrapTable('refresh');
+            });
+        });
+
+        function queryParams() {
+            var params = {};
+            $('#toolbar').find('input[name]').each(function () {
+                params[$(this).attr('name')] = $(this).val();
+            });
+            return params;
+        }
+        function responseHandler(res) {
+            return r0es.rows;
+        }
+        $('#table').bootstrapTable({
+            onLoadSuccess: function (data) {
+                // ...
+            }
+        });
+        $(window).resize(function () {
+            $('#table').bootstrapTable('resetView')
+        })
+
+        $('#table').on('load-success.bs.table', function (e, data) {
+            console.info("Hello From load-sucess.ba.table");
+            // ...
+        });
 
     </script>
 
