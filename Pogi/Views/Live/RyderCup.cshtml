@@ -576,23 +576,23 @@
             $(document).ready(function () {
                 console.info("Ryder Document Ready");
                 var pCnt = $("#pCnt").val();
-                // //console.info.info("There are " + pCnt + " Players");
+                // //console.info("There are " + pCnt + " Players");
 
                 scoreAll();
 
                 var pOfM = $("#tPlayer").val();
                 if (pOfM == "undefined" || pOfM == "") {
-                    // //console.info.info("Defaulting pOfM");
+                    // //console.info("Defaulting pOfM");
                     pOfM = "2";
                 }
-                // //console.info.info("Current Player is " + pOfM);
+                // //console.info("Current Player is " + pOfM);
 
                 var hOfM = $("#tHole").val();
                 if (hOfM == "undefined" || hOfM == "") {
-                    // //console.info.info("Defaulting hOfM");
+                    // //console.info("Defaulting hOfM");
                     hOfM = "1";
                 }
-                // //console.info.info("Current Hole is " + hOfM);
+                // //console.info("Current Hole is " + hOfM);
 
 
                 $(".outh, .inh").click(function () {
@@ -636,25 +636,25 @@
                 });
 
                 $("#btnP1").click(function () {
-                    // //console.info.info("Click event for btnP1");
+                    // //console.info("Click event for btnP1");
                     toggleRow(1, pCnt);
                     displayScore();
                     showBirdies();
                 });
                 $("#btnP2").click(function () {
-                    // //console.info.info("Click event for btnP2");
+                    // //console.info("Click event for btnP2");
                     toggleRow(2, pCnt);
                     displayScore();
                     showBirdies();
                 });
                 $("#btnP3").click(function () {
-                    // //console.info.info("Click event for btnP3");
+                    // //console.info("Click event for btnP3");
                     toggleRow(3, pCnt);
                     displayScore();
                     showBirdies();
                 });
                 $("#btnP4").click(function () {
-                    // //console.info.info("Click event for btnP4");
+                    // //console.info("Click event for btnP4");
                     toggleRow(4, pCnt);
                     displayScore();
                     showBirdies();
@@ -687,31 +687,31 @@
 
                 $("#minusScore").click(function () {
                     var score = getScore();
-                    // //console.info.info("Minus Score before = " + score);
+                    // //console.info("Minus Score before = " + score);
                     if (score == 0) {
                         var parOfHole = getParOfCurrentHole();
-                        // //console.info.info("Score was zero, setting initially to par");
+                        // //console.info("Score was zero, setting initially to par");
                         score = parOfHole;
                     }
                     else if (score > 1) {
                         score--;
                     }
-                    // //console.info.info("Minus Score computed = " + score);
+                    // //console.info("Minus Score computed = " + score);
                     setScore(score);
                 });
 
                 $("#plusScore").click(function () {
                     var score = getScore();
-                    // //console.info.info("Plus Score before = " + score);
+                    // //console.info("Plus Score before = " + score);
                     if (score == 0) {
                         var parOfHole = getParOfCurrentHole();
-                        // //console.info.info("Score was zero, setting initially to par");
+                        // //console.info("Score was zero, setting initially to par");
                         score = parOfHole;
                     }
                     else if (score < 15) {
                         score++;
                     }
-                    // //console.info.info("Plus Score computed = " + score);
+                    // //console.info("Plus Score computed = " + score);
                     setScore(score);
                 });
 
@@ -977,12 +977,12 @@
             }
 
             function postAll() {
-                // //console.info.info("Entering postAll");
+                // //console.info("Entering postAll");
                 var pCnt = $("#pCnt").val();
                 var i;
                 for (i = 1; i <= pCnt; i++) {
                     if (getChg(i) == "Y") {
-                        // //console.info.info("Posting Changes for Player " + i);
+                        // //console.info("Posting Changes for Player " + i);
                         postScore(i);
                     }
                     else {
@@ -1006,7 +1006,7 @@
                 var iH = hOfM;
                 $("#tHole").val(iH);
 
-                // //console.info.info("Highlighting Hole " + iH);
+                // //console.info("Highlighting Hole " + iH);
                 $(".inh").removeClass("bg-info");
                 $(".outh").removeClass("bg-info");
                 $(".inh").addClass("bg-dark");
@@ -1015,7 +1015,7 @@
                 if (iH > 9) {
                     var inH = iH - 9;
                     var inId = "#inh-" + inH;
-                    // //console.info.info("Toggling inId=" + inId);
+                    // //console.info("Toggling inId=" + inId);
                     $(inId).removeClass("bg-dark");
                     $(inId).addClass("bg-info");
                     $("#cHole").text('Hole #' + iH);
@@ -1023,7 +1023,7 @@
                 else {
                     var outH = iH;
                     var outId = "#outh-" + outH
-                    // //console.info.info("Toggling outId=" + outId);
+                    // //console.info("Toggling outId=" + outId);
                     $(outId).removeClass("bg-dark");
                     $(outId).addClass("bg-info");
                     $("#cHole").text("Hole #0" + outH);
@@ -1048,7 +1048,7 @@
                 var groupsHref = $("#groupsHref").attr("href");
                 var groupsHref2 = groupsHref + "&tHole=" + tHole + "&tPlayer=" + tPlayer;
                 $("#groupsAnchor").attr("href", groupsHref2);
-                console.info("selectHole: href=" + groupsHref2);
+                // console.info("selectHole: href=" + groupsHref2);
 
                 var mapHref = $("#mapHref").attr("href");
                 var mapHrRef2 = mapHref + "&tHole=" + tHole; + "&tPlayer=" + tPlayer;
@@ -1062,7 +1062,7 @@
                 var pOfM = $("#tPlayer").val();
                 var pId = "#btnP" + pOfM;
                 var playerName = $(pId).text().trim();
-                // //console.info.info("Player " + pOfM + " is " + playerName);
+                // //console.info("Player " + pOfM + " is " + playerName);
                 return playerName;
             }
 
@@ -1257,7 +1257,7 @@
 
                 var scoreId = getScoreId();
                 var score = $(scoreId).text().trim();
-                // //console.info.info("Setting Score to " + score);
+                // //console.info("Setting Score to " + score);
                 $("#scoreOfHole").text(score);
 
                 if (testChg() == "Y") {
@@ -1295,7 +1295,7 @@
             }
             function getMatchScoreIdSub(hOfM) {
 
-                 // console.info.info("Getting Match Score Id of Hole " + hOfM);
+                 // console.info("Getting Match Score Id of Hole " + hOfM);
 
                 var idOfMatchScore;
                 if (hOfM > 9) {
@@ -1328,7 +1328,7 @@
                     var outH = hOfM;
                     idOfScore = "#out" + pOfM + "-" + outH;
                 }
-                // //console.info.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
+                // //console.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
                 return idOfScore;
 
             }
@@ -1337,7 +1337,7 @@
 
                 var pOfM = $("#tPlayer").val();
                 var hOfM = $("#tHole").val();
-                // //console.info.info("Getting Score Id of Player " + pOfM + ", Hole " + hOfM);
+                // //console.info("Getting Score Id of Player " + pOfM + ", Hole " + hOfM);
 
                 var idOfScore;
                 if (hOfM > 9) {
@@ -1348,7 +1348,7 @@
                     var outH = hOfM;
                     idOfScore = "#out" + pOfM + "-" + outH;
                 }
-                // //console.info.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
+                // //console.info("Id of Score = " + idOfScore + ", value = " + $(idOfScore).text().trim());
                 return idOfScore;
             }
             function toggleRow(p, pCnt) {
@@ -1472,7 +1472,7 @@
                         rnd = rnd + holeScore - pars[hole];
                     }
                 });
-                // //console.info.info("Player " + p + " Out: " + totOut);
+                // //console.info("Player " + p + " Out: " + totOut);
 
                 var totIn = 0;
                 $(".in" + p).each(function () {
@@ -1483,11 +1483,11 @@
                         rnd = rnd + holeScore - pars[hole];
                     }
                 });
-                // //console.info.info("Player " + p + " In: " + totIn);
+                // //console.info("Player " + p + " In: " + totIn);
 
                 var total = totOut + totIn;
-                // //console.info.info("Player " + p + " Rnd: " + rnd);
-                // //console.info.info("Player " + p + " Total: " + total);
+                // //console.info("Player " + p + " Rnd: " + rnd);
+                // //console.info("Player " + p + " Total: " + total);
 
                 var rndSign = "";
                 if (rnd > 0) {
@@ -1510,7 +1510,7 @@
                         chgInd = "Y";
                     }
                 }
-                // //console.info.info("testChg for all=" + chgInd);
+                // //console.info("testChg for all=" + chgInd);
                 if (chgInd == "Y") {
                     $("#postMessage").text("Press red button to submit and refresh");
                     $("#postMessage").addClass("text-danger");
@@ -1522,7 +1522,7 @@
 
             function allChgOff() {
 
-                // //console.info.info("Clearing Changes");
+                // //console.info("Clearing Changes");
                 var pCnt = $("#pCnt").val();
                 var i;
                 for (i = 1; i <= pCnt; i++) {
@@ -1530,23 +1530,25 @@
                 }
             }
 
-            function getChg(s) {
+                function getChg(s) {
 
                 var chgInd = $("#chgs" + s).val();
                 if (chgInd == "undefined") {
                     return "N";
                 }
-                // //console.info.info("returning chgInd for player " + s + "=" + chgInd);
+                // //console.info("returning chgInd for player " + s + "=" + chgInd);
                 return chgInd;
             }
 
             function chgOnCurrent() {
-                var pOfM = $("#tPlayer").val();
-                chgOn(pOfM);
+                //var pOfM = $("#tPlayer").val();
+                //chgOn(pOfM);
+                chgOn(2);
+                chgOn(4);
             }
 
             function chgOn(s) {
-                // //console.info.info("Turning on chg ind for player " + s);
+                console.info("Turning on chg ind for player " + s);
                 $("#chgs" + s).val("Y");
             }
             function chgOff(s) {
@@ -1559,7 +1561,7 @@
                 console.info("Postscore for player " + p);
                 scoreTotal(p);
                 var url = "/api/scores/" + getsId(p);
-                // //console.info.info("postScore calling " + url);
+                // //console.info("postScore calling " + url);
                 var scoreId = $("#scoreId" + p).val();
                 var hole01 = $("#out" + p + "-1").text();
                 var hole02 = $("#out" + p + "-2").text();
@@ -1648,7 +1650,7 @@
                 p1 = p - 1;
                 console.info("Postscore for player " + p1);
                 url = "/api/scores/" + getsId(p1);
-                // //console.info.info("postScore calling " + url);
+                // //console.info("postScore calling " + url);
                 scoreId = $("#scoreId" + p1).val();
                 matchPlayerNum = p1;
 
@@ -1681,7 +1683,7 @@
                     matchPoints: matchPoints
                 };
                 var jSendInfo = JSON.stringify(sendInfo);
-                // //console.info.info("postScore calling with " + jSendInfo);
+                // //console.info("postScore calling with " + jSendInfo);
 
                 $.ajax({
                     type: "PUT",
