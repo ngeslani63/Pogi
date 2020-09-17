@@ -456,7 +456,7 @@ namespace Pogi.Services
 
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
 
-            var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
+            var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate && r.HoleTotal > 60)
                 .OrderBy(r => r.HoleTotal).ThenBy(r => r.NetScore).ToList();
             Score score;
             Member member;
@@ -601,7 +601,7 @@ namespace Pogi.Services
         {
             List<ScoreInfo> ScoreInfos = new List<ScoreInfo>();
 
-            var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate)
+            var scores = _context.Score.Where(r => r.ScoreDate >= startDate && r.ScoreDate <= endDate && r.HoleTotal > 60)
                 .OrderByDescending(r => r.Pars + r.Birdies + r.Eagles + r.Albatross).ThenBy(r => r.NetScore).ToList();
             Score score;
             Member member;

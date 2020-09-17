@@ -29,7 +29,7 @@ namespace Pogi.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("pogi.league@gmail.com", "POGI.CLUB"),
+                From = new EmailAddress("support@pogi.club", "POGI.CLUB"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
