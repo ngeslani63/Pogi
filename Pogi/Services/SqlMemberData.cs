@@ -38,11 +38,11 @@ namespace Pogi.Services
         }
         public IEnumerable<Member> getMembers()
         {
-            return _context.Member.Where(r => (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+            return _context.Member.Where(r => (r.MemberType == MemberType.Member || r.MemberType == MemberType.Junior)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getGuests()
         {
-            return _context.Member.Where(r => r.MemberStatus == MemberState.Guest).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+            return _context.Member.Where(r => r.MemberType == MemberType.Guest).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getAll(string search)
         {
@@ -53,24 +53,24 @@ namespace Pogi.Services
         public IEnumerable<Member> getMembers(string search)
         {
             string st = "%" + search.Trim() + "%";
-            return _context.Member.Where(r => (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior) && (r.LastName.Contains(search.Trim()) ||
+            return _context.Member.Where(r => (r.MemberType == MemberType.Member || r.MemberType == MemberType.Junior) && (r.LastName.Contains(search.Trim()) ||
             r.FirstName.Contains(search.Trim()))).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getGuests(string search)
         {
             string st = "%" + search.Trim() + "%";
-            return _context.Member.Where(r => (r.MemberStatus == MemberState.Guest) && (r.LastName.Contains(search.Trim()) ||
+            return _context.Member.Where(r => (r.MemberType == MemberType.Guest) && (r.LastName.Contains(search.Trim()) ||
             r.FirstName.Contains(search.Trim()))).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getActive()
         {
             return _context.Member.Where(r => r.RecordStatus == RecordState.Active && 
-                (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior || r.MemberStatus == MemberState.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+                (r.MemberType == MemberType.Member || r.MemberType == MemberType.Junior || r.MemberType == MemberType.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
         public IEnumerable<Member> getActiveMembers()
         {
             return _context.Member.Where(r => r.RecordStatus == RecordState.Active &&
-                (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior )).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+                (r.MemberType == MemberType.Member || r.MemberType == MemberType.Junior )).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
         }
 
         public List<SelectListItem> getSelectList()
@@ -79,7 +79,7 @@ namespace Pogi.Services
             SelectListItem sl = new SelectListItem { Text = "All Members", Value = "0" };
             memberList.Add(sl);
             IEnumerable<Member> members = _context.Member.Where(r => r.RecordStatus == RecordState.Active && 
-            (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior || r.MemberStatus == MemberState.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+            (r.MemberType == MemberType.Member || r.MemberType == MemberType.Junior || r.MemberType == MemberType.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
             foreach (Member member in members)
             {
                sl = new SelectListItem { Text = member.LastName+", "+member.FirstName, Value = member.MemberId.ToString() };

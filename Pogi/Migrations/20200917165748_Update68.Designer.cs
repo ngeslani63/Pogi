@@ -13,8 +13,8 @@ using System;
 namespace Pogi.Migrations
 {
     [DbContext(typeof(PogiDbContext))]
-    [Migration("20180511231235_Update41")]
-    partial class Update41
+    [Migration("20200917165748_Update68")]
+    partial class Update68
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -168,6 +168,327 @@ namespace Pogi.Migrations
                     b.ToTable("CourseDetail");
                 });
 
+            modelBuilder.Entity("Pogi.Entities.CourseHandicap", b =>
+                {
+                    b.Property<int>("CourseHandicapId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<int>("LadiesHcp01");
+
+                    b.Property<int>("LadiesHcp02");
+
+                    b.Property<int>("LadiesHcp03");
+
+                    b.Property<int>("LadiesHcp04");
+
+                    b.Property<int>("LadiesHcp05");
+
+                    b.Property<int>("LadiesHcp06");
+
+                    b.Property<int>("LadiesHcp07");
+
+                    b.Property<int>("LadiesHcp08");
+
+                    b.Property<int>("LadiesHcp09");
+
+                    b.Property<int>("LadiesHcp10");
+
+                    b.Property<int>("LadiesHcp11");
+
+                    b.Property<int>("LadiesHcp12");
+
+                    b.Property<int>("LadiesHcp13");
+
+                    b.Property<int>("LadiesHcp14");
+
+                    b.Property<int>("LadiesHcp15");
+
+                    b.Property<int>("LadiesHcp16");
+
+                    b.Property<int>("LadiesHcp17");
+
+                    b.Property<int>("LadiesHcp18");
+
+                    b.Property<int>("MenHcp01");
+
+                    b.Property<int>("MenHcp02");
+
+                    b.Property<int>("MenHcp03");
+
+                    b.Property<int>("MenHcp04");
+
+                    b.Property<int>("MenHcp05");
+
+                    b.Property<int>("MenHcp06");
+
+                    b.Property<int>("MenHcp07");
+
+                    b.Property<int>("MenHcp08");
+
+                    b.Property<int>("MenHcp09");
+
+                    b.Property<int>("MenHcp10");
+
+                    b.Property<int>("MenHcp11");
+
+                    b.Property<int>("MenHcp12");
+
+                    b.Property<int>("MenHcp13");
+
+                    b.Property<int>("MenHcp14");
+
+                    b.Property<int>("MenHcp15");
+
+                    b.Property<int>("MenHcp16");
+
+                    b.Property<int>("MenHcp17");
+
+                    b.Property<int>("MenHcp18");
+
+                    b.HasKey("CourseHandicapId");
+
+                    b.HasIndex("CourseId")
+                        .IsUnique();
+
+                    b.ToTable("CourseHandicap");
+                });
+
+            modelBuilder.Entity("Pogi.Entities.CourseMap", b =>
+                {
+                    b.Property<int>("CourseMapId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<double>("CourseLat");
+
+                    b.Property<double>("CourseLng");
+
+                    b.Property<short>("Hdg01");
+
+                    b.Property<short>("Hdg02");
+
+                    b.Property<short>("Hdg03");
+
+                    b.Property<short>("Hdg04");
+
+                    b.Property<short>("Hdg05");
+
+                    b.Property<short>("Hdg06");
+
+                    b.Property<short>("Hdg07");
+
+                    b.Property<short>("Hdg08");
+
+                    b.Property<short>("Hdg09");
+
+                    b.Property<short>("Hdg10");
+
+                    b.Property<short>("Hdg11");
+
+                    b.Property<short>("Hdg12");
+
+                    b.Property<short>("Hdg13");
+
+                    b.Property<short>("Hdg14");
+
+                    b.Property<short>("Hdg15");
+
+                    b.Property<short>("Hdg16");
+
+                    b.Property<short>("Hdg17");
+
+                    b.Property<short>("Hdg18");
+
+                    b.Property<double>("InitLat01");
+
+                    b.Property<double>("InitLat02");
+
+                    b.Property<double>("InitLat03");
+
+                    b.Property<double>("InitLat04");
+
+                    b.Property<double>("InitLat05");
+
+                    b.Property<double>("InitLat06");
+
+                    b.Property<double>("InitLat07");
+
+                    b.Property<double>("InitLat08");
+
+                    b.Property<double>("InitLat09");
+
+                    b.Property<double>("InitLat10");
+
+                    b.Property<double>("InitLat11");
+
+                    b.Property<double>("InitLat12");
+
+                    b.Property<double>("InitLat13");
+
+                    b.Property<double>("InitLat14");
+
+                    b.Property<double>("InitLat15");
+
+                    b.Property<double>("InitLat16");
+
+                    b.Property<double>("InitLat17");
+
+                    b.Property<double>("InitLat18");
+
+                    b.Property<double>("InitLng01");
+
+                    b.Property<double>("InitLng02");
+
+                    b.Property<double>("InitLng03");
+
+                    b.Property<double>("InitLng04");
+
+                    b.Property<double>("InitLng05");
+
+                    b.Property<double>("InitLng06");
+
+                    b.Property<double>("InitLng07");
+
+                    b.Property<double>("InitLng08");
+
+                    b.Property<double>("InitLng09");
+
+                    b.Property<double>("InitLng10");
+
+                    b.Property<double>("InitLng11");
+
+                    b.Property<double>("InitLng12");
+
+                    b.Property<double>("InitLng13");
+
+                    b.Property<double>("InitLng14");
+
+                    b.Property<double>("InitLng15");
+
+                    b.Property<double>("InitLng16");
+
+                    b.Property<double>("InitLng17");
+
+                    b.Property<double>("InitLng18");
+
+                    b.Property<double>("Lat01");
+
+                    b.Property<double>("Lat02");
+
+                    b.Property<double>("Lat03");
+
+                    b.Property<double>("Lat04");
+
+                    b.Property<double>("Lat05");
+
+                    b.Property<double>("Lat06");
+
+                    b.Property<double>("Lat07");
+
+                    b.Property<double>("Lat08");
+
+                    b.Property<double>("Lat09");
+
+                    b.Property<double>("Lat10");
+
+                    b.Property<double>("Lat11");
+
+                    b.Property<double>("Lat12");
+
+                    b.Property<double>("Lat13");
+
+                    b.Property<double>("Lat14");
+
+                    b.Property<double>("Lat15");
+
+                    b.Property<double>("Lat16");
+
+                    b.Property<double>("Lat17");
+
+                    b.Property<double>("Lat18");
+
+                    b.Property<double>("Lng01");
+
+                    b.Property<double>("Lng02");
+
+                    b.Property<double>("Lng03");
+
+                    b.Property<double>("Lng04");
+
+                    b.Property<double>("Lng05");
+
+                    b.Property<double>("Lng06");
+
+                    b.Property<double>("Lng07");
+
+                    b.Property<double>("Lng08");
+
+                    b.Property<double>("Lng09");
+
+                    b.Property<double>("Lng10");
+
+                    b.Property<double>("Lng11");
+
+                    b.Property<double>("Lng12");
+
+                    b.Property<double>("Lng13");
+
+                    b.Property<double>("Lng14");
+
+                    b.Property<double>("Lng15");
+
+                    b.Property<double>("Lng16");
+
+                    b.Property<double>("Lng17");
+
+                    b.Property<double>("Lng18");
+
+                    b.Property<short>("Zoom");
+
+                    b.Property<short>("Zoom01");
+
+                    b.Property<short>("Zoom02");
+
+                    b.Property<short>("Zoom03");
+
+                    b.Property<short>("Zoom04");
+
+                    b.Property<short>("Zoom05");
+
+                    b.Property<short>("Zoom06");
+
+                    b.Property<short>("Zoom07");
+
+                    b.Property<short>("Zoom08");
+
+                    b.Property<short>("Zoom09");
+
+                    b.Property<short>("Zoom10");
+
+                    b.Property<short>("Zoom11");
+
+                    b.Property<short>("Zoom12");
+
+                    b.Property<short>("Zoom13");
+
+                    b.Property<short>("Zoom14");
+
+                    b.Property<short>("Zoom15");
+
+                    b.Property<short>("Zoom16");
+
+                    b.Property<short>("Zoom17");
+
+                    b.Property<short>("Zoom18");
+
+                    b.HasKey("CourseMapId");
+
+                    b.ToTable("CourseMap");
+                });
+
             modelBuilder.Entity("Pogi.Entities.Handicap", b =>
                 {
                     b.Property<int>("HandicapId")
@@ -200,6 +521,41 @@ namespace Pogi.Migrations
                     b.ToTable("HandicapSchedule");
                 });
 
+            modelBuilder.Entity("Pogi.Entities.IpGuest", b =>
+                {
+                    b.Property<string>("IpAddr")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("LastUpdtTs");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("IpAddr");
+
+                    b.ToTable("IpGuest");
+                });
+
+            modelBuilder.Entity("Pogi.Entities.Log2", b =>
+                {
+                    b.Property<int>("ActivityId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Action")
+                        .IsRequired();
+
+                    b.Property<int>("MemberId");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<DateTime>("createdTS");
+
+                    b.Property<string>("ipAddr");
+
+                    b.HasKey("ActivityId");
+
+                    b.ToTable("Log2");
+                });
+
             modelBuilder.Entity("Pogi.Entities.Member", b =>
                 {
                     b.Property<int>("MemberId")
@@ -221,6 +577,8 @@ namespace Pogi.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(40);
+
+                    b.Property<int>("Gender");
 
                     b.Property<int>("GhinNumber");
 
@@ -269,6 +627,8 @@ namespace Pogi.Migrations
                     b.HasIndex("EmailAddr1st")
                         .IsUnique();
 
+                    b.HasIndex("GhinNumber");
+
                     b.ToTable("Member");
                 });
 
@@ -292,6 +652,8 @@ namespace Pogi.Migrations
                     b.Property<int>("Order");
 
                     b.Property<DateTime>("PlayDate");
+
+                    b.Property<int>("PlayerState");
 
                     b.Property<int>("RegistrationMethod");
 
@@ -384,10 +746,18 @@ namespace Pogi.Migrations
 
                     b.Property<int>("HoleTotal");
 
+                    b.Property<int>("LastHolePlayed");
+
                     b.Property<string>("LastUpdatedBy")
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<DateTime>("LastUpdatedTs");
+
+                    b.Property<int>("MatchGrp");
+
+                    b.Property<int>("MatchPlayerNum");
+
+                    b.Property<int>("MatchPoints");
 
                     b.Property<int>("MaxScore");
 
@@ -399,7 +769,13 @@ namespace Pogi.Migrations
 
                     b.Property<int>("QuadBogeys");
 
+                    b.Property<int>("Round");
+
                     b.Property<DateTime>("ScoreDate");
+
+                    b.Property<int>("ScoreType");
+
+                    b.Property<string>("Tiebreaker");
 
                     b.Property<bool>("TourEvent");
 
@@ -419,6 +795,8 @@ namespace Pogi.Migrations
                     b.Property<int>("TeeAssignId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Group");
+
                     b.Property<string>("GuestName");
 
                     b.Property<int>("MemberId");
@@ -432,6 +810,8 @@ namespace Pogi.Migrations
                     b.Property<int>("RecordStatus");
 
                     b.Property<int>("TeeTimeId");
+
+                    b.Property<string>("color");
 
                     b.HasKey("TeeAssignId");
 
@@ -447,7 +827,11 @@ namespace Pogi.Migrations
 
                     b.Property<bool>("AutoAssign");
 
+                    b.Property<string>("Color");
+
                     b.Property<int>("CourseId");
+
+                    b.Property<int>("LockWithdrawDays");
 
                     b.Property<bool>("MajorTour");
 
@@ -469,17 +853,39 @@ namespace Pogi.Migrations
                     b.Property<int>("TourId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CourseName")
-                        .IsRequired()
-                        .HasMaxLength(80);
+                    b.Property<bool>("AllowMultiTee");
+
+                    b.Property<int>("BaseColor");
 
                     b.Property<float>("HcpAllowPct");
 
+                    b.Property<int>("ScorerType");
+
                     b.Property<DateTime>("TourDate");
+
+                    b.Property<string>("TourName")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<int>("TourType");
 
                     b.HasKey("TourId");
 
                     b.ToTable("Tour");
+                });
+
+            modelBuilder.Entity("Pogi.Entities.TourDay", b =>
+                {
+                    b.Property<int>("TourDayId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("TourDate");
+
+                    b.Property<int>("TourId");
+
+                    b.HasKey("TourDayId");
+
+                    b.ToTable("TourDay");
                 });
 #pragma warning restore 612, 618
         }

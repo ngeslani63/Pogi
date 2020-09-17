@@ -16,7 +16,7 @@ namespace Pogi.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<int>(
-                name: "MemberStatus",
+                name: "MemberType",
                 table: "Member",
                 nullable: false,
                 oldClrType: typeof(string),
@@ -39,7 +39,7 @@ namespace Pogi.Migrations
                 oldClrType: typeof(int));
 
             migrationBuilder.AlterColumn<string>(
-                name: "MemberStatus",
+                name: "MemberType",
                 table: "Member",
                 nullable: true,
                 oldClrType: typeof(int));

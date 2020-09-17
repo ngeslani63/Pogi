@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Pogi.Entities
 {
-    public enum MemberState
+    public enum MemberType
     {
         Member,
         Junior,

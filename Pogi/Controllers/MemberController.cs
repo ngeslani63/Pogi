@@ -190,7 +190,7 @@ namespace Pogi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "AdminRoot,AdminUser")]
-        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus,Gender, Street,City,State,Zip,Country,GhinNumber,CurrHandicap," +
+        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberType,Profession,MaritalStatus,Gender, Street,City,State,Zip,Country,GhinNumber,CurrHandicap," +
             "RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminTour,RoleAdminScore")] Member member)
         {
             if (ModelState.IsValid)
@@ -279,7 +279,7 @@ namespace Pogi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "AdminRoot,AdminUser")]
-        public async Task<IActionResult> Edit(int id, [Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus, Gender, Street,City,State,Zip,Country,GhinNumber,CurrHandicap," +
+        public async Task<IActionResult> Edit(int id, [Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberType,Profession,MaritalStatus, Gender, Street,City,State,Zip,Country,GhinNumber,CurrHandicap," +
             "RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminTour,RoleAdminScore,AboutMe" )] Member member)
         {
             if (id != member.MemberId)

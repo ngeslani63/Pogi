@@ -78,7 +78,7 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus,Gender,Street,City,State,Zip,Country,GhinNumber,CurrHandicap,RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminScore,RoleAdminTour")] Member member)
+        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberType,Profession,MaritalStatus,Gender,Street,City,State,Zip,Country,GhinNumber,CurrHandicap,RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminScore,RoleAdminTour")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace Pogi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  [Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberStatus,Profession,MaritalStatus,Gender,Street,City,State,Zip,Country,GhinNumber,CurrHandicap,RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminScore,RoleAdminTour," +
+        public async Task<IActionResult> Edit(int id,  [Bind("MemberId,FirstName,LastName,Phone1st,Phone1stType,Phone2nd,Phone2ndType,EmailAddr1st,EmailAddr2nd,RecordStatus,MemberType,Profession,MaritalStatus,Gender,Street,City,State,Zip,Country,GhinNumber,CurrHandicap,RoleAdminRoot,RoleAdminUser,RoleAdminCourse,RoleAdminTeeTime,RoleAdminScore,RoleAdminTour," +
             "AboutMe")] Member member)
         {
             if (id != member.MemberId)

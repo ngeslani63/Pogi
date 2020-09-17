@@ -42,9 +42,9 @@ namespace Pogi.Entities
         [Display(Name = "Record Status")]
         [DefaultValue(RecordState.Active)]
         public RecordState RecordStatus { get; set; }
-        [Display(Name = "Member Status")]
-        [DefaultValue(MemberState.Member)]
-        public MemberState MemberStatus { get; set; }
+        [Display(Name = "Member Type")]
+        [DefaultValue(MemberType.Member)]
+        public MemberType MemberType { get; set; }
         public string Profession { get; set; }
         [Display(Name = "Marital Status")]
         public MaritalState MaritalStatus { get; set; }

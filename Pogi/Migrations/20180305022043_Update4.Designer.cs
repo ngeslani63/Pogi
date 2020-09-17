@@ -178,7 +178,7 @@ namespace Pogi.Migrations
 
                     b.Property<string>("MaritalStatus");
 
-                    b.Property<string>("MemberStatus");
+                    b.Property<string>("MemberType");
 
                     b.Property<string>("Phone1st");
 

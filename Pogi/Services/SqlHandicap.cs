@@ -102,7 +102,7 @@ namespace Pogi.Services
         public IEnumerable<HandicapInfo> getAllForDate(DateTime Date)
         {
             IEnumerable<Member> Members = _context.Member.Where(r => r.RecordStatus == RecordState.Active &&
-                (r.MemberStatus == MemberState.Member || r.MemberStatus == MemberState.Junior || r.MemberStatus == MemberState.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
+                (r.MemberType == MemberType.Member || r.MemberType == MemberType.Junior || r.MemberType == MemberType.Guest)).OrderBy(r => r.LastName).ThenBy(r => r.FirstName);
             List<HandicapInfo> HandicapInfos = new List<HandicapInfo>();
             foreach (Member Member in Members)
             {

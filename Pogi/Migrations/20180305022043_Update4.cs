@@ -21,7 +21,7 @@ namespace Pogi.Migrations
             migrationBuilder.RenameColumn(
                 name: "memberStatus",
                 table: "Member",
-                newName: "MemberStatus");
+                newName: "MemberType");
 
             migrationBuilder.RenameColumn(
                 name: "maritalStatus",
@@ -66,7 +66,7 @@ namespace Pogi.Migrations
                 newName: "profession");
 
             migrationBuilder.RenameColumn(
-                name: "MemberStatus",
+                name: "MemberType",
                 table: "Member",
                 newName: "memberStatus");
 
