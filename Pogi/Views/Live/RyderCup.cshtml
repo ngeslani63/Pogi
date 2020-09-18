@@ -594,7 +594,7 @@
                 }
                 // //console.info("Current Hole is " + hOfM);
 
-
+                
                 $(".outh, .inh").click(function () {
                     //console.info("Par and Hole Display toggle");
                     var plyr = $("#outh-plyr").text().trim();
@@ -635,26 +635,41 @@
 
                 });
 
+                $("#leaderAnchor").click(function () {
+                    // //console.info("Click event for btnP1");
+                    $("#postScore").click();
+                    return true;
+                });
+                $("#groupsAnchor").click(function () {
+                    // //console.info("Click event for btnP1");
+                    $("#postScore").click();
+                    return true;
+                });
+
                 $("#btnP1").click(function () {
                     // //console.info("Click event for btnP1");
+                    $("#postScore").click();
                     toggleRow(1, pCnt);
                     displayScore();
                     showBirdies();
                 });
                 $("#btnP2").click(function () {
                     // //console.info("Click event for btnP2");
+                    $("#postScore").click();
                     toggleRow(2, pCnt);
                     displayScore();
                     showBirdies();
                 });
                 $("#btnP3").click(function () {
                     // //console.info("Click event for btnP3");
+                    $("#postScore").click();
                     toggleRow(3, pCnt);
                     displayScore();
                     showBirdies();
                 });
                 $("#btnP4").click(function () {
                     // //console.info("Click event for btnP4");
+                    $("#postScore").click();
                     toggleRow(4, pCnt);
                     displayScore();
                     showBirdies();
@@ -662,6 +677,7 @@
 
                 $("#prevHole").click(function () {
 
+                    $("#postScore").click();
                     var hh = parseInt($("#tHole").val());
                     if (hh > 1) {
                         hh = hh - 1;
@@ -674,6 +690,7 @@
                 });
                 $("#nextHole").click(function () {
 
+                    $("#postScore").click();
                     var hh = parseInt($("#tHole").val());
                     if (hh < 18) {
                         hh = hh + 1;
@@ -798,6 +815,7 @@
 
                 });
 
+                // !!! This event is not doing anything ?
                 $("#out1-plyr, #out2-plyr, #out3-plyr, #out4-plyr, #in1-plyr, #in2-plyr, #in3-plyr, #in4-plyr").click(function () {
                     var id = $(this).attr("id");
                     // //console.info("Player clicked at id=" + id);
