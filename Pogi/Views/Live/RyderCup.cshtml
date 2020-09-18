@@ -773,7 +773,9 @@
                 });
 
                 $("#postScore").click(function () {
+                    console.info("postScore entered");
                     if (testChg() == "Y") {
+                        console.info("postScore posting");
                         postAll();
                         $("#postScore").removeClass("btn-danger");
                         $("#postScore").addClass("btn-secondary");
