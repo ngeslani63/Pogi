@@ -1276,14 +1276,15 @@
                         if (winner == "Blu") bluePoints++;
                         if (winner == "Red") redPoints++;
                         lead = Math.abs(bluePoints - redPoints);
+                        holesLeft--;
                         if (lead == holesLeft) {
                             console.info("A. Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*" + ", hole=" + i);
-                            if (dormieSet == false && winner.trim() == "") {
+                            if (dormieSet == false && winner.trim() > "A") {
                                 if (bluePoints > redPoints) {
-                                    gameMsg = "Blue is Dormie at hole " + prevHole;
+                                    gameMsg = "Blue is Dormie at hole " + currHole;
                                 }
                                 else {
-                                    gameMsg = "Red is Dormie at hole " + prevHole;
+                                    gameMsg = "Red is Dormie at hole " + currHole;
                                 }
                                 dormieSet = true;
                             }
@@ -1293,16 +1294,17 @@
                         //console.info("displayMatchPoints: ignoring extra score in Hole " + currHole);
                         if (gameDecided == false && winner.trim() > "A") {
                             if (bluePoints > redPoints) {
-                                gameMsg = "Blue won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                                gameMsg = "Blue won " + lead + "\&" + holesLeft + " at hole " + prevHole;
                             }
                             else {
-                                gameMsg = "Red won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                                gameMsg = "Red won " + lead + "\&" + holesLeft + " at hole " + prevHole;
                             }
                             gameDecided = true;
                         }
+                        holesLeft--;
                         
                     }
-                    holesLeft--;
+                    
                 }
                 for (i = 1; i <= 9; i++) {
                     currHole++;
@@ -1314,14 +1316,15 @@
                         if (winner == "Blu") bluePoints++;
                         if (winner == "Red") redPoints++;
                         lead = Math.abs(bluePoints - redPoints);
+                        holesLeft--;
                         if (lead == holesLeft) {
                             console.info("B. Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*" + ", hole=" + i);
-                            if (dormieSet == false && winner.trim() == "") {
+                            if (dormieSet == false && winner.trim() > "A") {
                                 if (bluePoints > redPoints) {
-                                    gameMsg = "Blue is Dormie at hole " + prevHole;
+                                    gameMsg = "Blue is Dormie at hole " + currHole;
                                 }
                                 else {
-                                    gameMsg = "Red is Dormie at hole " + prevHole;
+                                    gameMsg = "Red is Dormie at hole " + currHole;
                                 }
                                 dormieSet = true;
                             }
@@ -1331,16 +1334,16 @@
                         //console.info("displayMatchPoints: ignoring extra score in Hole " + currHole);
                         if (gameDecided == false && winner.trim() > "A") {
                             if (bluePoints > redPoints) {
-                                gameMsg = "Blue won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                                gameMsg = "Blue won " + lead + "\&" + holesLeft + " at hole " + prevHole;
                             }
                             else {
-                                gameMsg = "Red won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                                gameMsg = "Red won " + lead + "\&" + holesLeft + " at hole " + prevHole;
                             }
                             gameDecided = true;
                         }
+                        holesLeft--;
                         
                     }
-                    holesLeft--;
                 }
                 if (gameDecided == false && winner.trim() > "A") {
                     lead = Math.abs(bluePoints - redPoints);
@@ -1354,7 +1357,7 @@
                             gameMsg = "Red won " + lead + " up" ;
                         }
                         else {
-                            gameMsg = "Game is All Square";
+                            gameMsg = "Game Ended All Square";
                         }
                     }
                     gameDecided = true;
