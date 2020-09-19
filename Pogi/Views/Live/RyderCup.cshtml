@@ -1275,8 +1275,9 @@
                         var winner = $(winId).text();
                         if (winner == "Blu") bluePoints++;
                         if (winner == "Red") redPoints++;
+                        lead = Math.abs(bluePoints - redPoints);
                         if (lead == holesLeft) {
-                            console.info("Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*");
+                            console.info("A. Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*" + ", hole=" + i);
                             if (dormieSet == false && winner.trim() == "") {
                                 if (bluePoints > redPoints) {
                                     gameMsg = "Blue is Dormie at hole " + prevHole;
@@ -1312,8 +1313,9 @@
                         var winner = $(winId).text();
                         if (winner == "Blu") bluePoints++;
                         if (winner == "Red") redPoints++;
+                        lead = Math.abs(bluePoints - redPoints);
                         if (lead == holesLeft) {
-                            console.info("B. Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*");
+                            console.info("B. Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*" + ", hole=" + i);
                             if (dormieSet == false && winner.trim() == "") {
                                 if (bluePoints > redPoints) {
                                     gameMsg = "Blue is Dormie at hole " + prevHole;
@@ -1355,7 +1357,25 @@
                             gameMsg = "Game is All Square";
                         }
                     }
+                    gameDecided = true;
                 }
+                if (gameDecided == false && dormieSet == false) {
+                    lead = Math.abs(bluePoints - redPoints);
+                    if (bluePoints > redPoints) {
+                        gameMsg = "Blue leading " + lead + " up";
+                    }
+                    else {
+                        if (redPoints > bluePoints) {
+
+                            gameMsg = "Red leading " + lead + " up";
+                        }
+                        else {
+                            gameMsg = "Game is All Square";
+                        }
+                    }
+                    gameDecided = true;
+                }
+             
                 $("#win-Blue").text(bluePoints);
                 $("#win-Red").text(redPoints);
                 $("#gameMessage").text(gameMsg);
