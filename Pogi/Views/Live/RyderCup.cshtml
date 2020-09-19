@@ -455,6 +455,9 @@
     <section class="row mt-1 px-1">
         <p id="postMessage" class="h6 text-secondary">@(postMessage)</p>
     </section>
+    <section  class="row mt-1 px-1">
+        <p id="gameMessage" class="h5 text-success"></p>
+    </section>
     <section class="row mt-1 px-1">
         <p class="h5 text-warning">@(pMessage)</p>
     </section>
@@ -773,9 +776,9 @@
                 });
 
                 $("#postScore").click(function () {
-                    console.info("postScore entered");
+                    //console.info("postScore entered");
                     if (testChg() == "Y") {
-                        console.info("postScore posting");
+                        //console.info("postScore posting");
                         postAll();
                         $("#postScore").removeClass("btn-danger");
                         $("#postScore").addClass("btn-secondary");
@@ -1255,21 +1258,107 @@
 
                 var bluePoints = 0;
                 var redPoints = 0;
+                var lead = 0;
                 var i;
+                var holesLeft = 18;
+                var currHole = 0;
+                var prevHole = 0;
+                var gameMsg = "";
+                var gameDecided = false;
+                var dormieSet = false;
                 for (i = 1; i <= 9; i++) {
-                    var winId = "#winOut-" + i;
-                    var winner = $(winId).text();
-                    if (winner == "Blu") bluePoints++;
-                    if (winner == "Red") redPoints++;
+                    currHole++;
+                    prevHole = currHole - 1;
+                    lead = Math.abs(bluePoints - redPoints);
+                    if (lead <= holesLeft) {
+                        var winId = "#winOut-" + i;
+                        var winner = $(winId).text();
+                        if (winner == "Blu") bluePoints++;
+                        if (winner == "Red") redPoints++;
+                        if (lead == holesLeft) {
+                            console.info("Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*");
+                            if (dormieSet == false && winner.trim() == "") {
+                                if (bluePoints > redPoints) {
+                                    gameMsg = "Blue is Dormie at hole " + prevHole;
+                                }
+                                else {
+                                    gameMsg = "Red is Dormie at hole " + prevHole;
+                                }
+                                dormieSet = true;
+                            }
+                        }
+                    }
+                    else {
+                        //console.info("displayMatchPoints: ignoring extra score in Hole " + currHole);
+                        if (gameDecided == false && winner.trim() > "A") {
+                            if (bluePoints > redPoints) {
+                                gameMsg = "Blue won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                            }
+                            else {
+                                gameMsg = "Red won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                            }
+                            gameDecided = true;
+                        }
+                        
+                    }
+                    holesLeft--;
                 }
                 for (i = 1; i <= 9; i++) {
-                    var winId = "#winIn-" + i;
-                    var winner = $(winId).text();
-                    if (winner == "Blu") bluePoints++;
-                    if (winner == "Red") redPoints++;
+                    currHole++;
+                    prevHole = currHole - 1;
+                    lead = Math.abs(bluePoints - redPoints);
+                    if (lead <= holesLeft) {
+                        var winId = "#winIn-" + i;
+                        var winner = $(winId).text();
+                        if (winner == "Blu") bluePoints++;
+                        if (winner == "Red") redPoints++;
+                        if (lead == holesLeft) {
+                            console.info("B. Should be Dormie, lead=" + lead + " winner=*" + winner.trim() + "*");
+                            if (dormieSet == false && winner.trim() == "") {
+                                if (bluePoints > redPoints) {
+                                    gameMsg = "Blue is Dormie at hole " + prevHole;
+                                }
+                                else {
+                                    gameMsg = "Red is Dormie at hole " + prevHole;
+                                }
+                                dormieSet == true;
+                            }
+                        }
+                    }
+                    else {
+                        //console.info("displayMatchPoints: ignoring extra score in Hole " + currHole);
+                        if (gameDecided == false && winner.trim() > "A") {
+                            if (bluePoints > redPoints) {
+                                gameMsg = "Blue won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                            }
+                            else {
+                                gameMsg = "Red won " + lead + " and " + holesLeft + " at hole " + prevHole;
+                            }
+                            gameDecided = true;
+                        }
+                        
+                    }
+                    holesLeft--;
+                }
+                if (gameDecided == false && winner.trim() > "A") {
+                    lead = Math.abs(bluePoints - redPoints);
+                    if (bluePoints > redPoints) {
+                        gameMsg = "Blue won " + lead + " up" ;
+                    }
+                    else
+                    {
+                        if (redPoints > bluePoints) {
+
+                            gameMsg = "Red won " + lead + " up" ;
+                        }
+                        else {
+                            gameMsg = "Game is All Square";
+                        }
+                    }
                 }
                 $("#win-Blue").text(bluePoints);
                 $("#win-Red").text(redPoints);
+                $("#gameMessage").text(gameMsg);
 
             }
 
@@ -1568,7 +1657,7 @@
             }
 
             function chgOn(s) {
-                console.info("Turning on chg ind for player " + s);
+                //console.info("Turning on chg ind for player " + s);
                 $("#chgs" + s).val("Y");
             }
             function chgOff(s) {
@@ -1578,7 +1667,7 @@
 
             function postScore(p) {
 
-                console.info("Postscore for player " + p);
+                //console.info("Postscore for player " + p);
                 scoreTotal(p);
                 var url = "/api/scores/" + getsId(p);
                 // //console.info("postScore calling " + url);
@@ -1668,7 +1757,7 @@
 
                 // post Score for 1st Player
                 p1 = p - 1;
-                console.info("Postscore for player " + p1);
+                //console.info("Postscore for player " + p1);
                 url = "/api/scores/" + getsId(p1);
                 // //console.info("postScore calling " + url);
                 scoreId = $("#scoreId" + p1).val();
@@ -1721,10 +1810,10 @@
                     data: jSendInfo
                 })
                     .done(function (data) {
-                        console.info("Return from PUT is done");
+                        //console.info("Return from PUT is done");
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
-                        console.info("Return from PUT is fail, status=" + textStatus);
+                        //console.info("Return from PUT is fail, status=" + textStatus);
 
 
                     });
@@ -1769,10 +1858,10 @@
 
                 })
                     .done(function (data) {
-                        console.info("Return from GET is done");
+                        //console.info("Return from GET is done");
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
-                        console.info("Return from GET is fail, status=" + textStatus);
+                        //console.info("Return from GET is fail, status=" + textStatus);
 
 
                     });
